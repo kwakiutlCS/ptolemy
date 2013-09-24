@@ -1,0 +1,8 @@
+<% if flash[:alert] %>
+   $("#alert").val("<%= flash[:alert] %>");
+   window.location.replace("<%= session[:url] %>")
+<% else %>
+   $("#alert").hide();
+   $(".name_getter").slideUp();
+   $(".background").slideDown();
+<% end %>

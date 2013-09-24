@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+class StaticPagesController < ApplicationController
+  def index
+    if params[:code]
+      a = Activity.where(code: params[:code]).first
+      if a
+        session[:activity] = a.id
+        redirect_to a.template.url
+      else
+        flash[:alert] = "Não existe nada com esse código"
+        redirect_to static_pages_path
+      end
+    end
+    
+  end
+
+
+  def setName
+    name = p[:name]
+    if name
+      cap = []
+      name.split.each do |n|
+        cap << n.capitalize
+      end
+      session[:name] = cap.join(" ")
+    end
+  end 
+end

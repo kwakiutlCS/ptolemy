@@ -1,0 +1,2 @@
+module ThermalCapacitiesHelper
+end

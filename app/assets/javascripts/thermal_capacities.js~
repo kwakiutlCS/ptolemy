@@ -1,0 +1,4 @@
+$("#student_name_submit").on("click", function() {
+
+    alert(323);
+});

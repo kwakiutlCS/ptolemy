@@ -1,0 +1,51 @@
+<section class="name_getter">
+  <p>Inserir nome</p>
+  <%= text_field_tag(:name, nil, id:"student_name_field") %>
+  <%= submit_tag(:ok, id:"student_name_submit") %>
+</section>
+
+
+<section class="background">
+<h1>O aquecimento da piscina</h1>
+
+<p>Qual a energia necessária para aquecer a água de uma piscina da temperatura dambiente (cerca de 15ºC neste momento) até 24ºC?</p>
+
+</section>
+
+
+
+<section class="strategy">
+  <h2>Estratégia</h2>
+  <div>
+  Responder a esta questão poderá ser feito tendo a piscina, e aquecendo a água até aos 22ºC. Assim poderíamos, por exemplo, controlar os gastos energéticos pela fatura da eletricidade. Claro que para isto teríamos de ter a piscina! Seria melhor se pudessemos estimar os gastos de eletricidade sem termos de instalar a piscina. 
+  </div>
+  
+  <div>
+  Os cientistas usam um processo em que testam o problema em casos menores e tentam descobrir padrões que lhes permitem tirar conclusões sobre o caso maior. Chamam a isto construir um modelo do fenómeno.
+  </div>
+
+  <div>
+    Neste caso, isto pode ser feito com um calorímetro
+
+  </div>
+   
+</section>
+
+
+
+<section class="data-gathering">
+  
+
+</section>
+
+
+<section class="model-choice">
+  
+
+</section>
+
+
+<section class="questions">
+
+
+</section>
