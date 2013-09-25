@@ -5,7 +5,8 @@ Plotomeu::Application.routes.draw do
       get "set_name"
     end
   end
-  
+  resources :data_points
+
   root to: "static_pages#index"
 
   # The priority is based upon order of creation:

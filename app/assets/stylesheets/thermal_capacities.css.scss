@@ -3,7 +3,83 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+body {
+     -webkit-touch-callout: none;
+-webkit-user-select: none;
+-khtml-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+
 .strategy, .data-gathering, .model-choice, .questions, .background {
 	     display:none;
 }
 
+.paper_img {
+display:none;
+}
+
+.monitor {
+letter-spacing:3px;
+   font-family: 'Courier New', Courier, monospace;
+   font-weight: bold;
+   font-size: 20px;
+   text-align: left;
+   margin: 3px auto;
+   padding: 5px;
+   border: 2px solid #444488;
+   width: 120px;
+   text-align: center;
+   
+}
+
+canvas {
+	display: inline-block;
+	margin-left: 50px;
+}
+
+#volume_slider {
+		 width: 135px;
+		 margin: 3px auto;
+}
+
+#controls {
+	   position: relative;
+	   top: -150px;
+	   display: inline-block;
+}
+
+.thermo_button {
+
+     width: 80px;
+}
+
+#thermo_data_form {
+      display: inline-block;
+}
+
+::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+	display: none;
+}
+
+.thermo_input {
+	width: 60px;
+	background: #aaaaaa;
+}
+
+.thermo_animation {
+display: inline-block;
+	  
+}
+
+
+
+#thermo_energy_calculator {
+    text-align: center;
+}
+
+#thermo_graph {
+	width: 500px;
+height: 400px;
+}

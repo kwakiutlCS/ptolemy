@@ -249,7 +249,8 @@ function reset() {
     }
   ],
     {
-     xaxis: { min:0, max: 800}
+     xaxis: { min:0, max: 800},
+     yaxis: { min:0}
     }
   );
   </script>

@@ -4,6 +4,8 @@ class StaticPagesController < ApplicationController
     if params[:code]
       a = Activity.where(code: params[:code]).first
       if a
+        session[:deadline] = a.deadline
+        
         session[:activity] = a.id
         session[:url] = a.template.url
         redirect_to session[:url]
