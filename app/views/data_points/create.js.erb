@@ -17,16 +17,28 @@ $("#thermo_time_field").on("keyup", function() {
     });
 
 
+var options = {
+     xaxis: { min:0, max: 800},
+     yaxis: { min:0}
+    };
+
 $.plot($("#thermo_graph"), [
     {
      data: <%= @plot_data %>,
      points: { show: true },
-    
+     label: "Dados obtidos pelos seus colegas"
      
-    }
-  ],
+    },
     {
-     xaxis: { min:0, max: 800},
-     yaxis: { min:0}
-    }
+     data: <%= @user_data %>,
+     points: { show: true },
+     label: "Dados obtidos por si"
+     
+    },
+    
+  ],
+    options
   );
+
+$(".flot-x-axis").css({left: "40px"});
+$(".flot-y-axis").css({top: "-10px"});

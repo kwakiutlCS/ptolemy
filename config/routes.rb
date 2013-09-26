@@ -5,7 +5,11 @@ Plotomeu::Application.routes.draw do
       get "set_name"
     end
   end
-  resources :data_points
+  resources :data_points do
+    collection do
+      get "updateGraph"
+    end
+  end
 
   root to: "static_pages#index"
 

@@ -52,7 +52,7 @@ $(document).ready(function(){
 
 
     $(".thermo_slider_controls").slider({ min: -10000, max: 10000});
-    $("#thermo_linear_m_slider").slider({value: 10, min: -200, max: 200});
+    $("#thermo_linear_m_slider").slider("value", 1000);
     $("#thermo_linear_m_slider").on("slide", function(evt, ui) {
 	 $("#thermo_linear_m").html(ui.value);
         
@@ -63,24 +63,5 @@ $(document).ready(function(){
     });
 
 
-    $("#thermo_linear_button").on("click", function() {
-	 $(".thermo_function_controls").hide();
-	 $("#thermo_linear_controls").show();
-	 
-	 $.ajax("data_points/updateGraph", {
-	     method: "get",
-	     success: function(json) {
-		  alert(253);
-	     }
-	 });
-	
-    });
-    $("#thermo_quadratic_button").on("click", function() {
-	 $(".thermo_function_controls").hide();
-	 $("#thermo_quadratic_controls").show();
-    });
-    $("#thermo_cubic_button").on("click", function() {
-	 $(".thermo_function_controls").hide();
-	 $("#thermo_cubic_controls").show();
-    });
+    
 });

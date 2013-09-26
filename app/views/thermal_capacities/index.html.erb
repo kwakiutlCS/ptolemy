@@ -1,4 +1,5 @@
 
+
 <section class="name_getter">
   
   <p>Inserir nome, <%= session[:name] %></p>
@@ -17,10 +18,10 @@
   <% end %>
 <h1>O aquecimento da piscina</h1>
 
-<p>Nesta atividade procura investigar os custos de manutenção de uma piscina. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água de uma piscina da temperatura ambiente (cerca de 15ºC neste momento) até 26ºC. <br />
+<p class>Nesta atividade procura investigar os custos de manutenção de uma piscina. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água de uma piscina da temperatura ambiente (cerca de 15ºC neste momento) até 26ºC. <br />
 Esta questão será resolvida facilmente com a colaboração dos teus colegas. </p>
 
-<div class="btn-group">
+<div class="btn-group thermo_navigator">
 <a type="button" class="thermo_button btn btn-primary" id="thermo_background_next">Seguinte</a>
 </div>
 </section>
@@ -38,7 +39,7 @@ Esta questão será resolvida facilmente com a colaboração dos teus colegas. <
 
   
    
-  <div class="btn-group">
+  <div class="btn-group thermo_navigator">
     <a type="button" class="thermo_button btn btn-primary" id="thermo_strategy_previous">Anterior</a>
     <a type="button" class="thermo_button btn btn-primary" id="thermo_strategy_next">Seguinte</a>
   </div>
@@ -182,17 +183,35 @@ function reset() {
 	</script>
         
         
-    <div class="thermo_data_form span4">
+    <div class="thermo_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
          <%= hidden_field_tag(:energy, nil,  id:"thermo_energy_field") %>
-         <table class="table table-striped">
-	    <theader>
+         <table class="table">
+	    <thead>
 	      <tr><th>Volume(cm<sup>3</sup>)</th><th>Tempo(s)</th><th>Energy(kJ)</th><th></th></tr>
-	    </theader>
+	      <tr>
+		 <th>
+		   <%= number_field_tag(:volume, nil,  class:"thermo_input", id:"thermo_volume_field") %>
+		 </th>
+		 <th>
+		   <%= number_field_tag(:time, nil, class:"thermo_input", step:"any", id:"thermo_time_field") %>
+		 </th>
+		 <th id="thermo_energy_calculator">
+		   0.0
+		 </th>
+		 <th>
+		   <%= submit_tag(:submeter, class:"btn btn-success") %>
+		 </th>
+	      </tr>
+	    </thead>
+	  
+	  
+	  
 	    <tbody id="thermo_data_collection">
 	      
 	    <%= render "tbody" %>
-	    <tbody>
+	    </tbody>
+	  
 	  </table>
          
 	  
@@ -201,7 +220,7 @@ function reset() {
       <% end %>
 
     </div>
-    <div class="thermo_animation span8">
+    <div class="thermo_animation span7">
     <canvas id="canvas" width=400 height=500></canvas>
    
     <div id="controls">
@@ -223,7 +242,7 @@ function reset() {
     <img src="assets/calorimeter.png" class="paper_img" id="calorimeter"></img>
 
 
-    <div class="btn-group">
+    <div class="btn-group thermo_navigator">
     <a type="button" class="thermo_button btn btn-primary" id="thermo_data-gathering_previous">Anterior</a>
     <a type="button" class="thermo_button btn btn-primary" id="thermo_data-gathering_next">Seguinte</a>
   </div>
@@ -231,27 +250,51 @@ function reset() {
 
 
 <section class="model-choice">
+  <div class=" thermo_model_buttons">
+  <div class="btn-group">
+    <a type="button" class="thermo_button btn" id="thermo_linear_button">Linear<br/> y = m x + b</a>
+    <a type="button" class="thermo_button btn" id="thermo_quadratic_button">Quadratic<br /> y = k (x-h)<sup>2</sup></a>
+    <a type="button" class="thermo_button btn" id="thermo_cubic_button">Cubic<br /> y = k (x-h)<sup>3</sup></a>
+  </div>
+    
+  <div class="thermo_function_controls" id="thermo_linear_controls">
+    
+    <div><div class="thermo_function_controls_label">m: <span id="thermo_linear_m">10</span></div><div class="thermo_slider_controls" id="thermo_linear_m_slider"></div></div>
+    <div><div class="thermo_function_controls_label">b: <span id="thermo_linear_b">0</span></div><div class="thermo_slider_controls" id="thermo_linear_b_slider"></div></div>
+
+  </div>
+  <div class="thermo_function_controls" id="thermo_quadratic_controls">
+  quadratic
+  </div>
+  <div class="thermo_function_controls" id="thermo_cubic_controls">
+    cubic
+  </div>
   
+  </div>
 
   <div id="thermo_graph"></div>
-  <div class="btn-group">
+  
+   
+
+  <div class="btn-group thermo_navigator">
     <a type="button" class="thermo_button btn btn-primary" id="thermo_model-choice_previous">Anterior</a>
     <a type="button" class="thermo_button btn btn-primary" id="thermo_model-choice_next">Seguinte</a>
   </div>
 
   <script>
-    $.plot($("#thermo_graph"), [
+    var plot = $.plot($("#thermo_graph"), [
     {
-     data: [],
-     points: { show: true },
+    data: [],
+    points: { show: true },
     
-     
     }
-  ],
+    ],
     {
-     xaxis: { min:0, max: 800}
+    xaxis: { min:0, max: 800}
     }
-  );
+    );
+    
+    
   </script>
 </section>
 

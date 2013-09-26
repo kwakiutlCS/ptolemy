@@ -1,0 +1,5 @@
+class AddStudentIdToDataPoints < ActiveRecord::Migration
+  def change
+    add_column :data_points, :student_id, :integer
+  end
+end

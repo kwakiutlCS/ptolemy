@@ -1,2 +1,4 @@
 class ThermalCapacitiesController < ApplicationController
+
+  
 end

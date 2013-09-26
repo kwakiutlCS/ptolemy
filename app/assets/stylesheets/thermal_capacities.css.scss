@@ -83,3 +83,34 @@ display: inline-block;
 	width: 500px;
 height: 400px;
 }
+
+.thermo_navigator {
+float: right;
+}
+
+.thermo_model_buttons {
+	float: right;
+	margin: 20px 50px 0 0;
+	width: 400px;
+	height: 200px;
+}
+
+.thermo_slider_controls {
+	width: 150px;
+}
+
+
+.thermo_function_controls {
+	display: none;
+}
+
+.thermo_function_controls> div {
+ 	display:inline-block;
+       text-align:center;
+	margin: 10px 15px;
+}
+.thermo_function_controls_label {
+ 	margin: 10px;
+       
+}
+

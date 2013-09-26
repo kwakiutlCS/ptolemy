@@ -19,13 +19,16 @@ class StaticPagesController < ApplicationController
 
 
   def set_name
-    name = params[:name]
-    unless name == ""
+    s = Student.create(name: params[:name])
+    if s.valid?
+      student = s.id
+      
       cap = []
-      name.split.each do |n|
+      s.name.split.each do |n|
         cap << n.capitalize
       end
-      session[:name] = cap.join(" ")
+      s.name = cap.join(" ")
+      s.save
      
     else
       flash[:alert] = "Por favor introduza o nome"
