@@ -253,8 +253,8 @@ function reset() {
   <div class=" thermo_model_buttons">
   <div class="btn-group">
     <a type="button" class="thermo_button btn" id="thermo_linear_button">Linear<br/> y = m x + b</a>
-    <a type="button" class="thermo_button btn" id="thermo_quadratic_button">Quadratic<br /> y = k (x-h)<sup>2</sup></a>
-    <a type="button" class="thermo_button btn" id="thermo_cubic_button">Cubic<br /> y = k (x-h)<sup>3</sup></a>
+    <a type="button" class="thermo_button btn" id="thermo_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
+    <a type="button" class="thermo_button btn" id="thermo_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
   </div>
     
   <div class="thermo_function_controls" id="thermo_linear_controls">
@@ -264,10 +264,15 @@ function reset() {
 
   </div>
   <div class="thermo_function_controls" id="thermo_quadratic_controls">
-  quadratic
+    <div><div class="thermo_function_controls_label">k: <span id="thermo_quadratic_k">0.250</span></div><div class="thermo_slider_controls" id="thermo_quadratic_k_slider"></div></div>
+    <div><div class="thermo_function_controls_label">h: <span id="thermo_quadratic_h">0</span></div><div class="thermo_slider_controls" id="thermo_quadratic_h_slider"></div></div>
+    <div><div class="thermo_function_controls_label">b: <span id="thermo_quadratic_b">0</span></div><div class="thermo_slider_controls" id="thermo_quadratic_b_slider"></div></div>
   </div>
+
   <div class="thermo_function_controls" id="thermo_cubic_controls">
-    cubic
+    <div><div class="thermo_function_controls_label">k: <span id="thermo_cubic_k">0.00100</span></div><div class="thermo_slider_controls" id="thermo_cubic_k_slider"></div></div>
+    <div><div class="thermo_function_controls_label">h: <span id="thermo_cubic_h">0</span></div><div class="thermo_slider_controls" id="thermo_cubic_h_slider"></div></div>
+    <div><div class="thermo_function_controls_label">b: <span id="thermo_cubic_b">0</span></div><div class="thermo_slider_controls" id="thermo_cubic_b_slider"></div></div>
   </div>
   
   </div>

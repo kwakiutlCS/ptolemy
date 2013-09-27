@@ -3,6 +3,14 @@ $(document).ready(function(){
     var plot_data;
     var linear_m = 10;
     var linear_b = 0;
+    var quadratic_h = 0;
+    var quadratic_k = 0.25;
+    var quadratic_b = 0;
+    var cubic_h = 0;
+    var cubic_k = 0.001;
+    var cubic_b = 0;
+    var max_y = 0;
+
 
     $("#volume_slider").slider({ min: 150, max: 750 });
 
@@ -57,13 +65,48 @@ $(document).ready(function(){
 
 
     $(".thermo_slider_controls").slider({ min: -10000, max: 10000});
-    $("#thermo_linear_m_slider").slider({value: 10, min: -200, max: 200});
+    $("#thermo_linear_m_slider").slider({value: 10, min: 0, max: 100});
+    $("#thermo_quadratic_k_slider").slider({value: 1, min: 0, max: 0.25, step: 0.001});
+    $("#thermo_quadratic_h_slider").slider({value: 0, min: 0, max: 800});
+    $("#thermo_quadratic_b_slider").slider({value: 0, min: -20000, max: 20000});
+    $("#thermo_cubic_k_slider").slider({value: 1, min: 0, max: 0.001, step: 0.00001});
+    $("#thermo_cubic_h_slider").slider({value: 0, min: 0, max: 800});
+    $("#thermo_cubic_b_slider").slider({value: 0, min: -20000, max: 20000});
+
     $("#thermo_linear_m_slider").on("slide", function(evt, ui) {
 	 $("#thermo_linear_m").html(ui.value);
         
     });
     $("#thermo_linear_b_slider").on("slide", function(evt, ui) {
 	 $("#thermo_linear_b").html(ui.value);
+        
+    });
+
+    $("#thermo_quadratic_h_slider").on("slide", function(evt, ui) {
+	 $("#thermo_quadratic_h").html(ui.value);
+        
+    });
+    $("#thermo_quadratic_k_slider").on("slide", function(evt, ui) {
+	 $("#thermo_quadratic_k").html(ui.value.toFixed(3));
+        
+    });
+
+    $("#thermo_quadratic_b_slider").on("slide", function(evt, ui) {
+	 $("#thermo_quadratic_b").html(ui.value);
+        
+    });
+    
+    $("#thermo_cubic_h_slider").on("slide", function(evt, ui) {
+	 $("#thermo_cubic_h").html(ui.value);
+        
+    });
+    $("#thermo_cubic_k_slider").on("slide", function(evt, ui) {
+	 $("#thermo_cubic_k").html(ui.value.toFixed(5));
+        
+    });
+
+    $("#thermo_cubic_b_slider").on("slide", function(evt, ui) {
+	 $("#thermo_cubic_b").html(ui.value);
         
     });
 
@@ -79,26 +122,12 @@ $(document).ready(function(){
 		  
 		  user_data = json.user_data;
 		  plot_data = json.plot_data;
-		  
-		  $.plot($("#thermo_graph"), [{
-		      data: plot_data,
-		      points: { show: true },
-		      label: "Dados obtidos pelos seus colegas"
-     
-		  },
-		  {
-		      data: user_data,
-		      points: { show: true },
-		      label: "Dados obtidos por si"
-     
-		  },
-	         {
-                    data: [[0,0],[800,8000]]}
-						 ], {
-						     xaxis: { min:0, max: 800},
-						     yaxis: { min:0}
-						 });
-		  
+
+		  max_y = setYMax();		 
+
+		  plot_linear(8000);
+
+		  		  
 		  $(".flot-x-axis").css({left: "50px"});
 		  
 		  
@@ -110,10 +139,52 @@ $(document).ready(function(){
     $("#thermo_quadratic_button").on("click", function() {
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_quadratic_controls").show();
+
+	 
+	 var quadratic_data = getQuadraticData();
+
+	 
+	 $.ajax("data_points/updateGraph", {
+	     method: "get",
+	     success: function(json) {
+		  
+		  user_data = json.user_data;
+		  plot_data = json.plot_data;
+
+		  max_y = setYMax();
+		 
+
+		  plot_polynomial(quadratic_data);
+  
+	     }
+	   });
     });
+
+
+
     $("#thermo_cubic_button").on("click", function() {
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_cubic_controls").show();
+
+
+	 var cubic_data = getCubicData();
+
+	 
+	 $.ajax("data_points/updateGraph", {
+	     method: "get",
+	     success: function(json) {
+		  
+		  user_data = json.user_data;
+		  plot_data = json.plot_data;
+
+		  max_y = setYMax();
+		 
+
+		  plot_polynomial(cubic_data);
+  
+	     }
+	   });
+
     });
 
 
@@ -121,26 +192,9 @@ $(document).ready(function(){
 	 linear_m = ui.value;
 	 var y = linear_b + 800*ui.value;
 	 
-	 $.plot($("#thermo_graph"), [{
-		      data: plot_data,
-		      points: { show: true },
-		      label: "Dados obtidos pelos seus colegas"
-     
-		  },
-		  {
-		      data: user_data,
-		      points: { show: true },
-		      label: "Dados obtidos por si"
-     
-		  },
-	         {
-                    data: [[0,linear_b],[800,y]]}
-						 ], {
-						     xaxis: { min:0, max: 800},
-						     yaxis: { min:0, max: 35000}
-						 });
+	 plot_linear(y);
 		  
-		  $(".flot-x-axis").css({left: "50px"});
+	 $(".flot-x-axis").css({left: "50px"});
 	 
     });
 
@@ -148,6 +202,78 @@ $(document).ready(function(){
 	 linear_b = ui.value;
 	 var y = linear_b + 800*linear_m;
 	 
+	 plot_linear(y);
+	 
+		  
+	 $(".flot-x-axis").css({left: "50px"});
+	 
+    });
+
+    $("#thermo_quadratic_h_slider").on("slide", function(evt, ui) {
+	 quadratic_h = ui.value;
+
+	 var quadratic_data = getQuadraticData();
+
+	 plot_polynomial(quadratic_data);
+		  
+	 	 
+    });
+
+    $("#thermo_quadratic_k_slider").on("slide", function(evt, ui) {
+	 quadratic_k = ui.value;
+
+	 var quadratic_data = getQuadraticData();
+
+	 plot_polynomial(quadratic_data);
+		  
+	 	 
+    });
+
+    $("#thermo_quadratic_b_slider").on("slide", function(evt, ui) {
+	 quadratic_b = ui.value;
+
+	 var quadratic_data = getQuadraticData();
+
+	 plot_polynomial(quadratic_data);
+		  
+	 	 
+    });
+
+
+    $("#thermo_cubic_h_slider").on("slide", function(evt, ui) {
+	 cubic_h = ui.value;
+
+	 var cubic_data = getCubicData();
+
+	 plot_polynomial(cubic_data);
+		  
+	 	 
+    });
+
+    $("#thermo_cubic_k_slider").on("slide", function(evt, ui) {
+	 cubic_k = ui.value;
+
+	 var cubic_data = getCubicData();
+
+	 plot_polynomial(cubic_data);
+		  
+	 	 
+    });
+
+    $("#thermo_cubic_b_slider").on("slide", function(evt, ui) {
+	 cubic_b = ui.value;
+
+	 var cubic_data = getCubicData();
+
+	 plot_polynomial(cubic_data);
+		  
+	 	 
+    });
+
+
+
+
+    var plot_linear = function(y) {
 	 $.plot($("#thermo_graph"), [{
 		      data: plot_data,
 		      points: { show: true },
@@ -162,12 +288,79 @@ $(document).ready(function(){
 		  },
 	         {
                     data: [[0,linear_b],[800,y]]}
-						 ], {
-						     xaxis: { min:0, max: 800},
-						     yaxis: { min:0, max: 35000}
-						 });
-		  
-		  $(".flot-x-axis").css({left: "50px"});
-	 
-    });
+					], 
+		 {
+		     xaxis: { min:0, max: 800},
+		     yaxis: { min:0, max: max_y}
+		 });
+
+    }
+
+    var plot_polynomial = function(data) {
+	 $.plot($("#thermo_graph"), [{
+		      data: plot_data,
+		      points: { show: true },
+		      label: "Dados obtidos pelos seus colegas"
+     
+		  },
+		  {
+		      data: user_data,
+		      points: { show: true },
+		      label: "Dados obtidos por si"
+     
+		  },
+	         {
+                    data: data}
+					], 
+		 {
+		     xaxis: { min:0, max: 800},
+		     yaxis: { min:0, max: max_y}
+		 });
+
+    }
+
+
+    var getQuadraticData = function() {
+	 var step = 20;
+	 var x = 0;
+	 var quadratic_data = [];
+
+	 while (x < 800) {
+	     var y = quadratic_k *(x-quadratic_h) * (x-quadratic_h) + quadratic_b;
+	     quadratic_data.push([x, y]);
+	     x += step;
+	     
+	 }
+	 return quadratic_data;
+    }
+
+    var getCubicData = function() {
+	 var step = 10;
+	 var x = 0;
+	 var cubic_data = [];
+
+	 while (x < 800) {
+	     var y = cubic_k *(x-cubic_h) * (x-cubic_h) * (x-cubic_h) + cubic_b;
+	     cubic_data.push([x, y]);
+	     x += step;
+	     
+	 }
+	 return cubic_data;
+    }
+
+    var setYMax = function() {
+	 var max_y = 0;
+
+	 for (var i in plot_data) {
+	     if (plot_data[i][1] > max_y)
+		  max_y = plot_data[i][1];
+	 }
+	 for (var i in user_data) {
+	     if (user_data[i][1] > max_y)
+		  max_y = user_data[i][1];
+	 }
+	 max_y = parseInt(max_y/5000+1)*5000;
+
+	 return max_y;
+    }
 });
