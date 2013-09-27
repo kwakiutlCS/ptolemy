@@ -1,4 +1,9 @@
 $(document).ready(function(){
+    var user_data;
+    var plot_data;
+    var linear_m = 10;
+    var linear_b = 0;
+
     $("#volume_slider").slider({ min: 150, max: 750 });
 
     $("#thermo_time_field").on("keyup", function() {
@@ -64,17 +69,44 @@ $(document).ready(function(){
 
 
     $("#thermo_linear_button").on("click", function() {
+	 
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_linear_controls").show();
 	 
 	 $.ajax("data_points/updateGraph", {
 	     method: "get",
 	     success: function(json) {
-		  alert(253);
+		  
+		  user_data = json.user_data;
+		  plot_data = json.plot_data;
+		  
+		  $.plot($("#thermo_graph"), [{
+		      data: plot_data,
+		      points: { show: true },
+		      label: "Dados obtidos pelos seus colegas"
+     
+		  },
+		  {
+		      data: user_data,
+		      points: { show: true },
+		      label: "Dados obtidos por si"
+     
+		  },
+	         {
+                    data: [[0,0],[800,8000]]}
+						 ], {
+						     xaxis: { min:0, max: 800},
+						     yaxis: { min:0}
+						 });
+		  
+		  $(".flot-x-axis").css({left: "50px"});
+		  
+		  
 	     }
-	 });
-	
+	   });
+	 
     });
+
     $("#thermo_quadratic_button").on("click", function() {
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_quadratic_controls").show();
@@ -82,5 +114,60 @@ $(document).ready(function(){
     $("#thermo_cubic_button").on("click", function() {
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_cubic_controls").show();
+    });
+
+
+    $("#thermo_linear_m_slider").on("slide", function(evt, ui) {
+	 linear_m = ui.value;
+	 var y = linear_b + 800*ui.value;
+	 
+	 $.plot($("#thermo_graph"), [{
+		      data: plot_data,
+		      points: { show: true },
+		      label: "Dados obtidos pelos seus colegas"
+     
+		  },
+		  {
+		      data: user_data,
+		      points: { show: true },
+		      label: "Dados obtidos por si"
+     
+		  },
+	         {
+                    data: [[0,linear_b],[800,y]]}
+						 ], {
+						     xaxis: { min:0, max: 800},
+						     yaxis: { min:0, max: 35000}
+						 });
+		  
+		  $(".flot-x-axis").css({left: "50px"});
+	 
+    });
+
+    $("#thermo_linear_b_slider").on("slide", function(evt, ui) {
+	 linear_b = ui.value;
+	 var y = linear_b + 800*linear_m;
+	 
+	 $.plot($("#thermo_graph"), [{
+		      data: plot_data,
+		      points: { show: true },
+		      label: "Dados obtidos pelos seus colegas"
+     
+		  },
+		  {
+		      data: user_data,
+		      points: { show: true },
+		      label: "Dados obtidos por si"
+     
+		  },
+	         {
+                    data: [[0,linear_b],[800,y]]}
+						 ], {
+						     xaxis: { min:0, max: 800},
+						     yaxis: { min:0, max: 35000}
+						 });
+		  
+		  $(".flot-x-axis").css({left: "50px"});
+	 
     });
 });

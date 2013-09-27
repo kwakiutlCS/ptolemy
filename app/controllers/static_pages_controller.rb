@@ -21,7 +21,7 @@ class StaticPagesController < ApplicationController
   def set_name
     s = Student.create(name: params[:name])
     if s.valid?
-      student = s.id
+      session[:student] = s.id
       
       cap = []
       s.name.split.each do |n|

@@ -39,8 +39,10 @@ class DataPointsController < ApplicationController
   def updateGraph
     getData()
     
+    data = {plot_data: @plot_data, user_data: @user_data}
+
     respond_to do |format|
-      format.json @data.to_json
+      format.json {render json: data.to_json}
     end
   end
 
