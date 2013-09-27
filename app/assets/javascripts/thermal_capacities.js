@@ -10,7 +10,15 @@ $(document).ready(function(){
     var cubic_k = 0.001;
     var cubic_b = 0;
     var max_y = 0;
+    var data_loaded = false;
 
+
+    $("#thermo_add_data_point_button").on("click", function() {
+	 data_loaded = false;
+    });
+    $("#thermo_data_collection").on("click",".thermo_remove_data_point_button", function() {
+	 data_loaded = false;
+    });
 
     $("#volume_slider").slider({ min: 150, max: 750 });
 
@@ -116,23 +124,7 @@ $(document).ready(function(){
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_linear_controls").show();
 	 
-	 $.ajax("data_points/updateGraph", {
-	     method: "get",
-	     success: function(json) {
-		  
-		  user_data = json.user_data;
-		  plot_data = json.plot_data;
-
-		  max_y = setYMax();		 
-
-		  plot_linear(8000);
-
-		  		  
-		  $(".flot-x-axis").css({left: "50px"});
-		  
-		  
-	     }
-	   });
+	 loadsPlot(plot_linear, 8000);
 	 
     });
 
@@ -140,24 +132,9 @@ $(document).ready(function(){
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_quadratic_controls").show();
 
-	 
 	 var quadratic_data = getQuadraticData();
 
-	 
-	 $.ajax("data_points/updateGraph", {
-	     method: "get",
-	     success: function(json) {
-		  
-		  user_data = json.user_data;
-		  plot_data = json.plot_data;
-
-		  max_y = setYMax();
-		 
-
-		  plot_polynomial(quadratic_data);
-		  $(".flot-x-axis").css({left: "50px"});
-	     }
-	   });
+	 loadsPlot(plot_polynomial, quadratic_data);
 	 
     });
 
@@ -167,26 +144,11 @@ $(document).ready(function(){
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_cubic_controls").show();
 
-
 	 var cubic_data = getCubicData();
 
+	 loadsPlot(plot_polynomial, cubic_data);
+
 	 
-	 $.ajax("data_points/updateGraph", {
-	     method: "get",
-	     success: function(json) {
-		  
-		  user_data = json.user_data;
-		  plot_data = json.plot_data;
-
-		  max_y = setYMax();
-		 
-
-		  plot_polynomial(cubic_data);
-		  $(".flot-x-axis").css({left: "50px"});
-	     }
-	   });
-	 
-
     });
 
 
@@ -294,7 +256,7 @@ $(document).ready(function(){
 		     xaxis: { min:0, max: 800},
 		     yaxis: { min:0, max: max_y}
 		 });
-
+	 $(".flot-x-axis").css({left: "50px"});
     }
 
     var plot_polynomial = function(data) {
@@ -317,7 +279,7 @@ $(document).ready(function(){
 		     xaxis: { min:0, max: 800},
 		     yaxis: { min:0, max: max_y}
 		 });
-
+	 $(".flot-x-axis").css({left: "50px"});
     }
 
 
@@ -363,5 +325,27 @@ $(document).ready(function(){
 	 max_y = parseInt(max_y/5000+1)*5000;
 
 	 return max_y;
+    }
+
+    var loadsPlot = function(f, arg) {
+	 if (!data_loaded) {
+	     $.ajax("data_points/updateGraph", {
+		  method: "get",
+		  success: function(json) {
+		  
+		      user_data = json.user_data;
+		      plot_data = json.plot_data;
+		      
+		      max_y = setYMax();		 
+		      
+		      f(arg);
+
+		  }
+	     });
+	     data_loaded = true;
+	 }
+	 else {
+	     f(arg);
+	 }
     }
 });

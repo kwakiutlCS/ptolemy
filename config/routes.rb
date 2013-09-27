@@ -1,5 +1,5 @@
 Plotomeu::Application.routes.draw do
-  resources :thermal_capacities
+  resources :thermal_capacities 
   resources :static_pages do
     collection do
       get "set_name"
