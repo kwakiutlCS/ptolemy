@@ -6,4 +6,5 @@ class DataPoint < ActiveRecord::Base
   validates :activity_id, presence: true
   validates :student_id, presence: true
   
+  
 end

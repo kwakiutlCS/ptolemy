@@ -155,9 +155,10 @@ $(document).ready(function(){
 		 
 
 		  plot_polynomial(quadratic_data);
-  
+		  $(".flot-x-axis").css({left: "50px"});
 	     }
 	   });
+	 
     });
 
 
@@ -181,9 +182,10 @@ $(document).ready(function(){
 		 
 
 		  plot_polynomial(cubic_data);
-  
+		  $(".flot-x-axis").css({left: "50px"});
 	     }
 	   });
+	 
 
     });
 
@@ -194,7 +196,7 @@ $(document).ready(function(){
 	 
 	 plot_linear(y);
 		  
-	 $(".flot-x-axis").css({left: "50px"});
+	 
 	 
     });
 
@@ -203,9 +205,8 @@ $(document).ready(function(){
 	 var y = linear_b + 800*linear_m;
 	 
 	 plot_linear(y);
+	 	  
 	 
-		  
-	 $(".flot-x-axis").css({left: "50px"});
 	 
     });
 

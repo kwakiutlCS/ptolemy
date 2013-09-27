@@ -30,4 +30,14 @@ describe Student do
       a.should be_valid
     end
   end
+
+
+  describe "#destroy" do
+    it "removes student's data points" do
+      d = DataPoint.create(activity_id: 1, student_id: student.id, x: 2, y: 3)
+      student.destroy
+      x = DataPoint.where(id: d.id).count
+      x.should == 0
+    end
+  end
 end
