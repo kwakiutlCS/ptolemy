@@ -11,6 +11,12 @@ $(document).ready(function(){
     var cubic_b = 0;
     var max_y = 0;
     var data_loaded = false;
+    var prediction = 350000000;
+    var x_maximum = 800;
+    var y_maximum = 30000;
+    var intervalId;
+    var model;
+
 
 
     $("#thermo_add_data_point_button").on("click", function() {
@@ -121,18 +127,30 @@ $(document).ready(function(){
 
     $("#thermo_linear_button").on("click", function() {
 	 
+	 model = 1;
+
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_linear_controls").show();
-	 
-	 loadsPlot(plot_linear, 8000);
+	 $("#thermo_chosen_model_div").show();
+	 $("#thermo_chosen_model").html("E = 10 V");
+
+	
+	 prediction = linear_b + 90000000*linear_m;
+	 loadsPlot(plot_linear, prediction);
 	 
     });
 
     $("#thermo_quadratic_button").on("click", function() {
+	 model = 2;
+
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_quadratic_controls").show();
+	 $("#thermo_chosen_model_div").show();
+	 $("#thermo_chosen_model").html("E = 0.250 V<sup>2</sup>");
 
 	 var quadratic_data = getQuadraticData();
+	 
+	 prediction = quadratic_b + quadratic_k*Math.pow(90000000-quadratic_h,2);
 
 	 loadsPlot(plot_polynomial, quadratic_data);
 	 
@@ -141,10 +159,16 @@ $(document).ready(function(){
 
 
     $("#thermo_cubic_button").on("click", function() {
+	 model = 3;
+
 	 $(".thermo_function_controls").hide();
 	 $("#thermo_cubic_controls").show();
+	 $("#thermo_chosen_model_div").show();
+	 $("#thermo_chosen_model").html("E = 0.00100 V<sup>3</sup>");
 
 	 var cubic_data = getCubicData();
+
+	 prediction = cubic_b + cubic_k*Math.pow(90000000-cubic_h,3);
 
 	 loadsPlot(plot_polynomial, cubic_data);
 
@@ -152,54 +176,69 @@ $(document).ready(function(){
     });
 
 
+    $("#thermo_confirm_model_button").on("click", function() {
+	 intervalId = setInterval(animatePlot,30);
+	 
+    });
+
+
     $("#thermo_linear_m_slider").on("slide", function(evt, ui) {
 	 linear_m = ui.value;
-	 var y = linear_b + 800*ui.value;
+	 prediction = linear_b + 90000000*linear_m;
 	 
-	 plot_linear(y);
+	 plot_linear(prediction);
 		  
-	 
+	 write_linear_formula();
+
+	 $("#thermo_confirm_model_button_div").show();
 	 
     });
 
     $("#thermo_linear_b_slider").on("slide", function(evt, ui) {
 	 linear_b = ui.value;
-	 var y = linear_b + 800*linear_m;
+	 prediction = linear_b + 90000000*linear_m;
 	 
-	 plot_linear(y);
+	 plot_linear(prediction);
 	 	  
+	 write_linear_formula();
 	 
-	 
+	 $("#thermo_confirm_model_button_div").show();
     });
 
     $("#thermo_quadratic_h_slider").on("slide", function(evt, ui) {
 	 quadratic_h = ui.value;
 
 	 var quadratic_data = getQuadraticData();
+	 prediction = quadratic_b + quadratic_k*Math.pow(90000000-quadratic_h,2);
 
 	 plot_polynomial(quadratic_data);
 		  
-	 	 
+	 write_quadratic_formula(); 
+	 $("#thermo_confirm_model_button_div").show();
     });
 
     $("#thermo_quadratic_k_slider").on("slide", function(evt, ui) {
 	 quadratic_k = ui.value;
 
 	 var quadratic_data = getQuadraticData();
+	 prediction = quadratic_b + quadratic_k*Math.pow(90000000-quadratic_h,2);
 
 	 plot_polynomial(quadratic_data);
 		  
-	 	 
+	 write_quadratic_formula(); 
+	 $("#thermo_confirm_model_button_div").show();
     });
 
     $("#thermo_quadratic_b_slider").on("slide", function(evt, ui) {
 	 quadratic_b = ui.value;
 
 	 var quadratic_data = getQuadraticData();
+	 prediction = quadratic_b + quadratic_k*Math.pow(90000000-quadratic_h,2);
 
 	 plot_polynomial(quadratic_data);
 		  
-	 	 
+	 write_quadratic_formula(); 
+	 $("#thermo_confirm_model_button_div").show();
     });
 
 
@@ -207,88 +246,136 @@ $(document).ready(function(){
 	 cubic_h = ui.value;
 
 	 var cubic_data = getCubicData();
+	 prediction = cubic_b + cubic_k*Math.pow(90000000-cubic_h,3);
 
 	 plot_polynomial(cubic_data);
 		  
-	 	 
+	 write_cubic_formula(); 	
+	 $("#thermo_confirm_model_button_div").show();
     });
 
     $("#thermo_cubic_k_slider").on("slide", function(evt, ui) {
 	 cubic_k = ui.value;
 
 	 var cubic_data = getCubicData();
+        prediction = cubic_b + cubic_k*Math.pow(90000000-cubic_h,3);
 
 	 plot_polynomial(cubic_data);
 		  
-	 	 
+	 write_cubic_formula(); 	 
+	 $("#thermo_confirm_model_button_div").show();
     });
 
     $("#thermo_cubic_b_slider").on("slide", function(evt, ui) {
 	 cubic_b = ui.value;
 
 	 var cubic_data = getCubicData();
+	 prediction = cubic_b + cubic_k*Math.pow(90000000-cubic_h,3);
 
 	 plot_polynomial(cubic_data);
 		  
-	 	 
+	 write_cubic_formula(); 	 
+	 $("#thermo_confirm_model_button_div").show();
     });
 
 
 
 
-    var plot_linear = function(y) {
+    var plot_linear = function(y, xmax, ymax) {
+	 var xmax = (typeof xmax) == "undefined" ? 800 : xmax;
+	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
+	 
+	 
 	 $.plot($("#thermo_graph"), [{
 		      data: plot_data,
 		      points: { show: true },
-		      label: "Dados obtidos pelos seus colegas"
+		      label: "dados dos seus colegas"
      
 		  },
 		  {
 		      data: user_data,
 		      points: { show: true },
-		      label: "Dados obtidos por si"
+		      label: "os seus dados"
      
 		  },
 	         {
-                    data: [[0,linear_b],[800,y]]}
+                    data: [[-90000000,linear_b-(y-linear_b)],[90000000,y], [180000000,y+linear_m*90000000]],
+		          
+		  },
+		  {
+		      data: [[90000000,y]],
+		      points: { show: true },
+		      
+     
+		  },
 					], 
 		 {
-		     xaxis: { min:0, max: 800},
-		     yaxis: { min:0, max: max_y}
+		     xaxis: { min:0, max: xmax},
+		     yaxis: { min:0, max: ymax, 
+			     tickFormatter: function (v) {
+				  if (v === 0)
+				      return "0";
+				  var e = 0, tmp = v;
+				  while (tmp >= 10) {
+				      tmp /= 10;
+				      e += 1;
+				  }
+				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
+			     }},
+		     
 		 });
 	 $(".flot-x-axis").css({left: "50px"});
     }
 
-    var plot_polynomial = function(data) {
+    var plot_polynomial = function(data, xmax, ymax) {
+	 var xmax = (typeof xmax) == "undefined" ? 800 : xmax;
+	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
+	 
 	 $.plot($("#thermo_graph"), [{
 		      data: plot_data,
 		      points: { show: true },
-		      label: "Dados obtidos pelos seus colegas"
+		      label: "dados dos seus colegas"
      
 		  },
 		  {
 		      data: user_data,
 		      points: { show: true },
-		      label: "Dados obtidos por si"
+		      label: "os seus dados"
      
 		  },
 	         {
-                    data: data}
+                    data: data
+		  },
+		  
+		  {
+		      data: [[90000000,prediction]],
+		      points: { show: true },
+		  }
 					], 
 		 {
-		     xaxis: { min:0, max: 800},
-		     yaxis: { min:0, max: max_y}
+		     xaxis: { min:0, max: xmax},
+		     yaxis: { min:0, max: ymax, 
+			     tickFormatter: function (v) {
+				  if (v === 0)
+				      return "0";
+				  var e = 0, tmp = v;
+				  while (tmp > 10) {
+				      tmp /= 10;
+				      e += 1;
+				  }
+				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
+			     }}
 		 });
 	 $(".flot-x-axis").css({left: "50px"});
     }
 
 
     var getQuadraticData = function() {
-	 var step = 20;
+	 var step = x_maximum/30;
 	 var x = 0;
 	 var quadratic_data = [];
 
-	 while (x < 800) {
+	 while (x < x_maximum) {
 	     var y = quadratic_k *(x-quadratic_h) * (x-quadratic_h) + quadratic_b;
 	     quadratic_data.push([x, y]);
 	     x += step;
@@ -298,11 +385,11 @@ $(document).ready(function(){
     }
 
     var getCubicData = function() {
-	 var step = 10;
+	 var step = x_maximum/40;
 	 var x = 0;
 	 var cubic_data = [];
 
-	 while (x < 800) {
+	 while (x < x_maximum) {
 	     var y = cubic_k *(x-cubic_h) * (x-cubic_h) * (x-cubic_h) + cubic_b;
 	     cubic_data.push([x, y]);
 	     x += step;
@@ -327,25 +414,191 @@ $(document).ready(function(){
 	 return max_y;
     }
 
-    var loadsPlot = function(f, arg) {
+    var loadsPlot = function(f, arg, xmax, ymax) {
+	 
 	 if (!data_loaded) {
 	     $.ajax("data_points/updateGraph", {
 		  method: "get",
-		  success: function(json) {
-		  
+		  success: function(json) {      
 		      user_data = json.user_data;
 		      plot_data = json.plot_data;
-		      
-		      max_y = setYMax();		 
-		      
-		      f(arg);
+		      var xmax = (typeof xmax) == "undefined" ? 800 : xmax;
+		      var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
+	 
+		      f(arg, xmax, ymax);
 
 		  }
 	     });
 	     data_loaded = true;
 	 }
 	 else {
-	     f(arg);
+	     f(arg, xmax, ymax);
 	 }
     }
+
+    var write_linear_formula = function() {
+	 if (linear_b > 0) {
+	     if (linear_m)
+		  $("#thermo_chosen_model").html("E = "+linear_m+" V + "+linear_b);
+	     else
+		  $("#thermo_chosen_model").html("E = "+linear_b);
+	 }
+	 else if (linear_b < 0) {
+	     if (linear_m)
+		  $("#thermo_chosen_model").html("E = "+linear_m+" V - "+linear_b*-1);
+	     else
+		  $("#thermo_chosen_model").html("E = "+linear_b);
+	 }
+	 else {
+	     if (linear_m)
+		  $("#thermo_chosen_model").html("E = "+linear_m+" V");
+	     else
+		  $("#thermo_chosen_model").html("E = 0");
+	 }
+    }
+
+    var write_quadratic_formula = function() {
+	 if (quadratic_b > 0) {
+	     if (quadratic_h) {
+		  if (quadratic_k) {
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (V-"+quadratic_h+")<sup>2</sup> + "+quadratic_b);
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = "+quadratic_b);
+		  }
+	     }
+	     else {
+		  if (quadratic_k) {
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" V<sup>2</sup> +"+quadratic_b);
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = "+quadratic_b);
+		  }
+	     }
+	 }
+	 else if (quadratic_b < 0) {
+	     if (quadratic_h) {
+		  if (quadratic_k) {
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (V-"+quadratic_h+")<sup>2</sup> - "+-1*quadratic_b);
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = "+quadratic_b);
+		  }
+	     }
+	     else {
+		  if (quadratic_k) {
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" V<sup>2</sup> - "+-1*quadratic_b);
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = "+quadratic_b);
+		  }
+	     }
+	 }
+	 else {
+	     if (quadratic_h) {
+		  if (quadratic_k) {
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (V-"+quadratic_h+")<sup>2</sup>");
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = 0");
+		  }
+	     }
+	     else {
+		  if (quadratic_k) {
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" V<sup>2</sup>");
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = 0");
+		  }
+	     }
+	 }
+    }
+
+    var write_cubic_formula = function() {
+	 if (cubic_b > 0) {
+	     if (cubic_h) {
+		  if (cubic_k) {
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" (V-"+cubic_h+")<sup>3</sup> + "+cubic_b);
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = "+cubic_b);
+		  }
+	     }
+	     else {
+		  if (cubic_k) {
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" V<sup>3</sup> +"+cubic_b);
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = "+cubic_b);
+		  }
+	     }
+	 }
+	 else if (cubic_b < 0) {
+	     if (cubic_h) {
+		  if (cubic_k) {
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" (V-"+cubic_h+")<sup>3</sup> - "+-1*cubic_b);
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = "+cubic_b);
+		  }
+	     }
+	     else {
+		  if (cubic_k) {
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" V<sup>3</sup> - "+-1*cubic_b);
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = "+cubic_b);
+		  }
+	     }
+	 }
+	 else {
+	     if (cubic_h) {
+		  if (cubic_k) {
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" (V-"+cubic_h+")<sup>3</sup>");
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = 0");
+		  }
+	     }
+	     else {
+		  if (cubic_k) {
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" V<sup>3</sup>");
+		  }
+		  else {
+		      $("#thermo_chosen_model").html("E = 0");
+		  }
+	     }
+	 }
+    }
+
+    var animatePlot = function() {
+	 
+	 
+	 if (model === 1) {
+	     x_maximum *= 1.2;
+	     y_maximum *= 1.2;
+	     plot_linear(prediction, x_maximum, y_maximum);
+	 }
+	 else if (model === 2) {
+	     x_maximum *= 1.1;
+	     y_maximum *= Math.pow(1.1,2);
+	     var quadratic_data = getQuadraticData();
+	     plot_polynomial(quadratic_data, x_maximum, y_maximum);
+	 }
+	 else if (model === 3) {
+	     x_maximum *= 1.1;
+	     y_maximum *= Math.pow(1.1,3);
+	     var cubic_data = getCubicData();
+	     plot_polynomial(cubic_data, x_maximum, y_maximum);
+	 }
+	 if (y_maximum > 1.2*prediction) {
+	     clearInterval(intervalId);
+	     x_maximum = 800;
+	     y_maximum = setYMax();
+	 }
+    }
+
+    
+    
+
 });

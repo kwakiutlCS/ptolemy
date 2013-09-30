@@ -96,12 +96,14 @@ float: right;
 }
 
 .thermo_slider_controls {
-	width: 150px;
+	width: 120px;
 }
 
 
 .thermo_function_controls {
 	display: none;
+	width: 480px;
+	margin-left: -45px;
 }
 
 .thermo_function_controls> div {
@@ -119,3 +121,28 @@ float: right;
        
 }
 
+#thermo_chosen_model_div {
+	display: none;
+	position: relative;
+	float:left;
+	margin-top: 70px;
+	text-align: center;
+	width: 250px;
+	
+	span {
+	font-weight: bold;
+	font-size: 1.4em;
+	}	
+	div {
+	margin: 5px;
+	color: #777;
+	font-size: 1.2em;
+	}		
+}
+
+#thermo_confirm_model_button_div {
+    display: none;
+    position: relative;
+	float:right;
+	margin-top: 70px;
+}
