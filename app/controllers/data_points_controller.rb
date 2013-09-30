@@ -10,7 +10,7 @@ class DataPointsController < ApplicationController
       format.html {
         redirect_to session[:url]
       }
-      format.js
+      format.js {render :create, locals: {n: @data.count}}
     end
   end
 

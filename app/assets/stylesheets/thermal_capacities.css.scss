@@ -10,9 +10,10 @@ body {
 -moz-user-select: none;
 -ms-user-select: none;
 user-select: none;
+	      background: rgb(66, 78, 78);
 }
 
-.strategy, .data-gathering, .model-choice, .questions, .background {
+.thermo_strategy, .data-gathering, .model-choice, .questions, .background {
 	     display:none;
 }
 
@@ -55,8 +56,13 @@ canvas {
      width: 80px;
 }
 
-#thermo_data_form {
+.thermo_data_form {
       display: inline-block;
+      background: #FFF;
+padding: 10px;
+border: 2px solid black;
+box-shadow: 0 0 8px black;
+border-radius: 10px;
 }
 
 ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
@@ -70,18 +76,34 @@ canvas {
 
 .thermo_animation {
 display: inline-block;
-	  
+background: #FFF;
+border-radius: 10px;
+border: 2px solid black;
+width: 642px;
+margin-bottom: 30px;
+box-shadow: 0 0 8px black;
 }
 
 
 
 #thermo_energy_calculator {
     text-align: center;
+    vertical-align: middle;
 }
 
 #thermo_graph {
 	width: 500px;
 height: 400px;
+	 margin-left: 40px;
+}
+
+#thermo_y_label {
+		  float:left;
+		  margin-top: 200px;
+}
+#thermo_x_label {
+		  margin: 30px 300px;
+		  width: 100px;
 }
 
 .thermo_navigator {
@@ -90,9 +112,18 @@ float: right;
 
 .thermo_model_buttons {
 	float: right;
-	margin: 20px 50px 0 0;
-	width: 400px;
-	height: 200px;
+	margin: 20px 10px 0 0;
+	width: 480px;
+	height: 280px;
+	background: #FFF;
+	border: 2px solid black;
+	box-shadow: 0 0 8px black;
+	border-radius: 10px;
+	padding: 5px;
+
+	.btn-group {
+	   margin: 10px 0 10px 51px;
+	}	
 }
 
 .thermo_slider_controls {
@@ -102,8 +133,7 @@ float: right;
 
 .thermo_function_controls {
 	display: none;
-	width: 480px;
-	margin-left: -45px;
+	
 }
 
 .thermo_function_controls> div {
@@ -145,4 +175,49 @@ float: right;
     position: relative;
 	float:right;
 	margin-top: 70px;
+	margin-right: 20px;
+}
+
+#thermo_data_collection_explanation {
+    margin-top: 80px;
+}
+
+
+#thermo_strategy_div {
+	width: 500px;
+margin: 100px auto 0px auto;
+background: #FFFFFF;
+border: 2px solid black;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 0 8px black;
+}		   
+
+#thermo_add_data_point_button {
+	vertical-align: middle;
+	margin-top: -32px;
+}
+
+#thermo_background_div {
+    background: #FFF;
+border: 2px solid black;
+border-radius: 10px;
+box-shadow: 0 0 8px black;
+width: 500px;
+padding: 30px;
+margin: 100px auto 50px auto;
+
+    h1 {
+       margin-bottom: 20px;
+    }   
+}
+
+#thermo_graph_div {
+background: #FFF;
+width: 600px;
+height: 500px;
+border-radius: 10px;
+border: 2px solid black;
+box-shadow: 0 0 8px black;
+padding: 10px;
 }

@@ -16,6 +16,16 @@ $("#thermo_time_field").on("keyup", function() {
 	 }
     });
 
+if (<%= @data.count > 0 %>) {
+$("#thermo_data_collection_explanation").html("<p>Recolha mais dados ou avance para a tarefa seguinte</p>");
+
+$("#thermo_data-gathering_next").show();
+}
+else {
+     $("#thermo_data_collection_explanation").html("<p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam o volume de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água. </p><p>O aquecimento da água faz-se com uma resistência de 500W, o que permite saber a energia transferida para a água, se registarmos o intervalo de tempo que a resistência esteve ligada.</p><p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>");
+
+$("#thermo_data-gathering_next").hide();
+}
 
 var options = {
      xaxis: { min:0, max: 800},

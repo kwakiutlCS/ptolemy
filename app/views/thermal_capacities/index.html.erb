@@ -16,11 +16,14 @@
   Esta tarefa será discutida na aula de <%= session[:deadline].strftime("%d/%m") %>. Deverá ser concluída antes dessa data.
   </div>
   <% end %>
+
+<div id="thermo_background_div">
 <h1>O aquecimento da piscina</h1>
 
-<p class>Nesta atividade procura investigar os custos de manutenção de uma piscina. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água de uma piscina da temperatura ambiente (cerca de 15ºC neste momento) até 26ºC. <br />
-Esta questão será resolvida facilmente com a colaboração dos teus colegas. </p>
+<p>Nesta atividade procure investigar os custos de manutenção de uma piscina. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água de uma piscina da temperatura ambiente (cerca de 18ºC neste momento) até 26ºC.</p> <br />
+<p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
 
+</div>
 <div class="btn-group thermo_navigator">
 <a type="button" class="thermo_button btn btn-primary" id="thermo_background_next">Seguinte</a>
 </div>
@@ -28,18 +31,22 @@ Esta questão será resolvida facilmente com a colaboração dos teus colegas. <
 
 
 
-<section class="strategy">
+<section class="thermo_strategy">
+
+<div id="thermo_strategy_div">
   <h2>Estratégia</h2>
   <div>
-  Responder a esta questão poderá ser feito tendo a piscina, e aquecendo a água até aos 26ºC. Assim poderíamos, por exemplo, controlar os gastos energéticos pela fatura da eletricidade. Claro que para istso teríamos de ter a piscina! Seria melhor se pudessemos estimar os gastos de eletricidade sem termos de instalá-la.
+  <p>Responder a esta questão poderá ser feito tendo a piscina, e aquecendo a água até aos 26ºC. Assim poderíamos, por exemplo, controlar os gastos energéticos pela fatura da eletricidade. Claro que para isso teríamos de ter a piscina! Seria melhor se pudessemos estimar os gastos de eletricidade sem termos de instalá-la.
+  </p>
   <br />
-  
-  Vamos usar um processo em que testamos o problema em pequena escala (aquecendo pequenas quantidades de água) e tentamos descobrir padrões que nos permitam tirar conclusões sobre o caso maior. Chama-se a isto construir um modelo.
+  <p>
+  Vamos usar um processo em que testamos o problema em pequena escala. Aquecendo pequenas quantidades de água até aos 26ºC podemos verificar qual a quantidade de energia necessária para aquecer pequenas quantidades. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso da piscina. Chama-se a isto construir um modelo.
+  </p>
   </div>
 
-  
+  </div>
    
-  <div class="btn-group thermo_navigator">
+  <div class="btn-group thermo_navigator" style="margin-top: 80px">
     <a type="button" class="thermo_button btn btn-primary" id="thermo_strategy_previous">Anterior</a>
     <a type="button" class="thermo_button btn btn-primary" id="thermo_strategy_next">Seguinte</a>
   </div>
@@ -83,7 +90,7 @@ var y_scale = 0.005555556;
 var base = 0.5;
 var height = 150/base/1000/y_scale;
 var time = 0;
-var temperature = 15.0;
+var temperature = 18.0;
 var mass = 0;
 var animate = false;
 var rho = 1;
@@ -158,13 +165,13 @@ function getMass(base, h, rho) {
 }
 
 function reset() {
-    temperature = 15.0;
+    temperature = 18.0;
 	 mass = 0;
 	 time = 0;
 	 animate = false;
 	 $("#onoff").text("Aquecer");
 	 $("#chrono").text("0.0 s");
-	 $("#thermo").text("15.0 ºC");
+	 $("#thermo").text("18.0 ºC");
 	 $("#volume").html("150 cm<sup>3</sup>");   
         
 	 top.bounds.y += (height-(150/base/1000/y_scale));
@@ -182,6 +189,8 @@ function reset() {
 
 	</script>
         
+
+   <h1>Recolher Dados</h1>
         
     <div class="thermo_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
@@ -213,13 +222,17 @@ function reset() {
 	    </tbody>
 	  
 	  </table>
-         
-	  
-	  
-	  
+    	  
       <% end %>
-
+      <div id="thermo_data_collection_explanation">
+      <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam o volume de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água. </p>
+      <p>O aquecimento da água faz-se com uma resistência de 500W, o que permite saber a energia transferida para a água, se registarmos o intervalo de tempo que a resistência esteve ligada.</p>
+      <p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>
+      </div>
     </div>
+
+    
+    
     <div class="thermo_animation span7">
     <canvas id="canvas" width=400 height=500></canvas>
    
@@ -229,7 +242,7 @@ function reset() {
     <div id="volume_slider"></div>
     
     <div id="chrono" class="monitor">0.0 s</div>
-    <div id="thermo" class="monitor">15.0 ºC</div>
+    <div id="thermo" class="monitor">18.0 ºC</div>
     
     </div>
     
@@ -244,12 +257,18 @@ function reset() {
 
     <div class="btn-group thermo_navigator">
     <a type="button" class="thermo_button btn btn-primary" id="thermo_data-gathering_previous">Anterior</a>
-    <a type="button" class="thermo_button btn btn-primary" id="thermo_data-gathering_next">Seguinte</a>
+    <a type="button" class="thermo_button btn btn-primary" id="thermo_data-gathering_next"  style="display:none">Seguinte</a>
   </div>
 </section>
 
 
+
+
+
 <section class="model-choice">
+
+  <h1>Escolher o Modelo</h1>
+  <div>
   <div class=" thermo_model_buttons">
   <div class="btn-group">
     <a type="button" class="thermo_button btn" id="thermo_linear_button">Linear<br/> y = m x + b</a>
@@ -291,10 +310,14 @@ function reset() {
   </div>
   </div>
 
+  <div id="thermo_graph_div">
+    <div id="thermo_y_label">E (J)</div>
+    
   <div id="thermo_graph"></div>
-  
+<div id="thermo_x_label">V (cm<sup>3</sup>)</div>
+  </div>
    
-
+  </div>
   <div class="btn-group thermo_navigator">
     <a type="button" class="thermo_button btn btn-primary" id="thermo_model-choice_previous">Anterior</a>
     <a type="button" class="thermo_button btn btn-primary" id="thermo_model-choice_next">Seguinte</a>

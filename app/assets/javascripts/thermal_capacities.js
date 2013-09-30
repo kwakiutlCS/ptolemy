@@ -44,22 +44,22 @@ $(document).ready(function(){
 
     $("#thermo_background_next").on("click",function() {
 	 $(".background").slideUp();
-	 $(".strategy").slideDown();
+	 $(".thermo_strategy").slideDown();
     });
 
     $("#thermo_strategy_previous").on("click",function() {
 	 $(".background").slideDown();
-	 $(".strategy").slideUp();
+	 $(".thermo_strategy").slideUp();
     });
 
     $("#thermo_strategy_next").on("click",function() {
 	 $(".data-gathering").slideDown();
-	 $(".strategy").slideUp();
+	 $(".thermo_strategy").slideUp();
     });
 
     $("#thermo_data-gathering_previous").on("click",function() {
 	 $(".data-gathering").slideUp();
-	 $(".strategy").slideDown();
+	 $(".thermo_strategy").slideDown();
     });
 
     $("#thermo_data-gathering_next").on("click",function() {
