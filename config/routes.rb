@@ -11,6 +11,9 @@ Plotomeu::Application.routes.draw do
     end
   end
 
+  resources :answers
+  
+
   root to: "static_pages#index"
 
   # The priority is based upon order of creation:

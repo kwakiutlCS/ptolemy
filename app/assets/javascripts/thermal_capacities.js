@@ -81,6 +81,10 @@ $(function(){
 	 $(".model-choice").slideUp();
     });
 
+    $("#thermo_questions_previous").on("click", function() {
+	 $(".questions").slideUp();
+	 $(".model-choice").slideDown();
+    });
 
     $(".thermo_slider_controls").slider({ min: -10000, max: 10000});
     $("#thermo_linear_m_slider").slider({value: 10, min: 0, max: 100});
@@ -650,6 +654,58 @@ $(function(){
 		  $("#thermo_first_model_controls").show();
 		  model = 1;
 		  loadsPlot(plot_normal);
+	     });
+
+	     $("#thermo_keep_model_link").on("click", function() {
+		  $(".model-choice").slideUp();
+		  $(".questions").slideDown();
+
+
+		  if (model === 1) {
+		      $("#thermo_model_field").val("linear");
+		      $("#thermo_question1_label").html("Escolheu o modelo <b>linear</b>. Por que razão essa é uma boa escolha?");
+		      $("#thermo_question1_field").val("Escolheu o modelo <b>linear</b>. Por que razão essa é uma boa escolha?");
+		      
+		      if (linear_b != 0) {
+			   $("#thermo_question2_label").html("O modelo escolhido prevê um valor de "+linear_b+"J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. O que significa isso?");
+			   $("#thermo_question2_field").val("O modelo escolhido prevê um valor de "+linear_b+"J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. O que significa isso?");
+		      }
+		      else {
+			   $("#thermo_question2_label").html("O modelo escolhido prevê um valor de 0J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. Essa previsão faz sentido?");
+			   $("#thermo_question2_field").val("O modelo escolhido prevê um valor de 0J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. Essa previsão faz sentido?");
+		      }
+		      
+		  }
+		  else if (model === 2) {
+		      $("#thermo_model_field").val("quadrático");
+		      $("#thermo_question1_label").html("Escolheu o modelo <b>quadrático</b>. Por que razão essa é uma boa escolha?");
+		      $("#thermo_question1_field").val("Escolheu o modelo <b>quadrático</b>. Por que razão essa é uma boa escolha?");
+		      
+		      if (quadratic_b != 0) {
+			   $("#thermo_question2_label").html("O modelo escolhido prevê um valor de "+quadratic_b+"J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. O que significa isso?");
+			   $("#thermo_question2_field").val("O modelo escolhido prevê um valor de "+quadratic_b+"J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. O que significa isso?");
+		      }
+		      else {
+			   $("#thermo_question2_label").html("O modelo escolhido prevê um valor de 0J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. Essa previsão faz sentido?");
+			   $("#thermo_question2_field").val("O modelo escolhido prevê um valor de 0J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. Essa previsão faz sentido?");
+		      }
+		  }
+		  else if (model === 3) {
+		      $("#thermo_model_field").val("cúbico");
+		      $("#thermo_question1_label").html("Escolheu o modelo <b>cúbico</b>. Por que razão essa é uma boa escolha?");
+		      $("#thermo_question1_field").val("Escolheu o modelo <b>cúbico</b>. Por que razão essa é uma boa escolha?");
+		      
+		      if (cubic_b != 0) {
+			   $("#thermo_question2_label").html("O modelo escolhido prevê um valor de "+cubic_b+"J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. O que significa isso?");
+			   $("#thermo_question2_field").value("O modelo escolhido prevê um valor de "+cubic_b+"J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. O que significa isso?");
+		      }
+		      else {
+			   $("#thermo_question2_label").html("O modelo escolhido prevê um valor de 0J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. Essa previsão faz sentido?");
+			   $("#thermo_question2_field").val("O modelo escolhido prevê um valor de 0J necessários para aquecer 0cm<sup>3</sup> de água até aos 26ºC. Essa previsão faz sentido?");
+		      }
+		  }
+		  $("#thermo_question3_label").html("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€ parece-lhe razoável?");
+		  $("#thermo_question3_field").val("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€ parece-lhe razoável?");
 	     });
 	     
 	 }

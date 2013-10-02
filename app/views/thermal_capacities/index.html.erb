@@ -364,7 +364,31 @@ function reset() {
 
 
 <section class="questions">
+  <h1>Questões Finais</h1>
 
+  <div class="row"><div class="span3"></div>
+    <div class="span6" id="thermo_questions_div">
+      <%= form_tag(answers_path, remote: true) do %>
+      <%= hidden_field_tag(:model, nil, id:"thermo_model_field") %>
+      <%= hidden_field_tag(:question1, nil, id:"thermo_question1_field") %>
+      <%= label_tag(:answer1, nil, id:"thermo_question1_label") %>
+      <%= text_area_tag(:answer1, nil, id:"thermo_answer1_field") %>
+      <%= hidden_field_tag(:question2, nil, id:"thermo_question2_field") %>
+      <%= label_tag(:answer2, nil, id:"thermo_question2_label") %>
+      <%= text_area_tag(:answer2, nil, id:"thermo_answer2_field") %>
+      <%= hidden_field_tag(:question3, nil, id:"thermo_question3_field") %>
+      <%= label_tag(:answer3, nil, id:"thermo_question3_label") %>
+      <%= text_area_tag(:answer3, nil, id:"thermo_answer3_field") %>
+      
+      <br />
+      <%= submit_tag(:save, value:"Guardar Respostas", confirm:"Deseja introduzir estas respostas?", class:"btn btn-success", style:"float: right") %>
+      <% end %>
+    </div>
+    <div class="span3"></div>
+  </div>
 
+  <div class="btn-group thermo_navigator">
+    <a type="button" class="thermo_button btn btn-primary" id="thermo_questions_previous">Anterior</a>
+  </div>
 </section>
 
