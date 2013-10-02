@@ -212,7 +212,7 @@ margin: 100px auto 50px auto;
     }   
 }
 
-#thermo_graph_div {
+#thermo_graph_super_div {
 background: #FFF;
 width: 600px;
 height: 500px;
@@ -220,4 +220,7 @@ border-radius: 10px;
 border: 2px solid black;
 box-shadow: 0 0 8px black;
 padding: 10px;
+	  div {
+	  padding: 5px;
+}
 }

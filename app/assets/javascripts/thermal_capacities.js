@@ -1,7 +1,8 @@
 $(function(){
 
-    $(document).tooltip({ show: { delay: 0 } });
+    $("body").tooltip({ show: { delay: 0 } });
     
+    var bath_volume = 300000;
     var user_data;
     var plot_data;
     var linear_m = 10;
@@ -138,9 +139,10 @@ $(function(){
 	 $("#thermo_chosen_model").html("E = 10 V");
 
 	
-	 prediction = linear_b + 90000000*linear_m;
-	 loadsPlot(plot_linear, prediction);
+	 prediction = linear_b + bath_volume*linear_m;
 	 
+	 loadsPlot(plot_linear);
+	 $("#thermo_confirm_model_button_div").show();
     });
 
     $("#thermo_quadratic_button").on("click", function() {
@@ -153,10 +155,10 @@ $(function(){
 
 	 var quadratic_data = getQuadraticData();
 	 
-	 prediction = quadratic_b + quadratic_k*Math.pow(90000000-quadratic_h,2);
+	 prediction = quadratic_b + quadratic_k*Math.pow(bath_volume-quadratic_h,2);
 
 	 loadsPlot(plot_polynomial, quadratic_data);
-	 
+	 $("#thermo_confirm_model_button_div").show();
     });
 
 
@@ -171,10 +173,10 @@ $(function(){
 
 	 var cubic_data = getCubicData();
 
-	 prediction = cubic_b + cubic_k*Math.pow(90000000-cubic_h,3);
+	 prediction = cubic_b + cubic_k*Math.pow(bath_volume-cubic_h,3);
 
 	 loadsPlot(plot_polynomial, cubic_data);
-
+	 $("#thermo_confirm_model_button_div").show();
 	 
     });
 
@@ -189,56 +191,56 @@ $(function(){
 
     $("#thermo_linear_m_slider").on("slide", function(evt, ui) {
 	 linear_m = ui.value;
-	 prediction = linear_b + 90000000*linear_m;
+	 prediction = linear_b + bath_volume*linear_m;
 	 
-	 plot_linear(prediction);
+	 plot_linear();
 		  
 	 write_linear_formula();
 
-	 $("#thermo_confirm_model_button_div").show();
+	 
 	 
     });
 
     $("#thermo_linear_b_slider").on("slide", function(evt, ui) {
 	 linear_b = ui.value;
-	 prediction = linear_b + 90000000*linear_m;
+	 prediction = linear_b + bath_volume*linear_m;
 	 
-	 plot_linear(prediction);
+	 plot_linear();
 	 	  
 	 write_linear_formula();
 	 
-	 $("#thermo_confirm_model_button_div").show();
+	 
     });
 
     $("#thermo_quadratic_h_slider").on("slide", function(evt, ui) {
 	 quadratic_h = ui.value;
 
 	 var quadratic_data = getQuadraticData();
-	 prediction = quadratic_b + quadratic_k*Math.pow(90000000-quadratic_h,2);
+	 prediction = quadratic_b + quadratic_k*Math.pow(bath_volume-quadratic_h,2);
 
 	 plot_polynomial(quadratic_data);
 		  
 	 write_quadratic_formula(); 
-	 $("#thermo_confirm_model_button_div").show();
+	 
     });
 
     $("#thermo_quadratic_k_slider").on("slide", function(evt, ui) {
 	 quadratic_k = ui.value;
 
 	 var quadratic_data = getQuadraticData();
-	 prediction = quadratic_b + quadratic_k*Math.pow(90000000-quadratic_h,2);
+	 prediction = quadratic_b + quadratic_k*Math.pow(bath_volume-quadratic_h,2);
 
 	 plot_polynomial(quadratic_data);
 		  
 	 write_quadratic_formula(); 
-	 $("#thermo_confirm_model_button_div").show();
+	 
     });
 
     $("#thermo_quadratic_b_slider").on("slide", function(evt, ui) {
 	 quadratic_b = ui.value;
 
 	 var quadratic_data = getQuadraticData();
-	 prediction = quadratic_b + quadratic_k*Math.pow(90000000-quadratic_h,2);
+	 prediction = quadratic_b + quadratic_k*Math.pow(bath_volume-quadratic_h,2);
 
 	 plot_polynomial(quadratic_data);
 		  
@@ -251,19 +253,19 @@ $(function(){
 	 cubic_h = ui.value;
 
 	 var cubic_data = getCubicData();
-	 prediction = cubic_b + cubic_k*Math.pow(90000000-cubic_h,3);
+	 prediction = cubic_b + cubic_k*Math.pow(bath_volume-cubic_h,3);
 
 	 plot_polynomial(cubic_data);
 		  
 	 write_cubic_formula(); 	
-	 $("#thermo_confirm_model_button_div").show();
+	 
     });
 
     $("#thermo_cubic_k_slider").on("slide", function(evt, ui) {
 	 cubic_k = ui.value;
 
 	 var cubic_data = getCubicData();
-        prediction = cubic_b + cubic_k*Math.pow(90000000-cubic_h,3);
+        prediction = cubic_b + cubic_k*Math.pow(bath_volume-cubic_h,3);
 
 	 plot_polynomial(cubic_data);
 		  
@@ -275,18 +277,18 @@ $(function(){
 	 cubic_b = ui.value;
 
 	 var cubic_data = getCubicData();
-	 prediction = cubic_b + cubic_k*Math.pow(90000000-cubic_h,3);
+	 prediction = cubic_b + cubic_k*Math.pow(bath_volume-cubic_h,3);
 
 	 plot_polynomial(cubic_data);
 		  
 	 write_cubic_formula(); 	 
-	 $("#thermo_confirm_model_button_div").show();
+	 
     });
 
 
 
 
-    var plot_linear = function(y, xmax, ymax) {
+    var plot_linear = function(xmax, ymax) {
 	 var xmax = (typeof xmax) == "undefined" ? 800 : xmax;
 	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
 	 
@@ -304,11 +306,11 @@ $(function(){
      
 		  },
 	         {
-                    data: [[-90000000,linear_b-(y-linear_b)],[90000000,y], [180000000,y+linear_m*90000000]],
+                    data: [[-bath_volume,linear_b-(prediction-linear_b)],[bath_volume, prediction], [bath_volume*2,prediction+linear_m*bath_volume]],
 		          
 		  },
 		  {
-		      data: [[90000000,y]],
+		      data: [[bath_volume,prediction]],
 		      points: { show: true },
 		      
      
@@ -317,12 +319,13 @@ $(function(){
 		 {
 		     xaxis: { min:0, max: xmax,
 			     tickFormatter: function (v) {
-				  return scientific(v);
+				  return scientific(v,1);
 			     }},
 		     yaxis: { min:0, max: ymax, 
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
 			     }},
+		     legend: { position: "se"},
 		     
 		 });
 	 $(".flot-x-axis").css({left: "50px"});
@@ -349,19 +352,20 @@ $(function(){
 		  },
 		  
 		  {
-		      data: [[90000000,prediction]],
+		      data: [[bath_volume,prediction]],
 		      points: { show: true },
 		  }
 					], 
 		 {
 		     xaxis: { min:0, max: xmax,
 			     tickFormatter: function (v) {
-				  return scientific(v);
+				  return scientific(v,1);
 			     }},
 		     yaxis: { min:0, max: ymax, 
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
-			     }}
+			     }},
+		     legend: { position: "se"},
 		 });
 	 $(".flot-x-axis").css({left: "50px"});
     }
@@ -388,12 +392,13 @@ $(function(){
 		 {
 		     xaxis: { min:0, max: xmax,
 			     tickFormatter: function (v) {
-				  return scientific(v);
+				  return scientific(v,1);
 			     }},
 		     yaxis: { min:0, max: ymax, 
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
-			     }}
+			     }},
+		     legend: { position: "se"},
 		 });
 	 $(".flot-x-axis").css({left: "50px"});
     }
@@ -451,17 +456,26 @@ $(function(){
 		  success: function(json) {      
 		      user_data = json.user_data;
 		      plot_data = json.plot_data;
-		      var xmax = (typeof xmax) == "undefined" ? 800 : xmax;
-		      var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
-	 
-		      f(arg, xmax, ymax);
-
+		      
+		      var xmax = (typeof xmax) === "undefined" ? 800 : xmax;
+		      var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
+		      
+		      if (model === 1)
+			   f(xmax, ymax);
+		      else 
+			   f(arg,xmax, ymax);
 		  }
 	     });
 	     data_loaded = true;
 	 }
 	 else {
-	     f(arg, xmax, ymax);
+	     var xmax = (typeof xmax) === "undefined" ? 800 : xmax;
+	     var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
+	     
+	     if (model === 1)
+		  f(xmax, ymax);
+	     else 
+		  f(arg,xmax, ymax);
 	 }
     }
 
@@ -605,7 +619,8 @@ $(function(){
 	 if (model === 1) {
 	     x_maximum *= 1.2;
 	     y_maximum *= 1.2;
-	     plot_linear(prediction, x_maximum, y_maximum);
+	     
+	     plot_linear(x_maximum, y_maximum);
 	 }
 	 else if (model === 2) {
 	     x_maximum *= 1.1;
@@ -619,17 +634,22 @@ $(function(){
 	     var cubic_data = getCubicData();
 	     plot_polynomial(cubic_data, x_maximum, y_maximum);
 	 }
-	 if (x_maximum > 100000000) {
+	 if (x_maximum > bath_volume/9*10) {
 	     clearInterval(intervalId);
 	     x_maximum = 800;
 	     y_maximum = setYMax();
 
-	     $(".thermo_model_buttons").append("<div id='thermo_second_model_controls'><p>O modelo escolhido prevê um gasto de energia de "+scientific(prediction,1)+"J para aquecer 9x10<sup>7</sup>cm<sup>3</sup> de água.</p><p> Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente. </p><p>Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "+(prediction/3600000*0.1).toFixed(0)+"€.</p><p><a href='#' id='thermo_another_model_link'>Experimentar outro modelo</a> ou <a href='#' id='thermo_keep_model_link'>Continuar com este modelo</a></p></div>");
+	     $(".thermo_model_buttons").append("<div id='thermo_second_model_controls'><p>O modelo escolhido prevê um gasto de energia de "+scientific(prediction,1)+"J para aquecer "+scientific(bath_volume,1)+"cm<sup>3</sup> de água.</p><p> Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente. </p><p>Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "+(prediction/3600000*0.1).toFixed(2)+"€.</p><p><a href='#' id='thermo_another_model_link'>Experimentar outro modelo</a> ou <a href='#' id='thermo_keep_model_link'>Continuar com este modelo</a></p></div>");
 	     $("#thermo_first_model_controls").hide();
+
 	     $("#thermo_another_model_link").on("click", function() {
 		  $("#thermo_second_model_controls").remove();
+		  $(".thermo_function_controls").hide();
+		  $("#thermo_chosen_model_div").hide();
+		  $("#thermo_confirm_model_button_div").hide();
 		  $("#thermo_first_model_controls").show();
-		  plot_normal();
+		  model = 1;
+		  loadsPlot(plot_normal);
 	     });
 	     
 	 }
@@ -640,10 +660,10 @@ $(function(){
     var scientific = function(v,d) {
 	 var d = typeof d == "undefined" ? 0 : d;
 
-	 if (v === 0)
-	     return "0";
+	 if (v < 10000)
+	     return v;
 	 var e = 0, tmp = v;
-	 while (tmp > 10) {
+	 while (tmp >= 10) {
 	     tmp /= 10;
 	     e += 1;
 	 }
