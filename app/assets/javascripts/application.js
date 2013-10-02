@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require jquery.ui.slider
 //= require jquery.ui.progressbar
+//= require jquery.ui.tooltip
 //= require twitter/bootstrap
 //= require_tree .

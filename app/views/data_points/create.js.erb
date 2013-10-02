@@ -28,7 +28,17 @@ $("#thermo_data-gathering_next").hide();
 }
 
 var options = {
-     xaxis: { min:0, max: 800},
+     xaxis: { min:0, max: 800,
+			     tickFormatter: function (v) {
+				  if (v === 0)
+				      return "0";
+				  var e = 0, tmp = v;
+				  while (tmp > 10) {
+				      tmp /= 10;
+				      e += 1;
+				  }
+				  return (v/Math.pow(10,e)).toFixed(0)+" x 10<sup>"+e+"</sup>";
+			     }},
      yaxis: { min:0, tickFormatter: function (v) {
 				  if (v === 0)
 				      return "0";

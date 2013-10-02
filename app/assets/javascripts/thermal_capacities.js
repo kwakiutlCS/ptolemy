@@ -1,4 +1,7 @@
-$(document).ready(function(){
+$(function(){
+
+    $(document).tooltip({ show: { delay: 0 } });
+    
     var user_data;
     var plot_data;
     var linear_m = 10;
@@ -177,10 +180,12 @@ $(document).ready(function(){
 
 
     $("#thermo_confirm_model_button").on("click", function() {
+	 y_maximum = setYMax();
 	 intervalId = setInterval(animatePlot,30);
 	 
     });
 
+    
 
     $("#thermo_linear_m_slider").on("slide", function(evt, ui) {
 	 linear_m = ui.value;
@@ -310,17 +315,13 @@ $(document).ready(function(){
 		  },
 					], 
 		 {
-		     xaxis: { min:0, max: xmax},
+		     xaxis: { min:0, max: xmax,
+			     tickFormatter: function (v) {
+				  return scientific(v);
+			     }},
 		     yaxis: { min:0, max: ymax, 
 			     tickFormatter: function (v) {
-				  if (v === 0)
-				      return "0";
-				  var e = 0, tmp = v;
-				  while (tmp >= 10) {
-				      tmp /= 10;
-				      e += 1;
-				  }
-				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
+				  return scientific(v,1);
 			     }},
 		     
 		 });
@@ -353,17 +354,45 @@ $(document).ready(function(){
 		  }
 					], 
 		 {
-		     xaxis: { min:0, max: xmax},
+		     xaxis: { min:0, max: xmax,
+			     tickFormatter: function (v) {
+				  return scientific(v);
+			     }},
 		     yaxis: { min:0, max: ymax, 
 			     tickFormatter: function (v) {
-				  if (v === 0)
-				      return "0";
-				  var e = 0, tmp = v;
-				  while (tmp > 10) {
-				      tmp /= 10;
-				      e += 1;
-				  }
-				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
+				  return scientific(v,1);
+			     }}
+		 });
+	 $(".flot-x-axis").css({left: "50px"});
+    }
+
+
+    var plot_normal = function(xmax, ymax) {
+	 var xmax = (typeof xmax) == "undefined" ? 800 : xmax;
+	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
+	 
+	 $.plot($("#thermo_graph"), [{
+		      data: plot_data,
+		      points: { show: true },
+		      label: "dados dos seus colegas"
+     
+		  },
+		  {
+		      data: user_data,
+		      points: { show: true },
+		      label: "os seus dados"
+     
+		  },
+	         
+					], 
+		 {
+		     xaxis: { min:0, max: xmax,
+			     tickFormatter: function (v) {
+				  return scientific(v);
+			     }},
+		     yaxis: { min:0, max: ymax, 
+			     tickFormatter: function (v) {
+				  return scientific(v,1);
 			     }}
 		 });
 	 $(".flot-x-axis").css({left: "50px"});
@@ -573,7 +602,6 @@ $(document).ready(function(){
 
     var animatePlot = function() {
 	 
-	 
 	 if (model === 1) {
 	     x_maximum *= 1.2;
 	     y_maximum *= 1.2;
@@ -591,14 +619,35 @@ $(document).ready(function(){
 	     var cubic_data = getCubicData();
 	     plot_polynomial(cubic_data, x_maximum, y_maximum);
 	 }
-	 if (y_maximum > 1.2*prediction) {
+	 if (x_maximum > 100000000) {
 	     clearInterval(intervalId);
 	     x_maximum = 800;
 	     y_maximum = setYMax();
+
+	     $(".thermo_model_buttons").append("<div id='thermo_second_model_controls'><p>O modelo escolhido prevê um gasto de energia de "+scientific(prediction,1)+"J para aquecer 9x10<sup>7</sup>cm<sup>3</sup> de água.</p><p> Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente. </p><p>Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "+(prediction/3600000*0.1).toFixed(0)+"€.</p><p><a href='#' id='thermo_another_model_link'>Experimentar outro modelo</a> ou <a href='#' id='thermo_keep_model_link'>Continuar com este modelo</a></p></div>");
+	     $("#thermo_first_model_controls").hide();
+	     $("#thermo_another_model_link").on("click", function() {
+		  $("#thermo_second_model_controls").remove();
+		  $("#thermo_first_model_controls").show();
+		  plot_normal();
+	     });
+	     
 	 }
     }
 
     
     
+    var scientific = function(v,d) {
+	 var d = typeof d == "undefined" ? 0 : d;
+
+	 if (v === 0)
+	     return "0";
+	 var e = 0, tmp = v;
+	 while (tmp > 10) {
+	     tmp /= 10;
+	     e += 1;
+	 }
+	 return (v/Math.pow(10,e)).toFixed(d)+" x 10<sup>"+e+"</sup>";
+    }
 
 });

@@ -197,7 +197,7 @@ function reset() {
          <%= hidden_field_tag(:energy, nil,  id:"thermo_energy_field") %>
          <table class="table">
 	    <thead>
-	      <tr><th>Volume(cm<sup>3</sup>)</th><th>Tempo(s)</th><th>Energy(kJ)</th><th></th></tr>
+	      <tr><th>Volume(cm<sup>3</sup>)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energy(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
 		   <%= number_field_tag(:volume, nil,  class:"thermo_input", id:"thermo_volume_field") %>
@@ -205,7 +205,7 @@ function reset() {
 		 <th>
 		   <%= number_field_tag(:time, nil, class:"thermo_input", step:"any", id:"thermo_time_field") %>
 		 </th>
-		 <th id="thermo_energy_calculator">
+		 <th id="thermo_energy_calculator" title="E = P x &#916t">
 		   0.0
 		 </th>
 		 <th>
@@ -270,6 +270,7 @@ function reset() {
   <h1>Escolher o Modelo</h1>
   <div>
   <div class=" thermo_model_buttons">
+    <div id="thermo_first_model_controls">
   <div class="btn-group">
     <a type="button" class="thermo_button btn" id="thermo_linear_button">Linear<br/> y = m x + b</a>
     <a type="button" class="thermo_button btn" id="thermo_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
@@ -306,10 +307,9 @@ function reset() {
     <div id="thermo_confirm_model_button_div">
       <a type="button" class="thermo_button btn btn-primary" id="thermo_confirm_model_button">Usar este modelo</a>
     </div>
-  
+    </div>
   </div>
   </div>
-
   <div id="thermo_graph_div">
     <div id="thermo_y_label">E (J)</div>
     
@@ -332,7 +332,17 @@ function reset() {
     }
     ],
     {
-		     xaxis: { min:0, max: 800},
+		     xaxis: { min:0, max: 800,
+			     tickFormatter: function (v) {
+				  if (v === 0)
+				      return "0";
+				  var e = 0, tmp = v;
+				  while (tmp > 10) {
+				      tmp /= 10;
+				      e += 1;
+				  }
+				  return (v/Math.pow(10,e)).toFixed(0)+" x 10<sup>"+e+"</sup>";
+			     }},
 		     yaxis: { tickFormatter: function (v) {
 				  if (v === 0)
 				      return "0";
