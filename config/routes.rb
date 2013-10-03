@@ -1,4 +1,6 @@
 Plotomeu::Application.routes.draw do
+  devise_for :users
+
   resources :thermal_capacities 
   resources :static_pages do
     collection do
@@ -12,7 +14,7 @@ Plotomeu::Application.routes.draw do
   end
 
   resources :answers
-  
+  resources :templates
 
   root to: "static_pages#index"
 

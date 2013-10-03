@@ -1,0 +1,10 @@
+require 'spec_helper'
+include Devise::TestHelpers
+
+
+describe TemplatesController do
+  it "redirects unsigned users" do
+    get :index
+    request.should redirect_to(root_path)
+  end
+end

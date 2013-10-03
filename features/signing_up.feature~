@@ -1,0 +1,10 @@
+Feature: Sign up
+
+
+	  Scenario:
+	  Given I am on the signup page
+	  When I fill in "name" with "palerma"
+	  And I fill in "password" with "password"
+	  And I fill in "password confirmation" with "password"
+	  And I press "Sign up"
+	  Then I should see "Palerma"

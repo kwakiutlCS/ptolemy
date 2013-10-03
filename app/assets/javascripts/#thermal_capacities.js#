@@ -744,7 +744,7 @@ $(function(){
 	     var cubic_data = getCubicData();
 	     plot_polynomial(cubic_data, x_maximum, y_maximum);
 	 }
-	 if (x_maximum > bath_volume/9*10 && y_maximum > prediction/9*10) {
+	 if (x_maximum > bath_volume/9*10) {
 	     clearInterval(intervalId);
 	     x_maximum = 800;
 	     y_maximum = setYMax();
@@ -785,8 +785,8 @@ $(function(){
 		      $("#thermo_question1_field").val("Escolheu o modelo <b>cúbico</b>. Por que razão essa é uma boa escolha?");
 		      
 		  }
-		  $("#thermo_question2_label").html("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
-		  $("#thermo_question2_field").val("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
+		  $("#thermo_question2_label").html("A previsão de "+scientific(prediction,1)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
+		  $("#thermo_question2_field").val("A previsão de "+scientific(prediction,1)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
 
 		  $("#thermo_question3_label").html("Há algum factor que não foi considerado que afete esta previsão? Qual? Esse fator implicará um acréscimo ou decréscimo de energia gasta para aquecer a água?");
 		  $("#thermo_question3_field").val("Há algum factor que não foi considerado que afete esta previsão? Qual? Esse fator implicará um acréscimo ou decréscimo de energia gasta para aquecer a água?");
