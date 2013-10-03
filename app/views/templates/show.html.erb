@@ -8,6 +8,9 @@
 <h3>Criar nova actividade</h3>
 
 <%= form_for(@activity) do |f| %>
+
+<%= f.hidden_field :template_id, value:"#{@template.id}" %>
+
 <%= f.label :code, "Código", title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
 <%= f.text_field :code, title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
 
