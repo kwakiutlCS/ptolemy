@@ -1,0 +1,5 @@
+Given(/^the following templates exist:$/) do |table|
+  table.hashes.each do |a|
+    Template.create(a)
+  end
+end

@@ -1,0 +1,22 @@
+<h1><%= @template.title %></h1>
+
+<p><%= @template.description %></p>
+
+
+<section>
+
+<h2>Criar nova actividade</h2>
+
+<%= form_for(@activity) do |f| %>
+<%= f.label :code, "Código", title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
+<%= f.text_field :code, title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
+
+<%= f.label :deadline, "Limite", title:"Opcional - Data limite para realização da atividade" %>
+<%= f.text_field :deadline,  title:"Opcional - Data limite para realização da atividade" %>
+
+<%= f.label :published, "Publicar" %>
+
+
+<%= f.submit "Criar" %>
+
+</section>

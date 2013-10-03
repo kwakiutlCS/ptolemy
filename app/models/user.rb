@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
 
   before_validation :populate_fields
 
+  has_many :activities
+
   @@counter = 1
 
   def populate_fields

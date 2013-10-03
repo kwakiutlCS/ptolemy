@@ -17,7 +17,6 @@ describe User do
 
     it "is unique" do
       t = User.new(name: teacher.name, password:"kskadfj")
-      p t.valid?
       t.should_not be_valid
     end
   end

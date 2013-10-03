@@ -1,0 +1,7 @@
+<% @templates.each do |t| %>
+<p>
+<%= link_to t.title, t %>
+<%= raw(t.description) %>
+</p>
+
+<% end %>
