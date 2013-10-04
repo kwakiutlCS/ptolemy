@@ -15,7 +15,12 @@ end
 
 
 Given(/^I am signed in as "(.*?)"$/) do |arg1|
-  
+  steps %Q{
+      Given I am on the signin page
+      When I fill in "Name" with "#{arg1}"
+      And I fill in "Password" with "password"
+      And I press "Sign in"
+  }
 end
 
 Given(/^I am on the templates page$/) do 

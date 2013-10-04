@@ -7,4 +7,6 @@ class Activity < ActiveRecord::Base
 
   belongs_to :template
   has_many :data_points, dependent: :destroy
+  has_many :answers, dependent: :destroy
+
 end

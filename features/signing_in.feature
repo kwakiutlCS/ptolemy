@@ -10,3 +10,4 @@ Feature: Sign in
 	  And I fill in "Password" with "password"
 	  And I press "Sign in"
 	  Then I should see "Palerma"
+	  

@@ -1,0 +1,5 @@
+<% @answers.each do |a| %>
+<p>
+  <%= a.answers %>
+</p>
+<% end %>
