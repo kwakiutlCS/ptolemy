@@ -16,6 +16,7 @@ Feature: create activity
 	  When I follow "thermo"
 	  Then I should see "thermo"
 	  Then I should see "Criar"
+	  Then I should see "Título"
 	  Then I should see "Limite"
 	  And I should see "Código"
 	  And I should see "Publicar"

@@ -11,6 +11,9 @@
 
 <%= f.hidden_field :template_id, value:"#{@template.id}" %>
 
+<%= f.label :title, "Título", title:"Altere o título se desejar" %>
+<%= f.text_field :title, title:"Altere o título se desejar" %>
+
 <%= f.label :code, "Código", title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
 <%= f.text_field :code, title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
 

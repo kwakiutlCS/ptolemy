@@ -16,10 +16,19 @@ class ActivitiesController < ApplicationController
     @activity = current_user.activities.where(id: params[:id]).first
     
     if @activity
-      @answers = @activity.answers
-      @questions = @activity.questions
+      answers = @activity.answers.includes(:student).order("students.name")
       
+      @students = []
 
+      answers.each do |a|
+        tmp = {}
+        tmp[:name] = a.student.name
+        tmp[:answers] = a.questions.zip(a.answers)
+        tmp[:count] = @activity.data_points.joins(:student).where("students.name = ?", a.student.name).count
+    
+        @students << tmp
+      end
+      p @students
     else
       flash[:alert] = "Não pode aceder a essa atividade" 
       redirect_to root_path

@@ -1,6 +1,16 @@
-<% @activities.each do |a| %>
-<p>
-<%= a.code %>
-</p>
 
-<% end %>
+
+<div class="row">
+  <div id="ptolemy_teacher_board" class="span8">
+    <% @activities.each do |a| %>
+    <div class="ptolemy_teacher_board_cell">
+      <div>
+	 <b><%= link_to a.title, a %></b><% if a.description %> - <%= a.description %> <% end %>
+      </div>
+      <div>
+	 código: <%= a.code %><% if a.deadline %> - limite: <%= a.deadline.strftime("%d-%m-%Y") %> <% end %> - respostas: <%= a.answers.count %>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

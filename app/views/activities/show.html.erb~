@@ -1,5 +1,14 @@
-<% @answers.each do |a| %>
-<p>
-  <%= a.answers %>
-</p>
+<h2><% @activity.title %></h2>
+
+<% @students.each do |s| %>
+<div><%= s[:name] %> - modelo: <%= s[:answers][0] %></div>
+<div>
+  <% s[:answers].each_with_index do |a,i| %>
+  <% if i != 0 %>
+  <p> <%= a[0] %></p>
+  <p> <%= a[1] %></p>
+  <br />
+  <% end %>
+  <% end %>
+</div>
 <% end %>

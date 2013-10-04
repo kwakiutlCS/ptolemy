@@ -7,15 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  
+
   <div class="container">
 
-    <% if signed_in? %>
-    <header>
-      <nav class="navbar navbar-default" role="navigation">
-	 <%= link_to current_user.name.capitalize, destroy_user_session_path, method: :delete, type:"button", class:"btn btn-default navbar-btn" %>
-      </nav>
-    </header>
-    <% end %>
+    
 
 <% if flash[:alert] %>
 <div class='alert alert-danger' id='alert'>

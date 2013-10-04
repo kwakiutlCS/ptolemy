@@ -12,7 +12,8 @@ class Answer < ActiveRecord::Base
   serialize :answers
   serialize :questions
 
-
+  belongs_to :student
+  
   def answers_length
     if answers && questions 
       if answers.length != questions.length

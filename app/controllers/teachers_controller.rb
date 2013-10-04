@@ -3,7 +3,7 @@ class TeachersController < ApplicationController
 
   def show
     if current_user.id == params[:id].to_i
-      @activities = current_user.activities
+      @activities = current_user.activities.includes(:answers)
     else
       redirect_to root_path
     end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Answer do
-  let(:activity) {Activity.create(code: "rwewre", deadline: Date.today+6.days, template_id: 1, user_id: 1)}
+  let(:activity) {Activity.create(code: "rwewre", deadline: Date.today+6.days, template_id: 1, user_id: 1, title: "alkjg")}
   let(:student) {Student.create(name: "palerma")}
   let(:answer) {Answer.create(activity_id: activity.id, student_id: student.id, questions: ["ola", "laksfjad", "lakgj"], answers: ["kalsgj", "", "laksjg"])}
 
