@@ -1,29 +1,40 @@
-<h1><%= @template.title %></h1>
-
-<p><%= raw(@template.description) %></p>
 
 
-<section>
+<div class="row">
+  <section class="span8" id="ptolemy_template_description">
+    <h1><%= @template.title %></h1>
 
-<h3>Criar nova actividade</h3>
+    <p><%= raw(@template.description) %></p>
+  </section>
+  
+  
+  <section class="span3" id="ptolemy_activity_recicle">
 
-<%= form_for(@activity) do |f| %>
+    <h3>Criar esta atividade</h3>
 
-<%= f.hidden_field :template_id, value:"#{@template.id}" %>
+    <%= form_for(@activity) do |f| %>
+    
+    <%= f.hidden_field :template_id, value:"#{@template.id}" %>
 
-<%= f.label :title, "Título", title:"Altere o título se desejar" %>
-<%= f.text_field :title, title:"Altere o título se desejar" %>
+    <%= f.label :title, "Título", title:"Título que será visível pelos alunos" %>
+    <%= f.text_field :title, title:"Título que será visível pelos alunos" %>
 
-<%= f.label :code, "Código", title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
-<%= f.text_field :code, title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
+    <%= f.label :description, "Descrição", title:"Opcional - Descrição para o professor, não será visível pelos alunos" %>
+    <%= f.text_field :description, title:"Opcional - Descrição para o professor, não será visível pelos alunos" %>
 
-<%= f.label :deadline, "Limite", title:"Opcional - Data limite para realização da atividade" %>
-<%= f.text_field :deadline,  title:"Opcional - Data limite para realização da atividade" %>
+    <%= f.label :code, "Código", title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
+    <%= f.text_field :code, title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
 
-<%= f.label :published, "Publicar" %>
+    <%= f.label :deadline, "Limite", title:"Opcional - Data limite para realização da atividade" %>
+    <%= f.text_field :deadline,  title:"Opcional - Data limite para realização da atividade" %>
+
+    <%= f.label :published, "Publicar" %>
 
 
-<%= f.submit "Criar", class:"btn btn-success" %>
+    <%= f.submit "Criar", class:"btn btn-success", style:"float:right; margin-right: 18%" %>
 
-<% end %>
+    <% end %>
 </section>
+
+
+</div>

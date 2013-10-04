@@ -1,7 +1,15 @@
-<% @templates.each do |t| %>
-<p>
-<%= link_to t.title, t %>
-<%= raw(t.description) %>
-</p>
 
-<% end %>
+<div class="row" >
+  <div class="span8" id="ptolemy_template_index"> 
+    
+    <% @templates.each do |t| %>
+    <div class="ptolemy_template_cell">
+      <p>
+	 <%= link_to t.title, t %>
+	 <%= raw(t.description) %>
+      </p>
+    </div>
+    <% end %>
+
+  </div>
+</div>
