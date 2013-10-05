@@ -10,7 +10,7 @@ class DataPointsController < ApplicationController
       format.html {
         redirect_to session[:url]
       }
-      format.js {render :create, locals: {n: @data.count}}
+      format.js {render "#{session[:url]}/create_data_points", locals: {n: @data.count}}
     end
   end
 

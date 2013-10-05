@@ -17,7 +17,7 @@ class AnswersController < ApplicationController
     a.save
 
     respond_to do |format| 
-      format.js
+      format.js {render "#{session[:url]}/create_answers" }
     end
     
   end
