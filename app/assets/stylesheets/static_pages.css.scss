@@ -51,7 +51,7 @@ border: 1px solid rgba(50, 160, 138, 0.37);
 .ptolemy_student_name {
 display:inline-block;
 font-weight: bold;
-width: 300px;
+width: 240px;
 	margin-left: 20px;
 }
 
@@ -62,7 +62,11 @@ width: 200px;
 
 .ptolemy_student_measurements {
 	display: inline-block;
-width: 200px;	  
+width: 150px;	  
+}
+.ptolemy_student_time {
+	display: inline-block;
+width: 100px;	  
 }
 
 .ptolemy_student_question {

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 class Answer < ActiveRecord::Base
-  attr_accessible :activity_id, :answers, :questions, :student_id
+  attr_accessible :activity_id, :answers, :questions, :student_id, :time_submission
 
   validates :activity_id, presence: true
   validates :student_id, presence: true
