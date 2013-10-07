@@ -52,7 +52,7 @@ var options = {
 				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
 			     }
     },
-    legend: { position: "se"},
+    legend: { position: "se", backgroundOpacity: 0},
 };
 
 $.plot($("#thermo_graph"), [
@@ -73,7 +73,7 @@ $.plot($("#thermo_graph"), [
     options
   );
 
-$(".flot-x-axis").css({left: "40px"});
+$(".float-text").css({left: "-40px"});
 $(".flot-y-axis").css({top: "-10px"});
 
 $("#thermo_volume_field").val("");

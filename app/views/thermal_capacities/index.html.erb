@@ -1,11 +1,11 @@
 <div style="margin-top: -60px" >
 
-<section class="name_getter">
+<section class="name_getter" style="width:500px; margin: 200px auto ;">
   
-  <p>Inserir nome, <%= session[:name] %></p>
+  <p>Comece por introduzir o seu nome</p>
   <%= form_tag("/static_pages/set_name", remote:true, method: "get") do %>
   <%= text_field_tag(:name, nil, id:"student_name_field") %>
-  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success") %>
+  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success", style:"margin-top: -14px;") %>
   <% end %>
 </section>
 
@@ -18,9 +18,9 @@
   <% end %>
 
 <div id="thermo_background_div">
-<h1>O aquecimento da piscina</h1>
 
-<p>Nesta atividade procure investigar os custos de manutenção de uma piscina. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água de uma piscina da temperatura ambiente (cerca de 18ºC neste momento) até 26ºC.</p> <br />
+<h1>O aquecimento de um líquido</h1>
+<p>Nesta atividade procura-se investigar os custos quotidianos de uma habitação. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água para um banho de imersão (cerca de 18ºC neste momento) até 26ºC.</p> <br />
 <p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
 
 </div>
@@ -36,17 +36,17 @@
 <div id="thermo_strategy_div">
   <h2>Estratégia</h2>
   <div>
-  <p>Responder a esta questão poderá ser feito tendo a piscina, e aquecendo a água até aos 26ºC. Assim poderíamos, por exemplo, controlar os gastos energéticos pela fatura da eletricidade. Claro que para isso teríamos de ter a piscina! Seria melhor se pudessemos estimar os gastos de eletricidade sem termos de instalá-la.
+  <p>Para responder a esta questão poderíamos tentar encher uma banheira com água e aquecer a água até aos 26ºC, com algum tipo de resistência ou outro equipamento apropriado. Poderíamos então, verificar a energia gasta. Isso é inviável, no entanto, porque não temos esse equipamento.  
   </p>
   <br />
   <p>
-  Vamos usar um processo em que testamos o problema em pequena escala. Aquecendo pequenas quantidades de água até aos 26ºC podemos verificar qual a quantidade de energia necessária para aquecer pequenas quantidades. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso da piscina. Chama-se a isto construir um modelo.
+  Vamos usar um processo em que testamos o problema em pequena escala. Aquecendo pequenas quantidades de água até aos 26ºC podemos verificar qual a quantidade de energia necessária para aquecer pequenas quantidades. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso do banho de imersão. Chama-se a isto construir um modelo.
   </p>
   </div>
 
   </div>
    
-  <div class="btn-group thermo_navigator" style="margin-top: 80px">
+  <div class="btn-group thermo_navigator" style="margin-top: 10px">
     <a type="button" class="thermo_button btn btn-primary" id="thermo_strategy_previous">Anterior</a>
     <a type="button" class="thermo_button btn btn-primary" id="thermo_strategy_next">Seguinte</a>
   </div>
@@ -225,7 +225,7 @@ function reset() {
     	  
       <% end %>
       <div id="thermo_data_collection_explanation">
-      <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam o volume de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água. </p>
+      <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam a massa de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água. </p>
       <p>O aquecimento da água faz-se com uma resistência de 500W, o que permite saber a energia transferida para a água, se registarmos o intervalo de tempo que a resistência esteve ligada.</p>
       <p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>
       </div>
@@ -277,6 +277,7 @@ function reset() {
     <a type="button" class="thermo_button btn" id="thermo_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
   </div>
     
+  <div id="thermo_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
   <div class="thermo_function_controls" id="thermo_linear_controls">
     
     <div><div class="thermo_function_controls_label">m: <span id="thermo_linear_m">10000</span></div><div class="thermo_slider_controls" id="thermo_linear_m_slider"></div></div>
@@ -305,13 +306,13 @@ function reset() {
       </div>
     </div>
     <div id="thermo_confirm_model_button_div">
-      <a type="button" class="thermo_button btn btn-primary" id="thermo_confirm_model_button">Usar este modelo</a>
+      <a type="button" class="thermo_button btn btn-success" id="thermo_confirm_model_button">Usar este modelo</a>
     </div>
     </div>
   </div>
   </div>
   <div id="thermo_graph_super_div">
-  <div>Energia necessária para aquecer água dos 18ºC até aos 26ºC em função do volume</div>
+  <div>Energia necessária para aquecer água dos 18ºC até aos 26ºC em função da massa</div>
   <div id="thermo_graph_div">
     <div id="thermo_y_label">E (J)</div>
     
@@ -356,7 +357,7 @@ function reset() {
 				  }
 				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
 			     }},
-	            legend: { position: "se"},
+	            legend: { position: "se", backgroundOpacity: 0},
     }
     );
     
@@ -368,8 +369,8 @@ function reset() {
 <section class="questions">
   <h1>Questões Finais</h1>
 
-  <div class="row" id="thermo_question_screen1"><div class="span3"></div>
-    <div class="span6" id="thermo_questions_div">
+  <div class="row" id="thermo_question_screen1"><div class="span2"></div>
+    <div class="span9" id="thermo_questions_div">
       <%= form_tag(answers_path, remote: true) do %>
       <%= hidden_field_tag(:model, nil, id:"thermo_model_field") %>
       <%= hidden_field_tag(:question1, nil, id:"thermo_question1_field") %>
@@ -386,23 +387,23 @@ function reset() {
       <%= text_area_tag(:answer4, nil, id:"thermo_answer4_field") %>
       
       <br />
-      <%= submit_tag(:save, value:"Submeter", confirm:"Deseja introduzir estas respostas?", class:"btn btn-success", style:"float: right") %>
+      <%= submit_tag(:save, value:"Submeter", confirm:"Deseja introduzir estas respostas?", class:"btn btn-success", style:"float: left") %>
       <% end %>
     </div>
     <div class="span3"></div>
   </div>
 
-  <div class="row" id="thermo_question_screen2"><div class="span3"></div>
-    <div class="span6" id="thermo_questions_after_div">
+  <div class="row" id="thermo_question_screen2"><div class="span2"></div>
+    <div class="span9" id="thermo_questions_after_div">
       Atividade terminada
     </div>
-    <div class="span3"></div>
+    
   </div>
 
   
 
   <div class="btn-group thermo_navigator">
-    <a type="button" class="thermo_button btn btn-primary" id="thermo_questions_previous">Anterior</a>
+    <a type="button" class="thermo_button btn btn-primary" id="thermo_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
   </div>
 </section>
 

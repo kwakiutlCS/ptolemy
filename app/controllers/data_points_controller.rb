@@ -31,7 +31,7 @@ class DataPointsController < ApplicationController
     end
 
     respond_to do |format|
-      format.js {render :create}
+      format.js {render "#{session[:url]}/create_data_points"}
     end
   end
 
