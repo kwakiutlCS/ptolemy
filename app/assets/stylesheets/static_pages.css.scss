@@ -7,23 +7,15 @@ body {
 }
 
 #class_code_div {
-width: 400px;	  
-background: #FFF;
-border-radius: 10px;
 padding: 30px;
-border: 2px solid black;
 margin: 100px auto;
 text-align: center;
-box-shadow: 0 0 8px black;
 }
 
 
 #ptolemy_dashboard {
-		     border: 2px solid black;
-		     background: #FFF;
 		     padding: 10px;
-		     border-radius: 10px;
-		     box-shadow: 0 0 8px black;
+		     
 }
 
 
@@ -35,7 +27,6 @@ box-shadow: 0 0 8px black;
 	
 
 padding: 5px;
-border-radius: 5px;
 border: 1px solid rgba(50, 160, 138, 0.37);
 	border-radius: 5px;
 	background: rgba(80, 160, 17, 0.2);     
@@ -87,10 +78,6 @@ padding: 2px 5px;
 
 
 #ptolemy_teacher_board {
-   background: #FFF;
-   border: 2px solid black;
-   box-shadow: 0 0 8px black;
-   border-radius: 10px;
    padding: 10px;
 
    .ptolemy_teacher_board_cell {
@@ -99,11 +86,7 @@ padding: 2px 5px;
 }
 
 #ptolemy_template_index {
-	background: #FFF;
-   border: 2px solid black;
-   box-shadow: 0 0 8px black;
-   border-radius: 10px;
-   padding: 10px;
+	padding: 10px;
 }
 
 .ptolemy_template_cell {
@@ -111,20 +94,12 @@ padding: 2px 5px;
 }
 
 #ptolemy_template_description {
-	background: #FFF;
-   border: 2px solid black;
-   box-shadow: 0 0 8px black;
-   border-radius: 10px;
-   padding: 10px;
+	padding: 10px;
    
 }
 
 
 #ptolemy_activity_recicle {
-	background: #FFF;
-   border: 2px solid black;
-   box-shadow: 0 0 8px black;
-   border-radius: 10px;
-   padding: 10px;
+	padding: 10px;
    
 }

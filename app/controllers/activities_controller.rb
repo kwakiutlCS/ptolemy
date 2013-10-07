@@ -6,7 +6,7 @@ class ActivitiesController < ApplicationController
     a = current_user.activities.build(params[:activity])
     a.save
 
-    redirect_to current_user
+    redirect_to templates_path
     
   end
 

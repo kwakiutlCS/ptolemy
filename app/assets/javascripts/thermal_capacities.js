@@ -86,7 +86,7 @@ $(function(){
 	 $(".model-choice").slideDown();
     });
 
-    $(".thermo_slider_controls").slider({ min: -10000, max: 10000});
+    $(".thermo_slider_controls").slider({ min: -10000, max: 10000, step: 500});
     $("#thermo_linear_m_slider").slider({value: 10000, min: 0, max: 100000, step: 500});
     $("#thermo_quadratic_k_slider").slider({value: 15000, min: 0, max: 200000, step: 1000});
     $("#thermo_quadratic_h_slider").slider({value: 0, min: 0, max: 0.8, step: 0.01});
@@ -143,11 +143,11 @@ $(function(){
 	 
 	 if (linear_m) {
 	     if (linear_b > 0)
-		  $("#thermo_chosen_model").html("E = "+linear_m+" V + "+linear_b);
+		  $("#thermo_chosen_model").html("E = "+linear_m+" m + "+linear_b);
 	     else if (linear_b < 0)
-		  $("#thermo_chosen_model").html("E = "+linear_m+" V - "+(-1*linear_b));
+		  $("#thermo_chosen_model").html("E = "+linear_m+" m - "+(-1*linear_b));
 	     else
-		  $("#thermo_chosen_model").html("E = "+linear_m+" V");
+		  $("#thermo_chosen_model").html("E = "+linear_m+" m");
 	 }
 	 else 
 	     $("#thermo_chosen_model").html("E = "+linear_b);
@@ -170,14 +170,14 @@ $(function(){
 	 if (quadratic_b > 0) {
 	     if (quadratic_h) {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (V-"+quadratic_h+")<sup>3</sup> + "+quadratic_b);
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (m-"+quadratic_h+")<sup>3</sup> + "+quadratic_b);
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = "+quadratic_b);
 	     }
 	     else {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" V<sup>3</sup> + "+quadratic_b);
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" m<sup>3</sup> + "+quadratic_b);
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = "+quadratic_b);
@@ -186,14 +186,14 @@ $(function(){
 	 else if (quadratic_b < 0) {
 	     if (quadratic_h) {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (V-"+quadratic_h+")<sup>3</sup> - "+quadratic_b*-1);
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (m-"+quadratic_h+")<sup>3</sup> - "+quadratic_b*-1);
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = "+quadratic_b);
 	     }
 	     else {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" V<sup>3</sup> - "+quadratic_b*-1);
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" m<sup>3</sup> - "+quadratic_b*-1);
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = "+quadratic_b);
@@ -202,14 +202,14 @@ $(function(){
 	 else {
 	     if (quadratic_h) {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (V-"+quadratic_h+")<sup>3</sup>");
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (m-"+quadratic_h+")<sup>3</sup>");
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = 0");
 	     }
 	     else {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" V<sup>3</sup>");
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" m<sup>3</sup>");
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = 0");
@@ -237,14 +237,14 @@ $(function(){
 	 if (cubic_b > 0) {
 	     if (cubic_h) {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" (V-"+cubic_h+")<sup>3</sup> + "+cubic_b);
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" (m-"+cubic_h+")<sup>3</sup> + "+cubic_b);
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = "+cubic_b);
 	     }
 	     else {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" V<sup>3</sup> + "+cubic_b);
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" m<sup>3</sup> + "+cubic_b);
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = "+cubic_b);
@@ -253,14 +253,14 @@ $(function(){
 	 else if (cubic_b < 0) {
 	     if (cubic_h) {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" (V-"+cubic_h+")<sup>3</sup> - "+cubic_b*-1);
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" (m-"+cubic_h+")<sup>3</sup> - "+cubic_b*-1);
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = "+cubic_b);
 	     }
 	     else {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" V<sup>3</sup> - "+cubic_b*-1);
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" m<sup>3</sup> - "+cubic_b*-1);
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = "+cubic_b);
@@ -269,14 +269,14 @@ $(function(){
 	 else {
 	     if (cubic_h) {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" (V-"+cubic_h+")<sup>3</sup>");
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" (m-"+cubic_h+")<sup>3</sup>");
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = 0");
 	     }
 	     else {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" V<sup>3</sup>");
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" m<sup>3</sup>");
 		  }
 		  else 
 		      $("#thermo_chosen_model").html("E = 0");
@@ -594,19 +594,19 @@ $(function(){
     var write_linear_formula = function() {
 	 if (linear_b > 0) {
 	     if (linear_m)
-		  $("#thermo_chosen_model").html("E = "+linear_m+" V + "+linear_b);
+		  $("#thermo_chosen_model").html("E = "+linear_m+" m + "+linear_b);
 	     else
 		  $("#thermo_chosen_model").html("E = "+linear_b);
 	 }
 	 else if (linear_b < 0) {
 	     if (linear_m)
-		  $("#thermo_chosen_model").html("E = "+linear_m+" V - "+linear_b*-1);
+		  $("#thermo_chosen_model").html("E = "+linear_m+" m - "+linear_b*-1);
 	     else
 		  $("#thermo_chosen_model").html("E = "+linear_b);
 	 }
 	 else {
 	     if (linear_m)
-		  $("#thermo_chosen_model").html("E = "+linear_m+" V");
+		  $("#thermo_chosen_model").html("E = "+linear_m+" m");
 	     else
 		  $("#thermo_chosen_model").html("E = 0");
 	 }
@@ -616,7 +616,7 @@ $(function(){
 	 if (quadratic_b > 0) {
 	     if (quadratic_h) {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (V-"+quadratic_h+")<sup>2</sup> + "+quadratic_b);
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (m-"+quadratic_h+")<sup>2</sup> + "+quadratic_b);
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = "+quadratic_b);
@@ -624,7 +624,7 @@ $(function(){
 	     }
 	     else {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" V<sup>2</sup> +"+quadratic_b);
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" m<sup>2</sup> +"+quadratic_b);
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = "+quadratic_b);
@@ -634,7 +634,7 @@ $(function(){
 	 else if (quadratic_b < 0) {
 	     if (quadratic_h) {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (V-"+quadratic_h+")<sup>2</sup> - "+-1*quadratic_b);
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (m-"+quadratic_h+")<sup>2</sup> - "+-1*quadratic_b);
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = "+quadratic_b);
@@ -642,7 +642,7 @@ $(function(){
 	     }
 	     else {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" V<sup>2</sup> - "+-1*quadratic_b);
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" m<sup>2</sup> - "+-1*quadratic_b);
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = "+quadratic_b);
@@ -652,7 +652,7 @@ $(function(){
 	 else {
 	     if (quadratic_h) {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (V-"+quadratic_h+")<sup>2</sup>");
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" (m-"+quadratic_h+")<sup>2</sup>");
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = 0");
@@ -660,7 +660,7 @@ $(function(){
 	     }
 	     else {
 		  if (quadratic_k) {
-		      $("#thermo_chosen_model").html("E = "+quadratic_k+" V<sup>2</sup>");
+		      $("#thermo_chosen_model").html("E = "+quadratic_k+" m<sup>2</sup>");
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = 0");
@@ -673,7 +673,7 @@ $(function(){
 	 if (cubic_b > 0) {
 	     if (cubic_h) {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" (V-"+cubic_h+")<sup>3</sup> + "+cubic_b);
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" (m-"+cubic_h+")<sup>3</sup> + "+cubic_b);
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = "+cubic_b);
@@ -681,7 +681,7 @@ $(function(){
 	     }
 	     else {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" V<sup>3</sup> +"+cubic_b);
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" m<sup>3</sup> +"+cubic_b);
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = "+cubic_b);
@@ -691,7 +691,7 @@ $(function(){
 	 else if (cubic_b < 0) {
 	     if (cubic_h) {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" (V-"+cubic_h+")<sup>3</sup> - "+-1*cubic_b);
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" (m-"+cubic_h+")<sup>3</sup> - "+-1*cubic_b);
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = "+cubic_b);
@@ -699,7 +699,7 @@ $(function(){
 	     }
 	     else {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" V<sup>3</sup> - "+-1*cubic_b);
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" m<sup>3</sup> - "+-1*cubic_b);
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = "+cubic_b);
@@ -709,7 +709,7 @@ $(function(){
 	 else {
 	     if (cubic_h) {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" (V-"+cubic_h+")<sup>3</sup>");
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" (m-"+cubic_h+")<sup>3</sup>");
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = 0");
@@ -717,7 +717,7 @@ $(function(){
 	     }
 	     else {
 		  if (cubic_k) {
-		      $("#thermo_chosen_model").html("E = "+cubic_k+" V<sup>3</sup>");
+		      $("#thermo_chosen_model").html("E = "+cubic_k+" m<sup>3</sup>");
 		  }
 		  else {
 		      $("#thermo_chosen_model").html("E = 0");

@@ -4,5 +4,6 @@ class ThermalCapacitiesController < ApplicationController
     if session[:url] != request.path || session[:activity] == nil
       redirect_to root_path
     end
+    @activity = Activity.find(session[:activity])
   end
 end

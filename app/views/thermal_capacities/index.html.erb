@@ -19,7 +19,7 @@
 
 <div id="thermo_background_div">
 
-<h1>O aquecimento de um líquido</h1>
+<h1><%= @activity.title %></h1>
 <p>Nesta atividade procura-se investigar os custos quotidianos de uma habitação. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água para um banho de imersão (cerca de 18ºC neste momento) até 26ºC.</p> <br />
 <p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
 
@@ -36,7 +36,7 @@
 <div id="thermo_strategy_div">
   <h2>Estratégia</h2>
   <div>
-  <p>Para responder a esta questão poderíamos tentar encher uma banheira com água e aquecer a água até aos 26ºC, com algum tipo de resistência ou outro equipamento apropriado. Poderíamos então, verificar a energia gasta. Isso é inviável, no entanto, porque não temos esse equipamento.  
+  <p>Para responder a esta questão poderíamos tentar encher uma banheira com água e aquecer a água até aos 26ºC, com algum tipo de resistência ou outro equipamento apropriado. Poderíamos então, verificar a energia gasta. Este método tornar-se-á rapidamente inviável se quisermos medir a energia necessária para aquecer grandes quantidades de água.  
   </p>
   <br />
   <p>
@@ -116,7 +116,7 @@ function onFrame(evt) {
 	 
 	 mass = getMass(base, height*y_scale, rho);
 	 
-        temperature += (Q/(mass*c_water)*(2-(Math.random()*2)));
+        temperature += (Q/(mass*c_water)*(5-(Math.random()*8)));
 	 
 	 $("#thermo").text((Math.round(temperature*2)/2).toFixed(1)+ " ºC");
 	 if (temperature > 60) {
@@ -272,7 +272,7 @@ function reset() {
   <div class=" thermo_model_buttons">
     <div id="thermo_first_model_controls">
   <div class="btn-group">
-    <a type="button" class="thermo_button btn" id="thermo_linear_button">Linear<br/> y = m x + b</a>
+    <a type="button" class="thermo_button btn" id="thermo_linear_button">Linear<br/> y = k x + b</a>
     <a type="button" class="thermo_button btn" id="thermo_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
     <a type="button" class="thermo_button btn" id="thermo_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
   </div>
@@ -280,7 +280,7 @@ function reset() {
   <div id="thermo_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
   <div class="thermo_function_controls" id="thermo_linear_controls">
     
-    <div><div class="thermo_function_controls_label">m: <span id="thermo_linear_m">10000</span></div><div class="thermo_slider_controls" id="thermo_linear_m_slider"></div></div>
+    <div><div class="thermo_function_controls_label">k: <span id="thermo_linear_m">10000</span></div><div class="thermo_slider_controls" id="thermo_linear_m_slider"></div></div>
     <div><div class="thermo_function_controls_label">b: <span id="thermo_linear_b">0</span></div><div class="thermo_slider_controls" id="thermo_linear_b_slider"></div></div>
 
   </div>
@@ -317,7 +317,7 @@ function reset() {
     <div id="thermo_y_label">E (J)</div>
     
   <div id="thermo_graph"></div>
-<div id="thermo_x_label">massa (kg)</div>
+<div id="thermo_x_label">m (kg)</div>
   </div>
    </div>
   </div>
