@@ -148,7 +148,7 @@ $(document).ready(function() {
     });
 
     $("#volume_slider").on("slide", function(evt, ui) {
-	 $("#volume").html(ui.value+" cm<sup>3</sup>");
+	 $("#volume").html((ui.value/1000).toFixed(3)+" kg");
         var diff = (height-(ui.value/(base*1000)/y_scale));
         height -= diff;
         top.bounds.y += diff;
@@ -172,7 +172,7 @@ function reset() {
 	 $("#onoff").text("Aquecer");
 	 $("#chrono").text("0.0 s");
 	 $("#thermo").text("18.0 ºC");
-	 $("#volume").html("150 cm<sup>3</sup>");   
+	 $("#volume").html("0.150 kg");   
         
 	 top.bounds.y += (height-(150/base/1000/y_scale));
 	 
@@ -197,10 +197,10 @@ function reset() {
          <%= hidden_field_tag(:energy, nil,  id:"thermo_energy_field") %>
          <table class="table">
 	    <thead>
-	      <tr><th>Volume(cm<sup>3</sup>)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energy(kJ)</th><th></th></tr>
+	      <tr><th>Massa(kg)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energy(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:volume, nil,  class:"thermo_input", id:"thermo_volume_field") %>
+		   <%= number_field_tag(:volume, nil,  class:"thermo_input", step:"any", id:"thermo_volume_field") %>
 		 </th>
 		 <th>
 		   <%= number_field_tag(:time, nil, class:"thermo_input", step:"any", id:"thermo_time_field") %>
@@ -238,7 +238,7 @@ function reset() {
    
     <div id="controls">
     <div >
-      <div id="volume" class="monitor">150 cm<sup>3</sup></div>
+      <div id="volume" class="monitor">0.150 kg</div>
     <div id="volume_slider"></div>
     
     <div id="chrono" class="monitor">0.0 s</div>
@@ -279,18 +279,18 @@ function reset() {
     
   <div class="thermo_function_controls" id="thermo_linear_controls">
     
-    <div><div class="thermo_function_controls_label">m: <span id="thermo_linear_m">10</span></div><div class="thermo_slider_controls" id="thermo_linear_m_slider"></div></div>
+    <div><div class="thermo_function_controls_label">m: <span id="thermo_linear_m">10000</span></div><div class="thermo_slider_controls" id="thermo_linear_m_slider"></div></div>
     <div><div class="thermo_function_controls_label">b: <span id="thermo_linear_b">0</span></div><div class="thermo_slider_controls" id="thermo_linear_b_slider"></div></div>
 
   </div>
   <div class="thermo_function_controls" id="thermo_quadratic_controls">
-    <div><div class="thermo_function_controls_label">k: <span id="thermo_quadratic_k">0.250</span></div><div class="thermo_slider_controls" id="thermo_quadratic_k_slider"></div></div>
+    <div><div class="thermo_function_controls_label">k: <span id="thermo_quadratic_k">15000</span></div><div class="thermo_slider_controls" id="thermo_quadratic_k_slider"></div></div>
     <div><div class="thermo_function_controls_label">h: <span id="thermo_quadratic_h">0</span></div><div class="thermo_slider_controls" id="thermo_quadratic_h_slider"></div></div>
     <div><div class="thermo_function_controls_label">b: <span id="thermo_quadratic_b">0</span></div><div class="thermo_slider_controls" id="thermo_quadratic_b_slider"></div></div>
   </div>
 
   <div class="thermo_function_controls" id="thermo_cubic_controls">
-    <div><div class="thermo_function_controls_label">k: <span id="thermo_cubic_k">0.00100</span></div><div class="thermo_slider_controls" id="thermo_cubic_k_slider"></div></div>
+    <div><div class="thermo_function_controls_label">k: <span id="thermo_cubic_k">20000</span></div><div class="thermo_slider_controls" id="thermo_cubic_k_slider"></div></div>
     <div><div class="thermo_function_controls_label">h: <span id="thermo_cubic_h">0</span></div><div class="thermo_slider_controls" id="thermo_cubic_h_slider"></div></div>
     <div><div class="thermo_function_controls_label">b: <span id="thermo_cubic_b">0</span></div><div class="thermo_slider_controls" id="thermo_cubic_b_slider"></div></div>
   </div>
@@ -316,7 +316,7 @@ function reset() {
     <div id="thermo_y_label">E (J)</div>
     
   <div id="thermo_graph"></div>
-<div id="thermo_x_label">V (cm<sup>3</sup>)</div>
+<div id="thermo_x_label">massa (kg)</div>
   </div>
    </div>
   </div>
@@ -333,8 +333,9 @@ function reset() {
     }
     ],
     {
-		     xaxis: { min:0, max: 800,
+		     xaxis: { min:0, max: 0.8,
 			     tickFormatter: function (v) {
+                              if (v < 1) return v.toFixed(1);
 				  if (v < 10000)
 				      return v;
 				  var e = 0, tmp = v;
@@ -345,6 +346,7 @@ function reset() {
 				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
 			     }},
 		     yaxis: { tickFormatter: function (v) {
+				  if (v < 1) return v.toFixed(1);
 				  if (v < 10000)
 				      return v;
 				  var e = 0, tmp = v;
