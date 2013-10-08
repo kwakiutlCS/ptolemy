@@ -1,0 +1,155 @@
+commit bac44de25841a6fe4679934c1e4a175ffaf156f2
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Tue Oct 8 12:10:44 2013 +0100
+
+    refactor data_points controller for modularity. add the 2nd docking animation
+
+commit 932abc147f77ce2a3456100a2f76955774c8a528
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Mon Oct 7 19:40:03 2013 +0100
+
+    prepare for independent question branching
+
+commit 6e45233c6a2eca3b6de9931754d1bb0e11b2a5df
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Mon Oct 7 17:16:27 2013 +0100
+
+    add silvery layout
+
+commit 878c231eac2f0b0b1264ff7427bfca7ef724366d
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Mon Oct 7 12:02:54 2013 +0100
+
+    change volume to mass - thermal capacities activity
+
+commit 0636d0955b7cb5b5727f770ee6606b20c90bad39
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Sat Oct 5 16:39:43 2013 +0100
+
+    add 4th question. add duration to student's answers
+
+commit 2f8fd436dccad2a1d18234043b19d3f4012619ea
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Sat Oct 5 10:51:10 2013 +0100
+
+    move data_points and answers views to activity view to create modularity
+
+commit 8cc96d4fc77651979ebf4c3ea7efa3e4ec8f6677
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Sat Oct 5 10:35:10 2013 +0100
+
+    remove navbar when desnecessary
+
+commit 7d769b9620a5c2b5bbd6bd017cb19d64fecb9f92
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Sat Oct 5 10:30:32 2013 +0100
+
+    add navbar
+
+commit 571c5df6fc27dc8758cba59a933c039135d2c419
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Fri Oct 4 20:27:23 2013 +0100
+
+    page styling added
+
+commit 789abd71da55f420b45c0888e2185123ea1d9aaa
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Fri Oct 4 18:01:11 2013 +0100
+
+    add answer checking
+
+commit fd84c5b1ab82a4bc7090c9901d2367fa19f57742
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Fri Oct 4 10:10:39 2013 +0100
+
+    redirects sign in to user
+
+commit 65a171d4cc08d6dde7f902f8f326bc4dd99c15bc
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Thu Oct 3 16:18:59 2013 +0100
+
+    add possibility to create activities through interface
+
+commit 5ab9d69d26feb9280b96fec152e2fa55f0f658ec
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Thu Oct 3 16:08:53 2013 +0100
+
+    add user signup/signin
+
+commit a6bd324ca81359b29f7356bb3f84e1e418256e22
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Thu Oct 3 12:39:22 2013 +0100
+
+    adds answer. prepares for teacher review
+
+commit 8e046460e555116cd21cc8ea0c2e4c20dafc8b92
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Wed Oct 2 17:05:58 2013 +0100
+
+    prepares for answer entry
+
+commit 4cbac415e3ddbaa0337b3ed2ad01a61d332c8cda
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Wed Oct 2 12:37:32 2013 +0100
+
+    finishes model selection for thermo activity
+
+commit 2975e1f1fdd5c220e63e5ad276ec0fdeffbb4b99
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Wed Oct 2 10:17:54 2013 +0100
+
+    insert tooltip
+
+commit 1fcd93c2ad92ec1699cb22ac9ce5e7fd5c233479
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Tue Oct 1 00:13:58 2013 +0100
+
+    starts page layout organization
+
+commit b755d2f6d9eba700c0360f1e149c564abd7eef60
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Mon Sep 30 18:55:58 2013 +0100
+
+    add scaling to plot
+
+commit 6c7dfb07bd0df59c6590ff3d6bceb8c704743763
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Sat Sep 28 00:31:41 2013 +0100
+
+    removes extra database query when selecting the models
+
+commit 47efa4f289f7895e3d42584276b528b33e3f9598
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Fri Sep 27 17:31:53 2013 +0100
+
+    add rspec tests
+
+commit 444ef72ed4c05c7a44d479180fbde9e1d999b1a6
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Fri Sep 27 16:31:27 2013 +0100
+
+    add polynomial model to plot
+
+commit 9b619d35acaf6a8b31416d3aafcc3db0440ad065
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Fri Sep 27 12:44:06 2013 +0100
+
+    add linear model to plot
+
+commit 35cc0f23ea51b36020eae5d91f43b62491204a8b
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Thu Sep 26 15:56:59 2013 +0100
+
+    add flot to page
+
+commit 83e69d806d4c582167a8ef1b5ea6923cff6238d5
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Wed Sep 25 19:55:19 2013 +0100
+
+    docks first activity
+
+commit 53e5524f1c49467c5010d9bd9038854086233e21
+Author: ricardo <ricardo.rsr.rodrigues@gmail.com>
+Date:   Tue Sep 24 15:41:59 2013 +0100
+
+    prepare first activity docking branch

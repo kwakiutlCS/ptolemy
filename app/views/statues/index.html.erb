@@ -135,13 +135,13 @@ $(document).ready(function() {
       <%= form_tag(data_points_path, remote: true) do %>
          <table class="table">
 	    <thead>
-	      <tr><th>comprimento(m)</th><th>massa(kg)<th></th></tr>
+	      <tr><th>comprimento(cm)</th><th>massa(g)<th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"statue_input", step:"any", id:"statue_size_field") %>
+		   <%= number_field_tag(:x, nil,  class:"statue_input",  id:"statue_size_field") %>
 		 </th>
 		 <th>
-		   <%= number_field_tag(:y, nil, class:"statue_input", step:"any", id:"statue_mass_field") %>
+		   <%= number_field_tag(:y, nil, class:"statue_input",  id:"statue_mass_field") %>
 		 </th>
 		 
 		 <th>
@@ -192,6 +192,116 @@ $(document).ready(function() {
     <a type="button" class="statue_button btn btn-primary data-gathering_next" id="statue_data-gathering_next"  style="display:none">Seguinte</a>
     </div>
 </section>
+
+
+
+
+
+
+<section class="model-choice">
+  <div class="x_axis_unit axis_unit">l</div>
+  <div class="y_axis_unit axis_unit">m</div>
+      
+  <h1>Escolher o Modelo</h1>
+  <div>
+  <div class="model_choice_buttons statue_model_buttons">
+    <div id="statue_first_model_controls">
+  <div class="btn-group">
+    <a type="button" class="statue_button btn linear_model_button" id="statue_linear_button">Linear<br/> y = k x + b</a>
+    <a type="button" class="statue_button btn quadratic_model_button" id="statue_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
+    <a type="button" class="statue_button btn cubic_model_button" id="statue_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
+  </div>
+    
+  <div class="model-choice_buttons_explanation" id="statue_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
+  <div class="linear_function_controls model_function_controls" id="statue_linear_controls">
+    
+    <div><div class="function_controls_label">k: <span id="statue_linear_m">10000</span></div><div class="model_slider_controls" id="statue_linear_m_slider"></div></div>
+    <div><div class="function_controls_label">b: <span id="statue_linear_b">0</span></div><div class="model_slider_controls" id="statue_linear_b_slider"></div></div>
+
+  </div>
+  <div class="quadratic_function_controls model_function_controls" id="statue_quadratic_controls">
+    <div><div class="function_controls_label">k: <span id="statue_quadratic_k">15000</span></div><div class="model_slider_controls" id="statue_quadratic_k_slider"></div></div>
+    <div><div class="function_controls_label">h: <span id="statue_quadratic_h">0</span></div><div class="model_slider_controls" id="statue_quadratic_h_slider"></div></div>
+    <div><div class="function_controls_label">b: <span id="statue_quadratic_b">0</span></div><div class="model_slider_controls" id="statue_quadratic_b_slider"></div></div>
+  </div>
+
+  <div class="cubic_function_controls model_function_controls" id="statue_cubic_controls">
+    <div><div class="function_controls_label">k: <span id="statue_cubic_k">20000</span></div><div class="model_slider_controls" id="statue_cubic_k_slider"></div></div>
+    <div><div class="function_controls_label">h: <span id="statue_cubic_h">0</span></div><div class="model_slider_controls" id="statue_cubic_h_slider"></div></div>
+    <div><div class="function_controls_label">b: <span id="statue_cubic_b">0</span></div><div class="model_slider_controls" id="statue_cubic_b_slider"></div></div>
+  </div>
+  
+  <div class="model_choice_model_information_div">
+    <div id="statue_chosen_model_div">
+      <span>
+	 Modelo
+      </span>
+      <div class="model_choice_model_formula" id="statue_chosen_model">
+	 
+      </div>
+    </div>
+    <div id="statue_confirm_model_button_div">
+      <a type="button" class="statue_button btn btn-success" id="statue_confirm_model_button">Usar este modelo</a>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div id="statue_graph_super_div">
+  <div>Massa da estátua em função do comprimento</div>
+  <div id="statue_graph_div">
+    <div class="y_label_div" id="statue_y_label">m (g)</div>
+    
+  <div class="graph_div" id="statue_graph"></div>
+<div class="x_label_div" id="statue_x_label">l (cm)</div>
+  </div>
+   </div>
+  </div>
+  <div class="btn-group statue_navigator">
+    <a type="button" class="statue_button btn btn-primary model-choice_previous" id="statue_model-choice_previous">Anterior</a>
+    </div>
+
+  <script>
+    var plot = $.plot($("#statue_graph"), [
+    {
+    data: [],
+    points: { show: true },
+    
+    }
+    ],
+    {
+		     xaxis: { min:0, max: 60,
+			     tickFormatter: function (v) {
+                              if (v < 1) return v.toFixed(1);
+				  if (v < 10000)
+				      return v;
+				  var e = 0, tmp = v;
+				  while (tmp > 10) {
+				      tmp /= 10;
+				      e += 1;
+				  }
+				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
+			     }},
+		     yaxis: { tickFormatter: function (v) {
+				  if (v < 1) return v.toFixed(1);
+				  if (v < 10000)
+				      return v;
+				  var e = 0, tmp = v;
+				  while (tmp > 10) {
+				      tmp /= 10;
+				      e += 1;
+				  }
+				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
+			     }},
+	            legend: { position: "se", backgroundOpacity: 0},
+    }
+    );
+    
+    
+  </script>
+</section>
+
+
+
 
 
 </div>

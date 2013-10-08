@@ -4,18 +4,18 @@ $('#statue_data_collection').html("<%= escape_javascript(render(:partial => 'sta
 
 
 if (<%= @data.count > 0 %>) {
-$("#thermo_data_collection_explanation").html("<p>Recolha mais dados ou avance para a tarefa seguinte</p>");
+$("#statue_data_collection_explanation").html("<p>Recolha mais dados ou avance para a tarefa seguinte</p>");
 
 $("#statue_data-gathering_next").show();
 }
 else {
-     $("#statue_data_collection_explanation").html("<p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam o volume de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água. </p><p>O aquecimento da água faz-se com uma resistência de 500W, o que permite saber a energia transferida para a água, se registarmos o intervalo de tempo que a resistência esteve ligada.</p><p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>");
+     $("#statue_data_collection_explanation").html("<p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem uma balança onde pode medir a massa de diferentes modelos da estátua.  </p>");
 
 $("#statue_data-gathering_next").hide();
 }
 
 var options = {
-     xaxis: { min:0, max: 0.8,
+     xaxis: { min:0, max: 60,
 			     tickFormatter: function (v) {
 			         if (v < 1) return v.toFixed(1);
 				  if (v < 10000)
@@ -42,7 +42,7 @@ var options = {
     legend: { position: "se", backgroundOpacity: 0},
 };
 
-$.plot($("#thermo_graph"), [
+$.plot($("#statue_graph"), [
     {
      data: <%= @plot_data %>,
      points: { show: true },
@@ -63,6 +63,5 @@ $.plot($("#thermo_graph"), [
 $(".float-text").css({left: "-40px"});
 $(".flot-y-axis").css({top: "-10px"});
 
-$("#thermo_volume_field").val("");
-$("#thermo_time_field").val("");
-$("#thermo_energy_calculator").text("0.0");
+$("#statue_mass_field").val("");
+$("#statue_size_field").val("");

@@ -20,3 +20,59 @@ float: right;
 .statue_data_form th input {
 		    width:100px;
 }
+
+
+.graph_div {
+	    width: 420px;
+height: 360px;
+margin-left: 0px;
+}
+
+.model_function_controls {
+	display: none;
+}
+
+.model_choice_model_information_div{
+	 display: none;
+
+	 span {
+	 font-weight: bold;
+	font-size: 1.4em;
+	 }	 
+
+	 div {
+	margin: 5px;
+	color: #777;
+		}	
+}
+
+.function_controls_label {
+   margin:  10px;
+}
+
+.model_choice_buttons {
+	float: right;
+margin: 20px 10px 0 0;
+width: 464px;	    
+padding: 5px;	  
+}
+
+.x_label_div {
+   margin: 0px 215px;
+width: 100px;
+}
+
+.y_label_div {
+   float: left;
+margin-top: 200px;
+margin-left: -40px;
+}
+
+.axis_unit {
+display: none;
+}
+
+
+.model_slider_controls {
+width: 120px;
+}
