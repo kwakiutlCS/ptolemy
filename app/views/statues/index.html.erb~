@@ -1,0 +1,10 @@
+<div style="margin-top: -60px" >
+
+<section class="statue_name_getter" style="width:500px; margin: 200px auto ;">
+  
+  <p>Comece por introduzir o seu nome</p>
+  <%= form_tag("/static_pages/set_name", remote:true, method: "get") do %>
+  <%= text_field_tag(:name, nil, id:"student_name_field") %>
+  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success", style:"margin-top: -14px;") %>
+  <% end %>
+</section>

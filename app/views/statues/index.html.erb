@@ -1,0 +1,197 @@
+<div style="margin-top: -60px" >
+
+<section class="name_getter" style="width:500px; margin: 200px auto ;">
+  
+  <p>Comece por introduzir o seu nome</p>
+  <%= form_tag("/static_pages/set_name", remote:true, method: "get") do %>
+  <%= text_field_tag(:name, nil, id:"student_name_field") %>
+  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success", style:"margin-top: -14px;") %>
+  <% end %>
+</section>
+
+
+
+<section class="background">
+  <% if session[:deadline] %>
+  <div class="alert alert-info">
+  Esta tarefa será discutida na aula de <%= session[:deadline].strftime("%d/%m") %>. Deverá ser concluída antes dessa data.
+  </div>
+  <% end %>
+
+<div id="statue_background_div">
+
+<h1>A massa da estátua</h1>
+<p>Nesta atividade estamos interessados em estimar a massa de uma estátua.</p> <br />
+<p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
+
+</div>
+<div class="btn-group statue_navigator">
+<a type="button" class="statue_button btn btn-primary background_next" id="statue_background_next">Seguinte</a>
+</div>
+</section>
+
+
+
+<section class="strategy">
+
+<div id="statue_strategy_div">
+  <h2>Estratégia</h2>
+  <div>
+  <p>...
+  </p>
+  <br />
+  <p>
+  Vamos usar um processo em que testamos o problema em pequena escala. Se se construir versões mais pequenas da estátua poderemos verificar a sua massa. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso da estátua maior. Chama-se a isto construir um modelo.
+  </p>
+  </div>
+
+  </div>
+   
+  <div class="btn-group statue_navigator" style="margin-top: 10px">
+    <a type="button" class="statue_button btn btn-primary strategy_previous" id="statue_strategy_previous">Anterior</a>
+    <a type="button" class="statue_button btn btn-primary strategy_next" id="statue_strategy_next">Seguinte</a>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="data-gathering row">
+  
+<script type="text/paperscript" canvas="canvas">
+
+  
+var size0 = 20;
+var size = 20;
+
+var scale = new Raster("statue_scale");
+scale.position = view.center+new Point(0,150);
+scale.scale(0.5);
+
+var statue = new Raster("statue_statue");
+statue.position = view.center+new Point(0,60);
+statue.scale(0.5);
+var height = statue.bounds.height;
+var y = 0;
+var mass0 = 0.786;
+var mass = mass0;
+
+var text = new PointText(new Point(130,442));
+text.content = mass*1000+" g";
+
+
+var verticalLine = new Path.Line(new Point(350,statue.bounds.bottom), new Point(350,statue.bounds.top));
+verticalLine.strokeColor = "black";
+var sizeText = new PointText(new Point(360,300));
+sizeText.content = size +" cm";
+var topLine = new Path.Line(new Point(345, statue.bounds.top), new Point(355, statue.bounds.top));
+topLine.strokeColor = "black";
+var bottomLine = new Path.Line(new Point(345, statue.bounds.bottom), new Point(355, statue.bounds.bottom));
+bottomLine.strokeColor = "black";
+
+
+$(document).ready(function() {
+    $("#statue_controls").on("click", "#statue_plus", function() {
+       if (size < 2.5*size0) {
+		    statue.scale(1/size);
+		    size += 1;
+		    statue.scale(size);
+		    statue.position.y += y;
+		    y = (statue.bounds.height-height)/2;
+		    statue.position.y -= y;
+		    mass = mass0*Math.pow(size/size0,3);
+		    text.content = (mass*1000*(1.02-0.04*Math.random())).toFixed(0)+" g";
+		    verticalLine.segments[1].point = new Point(350,statue.bounds.top);
+		    sizeText.content = size +" cm";
+		    topLine.position.y = statue.bounds.top;
+       }
+    });
+
+    $("#statue_controls").on("click", "#statue_minus", function() {
+        if (size > size0) {
+	 statue.scale(1/size);
+	 size -= 1;
+	 statue.scale(size);
+	 statue.position.y += y;
+	 y = (statue.bounds.height-height)/2;
+	 statue.position.y -= y;
+	 mass = mass0*Math.pow(size/size0,3);
+	 text.content = (mass*1000*(1.02-0.04*Math.random())).toFixed(0)+" g";
+        verticalLine.segments[1].point = new Point(350,statue.bounds.top);
+    sizeText.content = size +" cm";
+    topLine.position.y = statue.bounds.top;
+    }
+    });
+});
+
+</script>
+
+
+<h1>Recolher Dados</h1>
+        
+    <div class="statue_data_form span5">
+      <%= form_tag(data_points_path, remote: true) do %>
+         <table class="table">
+	    <thead>
+	      <tr><th>comprimento(m)</th><th>massa(kg)<th></th></tr>
+	      <tr>
+		 <th>
+		   <%= number_field_tag(:x, nil,  class:"statue_input", step:"any", id:"statue_size_field") %>
+		 </th>
+		 <th>
+		   <%= number_field_tag(:y, nil, class:"statue_input", step:"any", id:"statue_mass_field") %>
+		 </th>
+		 
+		 <th>
+		   <%= submit_tag(:submeter, class:"btn btn-success", id:"statue_add_data_point_button") %>
+		 </th>
+	      </tr>
+	    </thead>
+	  
+	  
+	  
+	    <tbody id="statue_data_collection">
+	      
+	    <%= render "tbody" %>
+	    </tbody>
+	  
+	  </table>
+    	  
+      <% end %>
+      <div id="statue_data_collection_explanation">
+      <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem uma balança onde pode medir a massa de diferentes modelos da estátua.  </p>
+      <p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>
+      </div>
+    </div>
+
+    
+    
+    <div class="statue_animation span7">
+    <canvas id="canvas" width=400 height=500></canvas>
+   
+    <div id="statue_controls">
+      <div class="btn-group">
+	 <button type="button" class="statue_button btn btn-default" id="statue_minus">Menor</button>
+	 <button type="button" class="statue_button btn btn-default" id="statue_plus">Maior</button>
+	 
+    </div>
+    
+    </div>
+    
+    
+    
+    </div>
+    <img src="assets/statue.png" class="paper_img" id="statue_statue"></img>
+    <img src="assets/scale.png" class="paper_img" id="statue_scale"></img>
+    
+
+    <div class="btn-group statue_navigator">
+    <a type="button" class="statue_button btn btn-primary data-gathering_previous" id="statue_data-gathering_previous">Anterior</a>
+    <a type="button" class="statue_button btn btn-primary data-gathering_next" id="statue_data-gathering_next"  style="display:none">Seguinte</a>
+    </div>
+</section>
+
+
+</div>

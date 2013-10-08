@@ -18,6 +18,7 @@ Plotomeu::Application.routes.draw do
   resources :answers
   resources :templates
   resources :activities
+  resources :statues
 
   root to: "static_pages#index"
 

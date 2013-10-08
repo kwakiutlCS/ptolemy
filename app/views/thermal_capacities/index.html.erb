@@ -19,7 +19,7 @@
 
 <div id="thermo_background_div">
 
-<h1><%= @activity.title %></h1>
+<h1>Aquecimento da água</h1>
 <p>Nesta atividade procura-se investigar os custos quotidianos de uma habitação. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água para um banho de imersão (cerca de 18ºC neste momento) até 26ºC.</p> <br />
 <p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
 
@@ -194,13 +194,13 @@ function reset() {
         
     <div class="thermo_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
-         <%= hidden_field_tag(:energy, nil,  id:"thermo_energy_field") %>
+         <%= hidden_field_tag(:y, nil,  id:"thermo_energy_field") %>
          <table class="table">
 	    <thead>
 	      <tr><th>Massa(kg)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energy(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:volume, nil,  class:"thermo_input", step:"any", id:"thermo_volume_field") %>
+		   <%= number_field_tag(:x, nil,  class:"thermo_input", step:"any", id:"thermo_volume_field") %>
 		 </th>
 		 <th>
 		   <%= number_field_tag(:time, nil, class:"thermo_input", step:"any", id:"thermo_time_field") %>
