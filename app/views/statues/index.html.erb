@@ -63,19 +63,19 @@
 <script type="text/paperscript" canvas="canvas">
 
   
-var size0 = 20;
-var size = 20;
+var size0 = 10;
+var size = 10;
 
 var scale = new Raster("statue_scale");
 scale.position = view.center+new Point(0,150);
 scale.scale(0.5);
 
 var statue = new Raster("statue_statue");
-statue.position = view.center+new Point(0,60);
-statue.scale(0.5);
+statue.position = view.center+new Point(0,85);
+statue.scale(0.25);
 var height = statue.bounds.height;
 var y = 0;
-var mass0 = 0.786;
+var mass0 = 0.095;
 var mass = mass0;
 
 var text = new PointText(new Point(130,442));
@@ -94,7 +94,7 @@ bottomLine.strokeColor = "black";
 
 $(document).ready(function() {
     $("#statue_controls").on("click", "#statue_plus", function() {
-       if (size < 2.5*size0) {
+       if (size < 5*size0) {
 		    statue.scale(1/size);
 		    size += 1;
 		    statue.scale(size);
@@ -215,24 +215,24 @@ $(document).ready(function() {
   <div class="model-choice_buttons_explanation" id="statue_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
   <div class="linear_function_controls model_function_controls" id="statue_linear_controls">
     
-    <div><div class="function_controls_label">k: <span id="statue_linear_m">10000</span></div><div class="model_slider_controls" id="statue_linear_m_slider"></div></div>
-    <div><div class="function_controls_label">b: <span id="statue_linear_b">0</span></div><div class="model_slider_controls" id="statue_linear_b_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span id="statue_linear_m">10000</span></div><div class="model_slider_controls" id="statue_linear_m_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span id="statue_linear_b">0</span></div><div class="model_slider_controls" id="statue_linear_b_slider"></div></div>
 
   </div>
   <div class="quadratic_function_controls model_function_controls" id="statue_quadratic_controls">
-    <div><div class="function_controls_label">k: <span id="statue_quadratic_k">15000</span></div><div class="model_slider_controls" id="statue_quadratic_k_slider"></div></div>
-    <div><div class="function_controls_label">h: <span id="statue_quadratic_h">0</span></div><div class="model_slider_controls" id="statue_quadratic_h_slider"></div></div>
-    <div><div class="function_controls_label">b: <span id="statue_quadratic_b">0</span></div><div class="model_slider_controls" id="statue_quadratic_b_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span id="statue_quadratic_k">15000</span></div><div class="model_slider_controls" id="statue_quadratic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span id="statue_quadratic_h">0</span></div><div class="model_slider_controls" id="statue_quadratic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span id="statue_quadratic_b">0</span></div><div class="model_slider_controls" id="statue_quadratic_b_slider"></div></div>
   </div>
 
   <div class="cubic_function_controls model_function_controls" id="statue_cubic_controls">
-    <div><div class="function_controls_label">k: <span id="statue_cubic_k">20000</span></div><div class="model_slider_controls" id="statue_cubic_k_slider"></div></div>
-    <div><div class="function_controls_label">h: <span id="statue_cubic_h">0</span></div><div class="model_slider_controls" id="statue_cubic_h_slider"></div></div>
-    <div><div class="function_controls_label">b: <span id="statue_cubic_b">0</span></div><div class="model_slider_controls" id="statue_cubic_b_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span id="statue_cubic_k">20000</span></div><div class="model_slider_controls" id="statue_cubic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span id="statue_cubic_h">0</span></div><div class="model_slider_controls" id="statue_cubic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span id="statue_cubic_b">0</span></div><div class="model_slider_controls" id="statue_cubic_b_slider"></div></div>
   </div>
   
   <div class="model_choice_model_information_div">
-    <div id="statue_chosen_model_div">
+    <div class="model_choice_model_formula_parent" id="statue_chosen_model_div">
       <span>
 	 Modelo
       </span>
@@ -240,7 +240,7 @@ $(document).ready(function() {
 	 
       </div>
     </div>
-    <div id="statue_confirm_model_button_div">
+    <div class="model_choice_model_confirm_button" id="statue_confirm_model_button_div">
       <a type="button" class="statue_button btn btn-success" id="statue_confirm_model_button">Usar este modelo</a>
     </div>
     </div>

@@ -34,6 +34,7 @@ margin-left: 0px;
 
 .model_choice_model_information_div{
 	 display: none;
+	 margin-top: 50px;
 
 	 span {
 	 font-weight: bold;
@@ -75,4 +76,21 @@ display: none;
 
 .model_slider_controls {
 width: 120px;
+}
+
+.model_choice_slider_parent {
+   width: 130px;
+   display: inline-block;
+   margin: 10px;
+}
+
+.model_choice_model_formula_parent  {
+width: 150px;
+float:left;
+}
+
+.model_choice_model_confirm_button {
+width: 150px;
+float:right;
+
 }
