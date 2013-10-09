@@ -9,7 +9,7 @@ $(function() {
     measurable = 500, 
     data_loaded=false, 
     user_data, plot_data,
-    default_x = 60;
+    default_x = 60, x_maximum=60, y_maximum;
 
     // slider limits
     $("#statue_linear_m_slider").slider({value: linear_m, min: 0, max: 1000, step: 10});
@@ -24,13 +24,14 @@ $(function() {
 
 
     // GENERAL CODE
-
-
+   
     $(".model_data_form").on("click",".model_add_data_point_button", function() {
 	 data_loaded = false;
+	  
     });
     $(".model_data_collection").on("click",".model_remove_data_point_button", function() {
 	 data_loaded = false;
+	 
     });
 
     // axis units
@@ -152,7 +153,7 @@ $(function() {
 	 prediction = linear_b + measurable*linear_m;
 	 write_linear_formula();
 	 loadsPlot(plot_linear);
-
+	 
     });
 
     $(".model_choice_buttons").on("click", ".quadratic_model_button", function() {
@@ -165,6 +166,7 @@ $(function() {
 	 write_quadratic_formula();
 	 prediction = quadratic_b + Math.pow(measurable-quadratic_h, 2)*quadratic_k;
 	 loadsPlot(plot_polynomial, getQuadraticData());
+	 
     });
 
     $(".model_choice_buttons").on("click", ".cubic_model_button", function() {
@@ -180,6 +182,13 @@ $(function() {
     });
 
 
+    $(".model_confirm_model_button").on("click", function() {
+	 y_maximum = setYMax();
+	 x_maximum = default_x;
+	 
+	 intervalId = setInterval(animatePlot,30);
+	 
+    });
 
     // AUXILIARY FUNCTIONS
 
@@ -428,6 +437,38 @@ $(function() {
     }
 
 
+    var plot_normal = function(xmax, ymax) {
+	 var xmax = (typeof xmax) == "undefined" ? default_x : xmax;
+	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
+	 
+	 $.plot($(".graph_div"), [{
+		      data: plot_data,
+		      points: { show: true },
+		      label: "dados dos seus colegas"
+     
+		  },
+		  {
+		      data: user_data,
+		      points: { show: true },
+		      label: "os seus dados"
+     
+		  },
+	         
+					], 
+		 {
+		     xaxis: { min:0, max: xmax,
+			     tickFormatter: function (v) {
+				  return scientific(v,1);
+			     }},
+		     yaxis: { min:0, max: ymax, 
+			     tickFormatter: function (v) {
+				  return scientific(v,1);
+			     }},
+		     legend: { position: "se"},
+		 });
+	 $(".flot-x-axis").css({left: "10px"});
+    }
+
 
     var scientific = function(v,d) {
 	 var d = typeof d == "undefined" ? 0 : d;
@@ -445,11 +486,11 @@ $(function() {
 
 
     var getQuadraticData = function() {
-	 var step = default_x/30;
+	 var step = x_maximum/30;
 	 var x = 0;
 	 var quadratic_data = [];
 
-	 while (x < default_x) {
+	 while (x < x_maximum) {
 	     var y = quadratic_k *(x-quadratic_h) * (x-quadratic_h) + quadratic_b;
 	     quadratic_data.push([x, y]);
 	     x += step;
@@ -459,16 +500,92 @@ $(function() {
     }
 
     var getCubicData = function() {
-	 var step = default_x/40;
+	 var step = x_maximum/40;
 	 var x = 0;
 	 var cubic_data = [];
 
-	 while (x < default_x) {
+	 while (x < x_maximum) {
 	     var y = cubic_k *(x-cubic_h) * (x-cubic_h) * (x-cubic_h) + cubic_b;
 	     cubic_data.push([x, y]);
 	     x += step;
 	     
 	 }
 	 return cubic_data;
+    }
+
+
+
+    var animatePlot = function() {
+	 
+	 if (model === 1) {
+	     x_maximum *= 1.2;
+	     y_maximum *= 1.2;
+	     
+	     plot_linear(x_maximum, y_maximum);
+	 }
+	 else if (model === 2) {
+	     x_maximum *= 1.1;
+	     y_maximum *= Math.pow(1.1,2);
+	     var quadratic_data = getQuadraticData();
+	     plot_polynomial(quadratic_data, x_maximum, y_maximum);
+	 }
+	 else if (model === 3) {
+	     x_maximum *= 1.1;
+	     y_maximum *= Math.pow(1.1,3);
+	     var cubic_data = getCubicData();
+	     plot_polynomial(cubic_data, x_maximum, y_maximum);
+	 }
+	 if (x_maximum > measurable/9*10 && y_maximum > prediction/9*10) {
+	     clearInterval(intervalId);
+	     x_maximum = default_x;
+	     y_maximum = setYMax();
+
+	     $(".model_choice_buttons").append("<div class='model_second_model_controls'><p>O modelo escolhido prevê um gasto de energia de "+scientific(prediction,1)+"J para aquecer "+scientific(measurable,1)+"kg de água.</p><p> Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente. </p><p>Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "+(prediction/3600000*0.1).toFixed(2)+"€.</p><p><a href='#' class='model_another_model_link'>Experimentar outro modelo</a> ou <a href='#' class='model_keep_model_link'>Continuar com este modelo</a></p></div>");
+	     $(".model_first_model_controls").hide();
+
+	     $(".model_another_model_link").on("click", function() {
+		  $(".model_second_model_controls").remove();
+		  $(".model_function_controls").hide();
+		  $(".model_choice_model_information_div").hide();
+		  $(".model_first_model_controls").show();
+		  model = 1;
+		  loadsPlot(plot_normal);
+	     });
+
+	     $(".model_keep_model_link").on("click", function() {
+		  $(".model-choice").slideUp();
+		  $(".questions").slideDown();
+
+
+		  /*if (model === 1) {
+		      $("#thermo_model_field").val("linear");
+		      $("#thermo_question1_label").html("Escolheu o modelo <b>linear</b>. Por que razão essa é uma boa escolha?");
+		      $("#thermo_question1_field").val("Escolheu o modelo <b>linear</b>. Por que razão essa é uma boa escolha?");
+		      
+		  }
+		  else if (model === 2) {
+		      $("#thermo_model_field").val("quadrático");
+		      $("#thermo_question1_label").html("Escolheu o modelo <b>quadrático</b>. Por que razão essa é uma boa escolha?");
+		      $("#thermo_question1_field").val("Escolheu o modelo <b>quadrático</b>. Por que razão essa é uma boa escolha?");
+		      
+		  }
+		  else if (model === 3) {
+		      $("#thermo_model_field").val("cúbico");
+		      $("#thermo_question1_label").html("Escolheu o modelo <b>cúbico</b>. Por que razão essa é uma boa escolha?");
+		      $("#thermo_question1_field").val("Escolheu o modelo <b>cúbico</b>. Por que razão essa é uma boa escolha?");
+		      
+		  }
+		  $("#thermo_question2_label").html("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
+		  $("#thermo_question2_field").val("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
+
+		  $("#thermo_question3_label").html("Há algum factor que não foi considerado que afete esta previsão? Qual? Esse fator implicará um acréscimo ou decréscimo de energia gasta para aquecer a água?");
+		  $("#thermo_question3_field").val("Há algum factor que não foi considerado que afete esta previsão? Qual? Esse fator implicará um acréscimo ou decréscimo de energia gasta para aquecer a água?");
+		  $("#thermo_question4_label").html("O que achou confuso ou díficil nesta atividade?");
+		  $("#thermo_question4_field").val("O que achou confuso ou díficil nesta atividade?");
+*/
+		  
+	     });
+	     
+	 }
     }
 });
