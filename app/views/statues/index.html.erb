@@ -131,11 +131,11 @@ $(document).ready(function() {
 
 <h1>Recolher Dados</h1>
         
-    <div class="statue_data_form span5">
+    <div class="model_data_form statue_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
          <table class="table">
 	    <thead>
-	      <tr><th>comprimento(cm)</th><th>massa(g)<th></th></tr>
+	      <tr><th>altura(cm)</th><th>massa(g)<th></th></tr>
 	      <tr>
 		 <th>
 		   <%= number_field_tag(:x, nil,  class:"statue_input",  id:"statue_size_field") %>
@@ -145,14 +145,14 @@ $(document).ready(function() {
 		 </th>
 		 
 		 <th>
-		   <%= submit_tag(:submeter, class:"btn btn-success", id:"statue_add_data_point_button") %>
+		   <%= submit_tag(:submeter, class:"btn btn-success model_add_data_point_button", id:"statue_add_data_point_button") %>
 		 </th>
 	      </tr>
 	    </thead>
 	  
 	  
 	  
-	    <tbody id="statue_data_collection">
+	    <tbody class="model_data_collection" id="statue_data_collection">
 	      
 	    <%= render "tbody" %>
 	    </tbody>
@@ -215,20 +215,20 @@ $(document).ready(function() {
   <div class="model-choice_buttons_explanation" id="statue_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
   <div class="linear_function_controls model_function_controls" id="statue_linear_controls">
     
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span id="statue_linear_m">10000</span></div><div class="model_slider_controls" id="statue_linear_m_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span id="statue_linear_b">0</span></div><div class="model_slider_controls" id="statue_linear_b_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="statue_linear_m">120</span></div><div class="model_slider_controls model_linear_m_slider" id="statue_linear_m_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_linear_b" id="statue_linear_b">0</span></div><div class="model_slider_controls model_linear_b_slider" id="statue_linear_b_slider"></div></div>
 
   </div>
   <div class="quadratic_function_controls model_function_controls" id="statue_quadratic_controls">
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span id="statue_quadratic_k">15000</span></div><div class="model_slider_controls" id="statue_quadratic_k_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span id="statue_quadratic_h">0</span></div><div class="model_slider_controls" id="statue_quadratic_h_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span id="statue_quadratic_b">0</span></div><div class="model_slider_controls" id="statue_quadratic_b_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_quadratic_k" id="statue_quadratic_k">15000</span></div><div class="model_slider_controls model_quadratic_k_slider" id="statue_quadratic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_quadratic_h" id="statue_quadratic_h">0</span></div><div class="model_slider_controls model_quadratic_h_slider" id="statue_quadratic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_quadratic_b" id="statue_quadratic_b">0</span></div><div class="model_slider_controls model_quadratic_b_slider" id="statue_quadratic_b_slider"></div></div>
   </div>
 
   <div class="cubic_function_controls model_function_controls" id="statue_cubic_controls">
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span id="statue_cubic_k">20000</span></div><div class="model_slider_controls" id="statue_cubic_k_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span id="statue_cubic_h">0</span></div><div class="model_slider_controls" id="statue_cubic_h_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span id="statue_cubic_b">0</span></div><div class="model_slider_controls" id="statue_cubic_b_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_cubic_k" id="statue_cubic_k">20000</span></div><div class="model_slider_controls  model_cubic_k_slider" id="statue_cubic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_cubic_h" id="statue_cubic_h">0</span></div><div class="model_slider_controls model_cubic_h_slider" id="statue_cubic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_cubic_b" id="statue_cubic_b">0</span></div><div class="model_slider_controls model_cubic_b_slider" id="statue_cubic_b_slider"></div></div>
   </div>
   
   <div class="model_choice_model_information_div">
@@ -247,7 +247,7 @@ $(document).ready(function() {
   </div>
   </div>
   <div id="statue_graph_super_div">
-  <div>Massa da estátua em função do comprimento</div>
+  <div>Massa da estátua em função da altura</div>
   <div id="statue_graph_div">
     <div class="y_label_div" id="statue_y_label">m (g)</div>
     
