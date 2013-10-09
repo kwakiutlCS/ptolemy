@@ -4,22 +4,22 @@ $(function() {
     var model, 
     prediction=60000, 
     linear_m = 120, linear_b = 0, 
-    quadratic_k = 1, quadratic_h= 0, quadratic_b =0, 
-    cubic_k = 1, cubic_h= 0, cubic_b =0, 
+    quadratic_k = 2.6, quadratic_h= 0, quadratic_b =0, 
+    cubic_k = 0.04, cubic_h= 0, cubic_b =0, 
     measurable = 500, 
     data_loaded=false, 
     user_data, plot_data,
     default_x = 60;
 
     // slider limits
-    $("#statue_linear_m_slider").slider({value: 100, min: 0, max: 1000, step: 10});
-    $("#statue_linear_b_slider").slider({value: 0, min: -10000, max: 10000, step: 500});
-    $("#statue_quadratic_k_slider").slider({value: 15000, min: 0, max: 200000, step: 1000});
-    $("#statue_quadratic_h_slider").slider({value: 0, min: 0, max: 0.8, step: 0.01});
-    $("#statue_quadratic_b_slider").slider({value: 0, min: -20000, max: 20000});
-    $("#statue_cubic_k_slider").slider({value: 20000, min: 0, max: 200000, step: 1000});
-    $("#statue_cubic_h_slider").slider({value: 0, min: 0, max: 0.8, step: 0.01});
-    $("#statue_cubic_b_slider").slider({value: 0, min: -20000, max: 20000});
+    $("#statue_linear_m_slider").slider({value: linear_m, min: 0, max: 1000, step: 10});
+    $("#statue_linear_b_slider").slider({value: linear_b, min: -10000, max: 10000, step: 500});
+    $("#statue_quadratic_k_slider").slider({value: quadratic_k, min: 0, max: 15, step: 0.1});
+    $("#statue_quadratic_h_slider").slider({value: quadratic_h, min: 0, max: default_x, step: 1});
+    $("#statue_quadratic_b_slider").slider({value: quadratic_b, min: -20000, max: 20000});
+    $("#statue_cubic_k_slider").slider({value: cubic_k, min: 0, max: 0.4, step: 0.005});
+    $("#statue_cubic_h_slider").slider({value: cubic_h, min: 0, max: default_x, step: 1});
+    $("#statue_cubic_b_slider").slider({value: cubic_b, min: -20000, max: 20000});
 
 
 
@@ -96,6 +96,7 @@ $(function() {
 
 	 prediction = quadratic_b + Math.pow(measurable-quadratic_h, 2)*quadratic_k;
 	 write_quadratic_formula();
+	 plot_polynomial(getQuadraticData());
     });
     $(".model_quadratic_h_slider").on("slide", function(evt, ui) {
 	 $(".model_quadratic_h").html(ui.value);
@@ -103,6 +104,7 @@ $(function() {
 
 	 prediction = quadratic_b + Math.pow(measurable-quadratic_h, 2)*quadratic_k;
 	 write_quadratic_formula();
+	 plot_polynomial(getQuadraticData());
     });
     $(".model_quadratic_b_slider").on("slide", function(evt, ui) {
 	 $(".model_quadratic_b").html(ui.value);
@@ -110,6 +112,7 @@ $(function() {
 
 	 prediction = quadratic_b + Math.pow(measurable-quadratic_h, 2)*quadratic_k;
 	 write_quadratic_formula();
+	 plot_polynomial(getQuadraticData());
     });
     $(".model_cubic_k_slider").on("slide", function(evt, ui) {
 	 $(".model_cubic_k").html(ui.value);
@@ -117,6 +120,7 @@ $(function() {
 
 	 prediction = cubic_b + Math.pow(measurable-cubic_h, 3)*cubic_k;
 	 write_cubic_formula();
+	 plot_polynomial(getCubicData());
     });
     $(".model_cubic_h_slider").on("slide", function(evt, ui) {
 	 $(".model_cubic_h").html(ui.value);
@@ -124,6 +128,7 @@ $(function() {
 
 	 prediction = cubic_b + Math.pow(measurable-cubic_h, 3)*cubic_k;
 	 write_cubic_formula();
+	 plot_polynomial(getCubicData());
     });
     $(".model_cubic_b_slider").on("slide", function(evt, ui) {
 	 $(".model_cubic_b").html(ui.value);
@@ -131,6 +136,7 @@ $(function() {
 
 	 prediction = cubic_b + Math.pow(measurable-cubic_h, 3)*cubic_k;
 	 write_cubic_formula();
+	 plot_polynomial(getCubicData());
     });
 
 
@@ -143,7 +149,7 @@ $(function() {
 	 $(".model_choice_model_information_div").show();
 
 	 model = 1;
-	 
+	 prediction = linear_b + measurable*linear_m;
 	 write_linear_formula();
 	 loadsPlot(plot_linear);
 
@@ -157,6 +163,8 @@ $(function() {
 	 model = 2;
 	 
 	 write_quadratic_formula();
+	 prediction = quadratic_b + Math.pow(measurable-quadratic_h, 2)*quadratic_k;
+	 loadsPlot(plot_polynomial, getQuadraticData());
     });
 
     $(".model_choice_buttons").on("click", ".cubic_model_button", function() {
@@ -167,6 +175,8 @@ $(function() {
 	 model = 3;
 	 
 	 write_cubic_formula();
+	 prediction = cubic_b + Math.pow(measurable-cubic_h, 3)*cubic_k;
+	 loadsPlot(plot_polynomial, getCubicData());
     });
 
 
@@ -327,7 +337,7 @@ $(function() {
 	     if (user_data[i][1] > max_y)
 		  max_y = user_data[i][1];
 	 }
-	 max_y = parseInt(max_y/5000+1)*5000;
+	 max_y *=1.1;
 
 	 return max_y;
     }
@@ -377,6 +387,48 @@ $(function() {
 	 $(".flot-x-axis").css({left: "10px"});
     }
 
+
+    var plot_polynomial = function(data, xmax, ymax) {
+	 var xmax = (typeof xmax) == "undefined" ? default_x : xmax;
+	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
+	 
+	 $.plot($(".graph_div"), [{
+		      data: plot_data,
+		      points: { show: true },
+		      label: "dados dos seus colegas"
+     
+		  },
+		  {
+		      data: user_data,
+		      points: { show: true },
+		      label: "os seus dados"
+     
+		  },
+	         {
+                    data: data
+		  },
+		  
+		  {
+		      data: [[measurable,prediction]],
+		      points: { show: true },
+		  }
+					], 
+		 {
+		     xaxis: { min:0, max: xmax,
+			     tickFormatter: function (v) {
+				  return scientific(v,1);
+			     }},
+		     yaxis: { min:0, max: ymax, 
+			     tickFormatter: function (v) {
+				  return scientific(v,1);
+			     }},
+		     legend: { position: "se", backgroundOpacity: 0},
+		 });
+	 $(".flot-x-axis").css({left: "10px"});
+    }
+
+
+
     var scientific = function(v,d) {
 	 var d = typeof d == "undefined" ? 0 : d;
 
@@ -389,5 +441,34 @@ $(function() {
 	     e += 1;
 	 }
 	 return (v/Math.pow(10,e)).toFixed(d)+" x 10<sup>"+e+"</sup>";
+    }
+
+
+    var getQuadraticData = function() {
+	 var step = default_x/30;
+	 var x = 0;
+	 var quadratic_data = [];
+
+	 while (x < default_x) {
+	     var y = quadratic_k *(x-quadratic_h) * (x-quadratic_h) + quadratic_b;
+	     quadratic_data.push([x, y]);
+	     x += step;
+	     
+	 }
+	 return quadratic_data;
+    }
+
+    var getCubicData = function() {
+	 var step = default_x/40;
+	 var x = 0;
+	 var cubic_data = [];
+
+	 while (x < default_x) {
+	     var y = cubic_k *(x-cubic_h) * (x-cubic_h) * (x-cubic_h) + cubic_b;
+	     cubic_data.push([x, y]);
+	     x += step;
+	     
+	 }
+	 return cubic_data;
     }
 });
