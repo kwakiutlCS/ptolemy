@@ -85,7 +85,7 @@ text.content = mass*1000+" g";
 var verticalLine = new Path.Line(new Point(350,statue.bounds.bottom), new Point(350,statue.bounds.top));
 verticalLine.strokeColor = "black";
 var sizeText = new PointText(new Point(357,300));
-sizeText.content = size.toFixed(1) +" cm";
+sizeText.content = size.toFixed(0) +" cm";
 var topLine = new Path.Line(new Point(345, statue.bounds.top), new Point(355, statue.bounds.top));
 topLine.strokeColor = "black";
 var bottomLine = new Path.Line(new Point(345, statue.bounds.bottom), new Point(355, statue.bounds.bottom));
@@ -102,9 +102,9 @@ $(document).ready(function() {
 		    y = (statue.bounds.height-height)/2;
 		    statue.position.y -= y;
 		    mass = mass0*Math.pow(size/size0,3);
-		    text.content = (mass*1000*(1.02-0.04*Math.random())).toFixed(0)+" g";
+		    text.content = (mass*1000*(1.15-0.3*Math.random())).toFixed(0)+" g";
 		    verticalLine.segments[1].point = new Point(350,statue.bounds.top);
-		    sizeText.content = size.toFixed(1) +" cm";
+		    sizeText.content = size.toFixed(0) +" cm";
 		    topLine.position.y = statue.bounds.top;
     });
 
@@ -124,10 +124,10 @@ $(document).ready(function() {
 	      <tr><th>altura(m)</th><th>massa(kg)<th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"statue_input", placeholder:"metro",step:0.0001, id:"statue_size_field") %>
+		   <%= number_field_tag(:x, nil,  class:"statue_input", placeholder:"metro",step:0.0001, id:"statue_size_field", max:1, min:0) %>
 		 </th>
 		 <th>
-		   <%= number_field_tag(:y, nil, class:"statue_input", placeholder:"quilograma",step:0.001,  id:"statue_mass_field") %>
+		   <%= number_field_tag(:y, nil, class:"statue_input", placeholder:"quilograma",step:0.001,  id:"statue_mass_field", max: 15, min:0) %>
 		 </th>
 		 
 		 <th>

@@ -2,6 +2,7 @@ Plotomeu::Application.routes.draw do
   devise_for :users
 
   resources :teachers
+  resources :students
 
   resources :thermal_capacities 
   resources :static_pages do

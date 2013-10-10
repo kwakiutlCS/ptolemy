@@ -1,0 +1,27 @@
+<h2><% @activity.title %></h2>
+    
+
+    
+    
+    <% @students.each do |s| %>
+    <div class="ptolemy_dashboard_cell">
+      <div class="ptolemy_student_dashboard_header">
+	 <span class="ptolemy_student_name"><%= s[:name] %></span>
+	 <span class="ptolemy_student_model">modelo: <%= s[:answers][0][1] %></span>   
+	 <span class="ptolemy_student_measurements">medições: <%= s[:count] %></span>
+	 <span class="ptolemy_student_time"> <%= ((s[:end]-s[:start])/60).round %> minutos</span>
+	 <span><%= link_to "remover", student_path(s[:id]), method: :delete, confirm: "Esta ação vai remover todo o trabalho do(a) estudante #{s[:name]}. Continuar?", remote:true, params:{activity_id:@activity.id} %></span>
+      </div>
+      <div class="ptolemy_student_dashboard_body">
+	 <% s[:answers].each_with_index do |a,i| %>
+	 <% if i != 0 %>
+	 <% if a[1] != "" %>
+	 <p class="ptolemy_student_question"><%= raw(a[0]) %></p>
+	 <p class="ptolemy_student_answer"><%= a[1] %></p>
+	 <br />
+	 <% end %>
+	 <% end %>
+	 <% end %>
+      </div>
+    </div>
+    <% end %>
