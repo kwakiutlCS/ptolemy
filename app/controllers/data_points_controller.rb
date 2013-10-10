@@ -15,6 +15,7 @@ class DataPointsController < ApplicationController
   end
 
   def destroy
+    
     data = DataPoint.find(params[:id])
     data.destroy
 
@@ -39,7 +40,7 @@ class DataPointsController < ApplicationController
   def updateGraph
     getData()
     
-    data = {plot_data: @plot_data, user_data: @user_data}
+    data = {plot_data: @plot_data, user_data: @user_data, initial_prediction: session[:prediction]}
 
     respond_to do |format|
       format.json {render json: data.to_json}

@@ -75,7 +75,7 @@ statue.position = view.center+new Point(0,85);
 statue.scale(0.25);
 var height = statue.bounds.height;
 var y = 0;
-var mass0 = 0.095;
+var mass0 = 0.092;
 var mass = mass0;
 
 var text = new PointText(new Point(130,442));
@@ -118,7 +118,7 @@ $(document).ready(function() {
 	 y = (statue.bounds.height-height)/2;
 	 statue.position.y -= y;
 	 mass = mass0*Math.pow(size/size0,3);
-	 text.content = (mass*1000*(1.02-0.04*Math.random())).toFixed(0)+" g";
+	 text.content = (mass*1000*(1.25-0.5*Math.random())).toFixed(0)+" g";
         verticalLine.segments[1].point = new Point(350,statue.bounds.top);
     sizeText.content = size +" cm";
     topLine.position.y = statue.bounds.top;
@@ -135,13 +135,13 @@ $(document).ready(function() {
       <%= form_tag(data_points_path, remote: true) do %>
          <table class="table">
 	    <thead>
-	      <tr><th>altura(cm)</th><th>massa(g)<th></th></tr>
+	      <tr><th>altura(m)</th><th>massa(kg)<th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"statue_input",  id:"statue_size_field") %>
+		   <%= number_field_tag(:x, nil,  class:"statue_input", placeholder:"metro",step:0.001, id:"statue_size_field") %>
 		 </th>
 		 <th>
-		   <%= number_field_tag(:y, nil, class:"statue_input",  id:"statue_mass_field") %>
+		   <%= number_field_tag(:y, nil, class:"statue_input", placeholder:"quilograma",step:0.001,  id:"statue_mass_field") %>
 		 </th>
 		 
 		 <th>
@@ -190,6 +190,22 @@ $(document).ready(function() {
     <div class="btn-group statue_navigator">
     <a type="button" class="statue_button btn btn-primary data-gathering_previous" id="statue_data-gathering_previous">Anterior</a>
     <a type="button" class="statue_button btn btn-primary data-gathering_next" id="statue_data-gathering_next"  style="display:none">Seguinte</a>
+    </div>
+
+
+    <a href="#fancydiv" class="fancybox" id="fancy_trigger" style="display:none">sdkfaj</a>
+
+    <div  style="display:none;">
+      <div id="fancydiv">
+      <p>Verificou que uma estátua de <span id="fancy_size">0.1</span>m tem uma massa de <span id="fancy_mass">0.095</span>kg.<br /> Antes de continuar com a atividade tente prever qual a massa da estátua de 2.5m.</p>
+      <%= form_tag(add_prediction_statues_path, remote:true) do %>
+      <div class="form-horizontal">
+      <%= number_field_tag(:mass,"", step:0.001, placeholder:"previsão (kg)") %>
+      <%= submit_tag(:submeter, class:"btn btn-success") %>
+      <%= link_to "Não fazer previsão", "#", id:"fancy_close", style:"margin-left:30px;" %>
+      </div>
+      <% end %>
+      </div>
     </div>
 </section>
 
@@ -249,10 +265,10 @@ $(document).ready(function() {
   <div id="statue_graph_super_div">
   <div>Massa da estátua em função da altura</div>
   <div id="statue_graph_div">
-    <div class="y_label_div" id="statue_y_label">m (g)</div>
+    <div class="y_label_div" id="statue_y_label">m (kg)</div>
     
   <div class="graph_div" id="statue_graph"></div>
-<div class="x_label_div" id="statue_x_label">l (cm)</div>
+<div class="x_label_div" id="statue_x_label">l (m)</div>
   </div>
    </div>
   </div>
@@ -301,6 +317,51 @@ $(document).ready(function() {
 </section>
 
 
+
+
+
+
+
+<section class="questions">
+  <h1>Questões Finais</h1>
+
+  <div class="row model_question_screen1" id="statue_question_screen1"><div class="span2"></div>
+    <div class="span9" id="statue_questions_div">
+      <%= form_tag(answers_path, remote: true) do %>
+      <%= hidden_field_tag(:model, nil, id:"statue_model_field", class:"question_model_field") %>
+      <%= hidden_field_tag(:question1, nil, id:"statue_question1_field", class:"question_question1_field") %>
+      <%= label_tag(:answer1, nil, id:"statue_question1_label", class:"question_question1_label") %>
+      <%= text_area_tag(:answer1, nil, id:"statue_answer1_field", class:"question_answer1_field") %>
+      <%= hidden_field_tag(:question2, nil, id:"statue_question2_field", class:"question_question2_field") %>
+      <%= label_tag(:answer2, nil, id:"statue_question2_label", class:"question_question2_label") %>
+      <%= text_area_tag(:answer2, nil, id:"statue_answer2_field", class:"question_answer2_field") %>
+      <%= hidden_field_tag(:question3, nil, id:"statue_question3_field", class:"question_question3_field") %>
+      <%= label_tag(:answer3, nil, id:"statue_question3_label", class:"question_question3_label") %>
+      <%= text_area_tag(:answer3, nil, id:"statue_answer3_field", class:"question_answer3_field") %>
+      <%= hidden_field_tag(:question4, nil, id:"statue_question4_field", class:"question_question4_field") %>
+      <%= label_tag(:answer4, nil, id:"statue_question4_label", class:"question_question4_label") %>
+      <%= text_area_tag(:answer4, nil, id:"statue_answer4_field", class:"question_answer4_field") %>
+      
+      <br />
+      <%= submit_tag(:save, value:"Submeter", confirm:"Deseja introduzir estas respostas?", class:"btn btn-success questions_confirm_answers_button", style:"float: left") %>
+      <% end %>
+    </div>
+    <div class="span3"></div>
+  </div>
+
+  <div class="row model_question_screen2" id="statue_question_screen2"><div class="span2"></div>
+    <div class="span9" id="statue_questions_after_div">
+      Atividade terminada
+    </div>
+    
+  </div>
+
+  
+
+  <div class="btn-group statue_navigator">
+    <a type="button" class="statue_button btn btn-primary model_questions_previous" id="statue_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
+  </div>
+</section>
 
 
 

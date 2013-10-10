@@ -36,6 +36,7 @@ gem "therubyracer"
 gem "less-rails" 
 gem "twitter-bootstrap-rails"
 gem "devise"
+gem 'fancybox-rails'
 
 
 # To use ActiveModel has_secure_password

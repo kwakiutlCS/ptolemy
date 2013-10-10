@@ -69,15 +69,15 @@ $(function() {
 		  else if (model === 2) 
 		      m = "quadrático";
 		  else if (model === 3) 
-		      m = "cúbico";
+		      m = "cúbico;"
 
 		  var question1, question2,question3,question4
 		  question1 = "Escolheu o modelo <b>"+m+"</b>. Por que razão essa é uma boa escolha?";
 
 		  if (initial_prediction != null && (initial_prediction/prediction > 1.2 || initial_prediction/prediction < 0.8))
-		      question2 = "A sua previsão inicial para a massa da estátua foi "+initial_prediction+"kg enquanto que o modelo prevê "+prediction.toFixed(0)+"kg. Como justifica isto?";
+		  question2 = "A sua previsão inicial para a massa da estátua foi  enquanto que o modelo prevê "+prediction+". Como justifica isto?" 
 		  else
-		      question2 = "A previsão de "+scientific(prediction)+"kg parece-lhe razoável?";
+		  question2 = "A previsão de "+scientific(prediction)+"kg parece-lhe razoável?";
 		  
 
 		  question3 = "";
@@ -97,7 +97,7 @@ $(function() {
 		  $(".question_question4_label").html(question4);
 		  $(".question_question4_field").val(question4);
 
-		  $("#statue_answer3_field").remove();
+		  
 	     });
 	     
 	 }

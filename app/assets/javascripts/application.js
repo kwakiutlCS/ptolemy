@@ -16,4 +16,5 @@
 //= require jquery.ui.progressbar
 //= require jquery.ui.tooltip
 //= require twitter/bootstrap
+//= require fancybox
 //= require_tree .

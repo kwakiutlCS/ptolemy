@@ -2,7 +2,7 @@ $(function() {
 
     //SPECIFIC CODE
     var model, 
-    prediction=600, initial_prediction, 
+    prediction=600, 
     linear_m = 4, linear_b = 0, 
     quadratic_k =6, quadratic_h= 0, quadratic_b =0, 
     cubic_k = 2, cubic_h= 0, cubic_b =0, 
@@ -69,35 +69,22 @@ $(function() {
 		  else if (model === 2) 
 		      m = "quadrático";
 		  else if (model === 3) 
-		      m = "cúbico";
-
-		  var question1, question2,question3,question4
-		  question1 = "Escolheu o modelo <b>"+m+"</b>. Por que razão essa é uma boa escolha?";
-
-		  if (initial_prediction != null && (initial_prediction/prediction > 1.2 || initial_prediction/prediction < 0.8))
-		      question2 = "A sua previsão inicial para a massa da estátua foi "+initial_prediction+"kg enquanto que o modelo prevê "+prediction.toFixed(0)+"kg. Como justifica isto?";
-		  else
-		      question2 = "A previsão de "+scientific(prediction)+"kg parece-lhe razoável?";
-		  
-
-		  question3 = "";
-		  
-		  question4 = "O que achou confuso ou díficil nesta atividade?";
+		      m = "cúbico;"
 
 		  $(".question_model_field").val(m);
-		  $(".question_question1_label").html(question1);
-		  $(".question_question1_field").val(question1);
+		  $(".question_question1_label").html("Escolheu o modelo <b>"+m+"</b>. Por que razão essa é uma boa escolha?");
+		  $(".question_question1_field").val("Escolheu o modelo <b>"+m+"</b>. Por que razão essa é uma boa escolha?");
 
 		  
-		  $(".question_question2_label").html(question2);
-		  $(".question_question2_field").val(question2);
+		  $(".question_question2_label").html("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
+		  $(".question_question2_field").val("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
 
-		  $(".question_question3_label").html(question3);
-		  $(".question_question3_field").val(question3);
-		  $(".question_question4_label").html(question4);
-		  $(".question_question4_field").val(question4);
+		  $(".question_question3_label").html("Há algum factor que não foi considerado que afete esta previsão? Qual? Esse fator implicará um acréscimo ou decréscimo de energia gasta para aquecer a água?");
+		  $(".question_question3_field").val("Há algum factor que não foi considerado que afete esta previsão? Qual? Esse fator implicará um acréscimo ou decréscimo de energia gasta para aquecer a água?");
+		  $(".question_question4_label").html("O que achou confuso ou díficil nesta atividade?");
+		  $(".question_question4_field").val("O que achou confuso ou díficil nesta atividade?");
 
-		  $("#statue_answer3_field").remove();
+		  
 	     });
 	     
 	 }
@@ -396,7 +383,6 @@ $(function() {
 		  success: function(json) {      
 		      user_data = json.user_data;
 		      plot_data = json.plot_data;
-		      initial_prediction = json.initial_prediction;
 		      
 		      var xmax = (typeof xmax) === "undefined" ? default_x : xmax;
 		      var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;

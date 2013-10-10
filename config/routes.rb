@@ -18,7 +18,11 @@ Plotomeu::Application.routes.draw do
   resources :answers
   resources :templates
   resources :activities
-  resources :statues
+  resources :statues do
+    collection do
+      post "add_prediction"
+    end
+  end
 
   root to: "static_pages#index"
 

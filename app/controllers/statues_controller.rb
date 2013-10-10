@@ -6,4 +6,13 @@ class StatuesController < ApplicationController
     end
     
   end
+
+
+  def add_prediction
+    session[:prediction] = params[:mass]
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end

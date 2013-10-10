@@ -4,5 +4,18 @@ $(function() {
 	 $(this).children(".ptolemy_student_dashboard_body").toggle();
     });
 
-    
+    $(".fancybox").fancybox({
+	 'hideOnOverlayClick': false
+    });
+
+    $("#fancydiv").on("click", "#fancy_close", function(e) {
+	 e.preventDefault();
+	 $.fancybox.close();
+	 
+    });
+
+
+    $("#fancy_trigger").on("click", function() {
+	 $(this).remove();
+    });
 });
