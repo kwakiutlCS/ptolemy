@@ -84,8 +84,8 @@ text.content = mass*1000+" g";
 
 var verticalLine = new Path.Line(new Point(350,statue.bounds.bottom), new Point(350,statue.bounds.top));
 verticalLine.strokeColor = "black";
-var sizeText = new PointText(new Point(360,300));
-sizeText.content = size +" cm";
+var sizeText = new PointText(new Point(357,300));
+sizeText.content = size.toFixed(1) +" cm";
 var topLine = new Path.Line(new Point(345, statue.bounds.top), new Point(355, statue.bounds.top));
 topLine.strokeColor = "black";
 var bottomLine = new Path.Line(new Point(345, statue.bounds.bottom), new Point(355, statue.bounds.bottom));
@@ -93,10 +93,10 @@ bottomLine.strokeColor = "black";
 
 
 $(document).ready(function() {
-    $("#statue_controls").on("click", "#statue_plus", function() {
-       if (size < 5*size0) {
-		    statue.scale(1/size);
-		    size += 1;
+    $("#statue_size_controls").on("slide", "#statue_size_slider", function(evt, ui) {
+        console.log(ui.value);
+        statue.scale(1/size);
+		    size = ui.value;
 		    statue.scale(size);
 		    statue.position.y += y;
 		    y = (statue.bounds.height-height)/2;
@@ -104,26 +104,12 @@ $(document).ready(function() {
 		    mass = mass0*Math.pow(size/size0,3);
 		    text.content = (mass*1000*(1.02-0.04*Math.random())).toFixed(0)+" g";
 		    verticalLine.segments[1].point = new Point(350,statue.bounds.top);
-		    sizeText.content = size +" cm";
+		    sizeText.content = size.toFixed(1) +" cm";
 		    topLine.position.y = statue.bounds.top;
-       }
     });
 
-    $("#statue_controls").on("click", "#statue_minus", function() {
-        if (size > size0) {
-	 statue.scale(1/size);
-	 size -= 1;
-	 statue.scale(size);
-	 statue.position.y += y;
-	 y = (statue.bounds.height-height)/2;
-	 statue.position.y -= y;
-	 mass = mass0*Math.pow(size/size0,3);
-	 text.content = (mass*1000*(1.25-0.5*Math.random())).toFixed(0)+" g";
-        verticalLine.segments[1].point = new Point(350,statue.bounds.top);
-    sizeText.content = size +" cm";
-    topLine.position.y = statue.bounds.top;
-    }
-    });
+
+    
 });
 
 </script>
@@ -138,7 +124,7 @@ $(document).ready(function() {
 	      <tr><th>altura(m)</th><th>massa(kg)<th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"statue_input", placeholder:"metro",step:0.001, id:"statue_size_field") %>
+		   <%= number_field_tag(:x, nil,  class:"statue_input", placeholder:"metro",step:0.0001, id:"statue_size_field") %>
 		 </th>
 		 <th>
 		   <%= number_field_tag(:y, nil, class:"statue_input", placeholder:"quilograma",step:0.001,  id:"statue_mass_field") %>
@@ -171,14 +157,12 @@ $(document).ready(function() {
     <div class="statue_animation span7">
     <canvas id="canvas" width=400 height=500></canvas>
    
-    <div id="statue_controls">
-      <div class="btn-group">
-	 <button type="button" class="statue_button btn btn-default" id="statue_minus">Menor</button>
-	 <button type="button" class="statue_button btn btn-default" id="statue_plus">Maior</button>
-	 
-    </div>
     
-    </div>
+      <div id="statue_size_controls" style="width:150px;  float:right; margin-top:-120px">
+	 <div id="statue_size_label">Altura</div>
+	 <div id="statue_size_slider"></div>
+      </div>
+    
     
     
     

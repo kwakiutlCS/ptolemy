@@ -11,6 +11,8 @@ $(function() {
     user_data, plot_data,
     default_x = 0.60, x_maximum=default_x, y_maximum;
 
+    $("#statue_size_slider").slider({value: 10, min: 10, max: 50, step: 0.1});
+
     // slider limits
     $("#statue_linear_m_slider").slider({value: linear_m, min: 0, max: 50, step: 0.10});
     $("#statue_linear_b_slider").slider({value: linear_b, min: -10, max:10, step: 0.05});
