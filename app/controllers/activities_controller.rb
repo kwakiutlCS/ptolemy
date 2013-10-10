@@ -26,7 +26,7 @@ class ActivitiesController < ApplicationController
         tmp[:answers] = a.questions.zip(a.answers)
         tmp[:start] = a.student.created_at
         tmp[:end] = a.time_submission
-        tmp[:count] = @activity.data_points.joins(:student).where("students.name = ?", a.student.name).count
+        tmp[:count] = @activity.data_points.joins(:student).where("students.id = ?", a.student.id).count
     
         @students << tmp
       end
