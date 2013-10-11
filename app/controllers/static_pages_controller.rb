@@ -22,7 +22,7 @@ class StaticPagesController < ApplicationController
     
     if session[:activity]
       session[:prediction] = nil
-      #remove_anonymous_data_points
+      remove_anonymous_data_points
     else
       redirect_to root_path
     end
@@ -54,7 +54,17 @@ class StaticPagesController < ApplicationController
   def remove_anonymous_data_points
     activity = Activity.find(session[:activity])
     users = activity.answers.select(:student_id)
+    u = []
+    users.each do |i|
+      u << i.student_id
+    end
 
+    points = activity.data_points.where("student_id not in (?)", u)
+    
+    points.each do |i|
+      i.destroy
+    end
+    
     
   end
 end
