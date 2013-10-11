@@ -19,6 +19,7 @@ class StaticPagesController < ApplicationController
 
 
   def set_name
+    
     s = Student.create(name: params[:name])
     if s.valid?
       session[:student] = s.id

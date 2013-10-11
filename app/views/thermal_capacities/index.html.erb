@@ -116,7 +116,7 @@ function onFrame(evt) {
 	 
 	 mass = getMass(base, height*y_scale, rho);
 	 
-        temperature += (Q/(mass*c_water)*(5-(Math.random()*8)));
+        temperature += (Q/(mass*c_water)*(1.5-(Math.random())));
 	 
 	 $("#thermo").text((Math.round(temperature*2)/2).toFixed(1)+ " ºC");
 	 if (temperature > 60) {
@@ -200,10 +200,10 @@ function reset() {
 	      <tr><th>Massa(kg)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energy(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"thermo_input", step:"any", id:"thermo_volume_field") %>
+		   <%= number_field_tag(:x, nil,  class:"thermo_input", step:0.001, id:"thermo_volume_field", placeholder:"kg", max:1) %>
 		 </th>
 		 <th>
-		   <%= number_field_tag(:time, nil, class:"thermo_input", step:"any", id:"thermo_time_field") %>
+		   <%= number_field_tag(:time, nil, class:"thermo_input", step:0.1, id:"thermo_time_field", placeholder:"s", max:75) %>
 		 </th>
 		 <th id="thermo_energy_calculator" title="E = P x &#916t">
 		   0.0

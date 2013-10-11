@@ -1,15 +1,29 @@
 class StudentsController < ApplicationController
-
+  before_filter :authenticate_user!
 
   def destroy
-    p params
-
+    
     s = Student.find(params[:id])
-    s.destroy
+    
     
     @activity = current_user.activities.where(id: params[:activity_id]).first
     
     answers = @activity.answers.includes(:student).order("students.name")
+
+    destroy_flag = false
+
+    if @activity && answers
+      answers.each do |a|
+        destroy_flag = true if a.student == s
+      end
+    end
+      
+    if destroy_flag
+      s.destroy
+      answers = @activity.answers.includes(:student).order("students.name")
+    else
+      redirect_to root_path
+    end
       
     @students = []
 

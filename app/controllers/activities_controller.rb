@@ -3,7 +3,9 @@ class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
 
   def create
+    template = params[:activity].delete(:template_id)
     a = current_user.activities.build(params[:activity])
+    a.template_id = template
     a.save
 
     redirect_to templates_path

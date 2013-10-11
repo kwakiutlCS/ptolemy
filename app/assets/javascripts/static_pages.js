@@ -18,4 +18,7 @@ $(function() {
     $("#fancy_trigger").on("click", function() {
 	 $(this).remove();
     });
+
+
+    $(".datepicker").datepicker({dateFormat:"dd-mm-yy"});
 });

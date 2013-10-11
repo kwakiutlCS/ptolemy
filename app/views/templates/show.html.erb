@@ -27,11 +27,9 @@
     <%= f.text_field :code, title:"Código que deverá ser entregue aos alunos para poderem aceder à atividade" %>
 
     <%= f.label :deadline, "Limite", title:"Opcional - Data limite para realização da atividade" %>
-    <%= f.text_field :deadline,  title:"Opcional - Data limite para realização da atividade" %>
+    <%= f.text_field :deadline,  title:"Opcional - Data limite para realização da atividade", class:"datepicker" %>
 
-    <%= f.label :published, "Publicar" %>
-
-
+    
     <%= f.submit "Criar", class:"btn btn-success", style:"float:right; margin-right: 18%" %>
 
     <% end %>

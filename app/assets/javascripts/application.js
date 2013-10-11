@@ -13,8 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.slider
-//= require jquery.ui.progressbar
 //= require jquery.ui.tooltip
+//= require jquery.ui.datepicker
 //= require twitter/bootstrap
 //= require fancybox
 //= require_tree .
