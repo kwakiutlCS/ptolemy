@@ -94,7 +94,7 @@ bottomLine.strokeColor = "black";
 
 $(document).ready(function() {
     $("#statue_size_controls").on("slide", "#statue_size_slider", function(evt, ui) {
-        console.log(ui.value);
+        
         statue.scale(1/size);
 		    size = ui.value;
 		    statue.scale(size);
@@ -320,8 +320,7 @@ $(document).ready(function() {
       <%= label_tag(:answer2, nil, id:"statue_question2_label", class:"question_question2_label") %>
       <%= text_area_tag(:answer2, nil, id:"statue_answer2_field", class:"question_answer2_field") %>
       <%= hidden_field_tag(:question3, nil, id:"statue_question3_field", class:"question_question3_field") %>
-      <%= label_tag(:answer3, nil, id:"statue_question3_label", class:"question_question3_label") %>
-      <%= text_area_tag(:answer3, nil, id:"statue_answer3_field", class:"question_answer3_field") %>
+      <%= hidden_field_tag(:answer3, nil, id:"statue_answer3_field", class:"question_answer3_field") %>
       <%= hidden_field_tag(:question4, nil, id:"statue_question4_field", class:"question_question4_field") %>
       <%= label_tag(:answer4, nil, id:"statue_question4_label", class:"question_question4_label") %>
       <%= text_area_tag(:answer4, nil, id:"statue_answer4_field", class:"question_answer4_field") %>

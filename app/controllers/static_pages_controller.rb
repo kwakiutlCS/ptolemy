@@ -20,6 +20,13 @@ class StaticPagesController < ApplicationController
 
   def set_name
     
+    if session[:activity]
+      session[:prediction] = nil
+      #remove_anonymous_data_points
+    else
+      redirect_to root_path
+    end
+
     s = Student.create(name: params[:name])
     if s.valid?
       session[:student] = s.id
@@ -41,4 +48,13 @@ class StaticPagesController < ApplicationController
         format.js
     end
   end 
+
+
+  private
+  def remove_anonymous_data_points
+    activity = Activity.find(session[:activity])
+    users = activity.answers.select(:student_id)
+
+    
+  end
 end

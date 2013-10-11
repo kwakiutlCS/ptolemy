@@ -792,8 +792,8 @@ $(function(){
 
 		  $("#thermo_question3_label").html("Há algum factor que não foi considerado que afete esta previsão? Qual? Esse fator implicará um acréscimo ou decréscimo de energia gasta para aquecer a água?");
 		  $("#thermo_question3_field").val("Há algum factor que não foi considerado que afete esta previsão? Qual? Esse fator implicará um acréscimo ou decréscimo de energia gasta para aquecer a água?");
-		  $("#thermo_question4_label").html("O que achou confuso ou díficil nesta atividade?");
-		  $("#thermo_question4_field").val("O que achou confuso ou díficil nesta atividade?");
+		  $("#thermo_question4_label").html("O que achou confuso ou difícil nesta atividade?");
+		  $("#thermo_question4_field").val("O que achou confuso ou difícil nesta atividade?");
 
 		  
 	     });

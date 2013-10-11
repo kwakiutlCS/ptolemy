@@ -82,9 +82,9 @@ $(function() {
 		      question2 = "A previsão de "+scientific(prediction)+"kg parece-lhe razoável?";
 		  
 
-		  question3 = "";
+		  question3 = "Previsão inicial";
 		  
-		  question4 = "O que achou confuso ou díficil nesta atividade?";
+		  question4 = "O que achou confuso ou difícil nesta atividade?";
 
 		  $(".question_model_field").val(m);
 		  $(".question_question1_label").html(question1);
@@ -94,12 +94,18 @@ $(function() {
 		  $(".question_question2_label").html(question2);
 		  $(".question_question2_field").val(question2);
 
-		  $(".question_question3_label").html(question3);
+		  $(".question_question3_label").html("");
 		  $(".question_question3_field").val(question3);
+		  if (initial_prediction) {
+		      $(".question_answer3_field").val(initial_prediction+" kg");
+		  }
+		  else {
+		      $(".question_answer3_field").val("Não fez previsão");
+		  }
 		  $(".question_question4_label").html(question4);
 		  $(".question_question4_field").val(question4);
 
-		  $("#statue_answer3_field").remove();
+		  
 	     });
 	     
 	 }
