@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
   def index
     if params[:code]
       a = Activity.where(code: params[:code]).first
+      p a
       if a
         session[:deadline] = a.deadline
         
@@ -58,9 +59,13 @@ class StaticPagesController < ApplicationController
     users.each do |i|
       u << i.student_id
     end
-
-    points = activity.data_points.where("student_id not in (?)", u)
     
+    if activity.answers.any?
+      points = activity.data_points.where("student_id not in (?)", u)
+    else
+      points = activity.data_points
+    end
+
     points.each do |i|
       i.destroy
     end
