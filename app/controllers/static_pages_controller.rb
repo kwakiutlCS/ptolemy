@@ -22,9 +22,9 @@ class StaticPagesController < ApplicationController
       @templates = []
       tmp = []
 
-      t.each do |i|
+      t.each do |e|
         
-        tmp << i
+        tmp << e
         if tmp.count == 2
           @templates << tmp
           tmp = []
