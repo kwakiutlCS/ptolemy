@@ -20,5 +20,5 @@ $(function() {
     });
 
 
-    $(".datepicker").datepicker({dateFormat:"dd-mm-yy"});
+    $(".datepicker").datepicker({format:"dd-mm-yyyy", language:"pt-BR"});
 });

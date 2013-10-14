@@ -11,5 +11,6 @@
  *= require_self
  *= require jquery.ui.slider
  *= require fancybox
+ *= require bootstrap-datepicker
  *= require_tree .
  */

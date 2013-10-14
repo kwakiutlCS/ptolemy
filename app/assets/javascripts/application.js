@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require jquery.ui.slider
 //= require jquery.ui.tooltip
-//= require jquery.ui.datepicker
 //= require twitter/bootstrap
+//= require bootstrap-datepicker
 //= require fancybox
 //= require_tree .

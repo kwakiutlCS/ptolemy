@@ -19,4 +19,4 @@ Feature: create activity
 	  Then I should see "Título"
 	  Then I should see "Limite"
 	  And I should see "Código"
-	  And I should see "Publicar"
+	  
