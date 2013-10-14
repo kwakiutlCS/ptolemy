@@ -3,7 +3,7 @@ class StaticPagesController < ApplicationController
   def index
     if params[:code]
       a = Activity.where(code: params[:code]).first
-      p a
+      
       if a
         session[:deadline] = a.deadline
         
@@ -13,6 +13,29 @@ class StaticPagesController < ApplicationController
       else
         flash[:alert] = "Não existe nada com esse código"
         redirect_to static_pages_path
+      end
+    else
+      cat = params[:category] || 1
+      @subcategories = SubCategory.all
+      t = Template.where(sub_category_id: cat)
+
+      @templates = []
+      tmp = []
+
+      t.each do |i|
+        
+        tmp << i
+        if tmp.count == 2
+          @templates << tmp
+          tmp = []
+        end
+      end
+      @templates << tmp if tmp.count == 1
+          
+
+      respond_to do |format|
+        format.html
+        format.js
       end
     end
     

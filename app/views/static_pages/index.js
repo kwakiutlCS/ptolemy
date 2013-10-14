@@ -1,0 +1,1 @@
+$('#template_index').html("<%= escape_javascript(render(:partial => 'templates')) %>");

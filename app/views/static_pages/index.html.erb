@@ -9,3 +9,23 @@
 <% end %>
 
 </div>
+
+
+<section class="row">
+
+<section class="span3">
+
+  <% @subcategories.each do |s| %>
+  <p><%= link_to s.title, static_pages_path(category: s.id), remote:true %></p>
+  <% end %>
+
+</section>
+
+<section class="span9" id="template_index">
+  <%= render "templates" %>
+
+</section>
+
+
+
+</section>
