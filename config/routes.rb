@@ -5,6 +5,7 @@ Plotomeu::Application.routes.draw do
   resources :students
 
   resources :thermal_capacities 
+  resources :thermal_capacities_materials
   resources :static_pages do
     collection do
       get "set_name"

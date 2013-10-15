@@ -1,0 +1,2 @@
+class ThermalCapacitiesMaterialsController < ApplicationController
+end

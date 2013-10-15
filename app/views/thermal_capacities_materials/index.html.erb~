@@ -1,0 +1,251 @@
+<div style="margin-top: -60px" >
+
+<section class="name_getter" style="width:500px; margin: 200px auto ;">
+  
+  <p>Comece por introduzir o seu nome</p>
+  <%= form_tag("/static_pages/set_name", remote:true, method: "get") do %>
+  <%= text_field_tag(:name, nil, id:"student_name_field") %>
+  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success", style:"margin-top: -14px;") %>
+  <% end %>
+</section>
+
+
+
+<section class="background">
+  <% if session[:deadline] %>
+  <div class="alert alert-info">
+  Esta tarefa será discutida na aula de <%= session[:deadline].strftime("%d/%m") %>. Deverá ser concluída antes dessa data.
+  </div>
+  <% end %>
+
+<div id="thermo2_background_div">
+
+<h1>Capacidade térmica massa - materiais</h1>
+<p>...</p> <br />
+<p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
+
+</div>
+<div class="btn-group thermo2_navigator">
+<a type="button" class="thermo2_button btn btn-primary background_next" id="thermo2_background_next">Seguinte</a>
+</div>
+</section>
+
+
+
+<section class="strategy">
+
+<div id="thermo2_strategy_div">
+  <h2>Estratégia</h2>
+  <div>
+  <p>...
+  </p>
+  <br />
+  <p>
+  Vamos usar um processo em que testamos o problema em pequena escala.  ... . Chama-se a isto construir um modelo.
+  </p>
+  </div>
+
+  </div>
+   
+  <div class="btn-group thermo2_navigator" style="margin-top: 10px">
+    <a type="button" class="thermo2_button btn btn-primary strategy_previous" id="thermo2_strategy_previous">Anterior</a>
+    <a type="button" class="thermo2_button btn btn-primary strategy_next" id="thermo2_strategy_next">Seguinte</a>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="data-gathering row">
+  
+<script type="text/paperscript" canvas="canvas">
+  var water = new Raster("thermo2_gold");
+  var alcohol = new Raster("thermo2_gold");
+  var vegetal = new Raster("thermo2_gold");
+  var aluminium = new Raster("thermo2_gold");
+  var copper = new Raster("thermo2_gold");
+  var brass = new Raster("thermo2_brass");
+
+  water.position = view.center;
+  water.visible = false;
+  brass.visible = false;
+  brass.position = view.center;
+  alcohol.visible = false;
+  alcohol.position = view.center;
+  vegetal.visible = false;
+  vegetal.position = view.center;
+  aluminium.visible = false;
+  aluminium.position = view.center;
+  copper.visible = false;
+  copper.position = view.center;
+  
+
+  var material = "";
+  var specific_heats = { "water":4180, "aluminium":800, "vegetal oil":2000, "brass":600, "copper":1000, "alcohol":2000};
+
+  var animation = false;
+  var time = 0;
+  var temperature = 15;
+  var Q;
+  var mass = 1;
+  var P= 200;
+
+  function onFrame(evt) {
+     if (animation) {
+         time += evt.delta;
+         $("#thermo2_chrono").html(time.toFixed(1)+" s");
+  
+         Q = evt.delta * P;
+         temperature += Q /(mass*specific_heats[material]);
+         
+         $("#thermo2_temperature").html((Math.round(temperature*2)/2).toFixed(1)+" ºC");
+     }
+  }
+
+  $(function() {
+     $("#thermo2_materials_controls").on("click", "#thermo2_onoff", function() {
+         animation = !animation;
+         
+     });
+
+     $("#thermo2_materials_controls").on("click", "#thermo2_restart", function() {
+         animation = false;
+         time = 0;
+         temperature = 15;
+         $("#thermo2_chrono").html(time.toFixed(1)+" s");
+         $("#thermo2_temperature").html(temperature.toFixed(1)+" ºC");
+     });
+
+     $("#thermo2_material").on("change", function() {
+        var thing = $(this).val();
+        $("#thermo2_restart").click();
+
+        water.visible = false;
+        brass.visible = false;
+        copper.visible = false;
+        vegetal.visible = false;
+        aluminium.visible = false;
+        alcohol.visible = false;
+        
+        if (thing === "Água") {
+           water.visible = true;
+           material = "water";
+        }
+        else if (thing === "Latão") {
+           brass.visible = true;
+           material = "brass";
+        }
+        else if (thing === "Alumínio") {
+           aluminium.visible = true;
+           material = "aluminium";
+        }
+        else if (thing === "Álcool") {
+           alcohol.visible = true;
+           material = "alcohol";
+        }
+        else if (thing === "Cobre") {
+           copper.visible = true;
+           material = "copper";
+        }
+        else if (thing === "Óleo vegetal") {
+           vegetal.visible = true;
+           material = "vegetal oil";
+        }
+        
+     });
+  });
+
+</script>
+
+
+<h1>Recolher Dados</h1>
+<div>
+  Escolha o material a estudar:
+	   <select id="thermo2_material" style="display:inline; width:160px">
+	      <option></option>
+	      <option>Água</option>
+	      <option>Álcool</option>
+	      <option>Alumínio</option>
+             <option>Cobre</option>
+             <option>Latão</option>
+	      <option>Óleo vegetal</option>
+	   </select>
+</div>
+
+    <div class="model_data_form thermo2_data_form span5">
+      <%= form_tag(data_points_path, remote: true) do %>
+         <table class="table">
+	    <thead>
+	      <tr><th>Temperatura(ºC)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energy(kJ)</th><th></th></tr>
+	      <tr>
+		 <th>
+		   <%= number_field_tag(:x, nil,  class:"thermo2_input", step:0.001, id:"thermo2_volume_field", placeholder:"kg", max:1, min:0) %>
+		 </th>
+		 <th>
+		   <%= number_field_tag(:time, nil, class:"thermo2_input", step:0.1, id:"thermo2_time_field", placeholder:"s", max:75, min: 0) %>
+		 </th>
+		 <th id="thermo2_energy_calculator" title="E = P x &#916t">
+		   0.0
+		 </th>
+		 <th>
+		   <%= submit_tag(:submeter, class:"btn btn-success", id:"thermo2_add_data_point_button") %>
+		 </th>
+	      </tr>
+	    </thead>
+	  
+	  
+	  
+	    <tbody id="thermo2_data_collection">
+	      
+	    <%= render "tbody" %>
+	    </tbody>
+	  
+	  </table>
+    	  
+      <% end %>
+      <div id="thermo2_data_collection_explanation">
+      <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem uma balança onde pode medir a massa de diferentes modelos da estátua.  </p>
+      <p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>
+      </div>
+    </div>
+
+    
+    
+    <div class="thermo2_animation span7">
+    <canvas id="canvas" width=400 height=500></canvas>
+   
+    
+      <div id="thermo2_materials_controls" style="width:150px;  float:right; margin-top:-320px">
+	 
+	   
+	   <div id="thermo2_chrono" class="monitor">0.0 s</div>
+	   <div id="thermo2_temperature" class="monitor">15.0 ºC</div>
+
+	   <div class="btn-group">
+	     <button type="button" class="thermo2_button btn btn-default" id="thermo2_onoff">Ligar</button>
+	     <button type="button" class="btn btn-default" id="thermo2_restart">Reiniciar</button>
+	   </div>
+	   
+      </div>
+    
+    
+    
+    
+    </div>
+    <img src="assets/gold.png" class="paper_img" id="thermo2_gold"></img>
+    <img src="assets/brass.png" class="paper_img" id="thermo2_brass"></img>
+    
+
+    <div class="btn-group thermo2_navigator">
+    <a type="button" class="thermo2_button btn btn-primary data-gathering_previous" id="thermo2_data-gathering_previous">Anterior</a>
+    <a type="button" class="thermo2_button btn btn-primary data-gathering_next" id="thermo2_data-gathering_next"  style="display:none">Seguinte</a>
+    </div>
+
+
+    
+    
+</section>
+
+
