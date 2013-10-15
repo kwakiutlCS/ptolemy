@@ -1,4 +1,6 @@
 $("#template_general_navbar").hide();
 $("#template_specific_navbar").show();
 
-$("#template_index").html('<div id="class_code_div"><%= form_tag(static_pages_path, method:"get") do %><%= hidden_field_tag(:template_id, @t_id) %><p> Introduza o código para aceder a esta atividade</p><%= text_field_tag(:code, nil, id:"student_code_field") %><%= submit_tag(:ok, class:"btn btn-success", style:"margin-top:-14px;") %><% end %></div>');
+
+$("#template_index").html("<%= escape_javascript(render(:partial => 'template_detail')) %>");
+

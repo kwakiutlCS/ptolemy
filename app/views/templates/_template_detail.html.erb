@@ -1,0 +1,15 @@
+<% if @role == "teacher" %>
+<div id="class_code_div">
+  <%= link_to "detalhes do template", @template %>
+</div>
+<% else %>
+<div id="class_code_div">
+  <%= form_tag(static_pages_path, method:"get") do %>
+  <%= hidden_field_tag(:template_id, @t_id) %>
+  <p> Introduza o código para aceder a esta atividade</p>
+  <%= text_field_tag(:code, nil, id:"student_code_field") %>
+  <%= submit_tag(:ok, class:"btn btn-success", style:"margin-top:-14px;") %>
+  <% end %>
+</div>
+
+<% end %>

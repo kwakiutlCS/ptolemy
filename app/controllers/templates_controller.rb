@@ -9,17 +9,22 @@ class TemplatesController < ApplicationController
 
   def show
     if current_user && current_user.role == "teacher"
+      @role = "teacher"
       @template = Template.find(params[:id])
 
       @activity = Activity.new
       @activity.title = @template.title
     else
-      
+      @role = "student"
       @t_id = params[:id]
-      respond_to do |format|
-        format.js 
-      end
+      
     end
+   
+    respond_to do |format|
+        format.js 
+      format.html
+    end
+    
   end
 
 
