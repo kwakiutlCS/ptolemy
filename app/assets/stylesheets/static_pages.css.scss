@@ -118,7 +118,8 @@ padding: 2px 5px;
    -webkit-border-radius: 5px;
 -moz-border-radius: 5px;
 border-radius: 5px;
-   
+   box-shadow: 0 0 4px black;
+   cursor: pointer;
 }
 
 .template_cell_left_index {
@@ -132,7 +133,7 @@ border-radius: 5px;
 }
 
 .template_title_index {
-	background: #aaa;
+	background: #ddd;
 	height:26px;
 	font-size:0.7em;
         text-align:center;
@@ -156,4 +157,13 @@ border-top-right-radius: 5px;
 }
 .template_image_description_index {
    height:154px;
+}
+
+.template_cell_highlight_index {
+   border: 1px solid #720;
+   box-shadow: 0 0 8px #720;
+}
+
+#template_specific_navbar {
+   display: none;
 }

@@ -1,24 +1,18 @@
 
 
-<div id="class_code_div">
-
-<%= form_tag(static_pages_path, method:"get") do %>
-<p> Inserir código</p>
-<%= text_field_tag(:code, nil, id:"student_code_field") %>
-<%= submit_tag(:ok, class:"btn btn-success", style:"margin-top:-14px;") %>
-<% end %>
-
-</div>
-
 
 <section class="row">
 
-<section class="span3">
+<section class="span3" id="template_navbar">
 
-  <% @subcategories.each do |s| %>
-  <p><%= link_to s.title, static_pages_path(category: s.id), remote:true %></p>
-  <% end %>
-
+  <div id="template_general_navbar">
+    <% @subcategories.each do |s| %>
+    <p><%= link_to s.title, static_pages_path(category: s.id), remote:true %></p>
+    <% end %>
+  </div>
+  <div id="template_specific_navbar">
+    <%= link_to "voltar", remote:true %>
+  </div>
 </section>
 
 <section class="span9" id="template_index">

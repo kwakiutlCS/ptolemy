@@ -17,7 +17,8 @@ Plotomeu::Application.routes.draw do
   end
 
   resources :answers
-  resources :templates
+  resources :templates 
+
   resources :activities
   resources :statues do
     collection do
