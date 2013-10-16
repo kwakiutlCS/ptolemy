@@ -25,6 +25,8 @@ else {
 
 $("#thermo2_data-gathering_next").hide();
 }
+$(".form_input").val("");
+$("#thermo2_energy_calculator").text("0.0");
 
 var options = {
      xaxis: { min:0, max: 0.8,
@@ -75,6 +77,3 @@ $.plot($("#thermo_graph"), [
 $(".float-text").css({left: "-40px"});
 $(".flot-y-axis").css({top: "-10px"});
 
-$("#thermo2_volume_field").val("");
-$("#thermo2_time_field").val("");
-$("#thermo2_energy_calculator").text("0.0");

@@ -1,7 +1,7 @@
 $(function() {
 
     //SPECIFIC CODE
-    var model, 
+    var model = false, 
     prediction=600, initial_prediction, 
     linear_m = 4, linear_b = 0, 
     quadratic_k =6, quadratic_h= 0, quadratic_b =0, 
@@ -151,6 +151,8 @@ $(function() {
     $(".data-gathering").on("click", ".data-gathering_next", function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
+	model = false;
+	loadsPlot(plot_normal);
     });
 
 
@@ -406,10 +408,11 @@ $(function() {
 		      plot_data = json.plot_data;
 		      initial_prediction = json.initial_prediction;
 		      
+		      
 		      var xmax = (typeof xmax) === "undefined" ? default_x : xmax;
 		      var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
 		      
-		      if (model === 1)
+		      if (model === 1 || !model)
 			   f(xmax, ymax);
 		      else 
 			   f(arg,xmax, ymax);
@@ -451,7 +454,7 @@ $(function() {
 	 var xmax = (typeof xmax) == "undefined" ? default_x : xmax;
 	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
 	 
-	 
+	
 	 $.plot($(".graph_div"), [{
 		      data: plot_data,
 		      points: { show: true },
@@ -532,9 +535,11 @@ $(function() {
 
 
     var plot_normal = function(xmax, ymax) {
+	
 	 var xmax = (typeof xmax) == "undefined" ? default_x : xmax;
 	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
 	 
+	
 	 $.plot($(".graph_div"), [{
 		      data: plot_data,
 		      points: { show: true },
@@ -558,7 +563,7 @@ $(function() {
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
 			     }},
-		     legend: { position: "se"},
+		     legend: { position: "se", backgroundOpacity: 0},
 		 });
 	 $(".flot-x-axis").css({left: "10px"});
     }

@@ -102,7 +102,7 @@ $(document).ready(function() {
 		    y = (statue.bounds.height-height)/2;
 		    statue.position.y -= y;
 		    mass = mass0*Math.pow(size/size0,3);
-		    text.content = (mass*1000*(1.05-0.1*Math.random())).toFixed(0)+" g";
+		    text.content = (mass*1000*(1.03-0.06*Math.random())).toFixed(0)+" g";
 		    verticalLine.segments[1].point = new Point(350,statue.bounds.top);
 		    sizeText.content = size.toFixed(0) +" cm";
 		    topLine.position.y = statue.bounds.top;
@@ -258,46 +258,9 @@ $(document).ready(function() {
   </div>
   <div class="btn-group statue_navigator">
     <a type="button" class="statue_button btn btn-primary model-choice_previous" id="statue_model-choice_previous">Anterior</a>
-    </div>
+  </div>
 
-  <script>
-    var plot = $.plot($("#statue_graph"), [
-    {
-    data: [],
-    points: { show: true },
-    
-    }
-    ],
-    {
-		     xaxis: { min:0, max: 60,
-			     tickFormatter: function (v) {
-                              if (v < 1) return v.toFixed(1);
-				  if (v < 10000)
-				      return v;
-				  var e = 0, tmp = v;
-				  while (tmp > 10) {
-				      tmp /= 10;
-				      e += 1;
-				  }
-				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
-			     }},
-		     yaxis: { tickFormatter: function (v) {
-				  if (v < 1) return v.toFixed(1);
-				  if (v < 10000)
-				      return v;
-				  var e = 0, tmp = v;
-				  while (tmp > 10) {
-				      tmp /= 10;
-				      e += 1;
-				  }
-				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
-			     }},
-	            legend: { position: "se", backgroundOpacity: 0},
-    }
-    );
-    
-    
-  </script>
+  
 </section>
 
 

@@ -3,10 +3,8 @@ class DataPointsController < ApplicationController
   def index
     getData(params[:series])
     
-    p @data
-
     respond_to do |format|
-      format.js {render "#{session[:url]}/create_data_points", locals: {n: @data.count}}
+      format.js {render "#{session[:url]}/create_data_points"}
     end
   end
 
@@ -21,7 +19,7 @@ class DataPointsController < ApplicationController
       format.html {
         redirect_to session[:url]
       }
-      format.js {render "#{session[:url]}/create_data_points", locals: {n: @data.count}}
+      format.js {render "#{session[:url]}/create_data_points"}
     end
   end
 
@@ -30,17 +28,7 @@ class DataPointsController < ApplicationController
     data = DataPoint.find(params[:id])
     data.destroy
 
-    @data = DataPoint.where(student_id: session[:student], activity_id: session[:activity]).order(:x)
-
-    all = DataPoint.where("student_id <> ? and activity_id = ?", session[:student], session[:activity]).order(:x)
-    @plot_data = [] 
-    @user_data = []
-    all.each do |i|
-      @plot_data << [i.x,i.y]
-    end
-    @data.each do |i|
-      @user_data << [i.x,i.y]
-    end
+    getData(params[:series])
 
     respond_to do |format|
       format.js {render "#{session[:url]}/create_data_points"}
@@ -49,7 +37,7 @@ class DataPointsController < ApplicationController
 
 
   def updateGraph
-    getData()
+    getData(params[:series])
     
     data = {plot_data: @plot_data, user_data: @user_data, initial_prediction: session[:prediction]}
 
@@ -58,10 +46,15 @@ class DataPointsController < ApplicationController
     end
   end
 
+
+
+
+
   private
   def getData(series)
     if series
       @data = DataPoint.where(student_id: session[:student], activity_id: session[:activity], series: series).order(:x)
+      @series = series
     else
       @data = DataPoint.where(student_id: session[:student], activity_id: session[:activity]).order(:x)
     end

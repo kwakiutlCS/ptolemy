@@ -25,7 +25,7 @@
 <p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
 
 </div>
-<div class="btn-group thermo2_navigator">
+<div class="btn-group model_navigator">
 <a type="button" class="thermo2_button btn btn-primary background_next" id="thermo2_background_next">Seguinte</a>
 </div>
 </section>
@@ -47,7 +47,7 @@
 
   </div>
    
-  <div class="btn-group thermo2_navigator" style="margin-top: 10px">
+  <div class="btn-group model_navigator" style="margin-top: 10px">
     <a type="button" class="thermo2_button btn btn-primary strategy_previous" id="thermo2_strategy_previous">Anterior</a>
     <a type="button" class="thermo2_button btn btn-primary strategy_next" id="thermo2_strategy_next">Seguinte</a>
   </div>
@@ -192,10 +192,10 @@
 	      <tr><th>Temperatura(ºC)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energia(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"thermo2_input", step:0.1, id:"thermo2_volume_field", placeholder:"ºC", max:100, min:0) %>
+		   <%= number_field_tag(:x, nil,  class:"form_input", step:0.1, id:"thermo2_volume_field", placeholder:"ºC", max:100, min:0) %>
 		 </th>
 		 <th>
-		   <%= number_field_tag(:time, nil, class:"thermo2_input", step:0.1, id:"thermo2_time_field", placeholder:"s", max:180, min: 0) %>
+		   <%= number_field_tag(:time, nil, class:"form_input", step:0.1, id:"thermo2_time_field", placeholder:"s", max:180, min: 0) %>
 		 </th>
 		 <th id="thermo2_energy_calculator" title="E = P x &#916t" style="text-align:center;padding-bottom:20px;">
 		   0.0
@@ -250,7 +250,7 @@
     <img src="assets/brass.png" class="paper_img" id="thermo2_brass"></img>
     
 
-    <div class="btn-group thermo2_navigator">
+    <div class="btn-group model_navigator">
     <a type="button" class="thermo2_button btn btn-primary data-gathering_previous" id="thermo2_data-gathering_previous">Anterior</a>
     <a type="button" class="thermo2_button btn btn-primary data-gathering_next" id="thermo2_data-gathering_next"  style="display:none">Seguinte</a>
     </div>
@@ -261,3 +261,72 @@
 </section>
 
 
+
+
+
+
+
+<section class="model-choice">
+  <div class="x_axis_unit axis_unit">l</div>
+  <div class="y_axis_unit axis_unit">m</div>
+      
+  <h1>Escolher o Modelo</h1>
+  <div>
+  <div class="model_choice_buttons thermo2_model_buttons">
+    <div class="model_first_model_controls" id="thermo2_first_model_controls">
+  <div class="btn-group">
+    <a type="button" class="thermo2_button btn linear_model_button" id="thermo2_linear_button">Linear<br/> y = k x + b</a>
+    <a type="button" class="thermo2_button btn quadratic_model_button" id="thermo2_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
+    <a type="button" class="thermo2_button btn cubic_model_button" id="thermo2_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
+  </div>
+    
+  <div class="model-choice_buttons_explanation" id="thermo2_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
+  <div class="linear_function_controls model_function_controls" id="thermo2_linear_controls">
+    
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="thermo2_linear_m">120</span></div><div class="model_slider_controls model_linear_m_slider" id="thermo2_linear_m_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_linear_b" id="thermo2_linear_b">0</span></div><div class="model_slider_controls model_linear_b_slider" id="thermo2_linear_b_slider"></div></div>
+
+  </div>
+  <div class="quadratic_function_controls model_function_controls" id="thermo2_quadratic_controls">
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_quadratic_k" id="thermo2_quadratic_k">2.6</span></div><div class="model_slider_controls model_quadratic_k_slider" id="thermo2_quadratic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_quadratic_h" id="thermo2_quadratic_h">0</span></div><div class="model_slider_controls model_quadratic_h_slider" id="thermo2_quadratic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_quadratic_b" id="thermo2_quadratic_b">0</span></div><div class="model_slider_controls model_quadratic_b_slider" id="thermo2_quadratic_b_slider"></div></div>
+  </div>
+
+  <div class="cubic_function_controls model_function_controls" id="thermo2_cubic_controls">
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_cubic_k" id="thermo2_cubic_k">0.04</span></div><div class="model_slider_controls  model_cubic_k_slider" id="thermo2_cubic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_cubic_h" id="thermo2_cubic_h">0</span></div><div class="model_slider_controls model_cubic_h_slider" id="thermo2_cubic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_cubic_b" id="thermo2_cubic_b">0</span></div><div class="model_slider_controls model_cubic_b_slider" id="thermo2_cubic_b_slider"></div></div>
+  </div>
+  
+  <div class="model_choice_model_information_div">
+    <div class="model_choice_model_formula_parent" id="thermo2_chosen_model_div">
+      <span>
+	 Modelo
+      </span>
+      <div class="model_choice_model_formula" id="thermo2_chosen_model">
+	 
+      </div>
+    </div>
+    <div class="model_choice_model_confirm_button" id="thermo2_confirm_model_button_div">
+      <a type="button" class=" model_confirm_model_button thermo2_button btn btn-success" id="thermo2_confirm_model_button">Usar este modelo</a>
+    </div>
+    </div>
+  </div>
+  </div>
+  <div id="thermo2_graph_super_div">
+  <div>Massa da estátua em função da altura</div>
+  <div id="thermo2_graph_div">
+    <div class="y_label_div" id="thermo2_y_label">m (kg)</div>
+    
+  <div class="graph_div" id="thermo2_graph"></div>
+<div class="x_label_div" id="thermo2_x_label">l (m)</div>
+  </div>
+   </div>
+  </div>
+  <div class="btn-group model_navigator">
+    <a type="button" class="thermo2_button btn btn-primary model-choice_previous" id="thermo2_model-choice_previous">Anterior</a>
+    </div>
+
+ 
+</section>

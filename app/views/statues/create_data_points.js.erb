@@ -27,52 +27,5 @@ else {
 $("#statue_data-gathering_next").hide();
 }
 
-var options = {
-     xaxis: { min:0, max: 0.60,
-			     tickFormatter: function (v) {
-			         if (v < 1) return v.toFixed(1);
-				  if (v < 10000)
-				      return v;
-				  var e = 0, tmp = v;
-				  while (tmp > 10) {
-				      tmp /= 10;
-				      e += 1;
-				  }
-				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
-			     }},
-     yaxis: { min:0, tickFormatter: function (v) {
-				  if (v < 1) return v.toFixed(1);
-				  if (v < 10000)
-				      return v;
-				  var e = 0, tmp = v;
-				  while (tmp > 10) {
-				      tmp /= 10;
-				      e += 1;
-				  }
-				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
-			     }
-    },
-    legend: { position: "se", backgroundOpacity: 0},
-};
-
-$.plot($("#statue_graph"), [
-    {
-     data: <%= @plot_data %>,
-     points: { show: true },
-     label: "Dados obtidos pelos seus colegas"
-     
-    },
-    {
-     data: <%= @user_data %>,
-     points: { show: true },
-     label: "Dados obtidos por si"
-     
-    },
-    
-  ],
-    options
-  );
-
-
 $("#statue_mass_field").val("");
 $("#statue_size_field").val("");
