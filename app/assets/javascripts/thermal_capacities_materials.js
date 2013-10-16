@@ -13,6 +13,10 @@ $(function() {
 	else {
 	    $("#thermo2_onoff").attr("disabled",false);
 	    $("#thermo2_add_data_point_button").attr("disabled",false);
+	    $("#thermo2_material_series").val(material);
+	    $('#thermo2_data_collection').html("");
+
+	    $.get("data_points", {series:material});
 	}
     });
 

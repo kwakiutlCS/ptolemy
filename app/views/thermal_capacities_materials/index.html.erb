@@ -95,12 +95,20 @@
   function onFrame(evt) {
      if (animation) {
          time += evt.delta;
+
+         if (time > 180) {
+            time = 180;
+            $("#thermo2_onoff").click();
+         }
+
          $("#thermo2_chrono").html(time.toFixed(1)+" s");
   
-         Q = evt.delta * P;
+         Q = evt.delta * P*(1.1-Math.random()*0.2);
          temperature += Q /(mass*specific_heats[material]);
          
          $("#thermo2_temperature").html((Math.round(temperature*2)/2).toFixed(1)+" ºC");
+
+         
      }
   }
 
@@ -172,25 +180,27 @@
              <option>Latão</option>
 	      <option>Óleo vegetal</option>
 	   </select>
-   <span style="font-size:0.7em;">(alterar o material elimina os dados anteriormente recolhidos)</span>
+   
 </div>
 
     <div class="model_data_form thermo2_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
+         <%= hidden_field_tag(:series, nil, id:"thermo2_material_series") %>
+	 <%= hidden_field_tag(:y, nil,  id:"thermo2_energy_field") %>
          <table class="table">
 	    <thead>
 	      <tr><th>Temperatura(ºC)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energia(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"thermo2_input", step:0.001, id:"thermo2_volume_field", placeholder:"kg", max:1, min:0) %>
+		   <%= number_field_tag(:x, nil,  class:"thermo2_input", step:0.1, id:"thermo2_volume_field", placeholder:"ºC", max:100, min:0) %>
 		 </th>
 		 <th>
-		   <%= number_field_tag(:time, nil, class:"thermo2_input", step:0.1, id:"thermo2_time_field", placeholder:"s", max:75, min: 0) %>
+		   <%= number_field_tag(:time, nil, class:"thermo2_input", step:0.1, id:"thermo2_time_field", placeholder:"s", max:180, min: 0) %>
 		 </th>
 		 <th id="thermo2_energy_calculator" title="E = P x &#916t" style="text-align:center;padding-bottom:20px;">
 		   0.0
 		 </th>
-		 <%= hidden_field_tag(:y, nil,  id:"thermo2_energy_field") %>
+		 
 		 <th>
 		   <%= submit_tag(:submeter, class:"btn btn-success", id:"thermo2_add_data_point_button", style:"margin-left:-15px;margin-top:-37px;") %>
 		 </th>

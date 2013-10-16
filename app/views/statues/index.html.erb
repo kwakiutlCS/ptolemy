@@ -102,7 +102,7 @@ $(document).ready(function() {
 		    y = (statue.bounds.height-height)/2;
 		    statue.position.y -= y;
 		    mass = mass0*Math.pow(size/size0,3);
-		    text.content = (mass*1000*(1.15-0.3*Math.random())).toFixed(0)+" g";
+		    text.content = (mass*1000*(1.05-0.1*Math.random())).toFixed(0)+" g";
 		    verticalLine.segments[1].point = new Point(350,statue.bounds.top);
 		    sizeText.content = size.toFixed(0) +" cm";
 		    topLine.position.y = statue.bounds.top;
@@ -131,7 +131,7 @@ $(document).ready(function() {
 		 </th>
 		 
 		 <th>
-		   <%= submit_tag(:submeter, class:"btn btn-success model_add_data_point_button", id:"statue_add_data_point_button") %>
+		   <%= submit_tag(:submeter, class:"btn btn-success model_add_data_point_button", id:"statue_add_data_point_button", style:"margin-top:-37px") %>
 		 </th>
 	      </tr>
 	    </thead>

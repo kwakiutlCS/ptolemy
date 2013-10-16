@@ -1,5 +1,5 @@
 class DataPoint < ActiveRecord::Base
-  attr_accessible :activity_id, :student_id, :x, :y
+  attr_accessible :activity_id, :student_id, :x, :y, :series
 
   validates :x, presence: true
   validates :y, presence: true

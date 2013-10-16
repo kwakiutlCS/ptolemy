@@ -1,9 +1,20 @@
 class DataPointsController < ApplicationController
 
-  def create
-    DataPoint.create(x: params[:x], y: params[:y], activity_id: session[:activity], student_id: session[:student])
+  def index
+    getData(params[:series])
+    
+    p @data
 
-    getData()
+    respond_to do |format|
+      format.js {render "#{session[:url]}/create_data_points", locals: {n: @data.count}}
+    end
+  end
+
+
+  def create
+    DataPoint.create(x: params[:x], y: params[:y], activity_id: session[:activity], student_id: session[:student], series: params[:series])
+
+    getData(params[:series])
     
     
     respond_to do |format|
@@ -48,8 +59,12 @@ class DataPointsController < ApplicationController
   end
 
   private
-  def getData
-    @data = DataPoint.where(student_id: session[:student], activity_id: session[:activity]).order(:x)
+  def getData(series)
+    if series
+      @data = DataPoint.where(student_id: session[:student], activity_id: session[:activity], series: series).order(:x)
+    else
+      @data = DataPoint.where(student_id: session[:student], activity_id: session[:activity]).order(:x)
+    end
 
     all = DataPoint.where("student_id <> ? and activity_id = ?", session[:student], session[:activity]).order(:x)
     @plot_data = [] 
