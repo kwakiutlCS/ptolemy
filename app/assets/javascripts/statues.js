@@ -49,7 +49,7 @@ $(function() {
 	     clearInterval(intervalId);
 	     x_maximum = default_x;
 	     y_maximum = setYMax();
-
+	     
 	     $(".model_choice_buttons").append("<div class='model_second_model_controls'><p>O modelo escolhido prevê uma massa de "+scientific(prediction,1)+"kg para a estátua de "+measurable+"m.</p><p><a href='#' class='model_another_model_link'>Experimentar outro modelo</a> ou <a href='#' class='model_keep_model_link'>Continuar com este modelo</a></p></div>");
 	     $(".model_first_model_controls").hide();
 
@@ -282,7 +282,7 @@ $(function() {
 	 y_maximum = setYMax();
 	 x_maximum = default_x;
 	 
-	 intervalId = setInterval(animatePlot,30);
+	 intervalId = window.setInterval(animatePlot,30);
 	 
     });
 
