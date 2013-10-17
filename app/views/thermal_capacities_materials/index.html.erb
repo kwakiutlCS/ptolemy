@@ -66,12 +66,12 @@
   var vegetal = new Raster("thermo2_gold");
   var aluminium = new Raster("thermo2_gold");
   var copper = new Raster("thermo2_gold");
-  var brass = new Raster("thermo2_brass");
+  var iron = new Raster("thermo2_iron");
 
   water.position = new Point(200,250);
   water.visible = false;
-  brass.visible = false;
-  brass.position = new Point(200,250);
+  iron.visible = false;
+  iron.position = new Point(200,250);
   alcohol.visible = false;
   alcohol.position = new Point(200,250);
   vegetal.visible = false;
@@ -83,7 +83,7 @@
   
 
   var material = "";
-  var specific_heats = { "water":4180, "aluminium":800, "vegetal oil":2000, "brass":600, "copper":1000, "alcohol":2000};
+  var specific_heats = { "water":4187, "aluminium":900, "vegetal oil":1970, "iron":460, "copper":386, "alcohol":2400};
 
   var animation = false;
   var time = 0;
@@ -131,7 +131,7 @@
         $("#thermo2_restart").click();
 
         water.visible = false;
-        brass.visible = false;
+        iron.visible = false;
         copper.visible = false;
         vegetal.visible = false;
         aluminium.visible = false;
@@ -141,9 +141,9 @@
            water.visible = true;
            material = "water";
         }
-        else if (thing === "Latão") {
-           brass.visible = true;
-           material = "brass";
+        else if (thing === "Ferro") {
+           iron.visible = true;
+           material = "iron";
         }
         else if (thing === "Alumínio") {
            aluminium.visible = true;
@@ -168,18 +168,21 @@
 </script>
 
 
-<h1>Recolher Dados</h1>
-<div>
-  Escolha o material a estudar:
-	   <select id="thermo2_material" style="display:inline; width:160px">
-	      <option></option>
-	      <option>Água</option>
-	      <option>Álcool</option>
-	      <option>Alumínio</option>
-             <option>Cobre</option>
-             <option>Latão</option>
-	      <option>Óleo vegetal</option>
-	   </select>
+<div class="row">
+  <div class="span6"><h1>Recolher Dados</h1></div>
+  <div class="span6" style="margin-top:20px">
+    Escolha o material a estudar:
+    <select id="thermo2_material" style="display:inline; width:160px">
+      <option></option>
+      <option>Água</option>
+      <option>Álcool</option>
+      <option>Alumínio</option>
+      <option>Cobre</option>
+      <option>Ferro</option>
+      <option>Óleo vegetal</option>
+    </select>
+</div>
+
    
 </div>
 
@@ -192,10 +195,10 @@
 	      <tr><th>Temperatura(ºC)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energia(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"form_input", step:0.1, id:"thermo2_volume_field", placeholder:"ºC", max:100, min:0) %>
+		   <%= number_field_tag(:x, nil,  class:"form_input", step:0.1, id:"thermo2_volume_field", placeholder:"ºC", max:80, min:0) %>
 		 </th>
 		 <th>
-		   <%= number_field_tag(:time, nil, class:"form_input", step:0.1, id:"thermo2_time_field", placeholder:"s", max:180, min: 0) %>
+		   <%= number_field_tag(:time, nil, class:"form_input", step:0.1, id:"thermo2_time_field", placeholder:"s", max:120, min: 0) %>
 		 </th>
 		 <th id="thermo2_energy_calculator" title="E = P x &#916t" style="text-align:center;padding-bottom:20px;">
 		   0.0
@@ -247,7 +250,7 @@
     
     </div>
     <img src="assets/gold.png" class="paper_img" id="thermo2_gold"></img>
-    <img src="assets/brass.png" class="paper_img" id="thermo2_brass"></img>
+    <img src="assets/brass.png" class="paper_img" id="thermo2_iron"></img>
     
 
     <div class="btn-group model_navigator">
@@ -267,8 +270,8 @@
 
 
 <section class="model-choice">
-  <div class="x_axis_unit axis_unit">l</div>
-  <div class="y_axis_unit axis_unit">m</div>
+  <div class="x_axis_unit axis_unit">T</div>
+  <div class="y_axis_unit axis_unit">E</div>
       
   <h1>Escolher o Modelo</h1>
   <div>
@@ -315,12 +318,12 @@
   </div>
   </div>
   <div id="thermo2_graph_super_div">
-  <div>Massa da estátua em função da altura</div>
+  <div>Energia necessária para o material atingir a temperatura T<sub>f</sub></div>
   <div id="thermo2_graph_div">
-    <div class="y_label_div" id="thermo2_y_label">m (kg)</div>
+    <div class="y_label_div" id="thermo2_y_label">E (J)</div>
     
   <div class="graph_div" id="thermo2_graph"></div>
-<div class="x_label_div" id="thermo2_x_label">l (m)</div>
+<div class="x_label_div" id="thermo2_x_label">T<sub>f</sub> (ºC)</div>
   </div>
    </div>
   </div>
