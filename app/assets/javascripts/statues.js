@@ -10,6 +10,7 @@ $(function() {
     data_loaded=false, 
     user_data, plot_data,
     default_x = 0.60, x_maximum=default_x, y_maximum;
+    var intervalId;
 
     $("#statue_size_slider").slider({value: 10, min: 10, max: 50, step: 0.1});
 
