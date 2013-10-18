@@ -1,5 +1,8 @@
 
 $(function() {
+
+    var water_model=0, aluminium_model=0, copper_model=0, iron_model=0, oil_model=0;
+
     $("#thermo2_onoff").attr("disabled",true);
     $("#thermo2_add_data_point_button").attr("disabled",true);
 
@@ -51,17 +54,6 @@ $(function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
 
-	model = false;
-	prediction = 20000;
-	linear_m = 1000;
-	linear_b = 0;
-	quadratic_k = 6;
-	quadratic_h= 0;
-	quadratic_b =0;
-	cubic_k = 2;
-	cubic_h= 0;
-	cubic_b =0; 
-	measurable = 100; 
 	data_loaded=false;
 	default_x = 40;
 	x_maximum=default_x;
@@ -71,60 +63,67 @@ $(function() {
 
     
     // slider limits
-	$("#thermo2_water_k").slider({value: 0, min: 0, max: 5000, step: 10});
-	$("#thermo2_aluminium_k").slider({value: 0, min: 0, max: 5000, step: 10});
-	$("#thermo2_copper_k").slider({value: 0, min: 0, max: 5000, step: 10});
-	$("#thermo2_iron_k").slider({value: 0, min: 0, max: 5000, step: 10});
-	$("#thermo2_oil_k").slider({value: 0, min: 0, max: 5000, step: 10});
+	$("#thermo2_water_k").slider({value: water_model, min: 0, max: 5000, step: 10});
+	$("#thermo2_aluminium_k").slider({value: aluminium_model, min: 0, max: 5000, step: 10});
+	$("#thermo2_copper_k").slider({value: copper_model, min: 0, max: 5000, step: 10});
+	$("#thermo2_iron_k").slider({value: iron_model, min: 0, max: 5000, step: 10});
+	$("#thermo2_oil_k").slider({value: oil_model, min: 0, max: 5000, step: 10});
     
 	$("#thermo2_water_k").on("slide", function(evt, ui) {
-	    
+	    water_model = ui.value;
+
 	    if (ui.value > 0)
 		$("#thermo2_water_model").html("E = "+ui.value+" "+x_unit);
 	    else
 		$("#thermo2_water_model").html("E = 0");
 	    $("#thermo2_water_k_value").html("k = "+ui.value);
-	    
+	    loadsPlot(plot_normal);
+
 	});
 
 	$("#thermo2_aluminium_k").on("slide", function(evt, ui) {
-	    
+	    aluminium_model = ui.value;
+
 	    if (ui.value > 0)
 		$("#thermo2_aluminium_model").html("E = "+ui.value+" "+x_unit);
 	    else
 		$("#thermo2_aluminium_model").html("E = 0");
 	    $("#thermo2_aluminium_k_value").html("k = "+ui.value);
-	    
+	    loadsPlot(plot_normal);
+
 	});
 
 	$("#thermo2_copper_k").on("slide", function(evt, ui) {
-	    
+	    copper_model = ui.value;
+
 	    if (ui.value > 0)
 		$("#thermo2_copper_model").html("E = "+ui.value+" "+x_unit);
 	    else
 		$("#thermo2_copper_model").html("E = 0");
 	    $("#thermo2_copper_k_value").html("k = "+ui.value);
-	    
+	    loadsPlot(plot_normal);
 	});
 
 	$("#thermo2_iron_k").on("slide", function(evt, ui) {
-	    
+	    iron_model = ui.value;
+
 	    if (ui.value > 0)
 		$("#thermo2_iron_model").html("E = "+ui.value+" "+x_unit);
 	    else
 		$("#thermo2_iron_model").html("E = 0");
 	    $("#thermo2_iron_k_value").html("k = "+ui.value);
-	    
+	    loadsPlot(plot_normal);
 	});
 
 	$("#thermo2_oil_k").on("slide", function(evt, ui) {
-	    
+	    oil_model = ui.value;
+
 	    if (ui.value > 0)
 		$("#thermo2_oil_model").html("E = "+ui.value+" "+x_unit);
 	    else
 		$("#thermo2_oil_model").html("E = 0");
 	    $("#thermo2_oil_k_value").html("k = "+ui.value);
-	    
+	    loadsPlot(plot_normal);
 	});
 
 	
@@ -287,10 +286,8 @@ $(function() {
 		      var xmax = (typeof xmax) === "undefined" ? default_x : xmax;
 		      var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
 		      
-		      if (model === 1 || !model)
-			   f(xmax, ymax);
-		      else 
-			   f(arg,xmax, ymax);
+		      f(xmax, ymax);
+		      
 		  }
 	     });
 	     data_loaded = true;
@@ -299,10 +296,8 @@ $(function() {
 	     var xmax = (typeof xmax) === "undefined" ? default_x : xmax;
 	     var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
 	     
-	     if (model === 1)
-		  f(xmax, ymax);
-	     else 
-		  f(arg,xmax, ymax);
+	     f(xmax, ymax);
+	     
 	 }
     }
 
@@ -314,124 +309,6 @@ $(function() {
 
 
 
-    var plot_linear = function(xmax, ymax) {
-	 var xmax = (typeof xmax) == "undefined" ? default_x : xmax;
-	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
-	 
-	
-	 $.plot($(".graph_div"), [{
-		      data: water_data,
-		      points: { show: true },
-		      label: "Água"
-     
-		  },
-		  {
-		      data: aluminium_data,
-		      points: { show: true },
-		      label: "Alumínio"
-     
-		  },
-	         {
-		      data: copper_data,
-		      points: { show: true },
-		      label: "Cobre"
-     
-		  },
-		  {
-		      data: iron_data,
-		      points: { show: true },
-		      label: "Ferro"
-     
-		  },		  
-		  {
-		      data: oil_data,
-		      points: { show: true },
-		      label: "Óleo vegetal"
-     
-		  },
-	         {
-                    data: [[-measurable,linear_b-(prediction-linear_b)],[measurable, prediction], [measurable*2,prediction+linear_m*measurable]],
-		          
-		  },
-		  {
-		      data: [[measurable,prediction]],
-		      points: { show: true },
-		      
-     
-		  },
-					], 
-		 {
-		     xaxis: { min:0, max: xmax,
-			     tickFormatter: function (v) {
-				  return scientific(v,1);
-			     }},
-		     yaxis: { min:0, max: ymax, 
-			     tickFormatter: function (v) {
-				  return scientific(v,1);
-			     }},
-		     legend: { position: "se", backgroundOpacity: 0},
-		     
-		 });
-	 $(".flot-x-axis").css({left: "10px"});
-    }
-
-
-    var plot_polynomial = function(data, xmax, ymax) {
-	 var xmax = (typeof xmax) == "undefined" ? default_x : xmax;
-	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
-	 
-	 $.plot($(".graph_div"), [{
-		      data: water_data,
-		      points: { show: true },
-		      label: "Água"
-     
-		  },
-		  {
-		      data: aluminium_data,
-		      points: { show: true },
-		      label: "Alumínio"
-     
-		  },
-	         {
-		      data: copper_data,
-		      points: { show: true },
-		      label: "Cobre"
-     
-		  },
-		  {
-		      data: iron_data,
-		      points: { show: true },
-		      label: "Ferro"
-     
-		  },		  
-		  {
-		      data: oil_data,
-		      points: { show: true },
-		      label: "Óleo vegetal"
-     
-		  },
-	         {
-                    data: data
-		  },
-		  
-		  {
-		      data: [[measurable,prediction]],
-		      points: { show: true },
-		  }
-					], 
-		 {
-		     xaxis: { min:0, max: xmax,
-			     tickFormatter: function (v) {
-				  return scientific(v,1);
-			     }},
-		     yaxis: { min:0, max: ymax, 
-			     tickFormatter: function (v) {
-				  return scientific(v,1);
-			     }},
-		     legend: { position: "se", backgroundOpacity: 0},
-		 });
-	 $(".flot-x-axis").css({left: "10px"});
-    }
 
 
     var plot_normal = function(xmax, ymax) {
@@ -469,6 +346,31 @@ $(function() {
 		      points: { show: true },
 		      label: "Óleo vegetal"
      
+		  },
+		  {
+		      color: 0,
+                      data: [[0,0],[200,water_model*200]]
+		          
+		  },
+		  {
+		      color: 1,
+                      data: [[0,0],[200,aluminium_model*200]]
+		          
+		  },
+		{
+		      color: 2,
+                      data: [[0,0],[200,copper_model*200]]
+		          
+		  },
+		{
+		      color: 3,
+                      data: [[0,0],[200,iron_model*200]]
+		          
+		  },
+		{
+		      color: 4,
+                      data: [[0,0],[200,oil_model*200]]
+		          
 		  },
 					], 
 		 {
