@@ -1,19 +1,44 @@
 $(function() {
 
     //SPECIFIC CODE
-    var model = false, 
-    prediction=600, initial_prediction, 
-    linear_m = 4, linear_b = 0, 
-    quadratic_k =6, quadratic_h= 0, quadratic_b =0, 
-    cubic_k = 2, cubic_h= 0, cubic_b =0, 
-    measurable = 2.5, 
-    data_loaded=false, 
+    var model, 
+    prediction, initial_prediction, 
+    linear_m, linear_b, 
+    quadratic_k, quadratic_h, quadratic_b, 
+    cubic_k, cubic_h, cubic_b, 
+    measurable, 
+    data_loaded, 
     user_data, plot_data,
-    default_x = 0.60, x_maximum=default_x, y_maximum;
+    default_x, x_maximum, y_maximum;
     var intervalId;
 
     $("#statue_size_slider").slider({value: 10, min: 10, max: 50, step: 0.1});
 
+    // creates initial parameters
+    $(".data-gathering").on("click", "#statue_data-gathering_next", function() {
+	 $(".data-gathering").slideUp();
+	 $(".model-choice").slideDown();
+
+	model = false;
+	prediction = 600;
+	linear_m = 4;
+	linear_b = 0;
+	quadratic_k = 6;
+	quadratic_h= 0;
+	quadratic_b =0;
+	cubic_k = 2;
+	cubic_h= 0;
+	cubic_b =0; 
+	measurable = 2.5; 
+	data_loaded=false;
+	default_x = 0.60;
+	x_maximum=default_x;
+	loadsPlot(plot_normal);
+    
+
+
+
+    
     // slider limits
     $("#statue_linear_m_slider").slider({value: linear_m, min: 0, max: 50, step: 0.10});
     $("#statue_linear_b_slider").slider({value: linear_b, min: -10, max:10, step: 0.05});
@@ -23,6 +48,10 @@ $(function() {
     $("#statue_cubic_k_slider").slider({value: cubic_k, min: 0, max: 300, step: 1});
     $("#statue_cubic_h_slider").slider({value: cubic_h, min: 0, max: default_x, step: default_x/100});
     $("#statue_cubic_b_slider").slider({value: cubic_b, min: -10, max: 10, step: 0.05});
+
+
+    });
+
 
 
     var animatePlot = function() {
@@ -149,13 +178,7 @@ $(function() {
 	 $(".strategy").slideDown();
     });
 
-    $(".data-gathering").on("click", ".data-gathering_next", function() {
-	 $(".data-gathering").slideUp();
-	 $(".model-choice").slideDown();
-	model = false;
-	loadsPlot(plot_normal);
-    });
-
+    
 
     $(".model-choice").on("click", ".model-choice_previous", function() {
 	 $(".model-choice").slideUp();
