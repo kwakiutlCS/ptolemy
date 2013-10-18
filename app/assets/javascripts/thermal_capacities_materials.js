@@ -382,7 +382,7 @@ $(function() {
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
 			     }},
-		     legend: { position: "se", backgroundOpacity: 0},
+		     legend: { position: "se", backgroundOpacity: 0,container:"#thermo2_container_subtitles"},
 		 });
 	 $(".flot-x-axis").css({left: "10px"});
     }
