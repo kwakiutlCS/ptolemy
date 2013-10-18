@@ -152,9 +152,6 @@ $(function() {
 	 
     });
 
-    // axis units
-    var x_unit = $(".x_axis_unit").html();
-    var y_unit = $(".y_axis_unit").html();
     
     
     // navigation buttons
@@ -310,6 +307,11 @@ $(function() {
     });
 
     // AUXILIARY FUNCTIONS
+
+    // axis units
+    var x_unit = $(".x_axis_unit").html();
+    var y_unit = $(".y_axis_unit").html();
+    
 
     var write_linear_formula = function() {
 	 if (linear_m) {

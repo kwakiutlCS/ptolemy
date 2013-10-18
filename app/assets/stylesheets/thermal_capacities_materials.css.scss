@@ -1,13 +1,22 @@
 
-#thermo2_volume_field {
+#thermo2_temperature_field {
     width: 65px;
 }
 
-#thermo2_time_field {
+#thermo2_kJ_field {
     width: 65px;
 }
 
-th {
+th, td {
    font-size: 0.8em;
+   
 }
 
+.thermo2_model_cell {
+margin: 25px 0;
+}
+
+.thermo2_model_formula {
+   font-weight: bold;
+   font-size: 1.3em;
+}

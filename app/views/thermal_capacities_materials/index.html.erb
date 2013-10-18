@@ -62,7 +62,6 @@
   
 <script type="text/paperscript" canvas="canvas">
   var water = new Raster("thermo2_gold");
-  var alcohol = new Raster("thermo2_gold");
   var vegetal = new Raster("thermo2_gold");
   var aluminium = new Raster("thermo2_gold");
   var copper = new Raster("thermo2_gold");
@@ -72,8 +71,6 @@
   water.visible = false;
   iron.visible = false;
   iron.position = new Point(200,250);
-  alcohol.visible = false;
-  alcohol.position = new Point(200,250);
   vegetal.visible = false;
   vegetal.position = new Point(200,250);
   aluminium.visible = false;
@@ -83,7 +80,7 @@
   
 
   var material = "";
-  var specific_heats = { "water":4187, "aluminium":900, "vegetal oil":1970, "iron":460, "copper":386, "alcohol":2400};
+  var specific_heats = { "water":4187, "aluminium":900, "vegetal oil":1970, "iron":460, "copper":386};
 
   var animation = false;
   var time = 0;
@@ -96,8 +93,8 @@
      if (animation) {
          time += evt.delta;
 
-         if (time > 180) {
-            time = 180;
+         if (time > 120) {
+            time = 120;
             $("#thermo2_onoff").click();
          }
 
@@ -124,6 +121,7 @@
          temperature = 15;
          $("#thermo2_chrono").html(time.toFixed(1)+" s");
          $("#thermo2_temperature").html(temperature.toFixed(1)+" ºC");
+         $("#thermo2_onoff").html("Ligar");
      });
 
      $("#thermo2_material").on("change", function() {
@@ -135,7 +133,6 @@
         copper.visible = false;
         vegetal.visible = false;
         aluminium.visible = false;
-        alcohol.visible = false;
         
         if (thing === "Água") {
            water.visible = true;
@@ -149,10 +146,7 @@
            aluminium.visible = true;
            material = "aluminium";
         }
-        else if (thing === "Álcool") {
-           alcohol.visible = true;
-           material = "alcohol";
-        }
+        
         else if (thing === "Cobre") {
            copper.visible = true;
            material = "copper";
@@ -175,7 +169,6 @@
     <select id="thermo2_material" style="display:inline; width:160px">
       <option></option>
       <option>Água</option>
-      <option>Álcool</option>
       <option>Alumínio</option>
       <option>Cobre</option>
       <option>Ferro</option>
@@ -189,23 +182,25 @@
     <div class="model_data_form thermo2_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
          <%= hidden_field_tag(:series, nil, id:"thermo2_material_series") %>
+	 <%= hidden_field_tag(:x, nil,  id:"thermo2_delta_field") %>
 	 <%= hidden_field_tag(:y, nil,  id:"thermo2_energy_field") %>
          <table class="table">
 	    <thead>
-	      <tr><th>Temperatura(ºC)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energia(kJ)</th><th></th></tr>
+	      <tr><th>Temperatura(ºC)</th><th>&#916T(ºC)</th><th >Energia(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"form_input", step:0.1, id:"thermo2_volume_field", placeholder:"ºC", max:80, min:0) %>
+		   <%= number_field_tag(:temperature, nil,  class:"form_input", step:0.1, id:"thermo2_temperature_field", placeholder:"ºC", max:80, min:15) %>
 		 </th>
-		 <th>
-		   <%= number_field_tag(:time, nil, class:"form_input", step:0.1, id:"thermo2_time_field", placeholder:"s", max:120, min: 0) %>
-		 </th>
-		 <th id="thermo2_energy_calculator" title="E = P x &#916t" style="text-align:center;padding-bottom:20px;">
+		 <th style="padding-bottom:20px" id="thermo2_delta_calculator">
 		   0.0
+		 </th>
+		 <th  title="E = P x &#916t" style="text-align:center;">
+		   <%= number_field_tag(:energy, nil, class:"form_input", step:0.001, id:"thermo2_kJ_field", placeholder:"kJ", max:30, min: 0) %>
+		   
 		 </th>
 		 
 		 <th>
-		   <%= submit_tag(:submeter, class:"btn btn-success", id:"thermo2_add_data_point_button", style:"margin-left:-15px;margin-top:-37px;") %>
+		   <%= submit_tag(:submeter, class:"btn btn-success", id:"thermo2_add_data_point_button", style:"margin-top:-37px;") %>
 		 </th>
 	      </tr>
 	    </thead>
@@ -270,66 +265,72 @@
 
 
 <section class="model-choice">
-  <div class="x_axis_unit axis_unit">T</div>
-  <div class="y_axis_unit axis_unit">E</div>
-      
-  <h1>Escolher o Modelo</h1>
   <div>
-  <div class="model_choice_buttons thermo2_model_buttons">
-    <div class="model_first_model_controls" id="thermo2_first_model_controls">
-  <div class="btn-group">
-    <a type="button" class="thermo2_button btn linear_model_button" id="thermo2_linear_button">Linear<br/> y = k x + b</a>
-    <a type="button" class="thermo2_button btn quadratic_model_button" id="thermo2_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
-    <a type="button" class="thermo2_button btn cubic_model_button" id="thermo2_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
-  </div>
+    <div class="x_axis_unit axis_unit">&#916T</div>
+    <div class="y_axis_unit axis_unit">E</div>
     
-  <div class="model-choice_buttons_explanation" id="thermo2_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
-  <div class="linear_function_controls model_function_controls" id="thermo2_linear_controls">
+    <div class="row">
+      <h1>Escolher o Modelo</h1>
+    </div>
+
+    <div class="row">
+      <div class="span6" id="thermo2_graph_super_div">
+	<div>Energia necessária para variar a temperatura do material em  &#916T</div>
+	<div id="thermo2_graph_div">
+	  <div class="y_label_div" id="thermo2_y_label">E (J)</div>
     
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="thermo2_linear_m">120</span></div><div class="model_slider_controls model_linear_m_slider" id="thermo2_linear_m_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_linear_b" id="thermo2_linear_b">0</span></div><div class="model_slider_controls model_linear_b_slider" id="thermo2_linear_b_slider"></div></div>
-
-  </div>
-  <div class="quadratic_function_controls model_function_controls" id="thermo2_quadratic_controls">
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_quadratic_k" id="thermo2_quadratic_k">2.6</span></div><div class="model_slider_controls model_quadratic_k_slider" id="thermo2_quadratic_k_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_quadratic_h" id="thermo2_quadratic_h">0</span></div><div class="model_slider_controls model_quadratic_h_slider" id="thermo2_quadratic_h_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_quadratic_b" id="thermo2_quadratic_b">0</span></div><div class="model_slider_controls model_quadratic_b_slider" id="thermo2_quadratic_b_slider"></div></div>
-  </div>
-
-  <div class="cubic_function_controls model_function_controls" id="thermo2_cubic_controls">
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_cubic_k" id="thermo2_cubic_k">0.04</span></div><div class="model_slider_controls  model_cubic_k_slider" id="thermo2_cubic_k_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_cubic_h" id="thermo2_cubic_h">0</span></div><div class="model_slider_controls model_cubic_h_slider" id="thermo2_cubic_h_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_cubic_b" id="thermo2_cubic_b">0</span></div><div class="model_slider_controls model_cubic_b_slider" id="thermo2_cubic_b_slider"></div></div>
-  </div>
-  
-  <div class="model_choice_model_information_div">
-    <div class="model_choice_model_formula_parent" id="thermo2_chosen_model_div">
-      <span>
-	 Modelo
-      </span>
-      <div class="model_choice_model_formula" id="thermo2_chosen_model">
-	 
+	  <div class="graph_div" id="thermo2_graph"></div>
+	  <div  class="x_label_div" id="thermo2_x_label"><span>&#916T (ºC)</span> <div class="btn-group model_navigator" style="display:inline-block" ><a type="button" class="btn btn-default" id="thermo2_axis_small">-</a><a type="button" class="btn btn-default" id="thermo2_axis_big">+</a></div></div>
+	</div>
       </div>
+      <div class="span1"></div>
+      <div class="span5 ">
+	<div class="thermo2_model_cell">
+	  <div class="thermo2_model_name">Água</div>
+	  <div>
+	    <div ><span class="thermo2_model_formula" id="thermo2_water_model">E = 0</span><div id="thermo2_water_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
+	  </div>
+	</div>
+
+	<div class="thermo2_model_cell">
+	  <div class="thermo2_model_name">Alumínio</div>
+	  <div>
+	    <div ><span class="thermo2_model_formula" id="thermo2_aluminium_model">E = 0</span><div id="thermo2_aluminium_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
+	  </div>
+	</div>
+
+	<div class="thermo2_model_cell">
+	  <div class="thermo2_model_name">Cobre</div>
+	  <div>
+	    <div ><span class="thermo2_model_formula" id="thermo2_copper_model">E = 0</span><div id="thermo2_copper_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
+	  </div>
+	</div>
+
+	<div class="thermo2_model_cell">
+	  <div class="thermo2_model_name">Ferro</div>
+	  <div>
+	    <div ><span class="thermo2_model_formula" id="thermo2_iron_model">E = 0</span><div id="thermo2_iron_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
+	  </div>
+	</div>
+
+	<div class="thermo2_model_cell">
+	  <div class="thermo2_model_name">Óleo vegetal</div>
+	  <div>
+	    <div ><span class="thermo2_model_formula" id="thermo2_oil_model">E = 0</span><div id="thermo2_oil_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
+	  </div>
+	</div>
+	
+      </div>
+      
     </div>
-    <div class="model_choice_model_confirm_button" id="thermo2_confirm_model_button_div">
-      <a type="button" class=" model_confirm_model_button thermo2_button btn btn-success" id="thermo2_confirm_model_button">Usar este modelo</a>
-    </div>
-    </div>
-  </div>
-  </div>
-  <div id="thermo2_graph_super_div">
-  <div>Energia necessária para o material atingir a temperatura T<sub>f</sub></div>
-  <div id="thermo2_graph_div">
-    <div class="y_label_div" id="thermo2_y_label">E (J)</div>
     
-  <div class="graph_div" id="thermo2_graph"></div>
-<div class="x_label_div" id="thermo2_x_label">T<sub>f</sub> (ºC)</div>
   </div>
-   </div>
-  </div>
-  <div class="btn-group model_navigator">
-    <a type="button" class="thermo2_button btn btn-primary model-choice_previous" id="thermo2_model-choice_previous">Anterior</a>
+
+  <div class="row">
+    <div class="btn-group model_navigator">
+      <a type="button" class="thermo2_button btn btn-primary model-choice_previous" id="thermo2_model-choice_previous">Anterior</a>
     </div>
+  </div>
 
  
 </section>

@@ -26,7 +26,7 @@ class DataPointsController < ApplicationController
   def destroy
     
     data = DataPoint.find(params[:id])
-    data.destroy
+    data.destroy 
 
     getData(params[:series])
 
@@ -39,7 +39,8 @@ class DataPointsController < ApplicationController
   def updateGraph
     getData(params[:series])
     
-    data = {plot_data: @plot_data, user_data: @user_data, initial_prediction: session[:prediction]}
+    data = {plot_data: @plot_data, user_data: @user_data, copper: @copper,  iron: @iron, oil: @oil, water: @water, aluminium: @aluminium,  initial_prediction: session[:prediction]}
+    
 
     respond_to do |format|
       format.json {render json: data.to_json}
@@ -59,14 +60,30 @@ class DataPointsController < ApplicationController
       @data = DataPoint.where(student_id: session[:student], activity_id: session[:activity]).order(:x)
     end
 
-    all = DataPoint.where("student_id <> ? and activity_id = ?", session[:student], session[:activity]).order(:x)
-    @plot_data = [] 
-    @user_data = []
-    all.each do |i|
-      @plot_data << [i.x,i.y]
-    end
-    @data.each do |i|
-      @user_data << [i.x,i.y]
+    if @data.any?
+      unless @data.first.series
+        all = DataPoint.where("student_id <> ? and activity_id = ?", session[:student], session[:activity]).order(:x)
+        @plot_data = [] 
+        @user_data = []
+        all.each do |i|
+          @plot_data << [i.x,i.y]
+        end
+        @data.each do |i|
+          @user_data << [i.x,i.y]
+      end
+      else
+        possible_series = []
+        all = DataPoint.where("activity_id = ?", session[:activity]).order(:x)
+        
+        all.each do |i|
+        
+          unless eval("@#{i.series}")
+            eval("@#{i.series} = []") 
+          end
+        eval("@#{i.series} << [#{i.x}, #{i.y}]")
+        
+        end
+      end
     end
   end
 end
