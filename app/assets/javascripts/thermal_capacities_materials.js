@@ -50,6 +50,7 @@ $(function() {
 
     // creates initial parameters
     $(".data-gathering").on("click", "#thermo2_data-gathering_next", function() {
+	
 
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
@@ -129,23 +130,24 @@ $(function() {
 	
 
 
-	$("#thermo2_axis_small").on("click", function() {
+	
+
+    });
+    
+    $("#thermo2_axis_small").on("click", function() {
 	    if (default_x > 20) {
 		default_x -= 10;
 		x_maximum = default_x;
 		plot_normal();
 	    }
-	});
-	$("#thermo2_axis_big").on("click", function() {
+    });
+    $("#thermo2_axis_big").on("click", function() {
 	    if (default_x < 100) {
 		default_x += 10;
 		x_maximum = default_x;
 		plot_normal();
 	    }
-	});
-
     });
-
 
     
 
