@@ -171,3 +171,27 @@ border-top-right-radius: 5px;
 .model_navigator {
     float:right;
 }
+
+.template_cell_index {
+	position: relative;
+	margin-bottom: 50px;
+}
+
+
+.template_category {
+		   padding: 3px 10px;
+   font-weight: bold;
+
+   a:hover {
+   text-decoration: none;
+   }
+}
+
+.template_selected {
+   a {
+   color: #FFF;
+   }
+   
+   background: #e78b24;
+   
+}

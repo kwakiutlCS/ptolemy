@@ -36,7 +36,7 @@ class StaticPagesController < ApplicationController
 
       respond_to do |format|
         format.html
-        format.js
+        format.js {render :index, :locals => {:cat => cat}}
       end
     end
     

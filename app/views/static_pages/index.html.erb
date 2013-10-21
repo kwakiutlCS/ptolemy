@@ -7,7 +7,11 @@
 
   <div id="template_general_navbar">
     <% @subcategories.each do |s| %>
-    <p><%= link_to s.title, static_pages_path(category: s.id), remote:true %></p>
+    <% if s.id == 1 %>
+    <p id="category_<%= s.id %>" class="template_selected template_category"><%= link_to s.title, static_pages_path(category: s.id), remote:true %></p>
+    <% else %>
+    <p id="category_<%= s.id %>" class="template_category"><%= link_to s.title, static_pages_path(category: s.id), remote:true %></p>
+    <% end %>
     <% end %>
   </div>
   <div id="template_specific_navbar">
