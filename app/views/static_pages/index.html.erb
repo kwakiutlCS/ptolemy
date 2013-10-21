@@ -23,3 +23,16 @@
 
 
 </section>
+
+<canvas id="mycanvas" style="background:#ddd; width:500px; height: 300px;"></canvas>
+<img class="paper_img" src="assets/statue.png" id="statue"></img>
+<script type="text/paperscript" canvas="mycanvas">
+  
+  var statue = new Raster("statue");
+  statue.position = new Point(250,150);
+
+  var statue2 = new Raster("statue");
+  
+  var statue3 = new Raster("statue");
+  statue3.position = view.center +new Point(200,0);
+</script>
