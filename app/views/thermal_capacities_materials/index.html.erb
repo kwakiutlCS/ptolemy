@@ -270,7 +270,7 @@
     <div class="y_axis_unit axis_unit">E</div>
     
     <div class="row">
-      <h1>Escolher o Modelo</h1>
+      <h3>Escolher a equação que melhor descreve cada conjunto de dados</h3>
     </div>
 
     <div class="row">
@@ -320,6 +320,8 @@
 	    <div ><span class="thermo2_model_formula" id="thermo2_oil_model">E = 0</span><div id="thermo2_oil_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
 	  </div>
 	</div>
+
+	<div id="thermo2_model-choice_instructions">Quando tiver as equações desejadas avance para a tarefa seguinte<br /><br /></div>
 	
       </div>
       
@@ -330,8 +332,57 @@
   <div class="row">
     <div class="btn-group model_navigator">
       <a type="button" class="thermo2_button btn btn-primary model-choice_previous" id="thermo2_model-choice_previous">Anterior</a>
+      <a type="button" class="thermo2_button btn btn-primary model-choice_next" id="thermo2_model-choice_next">Seguinte</a>
     </div>
   </div>
 
  
 </section>
+
+
+
+
+
+<section class="questions">
+  <h1>Questões Finais</h1>
+
+  <div class="row model_question_screen1" id="thermo2_question_screen1"><div class="span2"></div>
+    <div class="span9" id="thermo2_questions_div">
+      <%= form_tag(answers_path, remote: true) do %>
+      <%= hidden_field_tag(:model, nil, id:"thermo2_model_field", class:"question_model_field") %>
+      <%= hidden_field_tag(:question1, nil, id:"thermo2_question1_field", class:"question_question1_field") %>
+      <%= label_tag(:answer1, nil, id:"thermo2_question1_label", class:"question_question1_label") %>
+      <%= text_area_tag(:answer1, nil, id:"thermo2_answer1_field", class:"question_answer1_field") %>
+      <%= hidden_field_tag(:question2, nil, id:"thermo2_question2_field", class:"question_question2_field") %>
+      <%= label_tag(:answer2, nil, id:"thermo2_question2_label", class:"question_question2_label") %>
+      <%= text_area_tag(:answer2, nil, id:"thermo2_answer2_field", class:"question_answer2_field") %>
+      <%= hidden_field_tag(:question3, nil, id:"thermo2_question3_field", class:"question_question3_field") %>
+      <%= hidden_field_tag(:answer3, nil, id:"thermo2_answer3_field", class:"question_answer3_field") %>
+      <%= hidden_field_tag(:question4, nil, id:"thermo2_question4_field", class:"question_question4_field") %>
+      <%= label_tag(:answer4, nil, id:"thermo2_question4_label", class:"question_question4_label") %>
+      <%= text_area_tag(:answer4, nil, id:"thermo2_answer4_field", class:"question_answer4_field") %>
+      
+      <br />
+      <%= submit_tag(:save, value:"Submeter", confirm:"Deseja introduzir estas respostas?", class:"btn btn-success questions_confirm_answers_button", style:"float: left") %>
+      <% end %>
+    </div>
+    <div class="span3"></div>
+  </div>
+
+  <div class="row model_question_screen2" id="thermo2_question_screen2"><div class="span2"></div>
+    <div class="span9" id="thermo2_questions_after_div">
+      Atividade terminada
+    </div>
+    
+  </div>
+
+  
+
+  <div class="btn-group thermo2_navigator">
+    <a type="button" class="thermo2_button btn btn-primary model_questions_previous" id="thermo2_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
+  </div>
+</section>
+
+
+
+</div>

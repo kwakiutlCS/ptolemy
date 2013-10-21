@@ -2,6 +2,7 @@
 $(function() {
 
     var water_model=0, aluminium_model=0, copper_model=0, iron_model=0, oil_model=0;
+    var copper_data = false, water_data = false, aluminium_data = false, iron_data = false, oil_data = false;
 
     $("#thermo2_onoff").attr("disabled",true);
     $("#thermo2_add_data_point_button").attr("disabled",true);
@@ -47,6 +48,62 @@ $(function() {
     });
 
 
+    $(".model-choice").on("click", "#thermo2_model-choice_next", function() {
+	$(".model-choice").slideUp();
+	$(".questions").slideDown();
+
+	
+	var question1, question2,question3,question4;
+	var largest_material="água", largest_k=water_model;
+	if (aluminium_model > largest_k) {
+	    largest_k = aluminium_model;
+	    largest_material = "alumínio";
+	}
+	if (copper_model > largest_k) {
+	    largest_k = copper_model;
+	    largest_material = "cobre";
+	}
+	if (iron_model > largest_k) {
+	    largest_k = iron_model;
+	    largest_material = "ferro";
+	}
+	if (oil_model > largest_k) {
+	    largest_k = oil_model;
+	    largest_material = "óleo vegetal";
+	}
+	
+	
+	if (largest_material === "água")
+	    question1 = "Dos materiais estudados, aquele com a maior constante de proporcionalidade entre a energia e a variação de temperatura foi a água, com um valor de "+largest_k+". Que unidade tem esta constante de proporcionalidade?";
+	else
+	    question1 = "Dos materiais estudados, aquele com a maior constante de proporcionalidade entre a energia e a variação de temperatura foi o "+largest_material+", com um valor de "+largest_k+". Que unidade tem esta constante de proporcionalidade?";
+		  
+
+	question2 = "O que significa fisicamente esta constante de proporcionalidade?";
+
+	question3 = "Valores obtidos de capacidade térmica mássica"
+
+        question4 = "O que achou confuso ou difícil nesta atividade?";
+
+	$(".question_model_field").val("N/A");
+	$(".question_question1_label").html(question1);
+	$(".question_question1_field").val(question1);
+	
+	
+	$(".question_question2_label").html(question2);
+	$(".question_question2_field").val(question2);
+	
+	$(".question_question3_label").html("");
+	$(".question_question3_field").val(question3);
+	$(".question_answer3_field").val("Água: "+water_model+"<br/>   Alumínio: "+aluminium_model+"<br/>   Cobre: "+copper_model+"<br/>   Ferro: "+iron_model+"<br/>   Óleo vegetal: "+oil_model);
+
+	$(".question_question4_label").html(question4);
+	$(".question_question4_field").val(question4);
+
+    });
+
+
+
 
     // creates initial parameters
     $(".data-gathering").on("click", "#thermo2_data-gathering_next", function() {
@@ -80,6 +137,8 @@ $(function() {
 	    $("#thermo2_water_k_value").html("k = "+ui.value);
 	    loadsPlot(plot_normal);
 
+	    show_next_screen_if_completed();
+
 	});
 
 	$("#thermo2_aluminium_k").on("slide", function(evt, ui) {
@@ -92,6 +151,8 @@ $(function() {
 	    $("#thermo2_aluminium_k_value").html("k = "+ui.value);
 	    loadsPlot(plot_normal);
 
+	    show_next_screen_if_completed();
+
 	});
 
 	$("#thermo2_copper_k").on("slide", function(evt, ui) {
@@ -103,6 +164,8 @@ $(function() {
 		$("#thermo2_copper_model").html("E = 0");
 	    $("#thermo2_copper_k_value").html("k = "+ui.value);
 	    loadsPlot(plot_normal);
+
+	    show_next_screen_if_completed();
 	});
 
 	$("#thermo2_iron_k").on("slide", function(evt, ui) {
@@ -114,6 +177,8 @@ $(function() {
 		$("#thermo2_iron_model").html("E = 0");
 	    $("#thermo2_iron_k_value").html("k = "+ui.value);
 	    loadsPlot(plot_normal);
+
+	    show_next_screen_if_completed();
 	});
 
 	$("#thermo2_oil_k").on("slide", function(evt, ui) {
@@ -125,6 +190,8 @@ $(function() {
 		$("#thermo2_oil_model").html("E = 0");
 	    $("#thermo2_oil_k_value").html("k = "+ui.value);
 	    loadsPlot(plot_normal);
+
+	    show_next_screen_if_completed();
 	});
 
 	
@@ -436,4 +503,13 @@ $(function() {
     }
 
 
+    var show_next_screen_if_completed = function() {
+
+	if ((water_data != null && !water_model) || (aluminium_data != null  && !aluminium_model) || (copper_data != null  && !copper_model) || (iron_data != null && !iron_model) || (oil_data != null && !oil_model))
+	    return false;
+	else {
+	    $("#thermo2_model-choice_next").show();
+	    $("#thermo2_model-choice_instructions").css({"visibility": "visible"});
+	}
+    }
 });

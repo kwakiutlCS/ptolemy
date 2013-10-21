@@ -103,7 +103,7 @@ $(function() {
 		  else if (model === 3) 
 		      m = "cúbico";
 
-		  var question1, question2,question3,question4
+		 var question1, question2,question3,question4;
 		  question1 = "Escolheu o modelo <b>"+m+"</b>. Por que razão essa é uma boa escolha?";
 
 		  if (initial_prediction != null && (initial_prediction/prediction > 1.2 || initial_prediction/prediction < 0.8))
