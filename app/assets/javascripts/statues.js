@@ -96,12 +96,24 @@ $(function() {
 		  $(".questions").slideDown();
 
 		  var m;
-		  if (model === 1) 
-		      m = "linear";
-		  else if (model === 2) 
-		      m = "quadrático";
-		  else if (model === 3) 
-		      m = "cúbico";
+		 if (model === 1) {
+		     if (linear_k)
+			 m = "linear";
+		     else 
+			 m = "constante";
+		 }
+		 else if (model === 2) {
+		     if (quadratic_k)
+			 m = "quadrático";
+		     else
+			 m = "constante";
+		 }
+		 else if (model === 3) {
+		     if (cubic_k)
+			 m = "cúbico";
+		     else
+			 m = "constante";
+		 }
 
 		 var question1, question2,question3,question4;
 		  question1 = "Escolheu o modelo <b>"+m+"</b>. Por que razão essa é uma boa escolha?";
