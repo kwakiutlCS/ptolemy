@@ -182,7 +182,7 @@ border-top-right-radius: 5px;
 		   padding: 3px 10px;
    font-weight: bold;
 
-   a:hover {
+   a:hover, a:active {
    text-decoration: none;
    }
 }
@@ -194,4 +194,8 @@ border-top-right-radius: 5px;
    
    background: #e78b24;
    
+}
+
+.template_pair_index {
+padding-left: 50px;
 }

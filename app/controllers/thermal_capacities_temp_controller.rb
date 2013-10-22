@@ -1,0 +1,2 @@
+class ThermalCapacitiesTempController < ApplicationController
+end

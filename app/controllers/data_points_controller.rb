@@ -26,12 +26,44 @@ class DataPointsController < ApplicationController
   def destroy
     
     data = DataPoint.find(params[:id])
-    data.destroy 
+    point_id = data.id
+    student_id = data.student_id
+    activity_id = data.activity_id
+    activity = Activity.find(activity_id)
+
+    if ((current_user && current_user.role == "teacher" && activity.user_id == current_user.id) || session[:student] == data.student_id)
+      data.destroy 
+    end
 
     getData(params[:series])
+    
+    if (current_user && current_user.role == "teacher")
+      url = "teachers/remove_data_points"
+      @activity = activity
 
+      answers = @activity.answers.includes(:student).order("students.name")
+      
+      @students = []
+
+      answers.each do |a|
+        tmp = {}
+        tmp[:name] = a.student.name
+        tmp[:answers] = a.questions.zip(a.answers)
+        tmp[:start] = a.student.created_at
+        tmp[:end] = a.time_submission
+        tmp[:id] = a.student.id
+        tmp[:points] = @activity.data_points.joins(:student).where("students.id = ?", a.student.id)
+        tmp[:count] = tmp[:points].count
+    
+        @students << tmp
+      end
+    else
+      url = "#{session[:url]}/create_data_points"
+    end
+
+    
     respond_to do |format|
-      format.js {render "#{session[:url]}/create_data_points"}
+      format.js {render url, locals: {point: point_id, student_id: student_id}}
     end
   end
 

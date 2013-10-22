@@ -197,7 +197,7 @@ function reset() {
          <%= hidden_field_tag(:y, nil,  id:"thermo_energy_field") %>
          <table class="table">
 	    <thead>
-	      <tr><th>Massa(kg)</th><th>Tempo(s)</th><th title="E = P x &#916t">Energia(kJ)</th><th></th></tr>
+	      <tr><th>Massa(kg)</th><th>Tempo(s)</th><th title="E = P x &#916;t">Energia(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
 		   <%= number_field_tag(:x, nil,  class:"thermo_input", step:0.001, id:"thermo_volume_field", placeholder:"kg", max:1, min:0) %>
@@ -205,7 +205,7 @@ function reset() {
 		 <th>
 		   <%= number_field_tag(:time, nil, class:"thermo_input", step:0.1, id:"thermo_time_field", placeholder:"s", max:75, min: 0) %>
 		 </th>
-		 <th id="thermo_energy_calculator" title="E = P x &#916t">
+		 <th id="thermo_energy_calculator" title="E = P x &#916;t">
 		   0.0
 		 </th>
 		 <th>
@@ -252,7 +252,7 @@ function reset() {
     </div>
     </div>
     </div>
-    <img src="assets/calorimeter.png" class="paper_img" id="calorimeter"></img>
+    <img src="assets/calorimeter.png" class="paper_img" id="calorimeter">
 
 
     <div class="btn-group thermo_navigator">

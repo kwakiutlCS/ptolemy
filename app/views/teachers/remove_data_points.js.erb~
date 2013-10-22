@@ -1,0 +1,4 @@
+
+//$('#statue_data_collection').html("<%= escape_javascript(render(:partial => 'statues/tbody')) %>");
+alert(<%= point %>);
+$(".ptolemy_student_dashboard_points table").remove("tr#<%= point %>");

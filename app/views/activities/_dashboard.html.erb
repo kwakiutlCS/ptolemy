@@ -1,9 +1,8 @@
 <h2><% @activity.title %></h2>
     
-
-    
-    
+   
     <% @students.each do |s| %>
+    
     <div class="ptolemy_dashboard_cell">
       <div class="ptolemy_student_dashboard_header">
 	 <span class="ptolemy_student_name"><%= s[:name] %></span>
@@ -12,8 +11,19 @@
 	 <span class="ptolemy_student_time"> <%= ((s[:end]-s[:start])/60).round %> minutos</span>
 	 <span><%= link_to "remover", student_path(s[:id], activity_id:@activity.id), method: :delete, confirm: "Esta ação vai remover todo o trabalho do(a) estudante #{s[:name]}. Continuar?", remote:true, class:"student_removal" %></span>
       </div>
+      
       <div class="ptolemy_student_dashboard_body">
-	 <% s[:answers].each_with_index do |a,i| %>
+	<div class="ptolemy_student_dashboard_points">
+	  <h4> Pontos Recolhidos </h4>
+	  <table id="points_student_<%= s[:id] %>">
+	    <tr><th>x</th><th>y</th></tr>
+	    <% s[:points].all.each do |p| %>
+	    <tr id="point_<%= p.id %>"><td><%= p.x %></td><td><%= p.y %></td><td><%= p.series %></td><td><%= link_to "remover", p, method: :delete, confirm: "Remover este ponto?", remote: true %></tr>
+	    <% end %>
+	  </table>
+	</div>
+ 
+	<% s[:answers].each_with_index do |a,i| %>
 	 <% if i != 0 %>
 	 <% if a[1] != "" %>
 	 <p class="ptolemy_student_question"><%= raw(a[0]) %></p>

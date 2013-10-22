@@ -5,11 +5,9 @@ Plotomeu::Application.routes.draw do
   resources :students
 
   resources :thermal_capacities 
-  resources :thermal_capacities_materials do
-    collection do
-      get :destroy_all
-    end
-  end
+  resources :thermal_capacities_materials
+  resources :thermal_capacities_temp
+
   resources :static_pages do
     collection do
       get "set_name"
