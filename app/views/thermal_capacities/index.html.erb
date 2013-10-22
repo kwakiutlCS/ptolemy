@@ -25,13 +25,13 @@
 
 </div>
 <div class="btn-group thermo_navigator">
-<a type="button" class="thermo_button btn btn-primary" id="thermo_background_next">Seguinte</a>
+<a type="button" class="thermo_button btn btn-primary background_next" id="thermo_background_next">Seguinte</a>
 </div>
 </section>
 
 
 
-<section class="thermo_strategy">
+<section class="strategy">
 
 <div id="thermo_strategy_div">
   <h2>Estratégia</h2>
@@ -47,8 +47,8 @@
   </div>
    
   <div class="btn-group thermo_navigator" style="margin-top: 10px">
-    <a type="button" class="thermo_button btn btn-primary" id="thermo_strategy_previous">Anterior</a>
-    <a type="button" class="thermo_button btn btn-primary" id="thermo_strategy_next">Seguinte</a>
+    <a type="button" class="thermo_button btn btn-primary strategy_previous" id="thermo_strategy_previous">Anterior</a>
+    <a type="button" class="thermo_button btn btn-primary strategy_next" id="thermo_strategy_next">Seguinte</a>
   </div>
 </section>
 
@@ -192,7 +192,7 @@ function reset() {
 
    <h1>Recolher Dados</h1>
         
-    <div class="thermo_data_form span5">
+    <div class="model_data_form thermo_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
          <%= hidden_field_tag(:y, nil,  id:"thermo_energy_field") %>
          <table class="table">
@@ -216,7 +216,7 @@ function reset() {
 	  
 	  
 	  
-	    <tbody id="thermo_data_collection">
+	    <tbody class="model_data_collection" id="thermo_data_collection">
 	      
 	    <%= render "tbody" %>
 	    </tbody>
@@ -237,18 +237,18 @@ function reset() {
     <canvas id="canvas" width=400 height=500></canvas>
    
     <div id="controls">
-    <div >
-      <div id="volume" class="monitor">0.150 kg</div>
-    <div id="volume_slider"></div>
+      <div >
+	<div id="volume" class="monitor">0.150 kg</div>
+	<div id="volume_slider"></div>
     
-    <div id="chrono" class="monitor">0.0 s</div>
-    <div id="thermo" class="monitor">18.0 ºC</div>
+	<div id="chrono" class="monitor">0.0 s</div>
+	<div id="thermo" class="monitor">18.0 ºC</div>
     
-    </div>
+      </div>
     
-    <div class="btn-group">
-    <button type="button" class="thermo_button btn btn-default" id="onoff">Aquecer</button>
-    <button type="button" class="btn btn-default" id="restart">Reiniciar</button>
+      <div class="btn-group">
+	<button type="button" class="thermo_button btn btn-default" id="onoff">Aquecer</button>
+	<button type="button" class="btn btn-default" id="restart">Reiniciar</button>
     </div>
     </div>
     </div>
@@ -256,8 +256,8 @@ function reset() {
 
 
     <div class="btn-group thermo_navigator">
-    <a type="button" class="thermo_button btn btn-primary" id="thermo_data-gathering_previous">Anterior</a>
-    <a type="button" class="thermo_button btn btn-primary" id="thermo_data-gathering_next"  style="display:none">Seguinte</a>
+    <a type="button" class="thermo_button btn btn-primary data-gathering_previous" id="thermo_data-gathering_previous">Anterior</a>
+    <a type="button" class="thermo_button btn btn-primary data-gathering_next" id="thermo_data-gathering_next"  style="display:none">Seguinte</a>
   </div>
 </section>
 
@@ -266,11 +266,13 @@ function reset() {
 
 
 <section class="model-choice">
+  <div class="x_axis_unit axis_unit">m</div>
+  <div class="y_axis_unit axis_unit">E</div>
 
   <h1>Escolher o Modelo</h1>
   <div>
-  <div class=" thermo_model_buttons">
-    <div id="thermo_first_model_controls">
+  <div class="model_choice_buttons thermo_model_buttons">
+    <div class="model_first_model_controls" id="thermo_first_model_controls">
   <div class="btn-group">
     <a type="button" class="thermo_button btn" id="thermo_linear_button">Linear<br/> y = k x + b</a>
     <a type="button" class="thermo_button btn" id="thermo_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
@@ -312,57 +314,21 @@ function reset() {
   </div>
   </div>
   <div id="thermo_graph_super_div">
-  <div>Energia necessária para aquecer água dos 18ºC até aos 26ºC em função da massa</div>
-  <div id="thermo_graph_div">
-    <div id="thermo_y_label">E (J)</div>
+    <div>Energia necessária para aquecer água dos 18ºC até aos 26ºC em função da massa</div>
+    <div id="thermo_graph_div">
+      <div id="thermo_y_label">E (J)</div>
     
-  <div id="thermo_graph"></div>
-<div id="thermo_x_label">m (kg)</div>
+      <div id="thermo_graph"></div>
+      <div id="thermo_x_label">m (kg)</div>
+    </div>
+    <div class="graph_legend_container"></div>
   </div>
-   </div>
   </div>
   <div class="btn-group thermo_navigator">
-    <a type="button" class="thermo_button btn btn-primary" id="thermo_model-choice_previous">Anterior</a>
+    <a type="button" class="thermo_button btn btn-primary model-choice_previous" id="thermo_model-choice_previous">Anterior</a>
     </div>
 
-  <script>
-    var plot = $.plot($("#thermo_graph"), [
-    {
-    data: [],
-    points: { show: true },
-    
-    }
-    ],
-    {
-		     xaxis: { min:0, max: 0.8,
-			     tickFormatter: function (v) {
-                              if (v < 1) return v.toFixed(1);
-				  if (v < 10000)
-				      return v;
-				  var e = 0, tmp = v;
-				  while (tmp > 10) {
-				      tmp /= 10;
-				      e += 1;
-				  }
-				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
-			     }},
-		     yaxis: { tickFormatter: function (v) {
-				  if (v < 1) return v.toFixed(1);
-				  if (v < 10000)
-				      return v;
-				  var e = 0, tmp = v;
-				  while (tmp > 10) {
-				      tmp /= 10;
-				      e += 1;
-				  }
-				  return (v/Math.pow(10,e)).toFixed(1)+" x 10<sup>"+e+"</sup>";
-			     }},
-	            legend: { position: "se", backgroundOpacity: 0},
-    }
-    );
-    
-    
-  </script>
+
 </section>
 
 
@@ -403,7 +369,7 @@ function reset() {
   
 
   <div class="btn-group thermo_navigator">
-    <a type="button" class="thermo_button btn btn-primary" id="thermo_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
+    <a type="button" class="thermo_button btn btn-primary model_questions_previous" id="thermo_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
   </div>
 </section>
 

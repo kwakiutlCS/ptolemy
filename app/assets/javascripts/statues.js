@@ -525,7 +525,7 @@ $(function() {
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
 			     }},
-		     legend: { position: "se", backgroundOpacity: 0},
+		     legend: { position: "se", backgroundOpacity: 0, container:".graph_legend_container"},
 		     
 		 });
 	 $(".flot-x-axis").css({left: "10px"});
@@ -566,7 +566,7 @@ $(function() {
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
 			     }},
-		     legend: { position: "se", backgroundOpacity: 0},
+		     legend: { position: "se", backgroundOpacity: 0, container:".graph_legend_container"},
 		 });
 	 $(".flot-x-axis").css({left: "10px"});
     }
@@ -601,7 +601,7 @@ $(function() {
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
 			     }},
-		     legend: { position: "se", backgroundOpacity: 0},
+		     legend: { position: "se", backgroundOpacity: 0, container:".graph_legend_container"},
 		 });
 	 $(".flot-x-axis").css({left: "10px"});
     }

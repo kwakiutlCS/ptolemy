@@ -69,6 +69,8 @@ $(function(){
     $("#thermo_data-gathering_next").on("click",function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
+	model = false;
+	loadsPlot(plot_normal);
     });
 
    $("#thermo_model-choice_next").on("click",function() {
@@ -437,7 +439,7 @@ $(function(){
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
 			     }},
-		     legend: { position: "se", backgroundOpacity: 0},
+		     legend: { position: "se", backgroundOpacity: 0, container:".graph_legend_container"},
 		     
 		 });
 	 $(".flot-x-axis").css({left: "10px"});
@@ -477,16 +479,17 @@ $(function(){
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
 			     }},
-		     legend: { position: "se", backgroundOpacity: 0},
+		     legend: { position: "se", backgroundOpacity: 0, container:".graph_legend_container"},
 		 });
 	 $(".flot-x-axis").css({left: "10px"});
     }
 
 
     var plot_normal = function(xmax, ymax) {
+	
 	 var xmax = (typeof xmax) == "undefined" ? 0.8 : xmax;
 	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
-	 
+	
 	 $.plot($("#thermo_graph"), [{
 		      data: plot_data,
 		      points: { show: true },
@@ -510,7 +513,7 @@ $(function(){
 			     tickFormatter: function (v) {
 				  return scientific(v,1);
 			     }},
-		     legend: { position: "se"},
+		     legend: { position: "se", container:".graph_legend_container"},
 		 });
 	 $(".flot-x-axis").css({left: "10px"});
     }
@@ -561,7 +564,7 @@ $(function(){
     }
 
     var loadsPlot = function(f, arg, xmax, ymax) {
-	 
+	
 	 if (!data_loaded) {
 	     $.ajax("data_points/updateGraph", {
 		  method: "get",
@@ -571,8 +574,8 @@ $(function(){
 		      
 		      var xmax = (typeof xmax) === "undefined" ? 0.8 : xmax;
 		      var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
-		      
-		      if (model === 1)
+		      		      
+		      if (model === 1 || model === false)
 			   f(xmax, ymax);
 		      else 
 			   f(arg,xmax, ymax);
@@ -584,7 +587,7 @@ $(function(){
 	     var xmax = (typeof xmax) === "undefined" ? 0.8 : xmax;
 	     var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
 	     
-	     if (model === 1)
+	     if (model === 1  || model === false)
 		  f(xmax, ymax);
 	     else 
 		  f(arg,xmax, ymax);
