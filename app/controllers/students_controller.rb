@@ -34,7 +34,8 @@ class StudentsController < ApplicationController
       tmp[:start] = a.student.created_at
       tmp[:end] = a.time_submission
       tmp[:id] = a.student.id
-      tmp[:count] = @activity.data_points.joins(:student).where("students.id = ?", a.student.id).count
+      tmp[:points] = @activity.data_points.joins(:student).where("students.id = ?", a.student.id)
+      tmp[:count] = tmp[:points].count
     
       @students << tmp
     end

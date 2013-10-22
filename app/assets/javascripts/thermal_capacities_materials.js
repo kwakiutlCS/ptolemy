@@ -95,7 +95,7 @@ $(function() {
 	
 	$(".question_question3_label").html("");
 	$(".question_question3_field").val(question3);
-	$(".question_answer3_field").val("Água: "+water_model+"<br/>   Alumínio: "+aluminium_model+"<br/>   Cobre: "+copper_model+"<br/>   Ferro: "+iron_model+"<br/>   Óleo vegetal: "+oil_model);
+	$(".question_answer3_field").val("Água: "+water_model+"\nAlumínio: "+aluminium_model+"<br/>   Cobre: "+copper_model+"\nFerro: "+iron_model+"\nÓleo vegetal: "+oil_model);
 
 	$(".question_question4_label").html(question4);
 	$(".question_question4_field").val(question4);
