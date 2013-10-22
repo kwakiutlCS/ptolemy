@@ -1,7 +1,7 @@
 $(function() {
 
     //SPECIFIC CODE
-    var model, 
+    var model=false, 
     prediction, initial_prediction, 
     linear_m, linear_b, 
     quadratic_k, quadratic_h, quadratic_b, 
@@ -10,7 +10,7 @@ $(function() {
     data_loaded, 
     user_data, plot_data,
     default_x, x_maximum, y_maximum;
-    var intervalId;
+    var intervalId =false;
 
     $("#statue_size_slider").slider({value: 10, min: 10, max: 50, step: 0.1});
 
@@ -19,20 +19,24 @@ $(function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
 
-	model = false;
 	prediction = 600;
-	linear_m = 4;
-	linear_b = 0;
-	quadratic_k = 6;
-	quadratic_h= 0;
-	quadratic_b =0;
-	cubic_k = 2;
-	cubic_h= 0;
-	cubic_b =0; 
+	linear_m = typeof linear_m === "undefined" ? 4 : linear_m;
+	linear_b = typeof linear_b === "undefined" ? 0 : linear_b;
+	quadratic_k = typeof quadratic_k === "undefined" ? 6 : quadratic_k;
+	quadratic_h= typeof quadratic_h === "undefined" ? 0 : quadratic_h;
+	quadratic_b = typeof quadratic_b === "undefined" ? 0 : quadratic_b;
+	cubic_k = typeof cubic_k === "undefined" ? 2 : cubic_k;
+	cubic_h = typeof cubic_h === "undefined" ? 0 : cubic_h;
+	cubic_b = typeof cubic_b === "undefined" ? 0 : cubic_b; 
 	measurable = 2.5; 
 	data_loaded=false;
 	default_x = 0.60;
 	x_maximum=default_x;
+	$(".model_second_model_controls").remove();
+	$(".model_first_model_controls").show();
+	$(".model_function_controls").hide();
+	$(".model-choice_buttons_explanation").show();
+	$(".model_choice_model_information_div").hide();
 	loadsPlot(plot_normal);
     
 
@@ -76,6 +80,7 @@ $(function() {
 	 }
 	 if (x_maximum > measurable/9*10 && y_maximum > prediction/9*10) {
 	     clearInterval(intervalId);
+	     intervalId = false;
 	     x_maximum = default_x;
 	     y_maximum = setYMax();
 	     
@@ -311,11 +316,12 @@ $(function() {
 
 
     $(".model_confirm_model_button").on("click", function() {
-	 y_maximum = setYMax();
-	 x_maximum = default_x;
+	if (!intervalId) {
+	    y_maximum = setYMax();
+	    x_maximum = default_x;
 	 
-	 intervalId = window.setInterval(animatePlot,30);
-	 
+	    intervalId = window.setInterval(animatePlot,30);
+	}
     });
 
     // AUXILIARY FUNCTIONS
@@ -450,7 +456,7 @@ $(function() {
 		      var xmax = (typeof xmax) === "undefined" ? default_x : xmax;
 		      var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
 		      
-		      if (model === 1 || !model)
+		      if (model === 1 || !model || f === plot_normal)
 			   f(xmax, ymax);
 		      else 
 			   f(arg,xmax, ymax);
@@ -462,7 +468,7 @@ $(function() {
 	     var xmax = (typeof xmax) === "undefined" ? default_x : xmax;
 	     var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
 	     
-	     if (model === 1)
+	     if (model === 1 || !model || f === plot_normal)
 		  f(xmax, ymax);
 	     else 
 		  f(arg,xmax, ymax);
