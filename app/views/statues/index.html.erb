@@ -60,55 +60,70 @@
 
 <section class="data-gathering row">
   
-<script type="text/paperscript" canvas="canvas">
+<script type="text/javascript">
+$(function() {
+    
+    var canvas = $("#myCanvas");
+    var context = canvas.get(0).getContext("2d");
+    var canvas_width = 400;
+    var canvas_height = 500;
+    
+    var time = 0;
+    var animation = false;
 
-  
-var size0 = 10;
-var size = 10;
+    var animation_parameters = {last: 0, current: 0, dt:0};
+    var ratio = 0.2;
+    var height = 0.5;
+    var mass = 92;
 
-var scale = new Raster("statue_scale");
-scale.bounds.center = new Point(200,400);
-scale.scale(0.5);
-
-var statue = new Raster("statue_statue");
-statue.bounds.center = new Point(200,335);
-statue.scale(0.25);
-var height = statue.bounds.height;
-var y = 0;
-var mass0 = 0.092;
-var mass = mass0;
-
-var text = new PointText(new Point(130,442));
-text.content = mass*1000+" g";
-
-
-var verticalLine = new Path.Line(new Point(350,statue.bounds.bottom), new Point(350,statue.bounds.top));
-verticalLine.strokeColor = "black";
-var sizeText = new PointText(new Point(357,300));
-sizeText.content = size.toFixed(0) +" cm";
-var topLine = new Path.Line(new Point(345, statue.bounds.top), new Point(355, statue.bounds.top));
-topLine.strokeColor = "black";
-var bottomLine = new Path.Line(new Point(345, statue.bounds.bottom), new Point(355, statue.bounds.bottom));
-bottomLine.strokeColor = "black";
-
-
-$(document).ready(function() {
-    $("#statue_size_controls").on("slide", "#statue_size_slider", function(evt, ui) {
-        
-        statue.scale(1/size);
-		    size = ui.value;
-		    statue.scale(size);
-		    statue.position.y += y;
-		    y = (statue.bounds.height-height)/2;
-		    statue.position.y -= y;
-		    mass = mass0*Math.pow(size/size0,3);
-		    text.content = (mass*1000*(1.03-0.06*Math.random())).toFixed(0)+" g";
-		    verticalLine.segments[1].point = new Point(350,statue.bounds.top);
-		    sizeText.content = size.toFixed(0) +" cm";
-		    topLine.position.y = statue.bounds.top;
+    var scale = new Image();
+    scale.src = "assets/scale.png";
+    $(scale).load(function() {
+	draw_scale();
     });
 
+    var statue = new Image();
+    statue.src = "assets/statue.png";
+    $(statue).load(function() {
+	draw_statue();
+    });
 
+    function draw_statue() {
+	context.scale(ratio,ratio);
+	context.drawImage(statue,canvas_width/ratio*0.5-statue.width/2,canvas_height/ratio*0.78-statue.height);
+	context.scale(1/ratio,1/ratio);
+
+	context.beginPath();
+	context.moveTo(324,388);
+	context.lineTo(336,388);
+	context.moveTo(330,388);
+	context.lineTo(330,388-statue.height*ratio);
+	context.moveTo(324,388-statue.height*ratio);
+	context.lineTo(336,388-statue.height*ratio);
+	context.closePath();
+	context.stroke();
+
+	var h = height*100*ratio;
+	context.fillText(h.toFixed(0)+" cm", 350, 365);
+    }
+
+    function draw_scale() {
+	context.drawImage(scale,50,350);
+	var m = mass*Math.pow(height*ratio/0.1, 3)*(1.02-Math.random()*0.04)
+	context.fillText(m.toFixed(0)+" g", 150, 465);
+    }
+
+
+     $("#statue_size_controls").on("slide", "#statue_size_slider", function(evt, ui) {
+	    ratio = ui.value/50.;
+	    context.clearRect(0,0,400,500);
+	    draw_scale();
+	    draw_statue();
+	
+    });
+
+    
+ 
     
 });
 
@@ -155,7 +170,7 @@ $(document).ready(function() {
     
     
     <div class="statue_animation span7">
-    <canvas id="canvas" width=400 height=500></canvas>
+    <canvas id="myCanvas" width=400 height=500></canvas>
    
     
       <div id="statue_size_controls" style="width:150px;  float:right; margin-top:-120px">
@@ -167,8 +182,6 @@ $(document).ready(function() {
     
     
     </div>
-    <img src="assets/statue.png" class="paper_img" id="statue_statue">
-    <img src="assets/scale.png" class="paper_img" id="statue_scale">
     
 
     <div class="btn-group statue_navigator">

@@ -56,89 +56,79 @@
 
 <section class="data-gathering row">
   
-<script type="text/paperscript" canvas="canvas">
+<script type="text/javascript">
 	  
 
-var calor = new Raster("calorimeter");
-calor.bounds.center = new Point(200,250);
-
-
-
-var water = new Path();
-
-water.closed = true;
-
-water.fillColor = new Color(0,0,1,0.3);
-
-water.add(new Point(77,461));
-water.add(new Point(90,469));
-water.add(new Point(120,473));
-water.add(new Point(160,475));
-water.add(new Point(300,475));
-water.add(new Point(337,469));
-water.add(new Point(350,461));
-
-water.add(new Point(350,407));
-water.add(new Point(337,404));
-water.add(new Point(300,401));
-water.add(new Point(160,401));
-water.add(new Point(120,403));
-water.add(new Point(90,404));
-water.add(new Point(77,407));
-
-var y_scale = 0.005555556;
-var base = 0.5;
-var height = 150/base/1000/y_scale;
-var time = 0;
-var temperature = 18.0;
-var mass = 0;
-var animate = false;
-var rho = 1;
-var P = 500;
-var c_water = 4180;
-var dt;
-var Q;
-
-var top = new Path.Ellipse(new Rectangle(77,399,273,22));
-top.fillColor = new Color(0,0,1,0.3);
-
-
-
-function onFrame(evt) {
+$(function() {
     
-    dt = evt.delta;
+    var canvas = $("#myCanvas");
+    var context = canvas.get(0).getContext("2d");
 
-    if (animate) {
-	 time += dt;
-	 $("#chrono").text(time.toFixed(1)+ " s");
-	 	 
-	 Q = P * dt;
-	 
-	 mass = getMass(base, height*y_scale, rho);
-	 
-        temperature += (Q/(mass*c_water)*(1.5-(Math.random())));
-	 
-	 $("#thermo").text((Math.round(temperature*2)/2).toFixed(1)+ " ºC");
-	 if (temperature > 60) {
-	     reset();
-	 }
+    
+    var image = new Image();
+    image.src = "assets/calorimeter.png";
+    $(image).load(function() {
+	draw_water();
+    });
+
+    var water_mass = 0.150;
+    var time = 0;
+    var animation = false;
+    
+    var temperature = 18.0;
+    var P = 500;
+    var c_water = 4180;
+    var Q;
+
+    var animation_parameters = {last: 0, current: 0, dt:0};
+
+    var draw_water = function() {
+        context.clearRect(0,0,400,500);
+       
+	context.drawImage(image, 0, 0);
+	context.fillStyle = "rgba(0,0,255,0.3)";
+	
+	y = water_mass / 0.0028;
+
+	context.beginPath();
+	context.moveTo(77,461);
+	context.lineTo(90,469);
+	context.lineTo(120,473);
+	context.lineTo(160,475);
+	context.lineTo(300,475);
+	context.lineTo(337,469);
+	context.lineTo(350,461);
+
+	context.lineTo(350,461-y);
+	context.lineTo(337,458-y);
+	context.lineTo(300,455-y);
+	context.lineTo(160,455-y);
+	context.lineTo(120,457-y);
+	context.lineTo(90,458-y);
+	context.lineTo(77,461-y);
+	
+	context.closePath();
+	context.fill();
+
+	context.beginPath();
+	context.moveTo(77,461-y);
+	context.quadraticCurveTo(260,445-y,350,461-y);
+	context.quadraticCurveTo(260,482-y,77,461-y);
+	context.closePath();
+	context.fill();
     }
-}
 
-$(document).ready(function() {
-    
+
     $("#onoff").on("click", function() {
-	 mass = getMass(base, height*y_scale, rho);
 	 if ($(this).text() == "Aquecer") {
             $(this).text("Parar");
-	     animate = true;
+	     animation = true;
             $("#volume_slider").slider("disable");
 	 }
 	 else {
 	     $(this).text("Aquecer");
-	     animate = false;
+	     animation = false;
         }
-	 
 	 
     });
 
@@ -148,25 +138,36 @@ $(document).ready(function() {
     });
 
     $("#volume_slider").on("slide", function(evt, ui) {
-	 $("#volume").html((ui.value/1000).toFixed(3)+" kg");
-        var diff = (height-(ui.value/(base*1000)/y_scale));
-        height -= diff;
-        top.bounds.y += diff;
-        for (var k in water.segments) {
-           if (k >= 7)
-	      water.segments[k].point.y += diff;
-           }
+       water_mass = ui.value/1000.;
+       draw_water();
     });
-});
 
+    function render() {
+	animation_parameters.last = animation_parameters.current;
+	animation_parameters.current = (new Date().getTime()-time)/1000.;
+	animation_parameters.dt = animation_parameters.current-animation_parameters.last;
+	
+	if (animation) {
+	    time += animation_parameters.dt;
+            $("#chrono").text(time.toFixed(1)+ " s");
+	 	 
+	    Q = P * animation_parameters.dt;
+	    
+            temperature += (Q/(water_mass*c_water)*(1.5-(Math.random())));
+            
+	     $("#thermo").text((Math.round(temperature*2)/2).toFixed(1)+ " ºC");
+             if (temperature > 60) {
+	        reset();
+	     }
+	}
+    }
 
-function getMass(base, h, rho) {
-    return base*h*rho;
-}
+    animate();
 
-function reset() {
-    temperature = 18.0;
-	 mass = 0;
+     
+    function reset() {
+         temperature = 18.0;
+	 water_mass = 0.150;
 	 time = 0;
 	 animate = false;
 	 $("#onoff").text("Aquecer");
@@ -174,17 +175,50 @@ function reset() {
 	 $("#thermo").text("18.0 ºC");
 	 $("#volume").html("0.150 kg");   
         
-	 top.bounds.y += (height-(150/base/1000/y_scale));
-	 
-	 for (var k in water.segments) {
-	     if (k >= 7)
-		  water.segments[k].point.y += (height-(150/base/1000/y_scale));
-	 }
-	 
-	 height = 150/base/1000/y_scale;
+	 draw_water();
         $("#volume_slider").slider("value", 150);
         $("#volume_slider").slider("enable");
-}
+     } 
+
+
+   
+
+    (function() {
+	var lastTime = 0;
+	var vendors = ['ms', 'moz', 'webkit', 'o'];
+	for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+            window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+            window.cancelRequestAnimationFrame = window[vendors[x]+
+							'CancelRequestAnimationFrame'];
+	}
+
+	if (!window.requestAnimationFrame)
+            window.requestAnimationFrame = function(callback, element) {
+		var currTime = new Date().getTime();
+		var delta_t = Math.max(0, 16 - (currTime - lastTime));
+		var id = window.setTimeout(function() { callback(currTime + delta_t); }, 
+					   delta_t);
+		lastTime = currTime + delta_t;
+		return id;
+            };
+	
+	if (!window.cancelAnimationFrame)
+            window.cancelAnimationFrame = function(id) {
+		clearTimeout(id);
+            };
+    }());
+    
+    
+    function animate() {
+	window.requestAnimationFrame(animate);
+	render();
+    }
+
+    
+    
+});
+   
+
 
 
 	</script>
@@ -234,7 +268,7 @@ function reset() {
     
     
     <div class="thermo_animation span7">
-    <canvas id="canvas" width=400 height=500></canvas>
+    <canvas id="myCanvas" width=400 height=500></canvas>
    
     <div id="controls">
       <div >
@@ -252,8 +286,7 @@ function reset() {
     </div>
     </div>
     </div>
-    <img src="assets/calorimeter.png" class="paper_img" id="calorimeter">
-
+    
 
     <div class="btn-group thermo_navigator">
     <a type="button" class="thermo_button btn btn-primary data-gathering_previous" id="thermo_data-gathering_previous">Anterior</a>
