@@ -18,8 +18,8 @@ $(function(){
     var prediction = 350000;
     var x_maximum = 0.8;
     var y_maximum = 30000;
-    var intervalId;
-    var model;
+    var intervalId = false;
+    var model = false;
 
 
 
@@ -69,8 +69,13 @@ $(function(){
     $("#thermo_data-gathering_next").on("click",function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
-	model = false;
-	loadsPlot(plot_normal);
+	 $("#thermo_second_model_controls").remove();
+	$(".thermo_function_controls").hide();
+	$("#thermo_chosen_model_div").hide();
+	$("#thermo_confirm_model_button_div").hide();
+	$("#thermo_first_model_controls").show();
+	$("#thermo_buttons_explanation").show();
+	 loadsPlot(plot_normal);
     });
 
    $("#thermo_model-choice_next").on("click",function() {
@@ -296,9 +301,10 @@ $(function(){
 
 
     $("#thermo_confirm_model_button").on("click", function() {
-	 y_maximum = setYMax();
-	 intervalId = setInterval(animatePlot,30);
-	 
+	if (!intervalId) {
+	    y_maximum = setYMax();
+	    intervalId = setInterval(animatePlot,30);
+	}
     });
 
     
@@ -751,10 +757,11 @@ $(function(){
 	 }
 	 if (x_maximum > bath_volume/9*10 && y_maximum > prediction/9*10) {
 	     clearInterval(intervalId);
+	     intervalId = false;
 	     x_maximum = 0.8;
 	     y_maximum = setYMax();
 
-	     $(".thermo_model_buttons").append("<div id='thermo_second_model_controls'><p>O modelo escolhido prevê um gasto de energia de "+scientific(prediction,1)+"J para aquecer "+scientific(bath_volume,1)+"kg de água.</p><p> Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente. </p><p>Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "+(prediction/3600000*0.1).toFixed(2)+"€.</p><p><a href='#' id='thermo_another_model_link'>Experimentar outro modelo</a> ou <a href='#' id='thermo_keep_model_link'>Continuar com este modelo</a></p></div>");
+	     $(".thermo_model_buttons").append("<div id='thermo_second_model_controls' class='model_second_model_controls'><p>O modelo escolhido prevê um gasto de energia de "+scientific(prediction,1)+"J para aquecer "+scientific(bath_volume,1)+"kg de água.</p><p> Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente. </p><p>Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "+(prediction/3600000*0.1).toFixed(2)+"€.</p><p><a href='#' id='thermo_another_model_link'>Experimentar outro modelo</a> ou <a href='#' id='thermo_keep_model_link'>Continuar com este modelo</a></p></div>");
 	     $("#thermo_first_model_controls").hide();
 
 	     $("#thermo_another_model_link").on("click", function() {
@@ -772,24 +779,30 @@ $(function(){
 		  $(".questions").slideDown();
 
 
+		 var model_name;
 		  if (model === 1) {
-		      $("#thermo_model_field").val("linear");
-		      $("#thermo_question1_label").html("Escolheu o modelo <b>linear</b>. Por que razão essa é uma boa escolha?");
-		      $("#thermo_question1_field").val("Escolheu o modelo <b>linear</b>. Por que razão essa é uma boa escolha?");
-		      
+		      if (linear_m)
+			  model_name = "linear";
+		      else
+			  model_name = "constante";
 		  }
 		  else if (model === 2) {
-		      $("#thermo_model_field").val("quadrático");
-		      $("#thermo_question1_label").html("Escolheu o modelo <b>quadrático</b>. Por que razão essa é uma boa escolha?");
-		      $("#thermo_question1_field").val("Escolheu o modelo <b>quadrático</b>. Por que razão essa é uma boa escolha?");
-		      
+		     if (quadratic_k)
+			  model_name = "quadrático";
+		      else
+			  model_name = "constante";
 		  }
 		  else if (model === 3) {
-		      $("#thermo_model_field").val("cúbico");
-		      $("#thermo_question1_label").html("Escolheu o modelo <b>cúbico</b>. Por que razão essa é uma boa escolha?");
-		      $("#thermo_question1_field").val("Escolheu o modelo <b>cúbico</b>. Por que razão essa é uma boa escolha?");
-		      
+		      if (cubic_k)
+			  model_name = "cúbico";
+		      else
+			  model_name = "constante";
 		  }
+
+		 $("#thermo_model_field").val(model_name);
+		 $("#thermo_question1_label").html("Escolheu o modelo <b>"+model_name+"</b>. Por que razão essa é uma boa escolha?");
+		 $("#thermo_question1_field").val("Escolheu o modelo <b>"+model_name+"</b>. Por que razão essa é uma boa escolha?");
+	
 		  $("#thermo_question2_label").html("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
 		  $("#thermo_question2_field").val("A previsão de "+scientific(prediction)+"J, que corresponde a um custo de "+(prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?");
 
