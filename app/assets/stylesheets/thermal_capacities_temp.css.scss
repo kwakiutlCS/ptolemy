@@ -1,3 +1,19 @@
 // Place all the styles related to the thermal_capacities_temp controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.thermo3_form_input {
+
+   width: 60px;
+   
+}
+
+.thermo3_navigator {
+   float: right;
+}
+
+#thermo3_size_controls {
+   float:right; 
+   margin: -250px -10px 0 0;
+}

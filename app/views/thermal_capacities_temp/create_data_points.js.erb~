@@ -1,0 +1,34 @@
+
+$('#thermo2_data_collection').html("<%= escape_javascript(render(:partial => 'thermal_capacities_materials/tbody')) %>");
+
+$("#thermo2_temperature_field").on("keyup", function() {
+	 if ($(this).val() == "") {
+	     $("#thermo2_delta_calculator").text("0.0");
+	     $("#thermo2_delta_field").val("");
+	 }
+	 else {
+	     var t = parseFloat($(this).val());
+	     if (t != NaN) {
+		  $("#thermo2_delta_calculator").text((t-15.0).toFixed(1));
+		  $("#thermo2_delta_field").val(t-15);
+	     }
+	 }
+    });
+
+if (<%= @data.count > 0 %>) {
+$("#thermo2_data_collection_explanation").html("<p>Recolha mais dados ou avance para a tarefa seguinte</p>");
+
+$("#thermo2_data-gathering_next").show();
+}
+else {
+     $("#thermo2_data_collection_explanation").html("<p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam o volume de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água. </p><p>O aquecimento da água faz-se com uma resistência de 500W, o que permite saber a energia transferida para a água, se registarmos o intervalo de tempo que a resistência esteve ligada.</p><p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>");
+
+$("#thermo2_data-gathering_next").hide();
+}
+$(".form_input").val("");
+$("#thermo2_delta_calculator").text("0.0");
+
+
+$(".float-text").css({left: "-40px"});
+$(".flot-y-axis").css({top: "-10px"});
+

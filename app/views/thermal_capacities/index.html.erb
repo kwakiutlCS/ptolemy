@@ -139,6 +139,7 @@ $(function() {
 
     $("#volume_slider").on("slide", function(evt, ui) {
        water_mass = ui.value/1000.;
+       $("#volume").html(water_mass.toFixed(3)+" kg");
        draw_water();
     });
 
@@ -169,7 +170,7 @@ $(function() {
          temperature = 18.0;
 	 water_mass = 0.150;
 	 time = 0;
-	 animate = false;
+	 animation = false;
 	 $("#onoff").text("Aquecer");
 	 $("#chrono").text("0.0 s");
 	 $("#thermo").text("18.0 ºC");

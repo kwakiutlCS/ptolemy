@@ -18,15 +18,15 @@
   </div>
   <% end %>
 
-<div id="statue_background_div">
+<div id="thermo3_background_div">
 
-<h1>A massa da estátua</h1>
-<p>Nesta atividade estamos interessados em estimar a massa de uma estátua.</p> <br />
+<h1>A ebulição da água</h1>
+<p>Nesta atividade estamos interessados em estimar a energia necessária para a água entrar em ebulição.</p> <br />
 <p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
 
 </div>
-<div class="btn-group statue_navigator">
-<a type="button" class="statue_button btn btn-primary background_next" id="statue_background_next">Seguinte</a>
+<div class="btn-group thermo3_navigator">
+<a type="button" class="thermo3_button btn btn-primary background_next" id="thermo3_background_next">Seguinte</a>
 </div>
 </section>
 
@@ -34,22 +34,22 @@
 
 <section class="strategy">
 
-<div id="statue_strategy_div">
+<div id="thermo3_strategy_div">
   <h2>Estratégia</h2>
   <div>
   <p>...
   </p>
   <br />
   <p>
-  Vamos usar um processo em que testamos o problema em pequena escala. Se se construir versões mais pequenas da estátua poderemos verificar a sua massa. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso da estátua maior. Chama-se a isto construir um modelo.
+  Vamos usar um processo em que testamos o problema em pequena escala. Chama-se a isto construir um modelo.
   </p>
   </div>
 
   </div>
    
-  <div class="btn-group statue_navigator" style="margin-top: 10px">
-    <a type="button" class="statue_button btn btn-primary strategy_previous" id="statue_strategy_previous">Anterior</a>
-    <a type="button" class="statue_button btn btn-primary strategy_next" id="statue_strategy_next">Seguinte</a>
+  <div class="btn-group thermo3_navigator" style="margin-top: 10px">
+    <a type="button" class="thermo3_button btn btn-primary strategy_previous" id="thermo3_strategy_previous">Anterior</a>
+    <a type="button" class="thermo3_button btn btn-primary strategy_next" id="thermo3_strategy_next">Seguinte</a>
   </div>
 </section>
 
@@ -60,85 +60,197 @@
 
 <section class="data-gathering row">
   
-<script type="text/paperscript" canvas="canvas">
-
+<script type="text/javascript">
   
-var size0 = 10;
-var size = 10;
-
-var scale = new Raster("statue_scale");
-scale.bounds.center = new Point(200,400);
-scale.scale(0.5);
-
-var statue = new Raster("statue_statue");
-statue.bounds.center = new Point(200,335);
-statue.scale(0.25);
-var height = statue.bounds.height;
-var y = 0;
-var mass0 = 0.092;
-var mass = mass0;
-
-var text = new PointText(new Point(130,442));
-text.content = mass*1000+" g";
-
-
-var verticalLine = new Path.Line(new Point(350,statue.bounds.bottom), new Point(350,statue.bounds.top));
-verticalLine.strokeColor = "black";
-var sizeText = new PointText(new Point(357,300));
-sizeText.content = size.toFixed(0) +" cm";
-var topLine = new Path.Line(new Point(345, statue.bounds.top), new Point(355, statue.bounds.top));
-topLine.strokeColor = "black";
-var bottomLine = new Path.Line(new Point(345, statue.bounds.bottom), new Point(355, statue.bounds.bottom));
-bottomLine.strokeColor = "black";
-
-
-$(document).ready(function() {
-    $("#statue_size_controls").on("slide", "#statue_size_slider", function(evt, ui) {
-        
-        statue.scale(1/size);
-		    size = ui.value;
-		    statue.scale(size);
-		    statue.position.y += y;
-		    y = (statue.bounds.height-height)/2;
-		    statue.position.y -= y;
-		    mass = mass0*Math.pow(size/size0,3);
-		    text.content = (mass*1000*(1.03-0.06*Math.random())).toFixed(0)+" g";
-		    verticalLine.segments[1].point = new Point(350,statue.bounds.top);
-		    sizeText.content = size.toFixed(0) +" cm";
-		    topLine.position.y = statue.bounds.top;
-    });
-
+  
+$(function() {
+    
+    var canvas = $("#myCanvas");
+    var context = canvas.get(0).getContext("2d");
 
     
+    var image = new Image();
+    image.src = "assets/calorimeter.png";
+    $(image).load(function() {
+	draw_water();
+    });
+
+    var water_mass = 1;
+    var time = 0;
+    var animation = false;
+    
+    var temperature = 15.0;
+    var P = 500;
+    var c_water = 4180;
+    var Q;
+
+    var animation_parameters = {last: 0, current: 0, dt:0};
+
+    var draw_water = function() {
+        context.clearRect(0,0,400,500);
+       
+	context.drawImage(image, 0, 0);
+	context.fillStyle = "rgba(0,0,255,0.3)";
+	
+	y = water_mass / 0.0037;
+
+	context.beginPath();
+	context.moveTo(77,461);
+	context.lineTo(90,469);
+	context.lineTo(120,473);
+	context.lineTo(160,475);
+	context.lineTo(300,475);
+	context.lineTo(337,469);
+	context.lineTo(350,461);
+
+	context.lineTo(350,461-y);
+	context.lineTo(337,458-y);
+	context.lineTo(300,455-y);
+	context.lineTo(160,455-y);
+	context.lineTo(120,457-y);
+	context.lineTo(90,458-y);
+	context.lineTo(77,461-y);
+	
+	context.closePath();
+	context.fill();
+
+	context.beginPath();
+	context.moveTo(77,461-y);
+	context.quadraticCurveTo(260,445-y,350,461-y);
+	context.quadraticCurveTo(260,482-y,77,461-y);
+	context.closePath();
+	context.fill();
+    }
+
+
+    $("#thermo3_onoff").on("click", function() {
+	 if ($(this).text() == "Ligar") {
+            $(this).text("Parar");
+	     animation = true;
+            
+	 }
+	 else {
+	     $(this).text("Ligar");
+	     animation = false;
+        }
+	 
+    });
+
+    $("#thermo3_restart").on("click", function() {
+	 reset();
+	 
+    });
+
+    
+
+    function render() {
+	animation_parameters.last = animation_parameters.current;
+	animation_parameters.current = (new Date().getTime()-time)/1000.;
+	animation_parameters.dt = animation_parameters.current-animation_parameters.last;
+	
+	if (animation) {
+	    time += animation_parameters.dt;
+            $("#thermo3_time").text(time.toFixed(1)+ " s");
+	 	 
+	    Q = P * animation_parameters.dt;
+	    
+            temperature += (Q/(water_mass*c_water)*(1.5-(Math.random())));
+            
+	     $("#thermo3_temp").text((Math.round(temperature*2)/2).toFixed(1)+ " ºC");
+             if (temperature > 60) {
+	        reset();
+	     }
+	}
+    }
+
+    animate();
+
+     
+    function reset() {
+         temperature = 15.0;
+	 
+	 time = 0;
+	 animation = false;
+	 $("#thermo3_onoff").text("Ligar");
+	 $("#thermo3_time").text("0.0 s");
+	 $("#thermo3_temp").text("15.0 ºC");
+	 
+        
+	 
+     } 
+
+
+   
+
+    (function() {
+	var lastTime = 0;
+	var vendors = ['ms', 'moz', 'webkit', 'o'];
+	for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+            window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+            window.cancelRequestAnimationFrame = window[vendors[x]+
+							'CancelRequestAnimationFrame'];
+	}
+
+	if (!window.requestAnimationFrame)
+            window.requestAnimationFrame = function(callback, element) {
+		var currTime = new Date().getTime();
+		var delta_t = Math.max(0, 16 - (currTime - lastTime));
+		var id = window.setTimeout(function() { callback(currTime + delta_t); }, 
+					   delta_t);
+		lastTime = currTime + delta_t;
+		return id;
+            };
+	
+	if (!window.cancelAnimationFrame)
+            window.cancelAnimationFrame = function(id) {
+		clearTimeout(id);
+            };
+    }());
+    
+    
+    function animate() {
+	window.requestAnimationFrame(animate);
+	render();
+    }
+
+    
+    
 });
+   
 
 </script>
 
 
 <h1>Recolher Dados</h1>
         
-    <div class="model_data_form statue_data_form span5">
+    <div class="model_data_form thermo3_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
+         <%= hidden_field_tag(:x, nil, id:"thermo3_delta_field") %>
+	 <%= hidden_field_tag(:y, nil, id:"thermo3_energy_field") %>
          <table class="table">
 	    <thead>
-	      <tr><th>altura(m)</th><th>massa(kg)<th></th></tr>
+	      <tr><th>Temperatura(ºC)</th><th>&#916;T(ºC)</th><th >Energia(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"statue_input", placeholder:"metro",step:0.0001, id:"statue_size_field", max:1, min:0) %>
+		   <%= number_field_tag(:temperature, nil,  class:"form_input thermo3_form_input", step:0.1, id:"thermo3_temperature_field", placeholder:"ºC", max:80, min:15) %>
 		 </th>
-		 <th>
-		   <%= number_field_tag(:y, nil, class:"statue_input", placeholder:"quilograma",step:0.001,  id:"statue_mass_field", max: 15, min:0) %>
+		 <th style="padding-bottom:20px" id="thermo3_delta_calculator">
+		   0.0
+		 </th>
+		 <th  title="E = P x &#916;t" style="text-align:center;">
+		   <%= number_field_tag(:energy, nil, class:"form_input thermo3_form_input", step:0.001, id:"thermo3_kJ_field", placeholder:"kJ", max:30, min: 0) %>
+		   
 		 </th>
 		 
 		 <th>
-		   <%= submit_tag(:submeter, class:"btn btn-success model_add_data_point_button", id:"statue_add_data_point_button", style:"margin-top:-37px") %>
+		   <%= submit_tag(:submeter, class:"btn btn-success", id:"thermo3_add_data_point_button", style:"margin-top:-37px;") %>
 		 </th>
 	      </tr>
 	    </thead>
 	  
 	  
 	  
-	    <tbody class="model_data_collection" id="statue_data_collection">
+	    <tbody class="model_data_collection" id="thermo3_data_collection">
 	      
 	    <%= render "tbody" %>
 	    </tbody>
@@ -146,7 +258,7 @@ $(document).ready(function() {
 	  </table>
     	  
       <% end %>
-      <div id="statue_data_collection_explanation">
+      <div id="thermo3_data_collection_explanation">
       <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem uma balança onde pode medir a massa de diferentes modelos da estátua.  </p>
       <p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>
       </div>
@@ -154,26 +266,29 @@ $(document).ready(function() {
 
     
     
-    <div class="statue_animation span7">
-    <canvas id="canvas" width=400 height=500></canvas>
+    <div class="thermo3_animation span7">
+    <canvas id="myCanvas" width=400 height=500></canvas>
    
     
-      <div id="statue_size_controls" style="width:150px;  float:right; margin-top:-120px">
-	 <div id="statue_size_label">Altura</div>
-	 <div id="statue_size_slider"></div>
+      <div id="thermo3_size_controls">
+	 <div id="thermo3_mass" class="monitor">1 kg</div>
+	 <div id="thermo3_temp" class="monitor"> 15.0 ºC </div>
+	 <div id="thermo3_time" class="monitor"> 0.0 s </div>
+	 <div class="btn-group">
+	   <a type="button" class="thermo3_button btn" id="thermo3_onoff">Ligar</a>
+	   <a type="button" class="thermo3_button btn" id="thermo3_restart">Reiniciar</a>
+	 </div>
       </div>
     
     
     
     
     </div>
-    <img src="assets/statue.png" class="paper_img" id="statue_statue">
-    <img src="assets/scale.png" class="paper_img" id="statue_scale">
     
 
-    <div class="btn-group statue_navigator">
-    <a type="button" class="statue_button btn btn-primary data-gathering_previous" id="statue_data-gathering_previous">Anterior</a>
-    <a type="button" class="statue_button btn btn-primary data-gathering_next" id="statue_data-gathering_next"  style="display:none">Seguinte</a>
+    <div class="btn-group thermo3_navigator">
+    <a type="button" class="thermo3_button btn btn-primary data-gathering_previous" id="thermo3_data-gathering_previous">Anterior</a>
+    <a type="button" class="thermo3_button btn btn-primary data-gathering_next" id="thermo3_data-gathering_next"  style="display:none">Seguinte</a>
     </div>
 
 
@@ -182,7 +297,7 @@ $(document).ready(function() {
     <div  style="display:none;">
       <div id="fancydiv">
       <p>Verificou que uma estátua de <span id="fancy_size">0.1</span>m tem uma massa de <span id="fancy_mass">0.095</span>kg.<br /> Antes de continuar com a atividade tente prever qual a massa da estátua de 2.5m.</p>
-      <%= form_tag(add_prediction_statues_path, remote:true) do %>
+      <%= form_tag("", remote:true) do %>
       <div class="form-horizontal">
       <%= number_field_tag(:mass,"", step:0.001, placeholder:"previsão (kg)") %>
       <%= submit_tag(:submeter, class:"btn btn-success") %>
@@ -199,65 +314,66 @@ $(document).ready(function() {
 
 
 <section class="model-choice">
-  <div class="x_axis_unit axis_unit">l</div>
-  <div class="y_axis_unit axis_unit">m</div>
+  <div class="x_axis_unit axis_unit">&#916;T</div>
+  <div class="y_axis_unit axis_unit">E</div>
       
   <h1>Escolher o Modelo</h1>
   <div>
-  <div class="model_choice_buttons statue_model_buttons">
-    <div class="model_first_model_controls" id="statue_first_model_controls">
+  <div class="model_choice_buttons thermo3_model_buttons">
+    <div class="model_first_model_controls" id="thermo3_first_model_controls">
   <div class="btn-group">
-    <a type="button" class="statue_button btn linear_model_button" id="statue_linear_button">Linear<br/> y = k x + b</a>
-    <a type="button" class="statue_button btn quadratic_model_button" id="statue_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
-    <a type="button" class="statue_button btn cubic_model_button" id="statue_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
+    <a type="button" class="thermo3_button btn linear_model_button" id="thermo3_linear_button">Linear<br/> y = k x + b</a>
+    <a type="button" class="thermo3_button btn quadratic_model_button" id="thermo3_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
+    <a type="button" class="thermo3_button btn cubic_model_button" id="thermo3_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
   </div>
     
-  <div class="model-choice_buttons_explanation" id="statue_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
-  <div class="linear_function_controls model_function_controls" id="statue_linear_controls">
+  <div class="model-choice_buttons_explanation" id="thermo3_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
+  <div class="linear_function_controls model_function_controls" id="thermo3_linear_controls">
     
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="statue_linear_m">120</span></div><div class="model_slider_controls model_linear_m_slider" id="statue_linear_m_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_linear_b" id="statue_linear_b">0</span></div><div class="model_slider_controls model_linear_b_slider" id="statue_linear_b_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="thermo3_linear_m">120</span></div><div class="model_slider_controls model_linear_m_slider" id="thermo3_linear_m_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_linear_b" id="thermo3_linear_b">0</span></div><div class="model_slider_controls model_linear_b_slider" id="thermo3_linear_b_slider"></div></div>
 
   </div>
-  <div class="quadratic_function_controls model_function_controls" id="statue_quadratic_controls">
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_quadratic_k" id="statue_quadratic_k">2.6</span></div><div class="model_slider_controls model_quadratic_k_slider" id="statue_quadratic_k_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_quadratic_h" id="statue_quadratic_h">0</span></div><div class="model_slider_controls model_quadratic_h_slider" id="statue_quadratic_h_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_quadratic_b" id="statue_quadratic_b">0</span></div><div class="model_slider_controls model_quadratic_b_slider" id="statue_quadratic_b_slider"></div></div>
+  <div class="quadratic_function_controls model_function_controls" id="thermo3_quadratic_controls">
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_quadratic_k" id="thermo3_quadratic_k">2.6</span></div><div class="model_slider_controls model_quadratic_k_slider" id="thermo3_quadratic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_quadratic_h" id="thermo3_quadratic_h">0</span></div><div class="model_slider_controls model_quadratic_h_slider" id="thermo3_quadratic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_quadratic_b" id="thermo3_quadratic_b">0</span></div><div class="model_slider_controls model_quadratic_b_slider" id="thermo3_quadratic_b_slider"></div></div>
   </div>
 
-  <div class="cubic_function_controls model_function_controls" id="statue_cubic_controls">
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_cubic_k" id="statue_cubic_k">0.04</span></div><div class="model_slider_controls  model_cubic_k_slider" id="statue_cubic_k_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_cubic_h" id="statue_cubic_h">0</span></div><div class="model_slider_controls model_cubic_h_slider" id="statue_cubic_h_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_cubic_b" id="statue_cubic_b">0</span></div><div class="model_slider_controls model_cubic_b_slider" id="statue_cubic_b_slider"></div></div>
+  <div class="cubic_function_controls model_function_controls" id="thermo3_cubic_controls">
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_cubic_k" id="thermo3_cubic_k">0.04</span></div><div class="model_slider_controls  model_cubic_k_slider" id="thermo3_cubic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_cubic_h" id="thermo3_cubic_h">0</span></div><div class="model_slider_controls model_cubic_h_slider" id="thermo3_cubic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_cubic_b" id="thermo3_cubic_b">0</span></div><div class="model_slider_controls model_cubic_b_slider" id="thermo3_cubic_b_slider"></div></div>
   </div>
   
   <div class="model_choice_model_information_div">
-    <div class="model_choice_model_formula_parent" id="statue_chosen_model_div">
+    <div class="model_choice_model_formula_parent" id="thermo3_chosen_model_div">
       <span>
 	 Modelo
       </span>
-      <div class="model_choice_model_formula" id="statue_chosen_model">
+      <div class="model_choice_model_formula" id="thermo3_chosen_model">
 	 
       </div>
     </div>
-    <div class="model_choice_model_confirm_button" id="statue_confirm_model_button_div">
-      <a type="button" class=" model_confirm_model_button statue_button btn btn-success" id="statue_confirm_model_button">Usar este modelo</a>
+    <div class="model_choice_model_confirm_button" id="thermo3_confirm_model_button_div">
+      <a type="button" class=" model_confirm_model_button thermo3_button btn btn-success" id="thermo3_confirm_model_button">Usar este modelo</a>
     </div>
     </div>
   </div>
   </div>
-  <div id="statue_graph_super_div">
-  <div>Massa da estátua em função da altura</div>
-  <div id="statue_graph_div">
-    <div class="y_label_div" id="statue_y_label">m (kg)</div>
+  <div id="thermo3_graph_super_div">
+  <div>Energia necessária para aquecer 1kg de água em função da variação de temperatura</div>
+  <div id="thermo3_graph_div">
+    <div class="y_label_div" id="thermo3_y_label">E (J)</div>
     
-  <div class="graph_div" id="statue_graph"></div>
-<div class="x_label_div" id="statue_x_label">l (m)</div>
+  <div class="graph_div" id="thermo3_graph"></div>
+  <div class="x_label_div" id="thermo3_x_label">&#916;T (ºC)</div>
   </div>
+  <div class="graph_legend_container"></div>
    </div>
   </div>
-  <div class="btn-group statue_navigator">
-    <a type="button" class="statue_button btn btn-primary model-choice_previous" id="statue_model-choice_previous">Anterior</a>
+  <div class="btn-group thermo3_navigator">
+    <a type="button" class="thermo3_button btn btn-primary model-choice_previous" id="thermo3_model-choice_previous">Anterior</a>
   </div>
 
   
@@ -272,21 +388,21 @@ $(document).ready(function() {
 <section class="questions">
   <h1>Questões Finais</h1>
 
-  <div class="row model_question_screen1" id="statue_question_screen1"><div class="span2"></div>
-    <div class="span9" id="statue_questions_div">
+  <div class="row model_question_screen1" id="thermo3_question_screen1"><div class="span2"></div>
+    <div class="span9" id="thermo3_questions_div">
       <%= form_tag(answers_path, remote: true) do %>
-      <%= hidden_field_tag(:model, nil, id:"statue_model_field", class:"question_model_field") %>
-      <%= hidden_field_tag(:question1, nil, id:"statue_question1_field", class:"question_question1_field") %>
-      <%= label_tag(:answer1, nil, id:"statue_question1_label", class:"question_question1_label") %>
-      <%= text_area_tag(:answer1, nil, id:"statue_answer1_field", class:"question_answer1_field") %>
-      <%= hidden_field_tag(:question2, nil, id:"statue_question2_field", class:"question_question2_field") %>
-      <%= label_tag(:answer2, nil, id:"statue_question2_label", class:"question_question2_label") %>
-      <%= text_area_tag(:answer2, nil, id:"statue_answer2_field", class:"question_answer2_field") %>
-      <%= hidden_field_tag(:question3, nil, id:"statue_question3_field", class:"question_question3_field") %>
-      <%= hidden_field_tag(:answer3, nil, id:"statue_answer3_field", class:"question_answer3_field") %>
-      <%= hidden_field_tag(:question4, nil, id:"statue_question4_field", class:"question_question4_field") %>
-      <%= label_tag(:answer4, nil, id:"statue_question4_label", class:"question_question4_label") %>
-      <%= text_area_tag(:answer4, nil, id:"statue_answer4_field", class:"question_answer4_field") %>
+      <%= hidden_field_tag(:model, nil, id:"thermo3_model_field", class:"question_model_field") %>
+      <%= hidden_field_tag(:question1, nil, id:"thermo3_question1_field", class:"question_question1_field") %>
+      <%= label_tag(:answer1, nil, id:"thermo3_question1_label", class:"question_question1_label") %>
+      <%= text_area_tag(:answer1, nil, id:"thermo3_answer1_field", class:"question_answer1_field") %>
+      <%= hidden_field_tag(:question2, nil, id:"thermo3_question2_field", class:"question_question2_field") %>
+      <%= label_tag(:answer2, nil, id:"thermo3_question2_label", class:"question_question2_label") %>
+      <%= text_area_tag(:answer2, nil, id:"thermo3_answer2_field", class:"question_answer2_field") %>
+      <%= hidden_field_tag(:question3, nil, id:"thermo3_question3_field", class:"question_question3_field") %>
+      <%= hidden_field_tag(:answer3, nil, id:"thermo3_answer3_field", class:"question_answer3_field") %>
+      <%= hidden_field_tag(:question4, nil, id:"thermo3_question4_field", class:"question_question4_field") %>
+      <%= label_tag(:answer4, nil, id:"thermo3_question4_label", class:"question_question4_label") %>
+      <%= text_area_tag(:answer4, nil, id:"thermo3_answer4_field", class:"question_answer4_field") %>
       
       <br />
       <%= submit_tag(:save, value:"Submeter", confirm:"Deseja introduzir estas respostas?", class:"btn btn-success questions_confirm_answers_button", style:"float: left") %>
@@ -295,8 +411,8 @@ $(document).ready(function() {
     <div class="span3"></div>
   </div>
 
-  <div class="row model_question_screen2" id="statue_question_screen2"><div class="span2"></div>
-    <div class="span9" id="statue_questions_after_div">
+  <div class="row model_question_screen2" id="thermo3_question_screen2"><div class="span2"></div>
+    <div class="span9" id="thermo3_questions_after_div">
       Atividade terminada
     </div>
     
@@ -304,8 +420,8 @@ $(document).ready(function() {
 
   
 
-  <div class="btn-group statue_navigator">
-    <a type="button" class="statue_button btn btn-primary model_questions_previous" id="statue_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
+  <div class="btn-group thermo3_navigator">
+    <a type="button" class="thermo3_button btn btn-primary model_questions_previous" id="thermo3_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
   </div>
 </section>
 
