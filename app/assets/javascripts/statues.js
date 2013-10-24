@@ -19,6 +19,7 @@ $(function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
 
+	alert(ricardo);
 	prediction = 600;
 	linear_m = typeof linear_m === "undefined" ? 4 : linear_m;
 	linear_b = typeof linear_b === "undefined" ? 0 : linear_b;
@@ -207,6 +208,7 @@ $(function() {
 
     // slider action
     $(".model_linear_m_slider").on("slide", function(evt, ui) {
+	console.log(ui.value);
 	 $(".model_linear_m").html(ui.value);
 	 linear_m = ui.value;
 

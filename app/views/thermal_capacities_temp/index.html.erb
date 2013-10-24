@@ -75,7 +75,7 @@ $(function() {
 	draw_water();
     });
 
-    var water_mass = 1;
+    var water_mass = 0.4;
     var time = 0;
     var animation = false;
     
@@ -92,7 +92,7 @@ $(function() {
 	context.drawImage(image, 0, 0);
 	context.fillStyle = "rgba(0,0,255,0.3)";
 	
-	y = water_mass / 0.0037;
+	y = water_mass / 0.0028;
 
 	context.beginPath();
 	context.moveTo(77,461);
@@ -271,7 +271,7 @@ $(function() {
    
     
       <div id="thermo3_size_controls">
-	 <div id="thermo3_mass" class="monitor">1 kg</div>
+	 <div id="thermo3_mass" class="monitor">0.4 kg</div>
 	 <div id="thermo3_temp" class="monitor"> 15.0 ºC </div>
 	 <div id="thermo3_time" class="monitor"> 0.0 s </div>
 	 <div class="btn-group">
@@ -362,12 +362,14 @@ $(function() {
   </div>
   </div>
   <div id="thermo3_graph_super_div">
-  <div>Energia necessária para aquecer 1kg de água em função da variação de temperatura</div>
+  <div>Energia necessária para aquecer 0.4kg de água em função da variação de temperatura</div>
   <div id="thermo3_graph_div">
     <div class="y_label_div" id="thermo3_y_label">E (J)</div>
     
   <div class="graph_div" id="thermo3_graph"></div>
-  <div class="x_label_div" id="thermo3_x_label">&#916;T (ºC)</div>
+  <div class="x_label_div" id="thermo3_x_label">&#916;T (ºC)
+    <div class="btn-group model_navigator x_axis_scaler" ><a type="button" class="btn btn-default scale_minus" id="thermo3_axis_small">-</a><a type="button" class="btn btn-default scale_plus" id="thermo3_axis_big">+</a></div>
+  </div>
   </div>
   <div class="graph_legend_container"></div>
    </div>

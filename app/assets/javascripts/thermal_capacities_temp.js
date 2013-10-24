@@ -1,3 +1,4 @@
+
 $(function() {
 
     $("#thermo3_kJ_field").on("keyup", function() {
@@ -27,7 +28,7 @@ $(function() {
     measurable, 
     data_loaded, 
     user_data, plot_data,
-    default_x, x_maximum, y_maximum;
+    default_x, x_maximum, y_maximum, x_step, x_lower_bound, x_higher_bound;
     var intervalId =false;
 
 
@@ -37,7 +38,7 @@ $(function() {
 	 $(".model-choice").slideDown();
 
 	prediction = 600;
-	linear_m = typeof linear_m === "undefined" ? 4 : linear_m;
+	linear_m = typeof linear_m === "undefined" ? 250 : linear_m;
 	linear_b = typeof linear_b === "undefined" ? 0 : linear_b;
 	quadratic_k = typeof quadratic_k === "undefined" ? 6 : quadratic_k;
 	quadratic_h= typeof quadratic_h === "undefined" ? 0 : quadratic_h;
@@ -45,9 +46,12 @@ $(function() {
 	cubic_k = typeof cubic_k === "undefined" ? 2 : cubic_k;
 	cubic_h = typeof cubic_h === "undefined" ? 0 : cubic_h;
 	cubic_b = typeof cubic_b === "undefined" ? 0 : cubic_b; 
-	measurable = 2.5; 
+	measurable = 100; 
 	data_loaded=false;
 	default_x = 20;
+	x_step = 5;
+	x_lower_bound = 5;
+	x_higher_bound = 50;
 	x_maximum=default_x;
 	$(".model_second_model_controls").remove();
 	$(".model_first_model_controls").show();
@@ -56,18 +60,22 @@ $(function() {
 	$(".model_choice_model_information_div").hide();
 	loadsPlot(plot_normal);
 
-
-
+	$(".model_linear_m").html(linear_m);
+	$(".model_quadratic_k").html(quadratic_k);
+	$(".model_cubic_k").html(cubic_k);
+	
     
     // slider limits
-    $("#thermo3_linear_m_slider").slider({value: linear_m, min: 0, max: 50, step: 0.10});
-    $("#thermo3_linear_b_slider").slider({value: linear_b, min: -10, max:10, step: 0.05});
-    $("#thermo3_quadratic_k_slider").slider({value: quadratic_k, min: 0, max: 100, step: 0.1});
+	var b = 10000, b_step = 50;
+ 
+    $("#thermo3_linear_m_slider").slider({value: linear_m, min: 0, max: 1200, step: 20});
+    $("#thermo3_linear_b_slider").slider({value: linear_b, min: -b, max:b, step: b_step});
+    $("#thermo3_quadratic_k_slider").slider({value: quadratic_k, min: 0, max: 120, step: 0.1});
     $("#thermo3_quadratic_h_slider").slider({value: quadratic_h, min: 0, max: default_x, step: default_x/100});
-    $("#thermo3_quadratic_b_slider").slider({value: quadratic_b, min: -10, max: 10, step: 0.05});
-    $("#thermo3_cubic_k_slider").slider({value: cubic_k, min: 0, max: 300, step: 1});
+    $("#thermo3_quadratic_b_slider").slider({value: quadratic_b, min: -b, max: b, step: b_step});
+    $("#thermo3_cubic_k_slider").slider({value: cubic_k, min: 0, max: 30, step: 0.1});
     $("#thermo3_cubic_h_slider").slider({value: cubic_h, min: 0, max: default_x, step: default_x/100});
-    $("#thermo3_cubic_b_slider").slider({value: cubic_b, min: -10, max: 10, step: 0.05});
+    $("#thermo3_cubic_b_slider").slider({value: cubic_b, min: -b, max: b, step: b_step});
 
 
     });
@@ -118,7 +126,7 @@ $(function() {
 
 		  var m;
 		 if (model === 1) {
-		     if (linear_k)
+		     if (linear_m)
 			 m = "linear";
 		     else 
 			 m = "constante";
@@ -175,174 +183,45 @@ $(function() {
     }
 
     
-
-
-    // GENERAL CODE
-   
-    $(".model_data_form").on("click",".model_add_data_point_button", function() {
-	 data_loaded = false;
-	  
-    });
-    $(".model_data_collection").on("click",".model_remove_data_point_button", function() {
-	 data_loaded = false;
-	 
-    });
-
-    
-    
-    // navigation buttons
-    $(".background").on("click", ".background_next", function() {
-	 $(".background").slideUp();
-	 $(".strategy").slideDown();
-    });
-
-    $(".strategy").on("click", ".strategy_previous", function() {
-	 $(".strategy").slideUp();
-	 $(".background").slideDown();
-    });
-
-    $(".strategy").on("click", ".strategy_next", function() {
-	 $(".strategy").slideUp();
-	 $(".data-gathering").slideDown();
-    });
-
-    $(".data-gathering").on("click", ".data-gathering_previous", function() {
-	 $(".data-gathering").slideUp();
-	 $(".strategy").slideDown();
-    });
-
-    
-
-    $(".model-choice").on("click", ".model-choice_previous", function() {
-	 $(".model-choice").slideUp();
-	 $(".data-gathering").slideDown();
-    });
-
-    $(".questions").on("click", ".model_questions_previous", function() {
-	 $(".questions").slideUp();
-	 $(".model-choice").slideDown();
-    });
-
-
-    // slider action
-    $(".model_linear_m_slider").on("slide", function(evt, ui) {
-	 $(".model_linear_m").html(ui.value);
-	 linear_m = ui.value;
-
-	 prediction = linear_b + measurable*linear_m;
-	 write_linear_formula();
-	 plot_linear();
-    });
-
-    $(".model_linear_b_slider").on("slide", function(evt, ui) {
-	 $(".model_linear_b").html(ui.value);
-	 linear_b = ui.value;
-
-	 prediction = linear_b + measurable*linear_m;
-	 write_linear_formula();
-	 plot_linear();
-    });
-    
-    $(".model_quadratic_k_slider").on("slide", function(evt, ui) {
-	 $(".model_quadratic_k").html(ui.value);
-	 quadratic_k = ui.value;
-
-	 prediction = quadratic_b + Math.pow(measurable-quadratic_h, 2)*quadratic_k;
-	 write_quadratic_formula();
-	 plot_polynomial(getQuadraticData());
-    });
-    $(".model_quadratic_h_slider").on("slide", function(evt, ui) {
-	 $(".model_quadratic_h").html(ui.value);
-	 quadratic_h = ui.value;
-
-	 prediction = quadratic_b + Math.pow(measurable-quadratic_h, 2)*quadratic_k;
-	 write_quadratic_formula();
-	 plot_polynomial(getQuadraticData());
-    });
-    $(".model_quadratic_b_slider").on("slide", function(evt, ui) {
-	 $(".model_quadratic_b").html(ui.value);
-	 quadratic_b = ui.value;
-
-	 prediction = quadratic_b + Math.pow(measurable-quadratic_h, 2)*quadratic_k;
-	 write_quadratic_formula();
-	 plot_polynomial(getQuadraticData());
-    });
-    $(".model_cubic_k_slider").on("slide", function(evt, ui) {
-	 $(".model_cubic_k").html(ui.value);
-	 cubic_k = ui.value;
-
-	 prediction = cubic_b + Math.pow(measurable-cubic_h, 3)*cubic_k;
-	 write_cubic_formula();
-	 plot_polynomial(getCubicData());
-    });
-    $(".model_cubic_h_slider").on("slide", function(evt, ui) {
-	 $(".model_cubic_h").html(ui.value);
-	 cubic_h = ui.value;
-
-	 prediction = cubic_b + Math.pow(measurable-cubic_h, 3)*cubic_k;
-	 write_cubic_formula();
-	 plot_polynomial(getCubicData());
-    });
-    $(".model_cubic_b_slider").on("slide", function(evt, ui) {
-	 $(".model_cubic_b").html(ui.value);
-	 cubic_b = ui.value;
-
-	 prediction = cubic_b + Math.pow(measurable-cubic_h, 3)*cubic_k;
-	 write_cubic_formula();
-	 plot_polynomial(getCubicData());
-    });
-
-
-
-    // select model buttons
-    $(".model_choice_buttons").on("click", ".linear_model_button", function() {
-	 $(".model-choice_buttons_explanation").hide();
-	 $(".model_function_controls").hide();
-	 $(".linear_function_controls").show();
-	 $(".model_choice_model_information_div").show();
-
-	 model = 1;
-	 prediction = linear_b + measurable*linear_m;
-	 write_linear_formula();
-	 loadsPlot(plot_linear);
-	 
-    });
-
-    $(".model_choice_buttons").on("click", ".quadratic_model_button", function() {
-	 $(".model-choice_buttons_explanation").hide();
-	 $(".model_function_controls").hide();
-	 $(".quadratic_function_controls").show();
-	 $(".model_choice_model_information_div").show();
-	 model = 2;
-	 
-	 write_quadratic_formula();
-	 prediction = quadratic_b + Math.pow(measurable-quadratic_h, 2)*quadratic_k;
-	 loadsPlot(plot_polynomial, getQuadraticData());
-	 
-    });
-
-    $(".model_choice_buttons").on("click", ".cubic_model_button", function() {
-	 $(".model-choice_buttons_explanation").hide();
-	 $(".model_function_controls").hide();
-	 $(".cubic_function_controls").show();
-	 $(".model_choice_model_information_div").show();
-	 model = 3;
-	 
-	 write_cubic_formula();
-	 prediction = cubic_b + Math.pow(measurable-cubic_h, 3)*cubic_k;
-	 loadsPlot(plot_polynomial, getCubicData());
-    });
-
-
-    $(".model_confirm_model_button").on("click", function() {
-	if (!intervalId) {
-	    y_maximum = setYMax();
+    // axis-scaler
+    $(".x_axis_scaler").on("click", ".scale_minus", function() {
+	
+	if (default_x > x_lower_bound) {
+	    default_x -= x_step;
 	    x_maximum = default_x;
-	 
-	    intervalId = window.setInterval(animatePlot,30);
+
+	    if (model === 1) 
+		plot_linear();
+	    else if (model === 2)
+		plot_polynomial(getQuadraticData());
+	    else if (model === 3)
+		plot_polynomial(getCubicData());
+	    else
+		plot_normal();
+	}
+	
+    });
+    $(".x_axis_scaler").on("click", ".scale_plus", function() {
+	if (default_x < x_higher_bound) {
+	    default_x += x_step;
+	    x_maximum = default_x;
+ 
+	    if (model === 1) 
+		plot_linear();
+	    else if (model === 2)
+		plot_polynomial(getQuadraticData());
+	    else if (model === 3)
+		plot_polynomial(getCubicData());
+	    else
+		plot_normal();
 	}
     });
 
+
+    
+    
+
+    
     // AUXILIARY FUNCTIONS
 
     // axis units
@@ -484,13 +363,18 @@ $(function() {
 	     data_loaded = true;
 	 }
 	 else {
+	     
 	     var xmax = (typeof xmax) === "undefined" ? default_x : xmax;
 	     var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
 	     
-	     if (model === 1 || !model || f === plot_normal)
-		  f(xmax, ymax);
-	     else 
-		  f(arg,xmax, ymax);
+	     if (model === 1 || !model || f === plot_normal) {
+	
+		 f(xmax, ymax);
+	     }
+	     else{
+	
+		 f(arg,xmax, ymax);
+	     }
 	 }
     }
 
@@ -511,27 +395,12 @@ $(function() {
 	 return max_y;
     }
 
-    var setXMax = function() {
-	 var max_x = 0;
-
-	 for (var i in plot_data) {
-	     
-	     if (plot_data[i][0] > max_x)
-		  max_x = plot_data[i][0];
-	 }
-	 for (var i in user_data) {
-	     if (user_data[i][0] > max_x)
-		  max_x = user_data[i][0];
-	 }
-	 max_x *=1.1;
-	
-	 return max_x;
-    }
+    
 
     var plot_linear = function(xmax, ymax) {
 	 var xmax = (typeof xmax) == "undefined" ? default_x : xmax;
 	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
-	 
+	
 	
 	 $.plot($(".graph_div"), [{
 		      data: plot_data,
