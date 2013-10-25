@@ -28,7 +28,7 @@ $(function() {
     measurable, 
     data_loaded, 
     user_data, plot_data,
-    default_x, x_maximum, y_maximum, x_step, x_lower_bound, x_higher_bound;
+    y_maximum;
     var intervalId =false;
 
 
