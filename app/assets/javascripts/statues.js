@@ -9,9 +9,8 @@ $(function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
 
-	chart_vars.prediction = 600;
-	chart_vars.linear_m = typeof chart_vars.linear_m === "undefined" ? 4 : chart_vars.linear_m;
-	chart_vars.linear_b = typeof chart_vars.linear_b === "undefined" ? 0 : chart_vars.linear_b;
+	chart_vars.linear_m = !chart_vars.linear_m  ? 4 : chart_vars.linear_m;
+	chart_vars.linear_b = !chart_vars.linear_b  ? 0 : chart_vars.linear_b;
 	quadratic_k = typeof quadratic_k === "undefined" ? 6 : quadratic_k;
 	quadratic_h= typeof quadratic_h === "undefined" ? 0 : quadratic_h;
 	quadratic_b = typeof quadratic_b === "undefined" ? 0 : quadratic_b;
@@ -146,12 +145,6 @@ $(function() {
 	     
 	 }
     }
-
-
-
-
-    
-
 
     
 });

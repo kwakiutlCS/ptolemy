@@ -77,13 +77,16 @@ $(function() {
     var mass = 92;
 
     var scale = new Image();
+    var statue = new Image();
+
     scale.src = "assets/scale.png";
     $(scale).load(function() {
+        statue.src = "assets/statue.png";
 	draw_scale();
+
     });
 
-    var statue = new Image();
-    statue.src = "assets/statue.png";
+    
     $(statue).load(function() {
 	draw_statue();
     });

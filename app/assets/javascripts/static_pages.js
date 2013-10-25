@@ -495,7 +495,7 @@ $(function() {
 
     // slider action
     $(".model_linear_m_slider").on("slide", function(evt, ui) {
-	console.log(ui.value);
+	
 	 $(".model_linear_m").html(ui.value);
 	 chart_vars.linear_m = ui.value;
 
@@ -614,5 +614,40 @@ $(function() {
     });
 
     
+    // axis-scaler
+    $(".x_axis_scaler").on("click", ".scale_minus", function() {
+	
+	if (chart_vars.default_x > chart_vars.x_lower_bound) {
+	    chart_vars.default_x -= chart_vars.x_step;
+	    chart_vars.x_maximum = chart_vars.default_x;
+
+	    if (chart_vars.model === 1) 
+		chart_vars.plot_linear();
+	    else if (chart_vars.model === 2)
+		chart_vars.plot_polynomial(chart_vars.getQuadraticData());
+	    else if (chart_vars.model === 3)
+		chart_vars.plot_polynomial(chart_vars.getCubicData());
+	    else
+		chart_vars.plot_normal();
+	}
+	
+    });
+    $(".x_axis_scaler").on("click", ".scale_plus", function() {
+	if (chart_vars.default_x < chart_vars.x_higher_bound) {
+	    chart_vars.default_x += chart_vars.x_step;
+	    chart_vars.x_maximum = chart_vars.default_x;
+ 
+	    if (chart_vars.model === 1) 
+		chart_vars.plot_linear();
+	    else if (chart_vars.model === 2)
+		chart_vars.plot_polynomial(chart_vars.getQuadraticData());
+	    else if (chart_vars.model === 3)
+		chart_vars.plot_polynomial(chart_vars.getCubicData());
+	    else
+		chart_vars.plot_normal();
+	}
+    });
+
+
 
 });
