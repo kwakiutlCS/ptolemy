@@ -112,10 +112,10 @@ $(function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
 
-	data_loaded=false;
-	default_x = 40;
-	x_maximum=default_x;
-	loadsPlot(plot_normal);
+	chart_vars.data_loaded=false;
+	chart_vars.default_x = 40;
+	chart_vars.x_maximum = chart_vars.default_x;
+	chart_vars.loadsPlot(chart_vars.plot_normal);
 
     
 
@@ -131,11 +131,11 @@ $(function() {
 	    water_model = ui.value;
 
 	    if (ui.value > 0)
-		$("#thermo2_water_model").html("E = "+ui.value+" "+x_unit);
+		$("#thermo2_water_model").html("E = "+ui.value+" "+chart_vars.x_unit);
 	    else
 		$("#thermo2_water_model").html("E = 0");
 	    $("#thermo2_water_k_value").html("k = "+ui.value);
-	    loadsPlot(plot_normal);
+	    chart_vars.loadsPlot(chart_vars.plot_normal);
 
 	    show_next_screen_if_completed();
 
@@ -145,11 +145,11 @@ $(function() {
 	    aluminium_model = ui.value;
 
 	    if (ui.value > 0)
-		$("#thermo2_aluminium_model").html("E = "+ui.value+" "+x_unit);
+		$("#thermo2_aluminium_model").html("E = "+ui.value+" "+chart_vars.x_unit);
 	    else
 		$("#thermo2_aluminium_model").html("E = 0");
 	    $("#thermo2_aluminium_k_value").html("k = "+ui.value);
-	    loadsPlot(plot_normal);
+	    chart_vars.loadsPlot(chart_vars.plot_normal);
 
 	    show_next_screen_if_completed();
 
@@ -159,11 +159,11 @@ $(function() {
 	    copper_model = ui.value;
 
 	    if (ui.value > 0)
-		$("#thermo2_copper_model").html("E = "+ui.value+" "+x_unit);
+		$("#thermo2_copper_model").html("E = "+ui.value+" "+chart_vars.x_unit);
 	    else
 		$("#thermo2_copper_model").html("E = 0");
 	    $("#thermo2_copper_k_value").html("k = "+ui.value);
-	    loadsPlot(plot_normal);
+	    chart_vars.loadsPlot(chart_vars.plot_normal);
 
 	    show_next_screen_if_completed();
 	});
@@ -172,11 +172,11 @@ $(function() {
 	    iron_model = ui.value;
 
 	    if (ui.value > 0)
-		$("#thermo2_iron_model").html("E = "+ui.value+" "+x_unit);
+		$("#thermo2_iron_model").html("E = "+ui.value+" "+chart_vars.x_unit);
 	    else
 		$("#thermo2_iron_model").html("E = 0");
 	    $("#thermo2_iron_k_value").html("k = "+ui.value);
-	    loadsPlot(plot_normal);
+	    chart_vars.loadsPlot(chart_vars.plot_normal);
 
 	    show_next_screen_if_completed();
 	});
@@ -185,11 +185,11 @@ $(function() {
 	    oil_model = ui.value;
 
 	    if (ui.value > 0)
-		$("#thermo2_oil_model").html("E = "+ui.value+" "+x_unit);
+		$("#thermo2_oil_model").html("E = "+ui.value+" "+chart_vars.x_unit);
 	    else
 		$("#thermo2_oil_model").html("E = 0");
 	    $("#thermo2_oil_k_value").html("k = "+ui.value);
-	    loadsPlot(plot_normal);
+	    chart_vars.loadsPlot(chart_vars.plot_normal);
 
 	    show_next_screen_if_completed();
 	});
@@ -201,144 +201,16 @@ $(function() {
 
     });
     
-    $("#thermo2_axis_small").on("click", function() {
-	    if (default_x > 20) {
-		default_x -= 10;
-		x_maximum = default_x;
-		plot_normal();
-	    }
-    });
-    $("#thermo2_axis_big").on("click", function() {
-	    if (default_x < 100) {
-		default_x += 10;
-		x_maximum = default_x;
-		plot_normal();
-	    }
-    });
+  
 
     
 
     // AUXILIARY FUNCTIONS
 
-    // axis units
-    var x_unit = $(".x_axis_unit").html();
-    var y_unit = $(".y_axis_unit").html();
     
-
-    var write_linear_formula = function() {
-	 if (linear_m) {
-	     if (linear_b > 0)
-		  $(".model_choice_model_formula").html(y_unit+" = "+linear_m+" "+x_unit +" + "+linear_b);
-	     else if (linear_b < 0)
-		  $(".model_choice_model_formula").html(y_unit+" = "+linear_m+" "+x_unit +" - "+linear_b*(-1));
-	     else
-		  $(".model_choice_model_formula").html(y_unit+" = "+linear_m+" "+x_unit);
-	 }
-	 else 
-	     $(".model_choice_model_formula").html(y_unit+" = "+linear_b);
-
-    }
-
-
-    var write_quadratic_formula = function() {
-	 if (quadratic_k) {
-	     if (quadratic_h > 0) {
-		  if (quadratic_b > 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+quadratic_k+" ("+x_unit+"-"+quadratic_h+")<sup>2</sup> + "+quadratic_b);
-		  }
-		  else if (quadratic_b < 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+quadratic_k+" ("+x_unit+"-"+quadratic_h+")<sup>2</sup> - "+quadratic_b*(-1));
-		  }
-		  else {
-		      $(".model_choice_model_formula").html(y_unit+" = "+quadratic_k+" ("+x_unit+"-"+quadratic_h+")<sup>2</sup>");
-		  }
-	     }
-	     else if (quadratic_h < 0) {
-		  if (quadratic_b > 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+quadratic_k+" ("+x_unit+"+"+quadratic_h*(-1)+")<sup>2</sup> + "+quadratic_b);
-		  }
-		  else if (quadratic_b < 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+quadratic_k+" ("+x_unit+"+"+quadratic_h*(-1)+")<sup>2</sup> - "+quadratic_b*(-1));
-		  }
-		  else {
-		      $(".model_choice_model_formula").html(y_unit+" = "+quadratic_k+" ("+x_unit+"+"+quadratic_h*(-1)+")<sup>2</sup>");
-		  }
-	     }
-	     else {
-		  if (quadratic_b > 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+quadratic_k+" "+x_unit+"<sup>2</sup> + "+quadratic_b);
-		  }
-		  else if (quadratic_b < 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+quadratic_k+" "+x_unit+"<sup>2</sup> - "+(-1)*quadratic_b);
-		  }
-		  else {
-		      $(".model_choice_model_formula").html(y_unit+" = "+quadratic_k+" "+x_unit+"<sup>2</sup>");
-		  }
-	     }
-
-	 }
-	 else  {
-	     if (quadratic_b) {
-		  $(".model_choice_model_formula").html(y_unit+" = "+quadratic_b);
-	     }
-	     else {
-		  $(".model_choice_model_formula").html(y_unit+" = 0");
-	     }
-	 }
-    }
-
-
-    var write_cubic_formula = function() {
-	 if (cubic_k) {
-	     if (cubic_h > 0) {
-		  if (cubic_b > 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+cubic_k+" ("+x_unit+"-"+cubic_h+")<sup>3</sup> + "+cubic_b);
-		  }
-		  else if (cubic_b < 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+cubic_k+" ("+x_unit+"-"+cubic_h+")<sup>3</sup> - "+cubic_b*(-1));
-		  }
-		  else {
-		      $(".model_choice_model_formula").html(y_unit+" = "+cubic_k+" ("+x_unit+"-"+cubic_h+")<sup>3</sup>");
-		  }
-	     }
-	     else if (cubic_h < 0) {
-		  if (cubic_b > 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+cubic_k+" ("+x_unit+"+"+cubic_h*(-1)+")<sup>3</sup> + "+cubic_b);
-		  }
-		  else if (cubic_b < 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+cubic_k+" ("+x_unit+"+"+cubic_h*(-1)+")<sup>3</sup> - "+cubic_b*(-1));
-		  }
-		  else {
-		      $(".model_choice_model_formula").html(y_unit+" = "+cubic_k+" ("+x_unit+"+"+cubic_h*(-1)+")<sup>3</sup>");
-		  }
-	     }
-	     else {
-		  if (cubic_b > 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+cubic_k+" "+x_unit+"<sup>3</sup> + "+cubic_b);
-		  }
-		  else if (cubic_b < 0) {
-		      $(".model_choice_model_formula").html(y_unit+" = "+cubic_k+" "+x_unit+"<sup>3</sup> - "+(-1)*cubic_b);
-		  }
-		  else {
-		      $(".model_choice_model_formula").html(y_unit+" = "+cubic_k+" "+x_unit+"<sup>3</sup>");
-		  }
-	     }
-
-	 }
-	 else  {
-	     if (cubic_b) {
-		  $(".model_choice_model_formula").html(y_unit+" = "+cubic_b);
-	     }
-	     else {
-		  $(".model_choice_model_formula").html(y_unit+" = 0");
-	     }
-	 }
-    }
-
-
-    var loadsPlot = function(f, arg, xmax, ymax) {
+    chart_vars.loadsPlot = function(f, arg, xmax, ymax) {
 	 
-	 if (!data_loaded) {
+	 if (!chart_vars.data_loaded) {
 	     $.ajax("data_points/updateGraph", {
 		  method: "get",
 		  success: function(json) {      
@@ -349,21 +221,19 @@ $(function() {
 		      oil_data = json.oil;
 		      aluminium_data = json.aluminium;
 
-		      initial_prediction = json.initial_prediction;
-		      
-		      
-		      var xmax = (typeof xmax) === "undefined" ? default_x : xmax;
-		      var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
+		      		      
+		      var xmax = (typeof xmax) === "undefined" ? chart_vars.default_x : xmax;
+		      var ymax = (typeof ymax) === "undefined" ? chart_vars.setYMax() : ymax;
 		      
 		      f(xmax, ymax);
 		      
 		  }
 	     });
-	     data_loaded = true;
+	     chart_vars.data_loaded = true;
 	 }
 	 else {
-	     var xmax = (typeof xmax) === "undefined" ? default_x : xmax;
-	     var ymax = (typeof ymax) === "undefined" ? setYMax() : ymax;
+	     var xmax = (typeof xmax) === "undefined" ? chart_vars.default_x : xmax;
+	     var ymax = (typeof ymax) === "undefined" ? chart_vars.setYMax() : ymax;
 	     
 	     f(xmax, ymax);
 	     
@@ -371,7 +241,7 @@ $(function() {
     }
 
 
-    var setYMax = function() {
+    chart_vars.setYMax = function() {
 	 
 	 return 25000;
     }
@@ -380,10 +250,10 @@ $(function() {
 
 
 
-    var plot_normal = function(xmax, ymax) {
+    chart_vars.plot_normal = function(xmax, ymax) {
 	
-	 var xmax = (typeof xmax) == "undefined" ? default_x : xmax;
-	 var ymax = (typeof ymax) == "undefined" ? setYMax() : ymax;
+	 var xmax = (typeof xmax) == "undefined" ? chart_vars.default_x : xmax;
+	 var ymax = (typeof ymax) == "undefined" ? chart_vars.setYMax() : ymax;
 	 
 	
 	 $.plot($(".graph_div"), [{
@@ -445,11 +315,11 @@ $(function() {
 		 {
 		     xaxis: { min:0, max: xmax,
 			     tickFormatter: function (v) {
-				  return scientific(v,1);
+				  return chart_vars.scientific(v,1);
 			     }},
 		     yaxis: { min:0, max: ymax, 
 			     tickFormatter: function (v) {
-				  return scientific(v,1);
+				  return chart_vars.scientific(v,1);
 			     }},
 		     legend: { position: "se", backgroundOpacity: 0,container:"#thermo2_container_subtitles"},
 		 });
@@ -457,50 +327,7 @@ $(function() {
     }
 
 
-    var scientific = function(v,d) {
-	 var d = typeof d == "undefined" ? 0 : d;
-
-	 if (v < 1) return v.toFixed(1);
-	 if (v < 20)
-	     return v.toFixed(1);
-	 if (v < 10000)
-	     return v.toFixed(0);
-	 var e = 0, tmp = v;
-	 while (tmp >= 10) {
-	     tmp /= 10;
-	     e += 1;
-	 }
-	 return (v/Math.pow(10,e)).toFixed(d)+" x 10<sup>"+e+"</sup>";
-    }
-
-
-    var getQuadraticData = function() {
-	 var step = x_maximum/30;
-	 var x = 0;
-	 var quadratic_data = [];
-
-	 while (x < x_maximum) {
-	     var y = quadratic_k *(x-quadratic_h) * (x-quadratic_h) + quadratic_b;
-	     quadratic_data.push([x, y]);
-	     x += step;
-	     
-	 }
-	 return quadratic_data;
-    }
-
-    var getCubicData = function() {
-	 var step = x_maximum/40;
-	 var x = 0;
-	 var cubic_data = [];
-
-	 while (x < x_maximum) {
-	     var y = cubic_k *(x-cubic_h) * (x-cubic_h) * (x-cubic_h) + cubic_b;
-	     cubic_data.push([x, y]);
-	     x += step;
-	     
-	 }
-	 return cubic_data;
-    }
+    
 
 
     var show_next_screen_if_completed = function() {
