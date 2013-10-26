@@ -197,18 +197,7 @@ $(function() {
 	
 
 
-	
-
-    });
-    
-  
-
-    
-
-    // AUXILIARY FUNCTIONS
-
-    
-    chart_vars.loadsPlot = function(f, arg, xmax, ymax) {
+	chart_vars.loadsPlot = function(f, arg, xmax, ymax) {
 	 
 	 if (!chart_vars.data_loaded) {
 	     $.ajax("data_points/updateGraph", {
@@ -327,6 +316,17 @@ $(function() {
     }
 
 
+
+    });
+    
+  
+
+    
+
+    // AUXILIARY FUNCTIONS
+
+    
+    
     
 
 

@@ -28,14 +28,14 @@ $(function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
 	
-	chart_vars.linear_m = typeof chart_vars.linear_m === "undefined" ? 250 : chart_vars.linear_m;
-	chart_vars.linear_b = typeof chart_vars.linear_b === "undefined" ? 0 : chart_vars.linear_b;
-	quadratic_k = typeof quadratic_k === "undefined" ? 6 : quadratic_k;
-	quadratic_h= typeof quadratic_h === "undefined" ? 0 : quadratic_h;
-	quadratic_b = typeof quadratic_b === "undefined" ? 0 : quadratic_b;
-	chart_vars.cubic_k = typeof chart_vars.cubic_k === "undefined" ? 2 : chart_vars.cubic_k;
-	chart_vars.cubic_h = typeof chart_vars.cubic_h === "undefined" ? 0 : chart_vars.cubic_h;
-	chart_vars.cubic_b = typeof chart_vars.cubic_b === "undefined" ? 0 : chart_vars.cubic_b; 
+	chart_vars.linear_m = !chart_vars.linear_m ? 250 : chart_vars.linear_m;
+	chart_vars.linear_b = !chart_vars.linear_b ? 0 : chart_vars.linear_b;
+	chart_vars.quadratic_k = !chart_vars.quadratic_k ? 6 : chart_vars.quadratic_k;
+	chart_vars.quadratic_h= !chart_vars.quadratic_h  ? 0 : chart_vars.quadratic_h;
+	chart_vars.quadratic_b = !chart_vars.quadratic_b ? 0 : chart_vars.quadratic_b;
+	chart_vars.cubic_k = !chart_vars.cubic_k ? 2 : chart_vars.cubic_k;
+	chart_vars.cubic_h = !chart_vars.cubic_h ? 0 : chart_vars.cubic_h;
+	chart_vars.cubic_b = !chart_vars.cubic_b ? 0 : chart_vars.cubic_b; 
 	chart_vars.measurable = 100; 
 	chart_vars.default_x = 20;
 	chart_vars.x_maximum=chart_vars.default_x;
@@ -48,11 +48,16 @@ $(function() {
 	$(".model-choice_buttons_explanation").show();
 	$(".model_choice_model_information_div").hide();
 	chart_vars.loadsPlot(chart_vars.plot_normal);
-/*
-	$(".model_linear_m").html(linear_m);
-	$(".model_quadratic_k").html(quadratic_k);
-	$(".model_cubic_k").html(cubic_k);
-*/	
+	
+	$(".model_linear_m").html(chart_vars.linear_m);
+	$(".model_linear_b").html(chart_vars.linear_b);
+	$(".model_quadratic_k").html(chart_vars.quadratic_k);
+	$(".model_quadratic_h").html(chart_vars.quadratic_h);
+	$(".model_quadratic_b").html(chart_vars.quadratic_b);
+	$(".model_cubic_k").html(chart_vars.cubic_k);
+	$(".model_cubic_h").html(chart_vars.cubic_h);
+	$(".model_cubic_b").html(chart_vars.cubic_b);
+
     
     // slider limits
 	var b = 10000, b_step = 50;
