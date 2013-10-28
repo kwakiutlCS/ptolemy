@@ -10,7 +10,7 @@ class StaticPagesController < ApplicationController
         
         session[:activity] = a.id
         session[:url] = a.template.url
-        redirect_to session[:url]
+        redirect_to a.template.url
       else
         flash[:alert] = "Não existe nada com esse código"
         redirect_to root_path
