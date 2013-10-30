@@ -61,6 +61,7 @@ chart_vars = {
 		  max_y = this.user_data[i][1];
 	 }
 	 max_y *=1.1;
+	max_y += 5;
 
 	 return max_y;
     }, 

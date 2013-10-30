@@ -10,7 +10,10 @@ class DataPointsController < ApplicationController
 
 
   def create
-    DataPoint.create(x: params[:x], y: params[:y], activity_id: session[:activity], student_id: session[:student], series: params[:series])
+    d = DataPoint.create(x: params[:x], y: params[:y], series: params[:series])
+    d.activity_id = session[:activity]
+    d.student_id = session[:student]
+    d.save
 
     getData(params[:series])
     

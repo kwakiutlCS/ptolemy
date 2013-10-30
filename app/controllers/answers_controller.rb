@@ -1,7 +1,10 @@
 class AnswersController < ApplicationController
 
   def create
-    a = Answer.create(student_id: session[:student], activity_id: session[:activity], questions: [], answers: [])
+    a = Answer.create(questions: [], answers: [])
+    a.student_id = session[:student]
+    a.activity_id = session[:activity]
+    a.save
     
     a.questions << "modelo"
     a.answers << params[:model]

@@ -6,9 +6,9 @@ $(function() {
 
     // creates initial parameters
     $(".data-gathering").on("click", "#statue_data-gathering_next", function() {
-	 $(".data-gathering").slideUp();
-	 $(".model-choice").slideDown();
-
+	$(".data-gathering").slideUp();
+	$(".model-choice").slideDown();
+	
 	chart_vars.linear_m = !chart_vars.linear_m  ? 4 : chart_vars.linear_m;
 	chart_vars.linear_b = !chart_vars.linear_b  ? 0 : chart_vars.linear_b;
 	chart_vars.quadratic_k = !chart_vars.quadratic_k ? 6 : chart_vars.quadratic_k;
@@ -39,22 +39,20 @@ $(function() {
 	
 
     
-    // slider limits
-    $("#statue_linear_m_slider").slider({value: chart_vars.linear_m, min: 0, max: 50, step: 0.10});
-    $("#statue_linear_b_slider").slider({value: chart_vars.linear_b, min: -10, max:10, step: 0.05});
-    $("#statue_quadratic_k_slider").slider({value: chart_vars.quadratic_k, min: 0, max: 100, step: 0.1});
-    $("#statue_quadratic_h_slider").slider({value: chart_vars.quadratic_h, min: 0, max: chart_vars.default_x, step: chart_vars.default_x/100});
-    $("#statue_quadratic_b_slider").slider({value: chart_vars.quadratic_b, min: -10, max: 10, step: 0.05});
-    $("#statue_cubic_k_slider").slider({value: chart_vars.cubic_k, min: 0, max: 300, step: 1});
-    $("#statue_cubic_h_slider").slider({value: chart_vars.cubic_h, min: 0, max: chart_vars.default_x, step: chart_vars.default_x/100});
-    $("#statue_cubic_b_slider").slider({value: chart_vars.cubic_b, min: -10, max: 10, step: 0.05});
-
-
-    });
+	// slider limits
+	$("#statue_linear_m_slider").slider({value: chart_vars.linear_m, min: 0, max: 50, step: 0.10});
+	$("#statue_linear_b_slider").slider({value: chart_vars.linear_b, min: -10, max:10, step: 0.05});
+	$("#statue_quadratic_k_slider").slider({value: chart_vars.quadratic_k, min: 0, max: 100, step: 0.1});
+	$("#statue_quadratic_h_slider").slider({value: chart_vars.quadratic_h, min: 0, max: chart_vars.default_x, step: chart_vars.default_x/100});
+	$("#statue_quadratic_b_slider").slider({value: chart_vars.quadratic_b, min: -10, max: 10, step: 0.05});
+	$("#statue_cubic_k_slider").slider({value: chart_vars.cubic_k, min: 0, max: 300, step: 1});
+	$("#statue_cubic_h_slider").slider({value: chart_vars.cubic_h, min: 0, max: chart_vars.default_x, step: chart_vars.default_x/100});
+	$("#statue_cubic_b_slider").slider({value: chart_vars.cubic_b, min: -10, max: 10, step: 0.05});
 
 
 
-    chart_vars.animatePlot = function() {
+
+	chart_vars.animatePlot = function() {
 	 
 	 if (chart_vars.model === 1) {
 	     chart_vars.x_maximum *= 1.2;
@@ -148,11 +146,20 @@ $(function() {
 		  $(".question_question4_label").html(question4);
 		  $(".question_question4_field").val(question4);
 
-		  
+		 
 	     });
 	     
 	 }
-    }
+	}
 
+
+
+
+
+    });
+
+
+
+    
     
 });
