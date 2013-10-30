@@ -60,104 +60,170 @@
 
 <section class="data-gathering row">
   
-<script type="text/paperscript" canvas="canvas">
-  var water = new Raster("thermo2_gold");
-  var vegetal = new Raster("thermo2_gold");
-  var aluminium = new Raster("thermo2_gold");
-  var copper = new Raster("thermo2_gold");
-  var iron = new Raster("thermo2_iron");
-
-  water.bounds.center = new Point(200,250);
-  water.visible = false;
-  iron.visible = false;
-  iron.bounds.center = new Point(200,250);
-  vegetal.visible = false;
-  vegetal.bounds.center = new Point(200,250);
-  aluminium.visible = false;
-  aluminium.bounds.center = new Point(200,250);
-  copper.visible = false;
-  copper.bounds.center = new Point(200,250);
+<script type="text/javascript">
   
+$(function() {
+    
+    var canvas = $("#myCanvas");
+    var context = canvas.get(0).getContext("2d");
 
-  var material = "";
-  var specific_heats = { "water":4187, "aluminium":900, "vegetal oil":1970, "iron":460, "copper":386};
+    var loaded_images = 0;
+    var water = new Image();
+    water.src = "assets/gold.png";
+    $(water).load(function() {
+	load_image();
+    });
+    var oil = new Image();
+    oil.src = "assets/gold.png";
+    $(oil).load(function() {
+	load_image();
+    });
+    var copper = new Image();
+    copper.src = "assets/gold.png";
+    $(copper).load(function() {
+	load_image();
+    });
+    var aluminium = new Image();
+    aluminium.src = "assets/gold.png";
+    $(aluminium).load(function() {
+	load_image();
+    });
+    var iron = new Image();
+    iron.src = "assets/gold.png";
+    $(iron).load(function() {
+	load_image();
+    });
 
-  var animation = false;
-  var time = 0;
-  var temperature = 15;
-  var Q;
-  var mass = 1;
-  var P= 200;
+    var load_image = function() {
+	loaded_images += 1;
+	if (loaded_images === 5) {
 
-  function onFrame(evt) {
-     if (animation) {
-         time += evt.delta;
+	}
+    }
 
-         if (time > 120) {
-            time = 120;
-            $("#thermo2_onoff").click();
-         }
 
-         $("#thermo2_chrono").html(time.toFixed(1)+" s");
-  
-         Q = evt.delta * P*(1.1-Math.random()*0.2);
-         temperature += Q /(mass*specific_heats[material]);
-         
-         $("#thermo2_temperature").html((Math.round(temperature*2)/2).toFixed(1)+" ºC");
+    var material = "";
+    var specific_heats = { "water":4187, "aluminium":900, "oil":1970, "iron":460, "copper":386};
 
-         
-     }
-  }
-
-  $(function() {
-     $("#thermo2_materials_controls").on("click", "#thermo2_onoff", function() {
+    var animation = false;
+    var time = 0;
+    var temperature = 15;
+    var Q;
+    var mass = 1;
+    var P= 200;
+    var animation_parameters = {last: 0, current: new Date().getTime(), dt: 0};
+    
+    $("#thermo2_materials_controls").on("click", "#thermo2_onoff", function() {
          animation = !animation;
          
-     });
+    });
 
-     $("#thermo2_materials_controls").on("click", "#thermo2_restart", function() {
-         animation = false;
-         time = 0;
-         temperature = 15;
-         $("#thermo2_chrono").html(time.toFixed(1)+" s");
-         $("#thermo2_temperature").html(temperature.toFixed(1)+" ºC");
-         $("#thermo2_onoff").html("Ligar");
-     });
+    $("#thermo2_materials_controls").on("click", "#thermo2_restart", function() {
+        animation = false;
+        time = 0;
+        temperature = 15;
+        $("#thermo2_chrono").html(time.toFixed(1)+" s");
+        $("#thermo2_temperature").html(temperature.toFixed(1)+" ºC");
+        $("#thermo2_onoff").html("Ligar");
+    });
 
-     $("#thermo2_material").on("change", function() {
+
+    $("#thermo2_material").on("change", function() {
         var thing = $(this).val();
         $("#thermo2_restart").click();
 
-        water.visible = false;
-        iron.visible = false;
-        copper.visible = false;
-        vegetal.visible = false;
-        aluminium.visible = false;
+	context.clearRect(0,0,400,500);
         
         if (thing === "Água") {
-           water.visible = true;
-           material = "water";
+            material = "water";
+	    context.drawImage(water,0,0);
         }
         else if (thing === "Ferro") {
-           iron.visible = true;
            material = "iron";
+	    context.drawImage(iron,0,0);
         }
         else if (thing === "Alumínio") {
-           aluminium.visible = true;
            material = "aluminium";
+	    context.drawImage(aluminium,0,0);
         }
         
         else if (thing === "Cobre") {
-           copper.visible = true;
            material = "copper";
+	    context.drawImage(copper,0,0);
         }
         else if (thing === "Óleo vegetal") {
-           vegetal.visible = true;
-           material = "vegetal oil";
+           material = "oil";
+	    context.drawImage(oil,0,0);
         }
         
-     });
-  });
+    });
+
+    
+
+    function render() {
+	animation_parameters.last = animation_parameters.current;
+	animation_parameters.current = new Date().getTime();
+	animation_parameters.dt = animation_parameters.current-animation_parameters.last;
+	
+	if (animation) {
+	    time += animation_parameters.dt;
+
+	    if (time/1000. > 120) {
+		time = 120000;
+		$("#thermo2_onoff").click();
+            }
+
+            $("#thermo2_chrono").html((time/1000.).toFixed(1)+" s");
+  
+            Q = animation_parameters.dt/1000. * P*(1.2-Math.random()*0.4);
+            temperature += Q /(mass*specific_heats[material]);
+            
+            $("#thermo2_temperature").html((Math.round(temperature*2)/2).toFixed(1)+" ºC");
+	}
+    }
+
+    animate();
+
+
+
+
+
+
+    (function() {
+	var lastTime = 0;
+	var vendors = ['ms', 'moz', 'webkit', 'o'];
+	for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+            window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+            window.cancelRequestAnimationFrame = window[vendors[x]+
+							'CancelRequestAnimationFrame'];
+	}
+
+	if (!window.requestAnimationFrame)
+            window.requestAnimationFrame = function(callback, element) {
+		var currTime = new Date().getTime();
+		var delta_t = Math.max(0, 16 - (currTime - lastTime));
+		var id = window.setTimeout(function() { callback(currTime + delta_t); }, 
+					   delta_t);
+		lastTime = currTime + delta_t;
+		return id;
+            };
+	
+	if (!window.cancelAnimationFrame)
+            window.cancelAnimationFrame = function(id) {
+		clearTimeout(id);
+            };
+    }());
+    
+    
+    function animate() {
+	window.requestAnimationFrame(animate);
+	render();
+    }
+
+    
+    
+});
+
 
 </script>
 
@@ -224,7 +290,7 @@
     
     
     <div class="thermo2_animation span7">
-    <canvas id="canvas" width=400 height=500></canvas>
+    <canvas id="myCanvas" width=400 height=500></canvas>
    
     
       <div id="thermo2_materials_controls" style="width:150px;  float:right; margin-top:-320px">
@@ -244,8 +310,6 @@
     
     
     </div>
-    <img src="assets/gold.png" class="paper_img" id="thermo2_gold">
-    <img src="assets/brass.png" class="paper_img" id="thermo2_iron">
     
 
     <div class="btn-group model_navigator">
