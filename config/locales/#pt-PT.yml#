@@ -39,6 +39,9 @@ pt-PT:
     choice2: ". Por que razão essa é uma boa escolha?"
     affect: "Há algum factor que não tenha sido considerado que possa afectar a previsão feita? Qual?"
 
+
+
+
   thermo3:
   
     prediction1: "O modelo escolhido prevê um gasto energético de "
