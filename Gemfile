@@ -54,3 +54,6 @@ gem 'bootstrap-datepicker-rails'
 
 # To use debugger
 # gem 'debugger'
+
+
+gem 'globalize', '~>3.0.0'

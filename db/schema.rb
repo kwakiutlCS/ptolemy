@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131016105252) do
+ActiveRecord::Schema.define(:version => 20131030160530) do
 
   create_table "activities", :force => true do |t|
     t.string   "code"
@@ -77,6 +77,17 @@ ActiveRecord::Schema.define(:version => 20131016105252) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "sub_category_translations", :force => true do |t|
+    t.integer  "sub_category_id", :null => false
+    t.string   "locale",          :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.string   "title"
+  end
+
+  add_index "sub_category_translations", ["locale"], :name => "index_sub_category_translations_on_locale"
+  add_index "sub_category_translations", ["sub_category_id"], :name => "index_sub_category_translations_on_sub_category_id"
 
   create_table "templates", :force => true do |t|
     t.string   "url"

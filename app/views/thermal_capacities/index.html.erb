@@ -2,7 +2,7 @@
 
 <section class="name_getter" style="width:500px; margin: 200px auto ;">
   
-  <p>Comece por introduzir o seu nome</p>
+  <p><%= t "getName" %></p>
   <%= form_tag("/static_pages/set_name", remote:true, method: "get") do %>
   <%= text_field_tag(:name, nil, id:"student_name_field") %>
   <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success", style:"margin-top: -14px;") %>
@@ -13,15 +13,15 @@
 <section class="background">
   <% if session[:deadline] %>
   <div class="alert alert-info">
-  Esta tarefa será discutida na aula de <%= session[:deadline].strftime("%d/%m") %>. Deverá ser concluída antes dessa data.
+  <%= t "deadline.intro" %><%= session[:deadline].strftime("%d/%m") %><%= t "deadline.end" %>
   </div>
   <% end %>
 
 <div id="thermo_background_div">
 
-<h1>Aquecimento da água</h1>
-<p>Nesta atividade procura-se investigar os custos quotidianos de uma habitação. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água para um banho de imersão (cerca de 18ºC neste momento) até 26ºC.</p> <br />
-<p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
+<h1><%= t "thermo.backgroundTitle" %></h1>
+<p> <%= t "thermo.backgroundIntro" %></p> <br />
+<p><%= t "thermo.backgroundEnd" %> </p>
 
 </div>
 <div class="btn-group thermo_navigator">
@@ -34,13 +34,13 @@
 <section class="strategy">
 
 <div id="thermo_strategy_div">
-  <h2>Estratégia</h2>
+  <h2><%= t "thermo.strategyTitle" %></h2>
   <div>
-  <p>Para responder a esta questão poderíamos tentar encher uma banheira com água e aquecer a água até aos 26ºC, com algum tipo de resistência ou outro equipamento apropriado. Poderíamos então, verificar a energia gasta. Este método tornar-se-á rapidamente inviável se quisermos medir a energia necessária para aquecer grandes quantidades de água.  
+  <p><%= t "thermo.strategyIntro" %>
   </p>
   <br />
   <p>
-  Vamos usar um processo em que testamos o problema em pequena escala. Aquecendo pequenas quantidades de água até aos 26ºC podemos verificar qual a quantidade de energia necessária para aquecer pequenas quantidades. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso do banho de imersão. Chama-se a isto construir um modelo.
+  <%= t "thermo.strategyEnd" %>
   </p>
   </div>
 

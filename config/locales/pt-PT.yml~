@@ -1,23 +1,23 @@
 
-en:
-  getName: "Start by telling us your name"
+pt:
+  getName: "Comece por introduzir o seu nome"
 
 
   deadline:
-    intro: "this activity will be discussed in "
-    end: ". I should be completed before that."
+    intro: "Esta tarefa será discutida na aula de "
+    end: ". Deverá ser concluída antes dessa data."
 
 
 
   thermo:
 
-    backgroundTitle: "Water's heating"
+    backgroundTitle: "Aquecimento de água"
     backgroundIntro: "Nesta atividade procura-se investigar os custos quotidianos de uma habitação. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água para um banho de imersão (cerca de 18ºC neste momento) até 26ºC."
     backgroundEnd: "Esta questão será resolvida com a colaboração dos seus colegas."
 
 
   
-    strategyTitle: "Strategy"
+    strategyTitle: "Estratégia"
     strategyIntro: "Para responder a esta questão poderíamos tentar encher uma banheira com água e aquecer a água até aos 26ºC, com algum tipo de resistência ou outro equipamento apropriado. Poderíamos então, verificar a energia gasta. Este método tornar-se-á rapidamente inviável se quisermos medir a energia necessária para aquecer grandes quantidades de água." 
     strategyEnd: "Vamos usar um processo em que testamos o problema em pequena escala. Aquecendo pequenas quantidades de água até aos 26ºC podemos verificar qual a quantidade de energia necessária para aquecer pequenas quantidades. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso do banho de imersão. Chama-se a isto construir um modelo."
 

@@ -61,5 +61,7 @@ module Plotomeu
 
     config.assets.initialize_on_precompile = false
 
+    config.i18n.fallbacks = true
+
   end
 end
