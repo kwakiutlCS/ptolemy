@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Activity do
-  let(:activity) {Activity.create(code: "rwewre", deadline: Date.today+6.days, template_id: 1, user_id: 1, title: "thermo lasdkjf")}
+  let(:activity) {FactoryGirl.create(:activity)}
 
   describe "code" do
     it "is non-nil" do
@@ -19,9 +19,14 @@ describe Activity do
       activity.should_not be_valid
     end
 
-    it "is unique" do
-      x = Activity.new(code: activity.code, deadline: Date.today, template_id: 12, user_id: 2, title: "thermo lasdkjf")
+    it "is unique for a given template" do
+      x = FactoryGirl.build(:activity, code: activity.code, template_id: activity.template_id)
       x.should_not be_valid
+    end
+
+    it "can be non unique for a different template" do
+      x = FactoryGirl.build(:activity, code: activity.code, template_id: activity.template_id+1)
+      x.should be_valid
     end
   
   end
@@ -40,7 +45,7 @@ describe Activity do
     end
 
     it "may be non-unique" do
-      x = Activity.new(code: "rwewrere", deadline: Date.today, template_id: activity.template_id, user_id: 3, title: "thermo lasdkjf")
+      x = FactoryGirl.build(:activity, template_id: activity.template_id)
       x.should be_valid
     end
   
@@ -53,22 +58,12 @@ describe Activity do
     end
 
     it "may be non-unique" do
-      x = Activity.new(code: "rwewrere", deadline: Date.today, template_id: 1, user_id: activity.user_id, title: "thermo lasdkjf")
+      x = FactoryGirl.build(:activity, user_id: activity.user_id)
       x.should be_valid
     end
   
   end
 
 
-  describe "title" do
-    it "can't be nil" do
-      activity.title = nil
-      activity.should_not be_valid
-    end
-
-    it "may be non unique" do
-      a = Activity.new(code: "rwew", deadline: Date.today+6.days, template_id: 1, user_id: 1, title: activity.title)
-      a.should be_valid
-    end
-  end
+  
 end

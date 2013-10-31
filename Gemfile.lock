@@ -78,6 +78,11 @@ GEM
     diff-lcs (1.2.4)
     erubis (2.7.0)
     execjs (2.0.1)
+    factory_girl (4.2.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.2.1)
+      factory_girl (~> 4.2.0)
+      railties (>= 3.0.0)
     fancybox-rails (0.2.1)
       railties (>= 3.1.0)
     fastercsv (1.5.5)
@@ -216,6 +221,7 @@ DEPENDENCIES
   cucumber-rails
   database_cleaner
   devise
+  factory_girl_rails
   fancybox-rails
   globalize (~> 3.0.0)
   jquery-rails

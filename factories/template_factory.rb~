@@ -1,0 +1,7 @@
+FactoryGirl.define do
+  factory :template do
+    url "/example"
+    description "my bogus template description"
+    title "a template"
+  end
+end

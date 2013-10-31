@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Template do
-  let(:template) {Template.create(url: "/stat", title:"thermo", description:"my first attempt")}
+  let(:template) {FactoryGirl.create(:template)}
 
   describe "url" do
     it "is non-nil" do 
@@ -15,7 +15,7 @@ describe Template do
     end
 
     it "is unique" do
-      t = Template.new(url: template.url.upcase, title:"asklhgdsg", description:"randowm stuff")
+      t = FactoryGirl.build(:template, url: template.url)
       t.should_not be_valid
     end
   end
@@ -32,10 +32,9 @@ describe Template do
       template.should_not be_valid
     end
 
-    it "is unique" do
-      t = Template.new(url: "nosfdj" , title:"other2", description: template.description.capitalize)
-      p template.description
-      t.should_not be_valid
+    it "is non unique" do
+      t = FactoryGirl.build(:template, description: template.description)
+      t.should be_valid
     end
   end
 
@@ -51,8 +50,7 @@ describe Template do
     end
 
     it "is unique" do
-      t = Template.new(url: "other", title: template.title.upcase, description:"randowm stuff")
-      p template.title
+      t = FactoryGirl.build(:template, title: template.title)
       t.should_not be_valid
     end
   end
@@ -64,7 +62,7 @@ describe Template do
   describe "#destroy" do
     it "deletes all associated activities" do
       id = template.id
-      a = Activity.create(code: "342", deadline:Date.today+6.days, template_id:template.id)
+      FactoryGirl.create(:activity, template_id: id)
       template.destroy
       x = Activity.where(template_id: id).count
       x.should == 0

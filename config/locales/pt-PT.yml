@@ -7,6 +7,9 @@ pt-PT:
   quadratic: "quadrático"
   cubic: "cúbico"
   constant: "constante"
+  strategy: "estratégia"
+  next: "seguinte"
+  previous: "anterior"
 
   getName: "Comece por introduzir o seu nome"
 
@@ -25,7 +28,7 @@ pt-PT:
 
 
   
-    strategyTitle: "Estratégia"
+    
     strategyIntro: "Para responder a esta questão poderíamos tentar encher uma banheira com água e aquecer a água até aos 26ºC, com algum tipo de resistência ou outro equipamento apropriado. Poderíamos então, verificar a energia gasta. Este método tornar-se-á rapidamente inviável se quisermos medir a energia necessária para aquecer grandes quantidades de água." 
     strategyEnd: "Vamos usar um processo em que testamos o problema em pequena escala. Aquecendo pequenas quantidades de água até aos 26ºC podemos verificar qual a quantidade de energia necessária para aquecer pequenas quantidades. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso do banho de imersão. Chama-se a isto construir um modelo."
 
@@ -38,6 +41,9 @@ pt-PT:
     choice1: "Escolheu o modelo "
     choice2: ". Por que razão essa é uma boa escolha?"
     affect: "Há algum factor que não tenha sido considerado que possa afectar a previsão feita? Qual?"
+
+
+
 
   thermo3:
   

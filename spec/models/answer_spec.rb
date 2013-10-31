@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Answer do
-  let(:activity) {Activity.create(code: "rwewre", deadline: Date.today+6.days, template_id: 1, user_id: 1, title: "alkjg")}
-  let(:student) {Student.create(name: "palerma")}
-  let(:answer) {Answer.create(activity_id: activity.id, student_id: student.id, questions: ["ola", "laksfjad", "lakgj"], answers: ["kalsgj", "", "laksjg"])}
+  let(:activity) {FactoryGirl.create(:activity)}
+  let(:student) {FactoryGirl.create(:student)}
+  let(:answer) {FactoryGirl.create(:answer, student_id: student.id, activity_id: activity.id)}
 
   describe "activity_id" do
     it "is non-nil" do

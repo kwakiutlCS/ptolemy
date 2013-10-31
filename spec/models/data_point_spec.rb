@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe DataPoint do
-  let(:student) {Student.create(name: "palerma")}
-  let(:data) {DataPoint.create(x:3, y:43, student_id: student.id, activity_id: 2)}
+  let(:student) {FactoryGirl.create(:student)}
+  let(:data) {FactoryGirl.create(:data_point, student_id: student.id)}
 
   describe "x value" do
     it "is non-nil" do

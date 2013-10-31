@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   
-  let(:teacher) {User.create(name: "palerma",password:"password")}
+  let(:teacher) {FactoryGirl.create(:user)}
 
   describe "name" do
     it "is non-nil" do
@@ -16,7 +16,7 @@ describe User do
     end
 
     it "is unique" do
-      t = User.new(name: teacher.name, password:"kskadfj")
+      t = FactoryGirl.build(:user, name: teacher.name)
       t.should_not be_valid
     end
   end
@@ -28,7 +28,7 @@ describe User do
     
     
     it "is non-unique" do
-      t = User.new(name: "palerma3", password: teacher.password)
+      t = FactoryGirl.build(:user)
       t.should be_valid
     end
     

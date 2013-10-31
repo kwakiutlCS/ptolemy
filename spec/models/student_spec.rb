@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 describe Student do
-  let(:student) {Student.create(name: "palerma")}
+  let(:student) {FactoryGirl.create(:student)}
 
   describe "name" do
     it "is non-nil" do
@@ -26,7 +26,7 @@ describe Student do
     end
 
     it "is not unique" do
-      a= Student.new(name: "palerma")
+      a= FactoryGirl.build(:student)
       a.should be_valid
     end
   end
@@ -34,7 +34,7 @@ describe Student do
 
   describe "#destroy" do
     it "removes student's data points" do
-      d = DataPoint.create(activity_id: 1, student_id: student.id, x: 2, y: 3)
+      d = FactoryGirl.create(:data_point, student_id: student.id)
       student.destroy
       x = DataPoint.where(id: d.id).count
       x.should == 0

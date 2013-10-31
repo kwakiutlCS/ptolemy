@@ -2,7 +2,7 @@ class Template < ActiveRecord::Base
   attr_accessible :url, :description, :title
 
   validates :url, presence: true, uniqueness: {case_sensitive: false}
-  validates :description, presence: true, uniqueness: {case_sensitive: false}
+  validates :description, presence: true
   validates :title, presence: true, uniqueness: {case_sensitive: false}
 
 
