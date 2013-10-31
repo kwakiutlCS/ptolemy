@@ -30,7 +30,8 @@ end
 Given(/^"(.*?)" has the following activities:$/) do |arg1, table|
   user = User.where(name: arg1).first
   table.hashes.each do |a|
-    t = user.activities.build(a)
+    t = FactoryGirl.build(:activity, a)
+    t.user_id = user.id
     t.save
   end
 end

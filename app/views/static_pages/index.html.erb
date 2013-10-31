@@ -8,9 +8,9 @@
   <div id="template_general_navbar">
     <% @subcategories.each do |s| %>
     <% if s.id == 1 %>
-    <p id="category_<%= s.id %>" class="template_selected template_category"><%= link_to s.title, static_pages_path(category: s.id), remote:true %></p>
+    <p id="category_<%= s.id %>" class="template_selected template_category"><%= link_to t(s.title), static_pages_path(category: s.id), remote:true %></p>
     <% else %>
-    <p id="category_<%= s.id %>" class="template_category"><%= link_to s.title, static_pages_path(category: s.id), remote:true %></p>
+    <p id="category_<%= s.id %>" class="template_category"><%= link_to t(s.title), static_pages_path(category: s.id), remote:true %></p>
     <% end %>
     <% end %>
   </div>

@@ -1,5 +1,5 @@
 class Activity < ActiveRecord::Base
-  attr_accessible :code, :deadline,  :title, :description
+  attr_accessible :code, :deadline,  :description
   
   validates :code, presence: true, uniqueness: {scope: :template_id}, length: {minimum: 3}
   validates :template_id, presence: true

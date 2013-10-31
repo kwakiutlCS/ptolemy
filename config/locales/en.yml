@@ -18,6 +18,11 @@ en:
     end: ". I should be completed before that."
 
 
+  subcat:
+    title1: "Thermodynamics"
+    title2: "Other"
+
+
 
   thermo:
 
