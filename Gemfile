@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
 gem 'rails', '3.2.13'
 
@@ -59,3 +60,4 @@ gem 'factory_girl_rails'
 
 
 gem 'globalize', '~>3.0.0'
+gem 'http_accept_language'
