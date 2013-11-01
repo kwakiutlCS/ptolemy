@@ -5,7 +5,7 @@ end
 
 Given(/^the following users exist:$/) do |table|
   table.hashes.each do |a|
-    User.create(a)
+    FactoryGirl.create(:user, a)
   end
 end
 
@@ -34,4 +34,17 @@ Given(/^"(.*?)" has the following activities:$/) do |arg1, table|
     t.user_id = user.id
     t.save
   end
+end
+
+
+Given(/^"(.*?)" has the following "(.*?)" activities:$/) do |arg1, arg2, table|
+  user = User.where(name: arg1).first
+  template = Template.where(title: arg2).first
+  table.hashes.each do |a|
+    t = FactoryGirl.build(:activity, a)
+    t.user_id = user.id
+    t.template_id = template.id
+    t.save
+  end
+
 end

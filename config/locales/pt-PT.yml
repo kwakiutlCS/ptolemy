@@ -8,15 +8,32 @@ pt-PT:
   cubic: "cúbico"
   constant: "constante"
   strategy: "estratégia"
+  
+  mass: "massa"
+  timeWord: "tempo"
+  energy: "energia"
+  temperature: "temperatura"
+
   next: "seguinte"
   previous: "anterior"
+  submit: "submeter"
+  start: "iniciar"
+  stop: "parar"
+  restart: "reiniciar"
 
+  collectData: "Recolher Dados"
+  chooseModel: "Escolher o Modelo"
   getName: "Comece por introduzir o seu nome"
-
+  chooseModelInstructions: "Escolha um dos 3 modelos acima que descreva melhor os dados recolhidos"
+  useModel: "Usar este modelo"
+  finalQuestions: "Questões Finais"
+  endActivityMessage: "Atividade terminada"
 
   deadline:
     intro: "Esta tarefa será discutida na aula de "
     end: ". Deverá ser concluída antes dessa data."
+
+    
 
   subcat:
     title1: "Termodinâmica"

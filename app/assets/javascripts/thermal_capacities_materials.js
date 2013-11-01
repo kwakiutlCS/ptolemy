@@ -1,6 +1,8 @@
 
 $(function() {
 
+    $("#thermo2_material").prop("disabled", "disabled");
+
     var water_model=0, aluminium_model=0, copper_model=0, iron_model=0, oil_model=0;
     var copper_data = false, water_data = false, aluminium_data = false, iron_data = false, oil_data = false;
 

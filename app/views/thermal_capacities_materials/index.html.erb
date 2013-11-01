@@ -69,27 +69,27 @@ $(function() {
 
     var loaded_images = 0;
     var water = new Image();
-    water.src = "assets/gold.png";
+    water.src = "assets/water.png";
     $(water).load(function() {
 	load_image();
     });
     var oil = new Image();
-    oil.src = "assets/gold.png";
+    oil.src = "assets/oil.png";
     $(oil).load(function() {
 	load_image();
     });
     var copper = new Image();
-    copper.src = "assets/gold.png";
+    copper.src = "assets/copper.png";
     $(copper).load(function() {
 	load_image();
     });
     var aluminium = new Image();
-    aluminium.src = "assets/gold.png";
+    aluminium.src = "assets/aluminium.png";
     $(aluminium).load(function() {
 	load_image();
     });
     var iron = new Image();
-    iron.src = "assets/gold.png";
+    iron.src = "assets/iron.png";
     $(iron).load(function() {
 	load_image();
     });
@@ -97,7 +97,7 @@ $(function() {
     var load_image = function() {
 	loaded_images += 1;
 	if (loaded_images === 5) {
-
+            $("#thermo2_material").prop("disabled", false);
 	}
     }
 

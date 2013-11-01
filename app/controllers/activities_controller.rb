@@ -15,7 +15,7 @@ class ActivitiesController < ApplicationController
 
   def show
     
-    @activity = current_user.activities.where(id: params[:id]).first
+    @activity = current_user.activities.includes(:template).where(id: params[:id]).first
     
     if @activity
       answers = @activity.answers.includes(:student).order("students.name")

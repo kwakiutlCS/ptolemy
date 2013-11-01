@@ -13,7 +13,7 @@ class TemplatesController < ApplicationController
       @template = Template.find(params[:id])
 
       @activity = Activity.new
-      @activity.title = @template.title
+      
     else
       @role = "student"
       @t_id = params[:id]

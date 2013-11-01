@@ -63,5 +63,7 @@ module Plotomeu
 
     config.i18n.fallbacks = true
 
+    config.i18n.fallbacks = ["pt-PT"]
+
   end
 end
