@@ -63,7 +63,7 @@ module Plotomeu
 
     config.i18n.fallbacks = true
 
-    config.i18n.fallbacks = ["pt-PT"]
+    config.i18n.default_locale = "pt-PT"
 
   end
 end

@@ -30,6 +30,7 @@ chart_vars = {
 
     data_loaded: false,
     intervalId: false,
+    animation_phase: false,
 
 
     scientific: function(v,d) {
@@ -61,8 +62,10 @@ chart_vars = {
 		  max_y = this.user_data[i][1];
 	 }
 	 max_y *=1.1;
-	max_y += 5;
+	if (max_y === 0)
+	    max_y = 5;
 
+	
 	 return max_y;
     }, 
 
@@ -609,7 +612,8 @@ $(function() {
 	if (!chart_vars.intervalId) {
 	    chart_vars.y_maximum = chart_vars.setYMax();
 	    chart_vars.x_maximum = chart_vars.default_x;
-	 
+	    
+	    chart_vars.animation_phase = 1;
 	    chart_vars.intervalId = window.setInterval(chart_vars.animatePlot,30);
 	}
     });

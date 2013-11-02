@@ -14,8 +14,8 @@ en:
 
 
   deadline:
-    intro: "this activity will be discussed in "
-    end: ". I should be completed before that."
+    intro: "This activity will be discussed in "
+    end: ". It should be completed before that."
 
 
   subcat:
