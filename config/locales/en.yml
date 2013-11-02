@@ -17,12 +17,10 @@ en:
     intro: This activity will be discussed in 
     end: . It should be completed before that.
 
-
   subcat:
     title1: Thermodynamics
     title2: Other
-
-
+  
 
   thermo:
 
