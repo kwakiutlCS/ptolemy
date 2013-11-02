@@ -17,7 +17,7 @@ end
 Given(/^I am signed in as "(.*?)"$/) do |arg1|
   steps %Q{
       Given I am on the signin page
-      When I fill in "Name" with "#{arg1}"
+      When I fill in "Login" with "#{arg1}"
       And I fill in "Password" with "password"
       And I press "Sign in"
   }
@@ -28,7 +28,7 @@ Given(/^I am on the templates page$/) do
 end
 
 Given(/^"(.*?)" has the following activities:$/) do |arg1, table|
-  user = User.where(name: arg1).first
+  user = User.where(login: arg1).first
   table.hashes.each do |a|
     t = FactoryGirl.build(:activity, a)
     t.user_id = user.id
@@ -38,7 +38,7 @@ end
 
 
 Given(/^"(.*?)" has the following "(.*?)" activities:$/) do |arg1, arg2, table|
-  user = User.where(name: arg1).first
+  user = User.where(login: arg1).first
   template = Template.where(title: arg2).first
   table.hashes.each do |a|
     t = FactoryGirl.build(:activity, a)

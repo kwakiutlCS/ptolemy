@@ -9,7 +9,7 @@ Feature: create activity
 	  |url|title|description|
 	  |/thermo|thermo|my thermo|
 	  Given the following users exist:
-	  |name|password|
+	  |login|password|
 	  |palerma|password|
 	  And I am signed in as "palerma"
 	  And I am on the templates page

@@ -4,19 +4,19 @@ describe User do
   
   let(:teacher) {FactoryGirl.create(:user)}
 
-  describe "name" do
+  describe "login" do
     it "is non-nil" do
-      teacher.name = nil
+      teacher.login = nil
       teacher.should_not be_valid
     end
 
     it "is non-blank" do
-      teacher.name = ""
+      teacher.login = ""
       teacher.should_not be_valid
     end
 
     it "is unique" do
-      t = FactoryGirl.build(:user, name: teacher.name)
+      t = FactoryGirl.build(:user, login: teacher.login)
       t.should_not be_valid
     end
   end
