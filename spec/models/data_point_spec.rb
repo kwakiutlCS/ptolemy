@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe DataPoint do
-  let(:student) {FactoryGirl.create(:student)}
-  let(:data) {FactoryGirl.create(:data_point, student_id: student.id)}
+  let(:user) {FactoryGirl.create(:user)}
+  let(:data) {FactoryGirl.create(:data_point, user_id: user.id)}
 
   describe "x value" do
     it "is non-nil" do
@@ -50,9 +50,9 @@ describe DataPoint do
     end
   end
   
-  describe "student_id value" do
+  describe "user_id value" do
     it "is non-nil" do
-      data.student_id = nil
+      data.user_id = nil
       data.should_not be_valid
     end
 

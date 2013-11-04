@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
     counter = User.count
     self.role ||= "teacher"
     self.email = "noEmail#{counter}@example.com" unless self.email || self.email == ""
-    self.login ||= "noLogin#{counter}"
+    self.login ||= "noLogin#{counter}" if self.role == "student"
    
   end
 

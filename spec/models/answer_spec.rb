@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Answer do
   let(:activity) {FactoryGirl.create(:activity)}
-  let(:student) {FactoryGirl.create(:student)}
-  let(:answer) {FactoryGirl.create(:answer, student_id: student.id, activity_id: activity.id)}
+  let(:student) {FactoryGirl.create(:user)}
+  let(:answer) {FactoryGirl.create(:answer, user_id: student.id, activity_id: activity.id)}
 
   describe "activity_id" do
     it "is non-nil" do
@@ -17,14 +17,14 @@ describe Answer do
     end
   end
 
-  describe "student_id" do
+  describe "user_id" do
     it "is non-nil" do
-      answer.student_id = nil
+      answer.user_id = nil
       answer.should_not be_valid
     end
 
     it "is non-blank" do
-      answer.student_id = ""
+      answer.user_id = ""
       answer.should_not be_valid
     end
   end
