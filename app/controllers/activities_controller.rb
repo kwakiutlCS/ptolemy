@@ -18,18 +18,19 @@ class ActivitiesController < ApplicationController
     @activity = current_user.activities.includes(:template).where(id: params[:id]).first
     
     if @activity
-      answers = @activity.answers.includes(:student).order("students.name")
+      answers = @activity.answers.includes(:user).order("users.name")
       
       @students = []
 
       answers.each do |a|
         tmp = {}
-        tmp[:name] = a.student.name
+        tmp[:answer] = a.id
+        tmp[:name] = a.user.name
         tmp[:answers] = a.questions.zip(a.answers)
-        tmp[:start] = a.student.created_at
+        tmp[:start] = a.user.created_at
         tmp[:end] = a.time_submission
-        tmp[:id] = a.student.id
-        tmp[:points] = @activity.data_points.joins(:student).where("students.id = ?", a.student.id)
+        tmp[:id] = a.user.id
+        tmp[:points] = @activity.data_points.joins(:user).where("users.id = ?", a.user.id)
         tmp[:count] = tmp[:points].count
     
         @students << tmp

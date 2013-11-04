@@ -4,7 +4,7 @@ class Answer < ActiveRecord::Base
   attr_accessible  :answers, :questions,  :time_submission
 
   validates :activity_id, presence: true
-  validates :student_id, presence: true
+  validates :user_id, presence: true
   validates :answers, presence: true
   validates :questions, presence: true
   validate :answers_length
@@ -12,7 +12,7 @@ class Answer < ActiveRecord::Base
   serialize :answers
   serialize :questions
 
-  belongs_to :student
+  belongs_to :user
   
   def answers_length
     if answers && questions 

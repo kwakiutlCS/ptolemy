@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :login
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :login, :name, :role 
   # attr_accessible :title, :body
 
 
@@ -16,15 +16,25 @@ class User < ActiveRecord::Base
   before_validation :populate_fields
 
   has_many :activities
+  has_many :data_points, dependent: :destroy
+  has_many :answers, dependent: :destroy
 
-  @@counter = 1
+  
+
+  def email_required?
+    false
+  end
+
+  def email_changed?
+    false
+  end
 
   def populate_fields
-    self.role = "teacher"
-    if self.email.length < 5
-      self.email = "no-email-#{@@counter}@example.com"
-      @@counter += 1
-    end
+    @@counter ||= 1
+    self.role ||= "teacher"
+    self.email ||= "no_email_#{@@counter}@example.com"
+    self.login ||= "no_login_#{@@counter}"
+    @@counter += 1
   end
 
 end

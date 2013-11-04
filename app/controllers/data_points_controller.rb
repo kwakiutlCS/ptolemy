@@ -12,7 +12,7 @@ class DataPointsController < ApplicationController
   def create
     d = DataPoint.create(x: params[:x], y: params[:y], series: params[:series])
     d.activity_id = session[:activity]
-    d.student_id = session[:student]
+    d.user_id = session[:student]
     d.save
 
     getData(params[:series])
@@ -30,11 +30,11 @@ class DataPointsController < ApplicationController
     
     data = DataPoint.find(params[:id])
     point_id = data.id
-    student_id = data.student_id
+    user_id = data.user_id
     activity_id = data.activity_id
     activity = Activity.find(activity_id)
 
-    if ((current_user && current_user.role == "teacher" && activity.user_id == current_user.id) || session[:student] == data.student_id)
+    if ((current_user && current_user.role == "teacher" && activity.user_id == current_user.id) || session[:student] == data.user_id)
       data.destroy 
     end
 
@@ -44,18 +44,19 @@ class DataPointsController < ApplicationController
       url = "teachers/remove_data_points"
       @activity = activity
 
-      answers = @activity.answers.includes(:student).order("students.name")
+      answers = @activity.answers.includes(:user).order("users.name")
       
       @students = []
 
       answers.each do |a|
         tmp = {}
-        tmp[:name] = a.student.name
+        tmp[:answer] = a.id
+        tmp[:name] = a.user.name
         tmp[:answers] = a.questions.zip(a.answers)
-        tmp[:start] = a.student.created_at
+        tmp[:start] = a.user.created_at
         tmp[:end] = a.time_submission
-        tmp[:id] = a.student.id
-        tmp[:points] = @activity.data_points.joins(:student).where("students.id = ?", a.student.id)
+        tmp[:id] = a.user.id
+        tmp[:points] = @activity.data_points.joins(:user).where("users.id = ?", a.user.id)
         tmp[:count] = tmp[:points].count
     
         @students << tmp
@@ -66,7 +67,7 @@ class DataPointsController < ApplicationController
 
     
     respond_to do |format|
-      format.js {render url, locals: {point: point_id, student_id: student_id}}
+      format.js {render url, locals: {point: point_id, student_id: user_id}}
     end
   end
 
@@ -89,15 +90,15 @@ class DataPointsController < ApplicationController
   private
   def getData(series)
     if series
-      @data = DataPoint.where(student_id: session[:student], activity_id: session[:activity], series: series).order(:x)
+      @data = DataPoint.where(user_id: session[:student], activity_id: session[:activity], series: series).order(:x)
       @series = series
     else
-      @data = DataPoint.where(student_id: session[:student], activity_id: session[:activity]).order(:x)
+      @data = DataPoint.where(user_id: session[:student], activity_id: session[:activity]).order(:x)
     end
 
     if @data.any?
       unless @data.first.series
-        all = DataPoint.where("student_id <> ? and activity_id = ?", session[:student], session[:activity]).order(:x)
+        all = DataPoint.where("user_id <> ? and activity_id = ?", session[:student], session[:activity]).order(:x)
         @plot_data = [] 
         @user_data = []
         all.each do |i|

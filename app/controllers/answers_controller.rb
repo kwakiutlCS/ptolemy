@@ -1,8 +1,9 @@
 class AnswersController < ApplicationController
+  before_filter :authenticate_user!, only: [:destroy]
 
   def create
     a = Answer.create(questions: [], answers: [])
-    a.student_id = session[:student]
+    a.user_id = session[:student]
     a.activity_id = session[:activity]
     a.save
     
@@ -28,4 +29,40 @@ class AnswersController < ApplicationController
     end
     
   end
+
+
+
+  def destroy
+    a = Answer.find(params[:id])
+    @activity = current_user.activities.where(id: params[:activity_id]).first
+
+    if @activity && a.activity_id == @activity.id
+      a.destroy
+    else
+      redirect_to root_path
+    end
+
+    answers = @activity.answers.includes(:user).order("users.name")
+    @students = []
+
+    answers.each do |a|
+      tmp = {}
+      tmp[:activity] = a.id
+      tmp[:name] = a.user.name
+      tmp[:answers] = a.questions.zip(a.answers)
+      tmp[:start] = a.user.created_at
+      tmp[:end] = a.time_submission
+      tmp[:id] = a.user.id
+      tmp[:points] = @activity.data_points.joins(:user).where("users.id = ?", a.user.id)
+      tmp[:count] = tmp[:points].count
+    
+      @students << tmp
+    end
+      
+
+    respond_to do |format|
+      format.js 
+    end
+  end
+
 end

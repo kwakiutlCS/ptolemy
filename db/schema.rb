@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131102142426) do
+ActiveRecord::Schema.define(:version => 20131103204534) do
 
   create_table "activities", :force => true do |t|
     t.string   "code"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20131102142426) do
     t.text     "questions"
     t.text     "answers"
     t.integer  "activity_id"
-    t.integer  "student_id"
+    t.integer  "user_id"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
     t.datetime "time_submission"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20131102142426) do
     t.integer  "activity_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.integer  "student_id"
+    t.integer  "user_id"
     t.string   "series"
   end
 
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(:version => 20131102142426) do
     t.datetime "updated_at",                             :null => false
     t.string   "login"
     t.string   "role"
+    t.string   "name"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

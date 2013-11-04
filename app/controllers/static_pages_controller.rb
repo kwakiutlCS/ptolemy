@@ -52,7 +52,8 @@ class StaticPagesController < ApplicationController
       redirect_to root_path
     end
 
-    s = Student.create(name: params[:name])
+    
+    s = User.create(email: nil, password: "password", name: params[:name], role: "student")
     if s.valid?
       session[:student] = s.id
       
@@ -78,14 +79,14 @@ class StaticPagesController < ApplicationController
   private
   def remove_anonymous_data_points
     activity = Activity.find(session[:activity])
-    users = activity.answers.select(:student_id)
+    users = activity.answers.select(:user_id)
     u = []
     users.each do |i|
-      u << i.student_id
+      u << i.user_id
     end
     
     if activity.answers.any?
-      points = activity.data_points.where("student_id not in (?)", u)
+      points = activity.data_points.where("user_id not in (?)", u)
     else
       points = activity.data_points
     end
