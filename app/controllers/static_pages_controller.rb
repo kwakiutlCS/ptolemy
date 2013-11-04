@@ -53,8 +53,10 @@ class StaticPagesController < ApplicationController
     end
 
     
-    s = User.create(email: nil, password: "password", name: params[:name], role: "student")
-    if s.valid?
+    s = User.new(email: nil, password: "password", name: params[:name], role: "student")
+    s.populate_fields
+    
+    if s.save
       session[:student] = s.id
       
       cap = []

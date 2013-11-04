@@ -47,7 +47,7 @@ class AnswersController < ApplicationController
 
     answers.each do |a|
       tmp = {}
-      tmp[:activity] = a.id
+      tmp[:answer] = a.id
       tmp[:name] = a.user.name
       tmp[:answers] = a.questions.zip(a.answers)
       tmp[:start] = a.user.created_at

@@ -13,8 +13,7 @@ class User < ActiveRecord::Base
   validates :login, presence: true, uniqueness: {case_sensitive: false}
   validates :role, presence: true
 
-  before_validation :populate_fields
-
+  
   has_many :activities
   has_many :data_points, dependent: :destroy
   has_many :answers, dependent: :destroy
