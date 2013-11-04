@@ -1,4 +1,5 @@
 class DataPointsController < ApplicationController
+  include AnswerCompilation
 
   def index
     getData(params[:series])
@@ -44,23 +45,8 @@ class DataPointsController < ApplicationController
       url = "teachers/remove_data_points"
       @activity = activity
 
-      answers = @activity.answers.includes(:user).order("users.name")
-      
-      @students = []
+      compile_answers()
 
-      answers.each do |a|
-        tmp = {}
-        tmp[:answer] = a.id
-        tmp[:name] = a.user.name
-        tmp[:answers] = a.questions.zip(a.answers)
-        tmp[:start] = a.user.created_at
-        tmp[:end] = a.time_submission
-        tmp[:id] = a.user.id
-        tmp[:points] = @activity.data_points.joins(:user).where("users.id = ?", a.user.id)
-        tmp[:count] = tmp[:points].count
-    
-        @students << tmp
-      end
     else
       url = "#{session[:url]}/create_data_points"
     end

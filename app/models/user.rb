@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :login, :name, :role 
   # attr_accessible :title, :body
 
-
+  
   validates :login, presence: true, uniqueness: {case_sensitive: false}
   validates :role, presence: true
 
@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :data_points, dependent: :destroy
   has_many :answers, dependent: :destroy
 
-  
+  before_validation :populate_fields
 
   def email_required?
     false
@@ -29,11 +29,11 @@ class User < ActiveRecord::Base
   end
 
   def populate_fields
-    @@counter ||= 1
+    counter = User.count
     self.role ||= "teacher"
-    self.email ||= "no_email_#{@@counter}@example.com"
-    self.login ||= "no_login_#{@@counter}"
-    @@counter += 1
+    self.email = "noEmail#{counter}@example.com" unless self.email || self.email == ""
+    self.login ||= "noLogin#{counter}"
+   
   end
 
 end

@@ -54,7 +54,6 @@ class StaticPagesController < ApplicationController
 
     
     s = User.new(email: nil, password: "password", name: params[:name], role: "student")
-    s.populate_fields
     
     if s.save
       session[:student] = s.id
