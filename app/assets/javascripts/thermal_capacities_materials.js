@@ -114,11 +114,7 @@ $(function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
 
-	chart_vars.data_loaded=false;
-	chart_vars.default_x = 40;
-	chart_vars.x_maximum = chart_vars.default_x;
-	chart_vars.loadsPlot(chart_vars.plot_normal);
-
+	
     
 
     
@@ -198,8 +194,10 @@ $(function() {
 
 	
 
+	
 
 	chart_vars.loadsPlot = function(f, arg, xmax, ymax) {
+	    
 	 
 	 if (!chart_vars.data_loaded) {
 	     $.ajax("data_points/updateGraph", {
@@ -211,7 +209,7 @@ $(function() {
 		      water_data = json.water;
 		      oil_data = json.oil;
 		      aluminium_data = json.aluminium;
-
+		      
 		      		      
 		      var xmax = (typeof xmax) === "undefined" ? chart_vars.default_x : xmax;
 		      var ymax = (typeof ymax) === "undefined" ? chart_vars.setYMax() : ymax;
@@ -319,6 +317,10 @@ $(function() {
 
 
 
+	chart_vars.data_loaded=false;
+	chart_vars.default_x = 40;
+	chart_vars.x_maximum = chart_vars.default_x;
+	chart_vars.loadsPlot(chart_vars.plot_normal);
     });
     
   
@@ -341,4 +343,7 @@ $(function() {
 	    $("#thermo2_model-choice_instructions").css({"visibility": "visible"});
 	}
     }
+
+    
+
 });
