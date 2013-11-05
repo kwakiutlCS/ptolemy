@@ -654,5 +654,14 @@ $(function() {
     });
 
 
-
+    $("select#user_role").on("change", function() {
+	var role = $(this).val();
+	
+	if (role === "1") {
+	    $("#accountName").slideDown();
+	}
+	else {
+	    $("#accountName").slideUp();
+	}
+    });
 });

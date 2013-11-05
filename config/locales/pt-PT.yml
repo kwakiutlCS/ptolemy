@@ -1,6 +1,15 @@
 
 pt-PT:
 
+  signUp: "registro"
+  login: "login"
+  password: "password"
+  passwordConfirmation: "password (novamente)"
+  role: "Estudante/Professor"
+  name: "nome"
+  student: "estudante"
+  teacher: "professor"
+  nameInstruction: "O nome será usado se submeter trabalhos ao seu professor. Será o campo usado pelo professor para o identificar."
 
   model: modelo
   linear: linear

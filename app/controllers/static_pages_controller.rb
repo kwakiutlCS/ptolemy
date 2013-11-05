@@ -53,7 +53,7 @@ class StaticPagesController < ApplicationController
     end
 
     
-    s = User.new(email: nil, password: "password", name: params[:name], role: "student")
+    s = User.new(email: nil, password: "password", name: params[:name], role: "student", account_type: 2)
     
     if s.save
       session[:student] = s.id

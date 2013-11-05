@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :login, :name, :role 
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :login, :name, :role , :account_type
   # attr_accessible :title, :body
 
   
@@ -30,9 +30,10 @@ class User < ActiveRecord::Base
 
   def populate_fields
     counter = User.count
-    self.role ||= "teacher"
-    self.email = "noEmail#{counter}@example.com" unless self.email || self.email == ""
-    self.login ||= "noLogin#{counter}" if self.role == "student"
+    if self.role == "1" then self.role = "student" else self.role = "teacher" end
+    
+    self.email = "noEmail#{counter}@example.com" if !self.email || self.email == ""
+    self.login = "noLogin#{counter}" if self.account_type == 2
    
   end
 

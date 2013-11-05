@@ -1,21 +1,35 @@
-<h2>Sign up</h2>
+<%= render "layouts/navbar" %>
+
+
+<div class="row" style="margin-top:20px;">
+  <div class="span4"></div>
+   <div class="span4">
+<h2><%= t("signUp").capitalize %></h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
+  
+  <%= f.hidden_field :account_type, value: 1 %>
 
-  <div><%= f.label :login %><br />
+  <div><%= f.label :login, t("login").capitalize %>
   <%= f.text_field :login, :autofocus => true %></div>
-
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email %></div>
-
-  <div><%= f.label :password %><br />
+  
+  <div><%= f.label :password, t("password").capitalize %>
   <%= f.password_field :password %></div>
 
-  <div><%= f.label :password_confirmation %><br />
+  <div><%= f.label :password_confirmation, t("passwordConfirmation").capitalize %>
   <%= f.password_field :password_confirmation %></div>
 
-  <div><%= f.submit "Sign up" %></div>
+  <div ><%= f.label :role, t("role") %>  <%= f.select :role, [[t("student"),1], [t("teacher"),2]], id:"accountRole" %>
+  </div>
+
+  <div id="accountName">  <%= f.label :name, t("name").capitalize, title:t("nameInstruction")  %>
+    <%= f.text_field :name, title:t("nameInstruction") %></div>
+
+  <div><%= f.submit t("signUp").capitalize, class:"btn btn-primary" %></div>
 <% end %>
 
-<%= render "devise/shared/links" %>
+
+ 
+</div>
+ <div class="span4"></div>
