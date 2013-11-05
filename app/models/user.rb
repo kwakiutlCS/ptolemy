@@ -29,11 +29,12 @@ class User < ActiveRecord::Base
   end
 
   def populate_fields
-    counter = User.count
+    x = rand(23**7..23**8).to_s(32)
+    z = rand(41**7..41**8).to_s(36)
     if self.role == "1" then self.role = "student" else self.role = "teacher" end
     
-    self.email = "noEmail#{counter}@example.com" if !self.email || self.email == ""
-    self.login = "noLogin#{counter}" if self.account_type == 2
+    self.email = "#{z}noEmail#{x}@example.com" if !self.email || self.email == ""
+    self.login = "#{z}noLogin#{x}" if self.account_type == 2
    
   end
 

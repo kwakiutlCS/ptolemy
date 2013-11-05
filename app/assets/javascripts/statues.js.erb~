@@ -1,7 +1,10 @@
 $(function() {
 
     //SPECIFIC CODE
-    
+    <% if @user %>
+	$(".name_getter").slideUp();
+        $(".background").slideDown();
+    <% end %>
 
 
     $("#statue_size_slider").slider({value: 25, min: 10, max: 50, step: 0.1});

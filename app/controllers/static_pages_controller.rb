@@ -52,8 +52,8 @@ class StaticPagesController < ApplicationController
       redirect_to root_path
     end
 
-    
-    s = User.new(email: nil, password: "password", name: params[:name], role: "student", account_type: 2)
+    pass = rand(36**7..(36**8)-1).to_s(36)
+    s = User.new(email: nil, password: pass, name: params[:name], role: "student", account_type: 2)
     
     if s.save
       session[:student] = s.id

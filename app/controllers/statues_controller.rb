@@ -5,6 +5,7 @@ class StatuesController < ApplicationController
       redirect_to root_path
     end
     
+    @user = user_signed_in?
   end
 
 
