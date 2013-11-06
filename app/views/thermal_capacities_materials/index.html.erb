@@ -1,5 +1,6 @@
 <div style="margin-top: -60px" >
 
+<% if !@user %>
 <section class="name_getter" style="width:500px; margin: 200px auto ;">
   
   <p>Comece por introduzir o seu nome</p>
@@ -8,10 +9,10 @@
   <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success", style:"margin-top: -14px;") %>
   <% end %>
 </section>
+<% end %>
 
 
-
-<section class="background">
+<section class="background <% if !@user %>hidden_section<% end %>">
   <% if session[:deadline] %>
   <div class="alert alert-info">
   Esta tarefa será discutida na aula de <%= session[:deadline].strftime("%d/%m") %>. Deverá ser concluída antes dessa data.

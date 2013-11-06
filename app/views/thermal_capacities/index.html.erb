@@ -1,5 +1,6 @@
 <div style="margin-top: -60px" >
 
+<% if !@user %>
 <section class="name_getter" style="width:500px; margin: 200px auto ;">
   
   <p><%= t "getName" %></p>
@@ -8,9 +9,9 @@
   <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success", style:"margin-top: -14px;") %>
   <% end %>
 </section>
+<% end %>
 
-
-<section class="background">
+<section class="background <% if !@user %>hidden_section<% end %>">
   <% if session[:deadline] %>
   <div class="alert alert-info">
   <%= t "deadline.intro" %><%= session[:deadline].strftime("%d/%m") %><%= t "deadline.end" %>
