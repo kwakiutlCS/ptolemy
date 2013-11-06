@@ -38,7 +38,7 @@
 	     <% end %>
 	   </li>
 	   
-	   <li><%= link_to "Sign up", new_user_registration_path %></li>
+	   <li><%= link_to t("signUp").capitalize, new_user_registration_path %></li>
 	 </ul>
 	 
 	 <% elsif signed_in? && current_user.role == "student" %>
