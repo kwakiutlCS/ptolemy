@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
 
   
   has_many :activities
-  has_many :data_points, dependent: :destroy
+  has_many :data_points, through: :answers
   has_many :answers, dependent: :destroy
 
   before_validation :populate_fields

@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe DataPoint do
   let(:user) {FactoryGirl.create(:user)}
-  let(:data) {FactoryGirl.create(:data_point, user_id: user.id)}
+  let(:answer) {FactoryGirl.create(:answer, user_id: user.id)}
+  let(:data) {FactoryGirl.create(:data_point, answer_id: answer.id)}
 
   describe "x value" do
     it "is non-nil" do
@@ -50,28 +51,24 @@ describe DataPoint do
     end
   end
   
-  describe "user_id value" do
-    it "is non-nil" do
-      data.user_id = nil
-      data.should_not be_valid
-    end
+  
 
-    
-    
-  end
-
-  describe "activity_id value" do
+  describe "answer_id" do
     it "is non-nil" do
-      data.activity_id = nil
+      data.answer_id = nil
       data.should_not be_valid
     end
 
     it "is non-blank" do
-      data.activity_id = ""
+      data.answer_id = ""
       data.should_not be_valid
     end
 
     
   end
   
+  it "is destroyed when user is destroyed" do
+    user.destroy
+    DataPoint.count.should == 0
+  end
 end
