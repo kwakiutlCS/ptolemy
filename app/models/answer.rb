@@ -13,6 +13,7 @@ class Answer < ActiveRecord::Base
   serialize :questions
 
   belongs_to :user
+  has_many :data_points, dependent: :destroy
   
   def answers_length
     if answers && questions 

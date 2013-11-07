@@ -67,4 +67,12 @@ describe Answer do
       answer.should be_valid
     end
   end
+
+  describe "data_points" do
+    it "are destroyed when answer is destroyed" do
+      d = FactoryGirl.create(:data_point, user_id: student.id, activity_id: activity.id, answer_id: answer.id)
+      answer.destroy
+      DataPoint.count.should == 0
+    end
+  end
 end
