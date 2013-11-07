@@ -5,8 +5,9 @@ class Activity < ActiveRecord::Base
   validates :template_id, presence: true
   validates :user_id, presence: true
   
+  
   belongs_to :template
-  has_many :data_points, through: :answers
+  has_many :data_points, dependent: :destroy
   has_many :answers, dependent: :destroy
 
 end

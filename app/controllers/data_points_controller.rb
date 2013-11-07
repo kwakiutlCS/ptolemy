@@ -12,8 +12,8 @@ class DataPointsController < ApplicationController
 
   def create
     d = DataPoint.new(x: params[:x], y: params[:y], series: params[:series])
+    d.answer_id = session[:answer]
     d.activity_id = session[:activity]
-    d.user_id = session[:student]
     d.save
 
     getData(params[:series])
@@ -31,11 +31,11 @@ class DataPointsController < ApplicationController
     
     data = DataPoint.find(params[:id])
     point_id = data.id
-    user_id = data.user_id
+    answer_id = data.answer_id
     activity_id = data.activity_id
     activity = Activity.find(activity_id)
 
-    if ((current_user && current_user.role == "teacher" && activity.user_id == current_user.id) || session[:student] == data.user_id)
+    if ((current_user && current_user.role == "teacher" && activity.user_id == current_user.id) || session[:answer] == answer_id)
       data.destroy 
     end
 
@@ -53,7 +53,7 @@ class DataPointsController < ApplicationController
 
     
     respond_to do |format|
-      format.js {render url, locals: {point: point_id, student_id: user_id}}
+      format.js {render url, locals: {point: point_id}}
     end
   end
 
@@ -76,15 +76,15 @@ class DataPointsController < ApplicationController
   private
   def getData(series)
     if series
-      @data = DataPoint.where(user_id: session[:student], activity_id: session[:activity], series: series).order(:x)
+      @data = DataPoint.where(answer_id: session[:answer], series: series).order(:x)
       @series = series
     else
-      @data = DataPoint.where(user_id: session[:student], activity_id: session[:activity]).order(:x)
+      @data = DataPoint.where(answer_id: session[:answer]).order(:x)
     end
 
     if @data.any?
       unless @data.first.series
-        all = DataPoint.where("user_id <> ? and activity_id = ?", session[:student], session[:activity]).order(:x)
+        all = DataPoint.where("answer_id <> ? and activity_id = ?", session[:answer], session[:activity]).order(:x)
         @plot_data = [] 
         @user_data = []
         all.each do |i|
@@ -92,7 +92,7 @@ class DataPointsController < ApplicationController
         end
         @data.each do |i|
           @user_data << [i.x,i.y]
-      end
+        end
       else
         possible_series = []
         all = DataPoint.where("activity_id = ?", session[:activity]).order(:x)
@@ -102,7 +102,7 @@ class DataPointsController < ApplicationController
           unless eval("@#{i.series}")
             eval("@#{i.series} = []") 
           end
-        eval("@#{i.series} << [#{i.x}, #{i.y}]")
+          eval("@#{i.series} << [#{i.x}, #{i.y}]")
         
         end
       end

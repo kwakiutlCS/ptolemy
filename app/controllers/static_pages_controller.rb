@@ -10,6 +10,20 @@ class StaticPagesController < ApplicationController
         
         session[:activity] = a.id
         session[:url] = a.template.url
+        
+        if signed_in? && current_user.role == "student"
+          remove_anonymous_data_points
+          session[:student] = current_user.id
+          answer = Answer.new(answers: [""], questions: [""])
+          answer.activity_id = a.id
+          answer.user_id = current_user.id
+          answer.submited = false
+          answer.save
+          session[:answer] = answer.id
+          session[:prediction] = nil
+          
+        end
+        
         redirect_to a.template.url
       else
         flash[:alert] = "Não existe nada com esse código"
@@ -45,18 +59,26 @@ class StaticPagesController < ApplicationController
 
   def set_name
     
-    if session[:activity]
-      session[:prediction] = nil
-      remove_anonymous_data_points
-    else
+    unless session[:activity]
       redirect_to root_path
+    else
+      remove_anonymous_data_points
+      session[:prediction] = nil
+      
     end
 
-    pass = rand(36**7..(36**8)-1).to_s(36)
+    pass = rand(36**7...(36**8)).to_s(36)
     s = User.new(email: nil, password: pass, name: params[:name], role: "student", account_type: 2)
     
     if s.save
       session[:student] = s.id
+      answer = Answer.new(answers: [""], questions: [""])
+      answer.activity_id = session[:activity]
+      answer.user_id = s.id
+      answer.submited = false
+      answer.save
+      session[:answer] = answer.id
+      
       
       cap = []
       s.name.split.each do |n|
@@ -80,19 +102,9 @@ class StaticPagesController < ApplicationController
   private
   def remove_anonymous_data_points
     activity = Activity.find(session[:activity])
-    users = activity.answers.select(:user_id)
-    u = []
-    users.each do |i|
-      u << i.user_id
-    end
+    answers = activity.answers.where("submited = ?", false)
     
-    if activity.answers.any?
-      points = activity.data_points.where("user_id not in (?)", u)
-    else
-      points = activity.data_points
-    end
-
-    points.each do |i|
+    answers.each do |i|
       i.destroy
     end
     

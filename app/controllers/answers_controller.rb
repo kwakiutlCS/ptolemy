@@ -4,11 +4,10 @@ class AnswersController < ApplicationController
   before_filter :authenticate_user!, only: [:destroy]
 
   def create
-    a = Answer.create(questions: [], answers: [])
-    a.user_id = session[:student]
-    a.activity_id = session[:activity]
-    a.save
-    
+    a = Answer.find(session[:answer])
+    a.questions = []
+    a.answers = []
+
     a.questions << "modelo"
     a.answers << params[:model]
     
@@ -23,7 +22,8 @@ class AnswersController < ApplicationController
     a.answers << params[:answer4]
     
     a.time_submission = Time.now
-
+    
+    a.submited = true
     a.save
 
     respond_to do |format| 
