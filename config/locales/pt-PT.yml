@@ -1,8 +1,10 @@
 
 pt-PT:
 
-  signUp: "registro"
-  login: "login"
+  signUp: "registo"
+  login: "utilizador"
+  signIn: "entrar"
+  signOut: "sair"
   password: "password"
   passwordConfirmation: "password (novamente)"
   role: "Estudante/Professor"
@@ -22,6 +24,7 @@ pt-PT:
   timeWord: tempo
   energy: energia
   temperature: temperatura
+  height: altura
 
   next: seguinte
   previous: anterior

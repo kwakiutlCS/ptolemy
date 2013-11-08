@@ -3,10 +3,10 @@
 <% if !@user %>
 <section class="name_getter" style="width:500px; margin: 200px auto ;">
   
-  <p>Comece por introduzir o seu nome</p>
-  <%= form_tag("/static_pages/set_name", remote:true, method: "get") do %>
+  <p><%= t "getName" %></p>
+  <%= form_tag("/static_pages/set_name", remote:true, method: "get", class:"form-horizontal") do %>
   <%= text_field_tag(:name, nil, id:"student_name_field") %>
-  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success", style:"margin-top: -14px;") %>
+  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success") %>
   <% end %>
 </section>
 <% end %>
@@ -15,7 +15,7 @@
 <section class="background <% if !@user %>hidden_section<% end %>">
   <% if session[:deadline] %>
   <div class="alert alert-info">
-  Esta tarefa será discutida na aula de <%= session[:deadline].strftime("%d/%m") %>. Deverá ser concluída antes dessa data.
+  <%= t "deadline.intro" %><%= session[:deadline].strftime("%d/%m") %><%= t "deadline.end" %>
   </div>
   <% end %>
 
@@ -27,7 +27,7 @@
 
 </div>
 <div class="btn-group statue_navigator">
-<a type="button" class="statue_button btn btn-primary background_next" id="statue_background_next">Seguinte</a>
+<a type="button" class="statue_button btn btn-primary background_next" id="statue_background_next"><%= t "next" %></a>
 </div>
 </section>
 
@@ -36,7 +36,7 @@
 <section class="strategy">
 
 <div id="statue_strategy_div">
-  <h2>Estratégia</h2>
+  <h2><%= t("strategy").capitalize %></h2>
   <div>
   <p>...
   </p>
@@ -49,8 +49,8 @@
   </div>
    
   <div class="btn-group statue_navigator" style="margin-top: 10px">
-    <a type="button" class="statue_button btn btn-primary strategy_previous" id="statue_strategy_previous">Anterior</a>
-    <a type="button" class="statue_button btn btn-primary strategy_next" id="statue_strategy_next">Seguinte</a>
+    <a type="button" class="statue_button btn btn-primary strategy_previous" id="statue_strategy_previous"><%= t("previous") %></a>
+    <a type="button" class="statue_button btn btn-primary strategy_next" id="statue_strategy_next"><%= t("next") %></a>
   </div>
 </section>
 
@@ -134,13 +134,13 @@ $(function() {
 </script>
 
 
-<h1>Recolher Dados</h1>
+<h1><%= t "collectData" %></h1>
         
     <div class="model_data_form statue_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
          <table class="table">
 	    <thead>
-	      <tr><th>altura(m)</th><th>massa(kg)<th></th></tr>
+	      <tr><th><%= t("height") %>(m)</th><th><%= t("mass") %>(kg)<th></th></tr>
 	      <tr>
 		 <th>
 		   <%= number_field_tag(:x, nil,  class:"statue_input", placeholder:"metro",step:0.0001, id:"statue_size_field", max:1, min:0) %>
@@ -150,7 +150,7 @@ $(function() {
 		 </th>
 		 
 		 <th>
-		   <%= submit_tag(:submeter, class:"btn btn-success model_add_data_point_button", id:"statue_add_data_point_button", style:"margin-top:-37px") %>
+		   <%= submit_tag(:submeter, value: t('submit'), class:"btn btn-success model_add_data_point_button", id:"statue_add_data_point_button", style:"margin-top:-37px") %>
 		 </th>
 	      </tr>
 	    </thead>
@@ -178,7 +178,7 @@ $(function() {
    
     
       <div id="statue_size_controls" style="width:150px;  float:right; margin-top:-120px">
-	 <div id="statue_size_label">Altura</div>
+	 <div id="statue_size_label"><%= t("height").capitalize %></div>
 	 <div id="statue_size_slider"></div>
       </div>
     
@@ -189,12 +189,12 @@ $(function() {
     
 
     <div class="btn-group statue_navigator">
-    <a type="button" class="statue_button btn btn-primary data-gathering_previous" id="statue_data-gathering_previous">Anterior</a>
-    <a type="button" class="statue_button btn btn-primary data-gathering_next" id="statue_data-gathering_next"  style="display:none">Seguinte</a>
+    <a type="button" class="statue_button btn btn-primary data-gathering_previous" id="statue_data-gathering_previous"><%= t "previous" %></a>
+    <a type="button" class="statue_button btn btn-primary data-gathering_next" id="statue_data-gathering_next"  style="display:none"><%= t "next" %></a>
     </div>
 
 
-    <a href="#fancydiv" class="fancybox" id="fancy_trigger" style="display:none">sdkfaj</a>
+    <a href="#fancydiv" class="fancybox" id="fancy_trigger" style="display:none"></a>
 
     <div  style="display:none;">
       <div id="fancydiv">
@@ -202,7 +202,7 @@ $(function() {
       <%= form_tag(add_prediction_statues_path, remote:true) do %>
       <div class="form-horizontal">
       <%= number_field_tag(:mass,"", step:0.001, placeholder:"previsão (kg)") %>
-      <%= submit_tag(:submeter, class:"btn btn-success") %>
+      <%= submit_tag(:submeter, value:t("submit"),  class:"btn btn-success") %>
       <%= link_to "Não fazer previsão", "#", id:"fancy_close", style:"margin-left:30px;" %>
       </div>
       <% end %>
@@ -219,17 +219,17 @@ $(function() {
   <div class="x_axis_unit axis_unit">l</div>
   <div class="y_axis_unit axis_unit">m</div>
       
-  <h1>Escolher o Modelo</h1>
+  <h1><%= t("chooseModel") %></h1>
   <div>
   <div class="model_choice_buttons statue_model_buttons">
     <div class="model_first_model_controls" id="statue_first_model_controls">
   <div class="btn-group">
-    <a type="button" class="statue_button btn linear_model_button" id="statue_linear_button">Linear<br/> y = k x + b</a>
-    <a type="button" class="statue_button btn quadratic_model_button" id="statue_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
-    <a type="button" class="statue_button btn cubic_model_button" id="statue_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
+    <a type="button" class="statue_button btn linear_model_button" id="statue_linear_button"><%= t("linear").capitalize %><br/> y = k x + b</a>
+    <a type="button" class="statue_button btn quadratic_model_button" id="statue_quadratic_button"><%= t("quadratic").capitalize %><br /> y = k (x-h)<sup>2</sup> + b</a>
+    <a type="button" class="statue_button btn cubic_model_button" id="statue_cubic_button"><%= t("cubic").capitalize %><br /> y = k (x-h)<sup>3</sup> + b</a>
   </div>
     
-  <div class="model-choice_buttons_explanation" id="statue_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
+  <div class="model-choice_buttons_explanation" id="statue_buttons_explanation"><%= t "chooseModelInstructions" %></div>
   <div class="linear_function_controls model_function_controls" id="statue_linear_controls">
     
     <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="statue_linear_m">120</span></div><div class="model_slider_controls model_linear_m_slider" id="statue_linear_m_slider"></div></div>
@@ -251,14 +251,14 @@ $(function() {
   <div class="model_choice_model_information_div">
     <div class="model_choice_model_formula_parent" id="statue_chosen_model_div">
       <span>
-	 Modelo
+	 <%= t("model").capitalize %>
       </span>
       <div class="model_choice_model_formula" id="statue_chosen_model">
 	 
       </div>
     </div>
     <div class="model_choice_model_confirm_button" id="statue_confirm_model_button_div">
-      <a type="button" class=" model_confirm_model_button statue_button btn btn-success" id="statue_confirm_model_button">Usar este modelo</a>
+      <a type="button" class="model_confirm_model_button statue_button btn btn-success" id="statue_confirm_model_button"><%= t "useModel" %></a>
     </div>
     </div>
   </div>
@@ -275,7 +275,7 @@ $(function() {
    </div>
   </div>
   <div class="btn-group statue_navigator">
-    <a type="button" class="statue_button btn btn-primary model-choice_previous" id="statue_model-choice_previous">Anterior</a>
+    <a type="button" class="statue_button btn btn-primary model-choice_previous" id="statue_model-choice_previous"><%= t "next" %></a>
   </div>
 
   
@@ -288,7 +288,7 @@ $(function() {
 
 
 <section class="questions">
-  <h1>Questões Finais</h1>
+  <h1><%= t "finalQuestions" %></h1>
 
   <div class="row model_question_screen1" id="statue_question_screen1"><div class="span2"></div>
     <div class="span9" id="statue_questions_div">
@@ -315,7 +315,7 @@ $(function() {
 
   <div class="row model_question_screen2" id="statue_question_screen2"><div class="span2"></div>
     <div class="span9" id="statue_questions_after_div">
-      Atividade terminada
+      <%= t "endActivityMessage" %>
     </div>
     
   </div>
@@ -323,7 +323,7 @@ $(function() {
   
 
   <div class="btn-group statue_navigator">
-    <a type="button" class="statue_button btn btn-primary model_questions_previous" id="statue_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
+    <a type="button" class="statue_button btn btn-primary model_questions_previous" id="statue_questions_previous" style:"margin:20px 30px 0 0"><%= t "previous" %></a>
   </div>
 </section>
 

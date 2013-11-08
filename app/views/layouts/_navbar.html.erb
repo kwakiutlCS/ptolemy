@@ -32,9 +32,9 @@
 	 <ul class="nav pull-right">
 	   <li class="navbar-form">
 	     <%= form_for("user", url:user_session_path) do |f| %>
-	     <%= f.text_field(:login,  placeholder:"login") %>
-	     <%= f.password_field(:password, placeholder:"password") %>
-	     <%= f.submit(:login, class:"btn btn-primary btn-small") %>
+	     <%= f.text_field(:login,  placeholder:t("login")) %>
+	     <%= f.password_field(:password, placeholder:t("password")) %>
+	     <%= f.submit(:login, value:t("signIn"), class:"btn btn-primary btn-small") %>
 	     <% end %>
 	   </li>
 	   
