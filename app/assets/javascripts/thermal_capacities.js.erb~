@@ -56,8 +56,9 @@ $(function() {
 
     
 	// slider limits
-	$(".thermo_slider_controls").slider({ min: -10000, max: 10000, step: 500});
+	
 	$("#thermo_linear_m_slider").slider({value: 10000, min: 0, max: 100000, step: 500});
+	$("#thermo_linear_b_slider").slider({ min: -10000, max: 10000, step: 500});
 	$("#thermo_quadratic_k_slider").slider({value: 15000, min: 0, max: 200000, step: 1000});
 	$("#thermo_quadratic_h_slider").slider({value: 0, min: 0, max: 0.8, step: 0.01});
 	$("#thermo_quadratic_b_slider").slider({value: 0, min: -20000, max: 20000});
@@ -106,7 +107,7 @@ $(function() {
 		chart_vars.x_maximum = chart_vars.default_x;
 		chart_vars.y_maximum = chart_vars.setYMax();
 	     
-		$(".model_choice_buttons").append("<div class='model_second_model_controls'><p>O modelo escolhido prevê um gasto de energia de "+chart_vars.scientific(prediction,1)+"J para aquecer "+chart_vars.scientific(bath_volume,1)+"kg de água.</p><p> Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente. </p><p>Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "+(chart_vars.prediction/3600000*0.1).toFixed(2)+"€.</p><p><a href='#' class='model_another_model_link'>Experimentar outro modelo</a> ou <a href='#' class='model_keep_model_link'>Continuar com este modelo</a></p></div>");
+		$(".model_choice_buttons").append("<div class='model_second_model_controls'><p>O modelo escolhido prevê um gasto de energia de "+chart_vars.scientific(chart_vars.prediction,1)+"J para aquecer "+chart_vars.scientific(chart_vars.measurable,1)+"kg de água.</p><p> Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente. </p><p>Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "+(chart_vars.prediction/3600000*0.1).toFixed(2)+"€.</p><p><a href='#' class='model_another_model_link'>Experimentar outro modelo</a> ou <a href='#' class='model_keep_model_link'>Continuar com este modelo</a></p></div>");
 		$(".model_first_model_controls").hide();
 		
 		$(".model_another_model_link").on("click", function() {
