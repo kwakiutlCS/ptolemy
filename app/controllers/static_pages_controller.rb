@@ -102,7 +102,7 @@ class StaticPagesController < ApplicationController
   private
   def remove_anonymous_data_points
     activity = Activity.find(session[:activity])
-    answers = activity.answers.where("submited = ?", false)
+    answers = activity.answers.old
     
     answers.each do |i|
       i.destroy

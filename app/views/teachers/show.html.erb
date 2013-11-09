@@ -9,7 +9,7 @@
 	 <b><%= link_to a.template.title, a %></b><% if a.description != "" %> - <%= a.description %> <% end %>
       </div>
       <div>
-	 código: <%= a.code %><% if a.deadline %> - limite: <%= a.deadline.strftime("%d-%m-%Y") %> <% end %> - respostas: <%= a.answers.count %>
+	 código: <%= a.code %><% if a.deadline %> - limite: <%= a.deadline.strftime("%d-%m-%Y") %> <% end %> - respostas: <%= a.answers.submited.count %>
       </div>
     </div>
     <% end %>

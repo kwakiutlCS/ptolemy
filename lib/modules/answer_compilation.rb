@@ -1,7 +1,7 @@
 module AnswerCompilation
 
   def compile_answers
-    answers = @activity.answers.includes(:user).order("users.name")
+    answers = @activity.answers.submited.includes(:user).order("users.name")
       
     @students = []
 

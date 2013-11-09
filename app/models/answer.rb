@@ -22,4 +22,8 @@ class Answer < ActiveRecord::Base
       end
     end
   end
+
+  scope :old, -> { where("created_at < ? and submited = ?", Time.now-5400, false)}
+  scope :submited, -> { where("submited = ?", true) }
+
 end
