@@ -29,6 +29,7 @@ chart_vars = {
     plot_data: false,
 
     data_loaded: false,
+    data_refresh: 20000, 
     intervalId: false,
     animation_phase: false,
 
@@ -333,7 +334,7 @@ chart_vars = {
 
     loadsPlot: function(f, arg, xmax, ymax) {
 	 
-	 if (!this.data_loaded) {
+	if (!this.data_loaded || (new Date().getTime() - this.data_loaded) > this.data_refresh) {
 	     $.ajax("data_points/updateGraph", {
 		  method: "get",
 		  success: function(json) {      
@@ -351,7 +352,7 @@ chart_vars = {
 			   f(arg,xmax, ymax);
 		  }
 	     });
-	     this.data_loaded = true;
+	     this.data_loaded = new Date().getTime();
 	 }
 	 else {
 	     var xmax = (typeof xmax) === "undefined" ? this.default_x : xmax;
@@ -455,11 +456,11 @@ $(function() {
     // GENERAL CODE
    
     $(".model_data_form").on("click",".model_add_data_point_button", function() {
-	 chart_vars.data_loaded = false;
+	 chart_vars.data_loaded = new Date().getTime();
 	  
     });
     $(".model_data_collection").on("click",".model_remove_data_point_button", function() {
-	 chart_vars.data_loaded = false;
+	 chart_vars.data_loaded = new Date().getTime();
 	 
     });
 

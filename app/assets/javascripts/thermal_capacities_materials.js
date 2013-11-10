@@ -199,7 +199,7 @@ $(function() {
 	chart_vars.loadsPlot = function(f, arg, xmax, ymax) {
 	    
 	 
-	 if (!chart_vars.data_loaded) {
+	    if (!chart_vars.data_loaded || (new Date().getTime() - chart_vars.data_loaded) > chart_vars.refresh_data) {
 	     $.ajax("data_points/updateGraph", {
 		  method: "get",
 		  success: function(json) {      
@@ -218,7 +218,7 @@ $(function() {
 		      
 		  }
 	     });
-	     chart_vars.data_loaded = true;
+	     chart_vars.data_loaded = new Date().getTime();
 	 }
 	 else {
 	     var xmax = (typeof xmax) === "undefined" ? chart_vars.default_x : xmax;
