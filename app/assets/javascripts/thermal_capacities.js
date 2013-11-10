@@ -56,7 +56,7 @@ $(function() {
 
     
 	// slider limits
-	$("#thermo_slider_b_slider").slider({ min: -10000, max: 10000, step: 500});
+	$("#thermo_linear_b_slider").slider({ min: -10000, max: 10000, step: 500});
 	$("#thermo_linear_m_slider").slider({value: 10000, min: 0, max: 100000, step: 500});
 	$("#thermo_quadratic_k_slider").slider({value: 15000, min: 0, max: 200000, step: 1000});
 	$("#thermo_quadratic_h_slider").slider({value: 0, min: 0, max: 0.8, step: 0.01});
