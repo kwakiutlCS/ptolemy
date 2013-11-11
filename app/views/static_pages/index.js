@@ -1,4 +1,4 @@
-alert(1);
+$(".alert").html("");
 
 $('#template_index').html("<%= escape_javascript(render(:partial => 'templates')) %>");
 
