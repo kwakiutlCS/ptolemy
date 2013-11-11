@@ -72,11 +72,18 @@ chart_vars = {
 
 
     getQuadraticData: function() {
-	 var step = this.x_maximum/30;
+	
+	if (this.y_maximum && this.quadratic_k * Math.pow((this.x_maximum-this.quadratic_h),2)  + this.quadratic_b > this.y_maximum) {
+	    var step = (Math.pow(((this.y_maximum*1.1 - this.quadratic_b)/this.quadratic_k),0.5)+this.quadratic_h)/30;
+	}
+	else {
+	    var step = this.x_maximum/30;
+	}
+
 	 var x = 0;
 	 var quadratic_data = [];
 
-	 while (x < this.x_maximum) {
+	for (var i = 0; i < 30; i++) {
 	     var y = this.quadratic_k *(x-this.quadratic_h) * (x-this.quadratic_h) + this.quadratic_b;
 	     quadratic_data.push([x, y]);
 	     x += step;
@@ -87,11 +94,18 @@ chart_vars = {
 
 
     getCubicData: function() {
-	 var step = this.x_maximum/40;
+	
+	if (this.y_maximum && this.cubic_k * Math.pow((this.x_maximum-this.cubic_h),3)  + this.cubic_b > this.y_maximum) {
+	    var step = (Math.pow(((this.y_maximum*1.1 - this.cubic_b)/this.cubic_k),0.333)+this.cubic_h)/40;
+	}
+	else {
+	    var step = this.x_maximum/40;
+	}
+
 	 var x = 0;
 	 var cubic_data = [];
 
-	 while (x < this.x_maximum) {
+	 for (var i = 0; i < 40; i++) {
 	     var y = this.cubic_k *(x-this.cubic_h) * (x-this.cubic_h) * (x-this.cubic_h) + this.cubic_b;
 	     cubic_data.push([x, y]);
 	     x += step;
