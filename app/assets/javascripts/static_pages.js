@@ -335,7 +335,7 @@ chart_vars = {
     loadsPlot: function(f, arg, xmax, ymax) {
 	 
 	if (!this.data_loaded || (new Date().getTime() - this.data_loaded) > this.data_refresh) {
-	     $.ajax("data_points/updateGraph", {
+	     $.ajax("/data_points/updateGraph", {
 		  method: "get",
 		  success: function(json) {      
 		      chart_vars.user_data = json.user_data;

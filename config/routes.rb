@@ -22,7 +22,12 @@ Plotomeu::Application.routes.draw do
   resources :answers
   resources :templates 
 
-  resources :activities
+  resources :activities do
+    member do
+      get "updateTeacherGraph"
+    end
+  end
+
   resources :statues do
     collection do
       post "add_prediction"

@@ -28,4 +28,41 @@ class ActivitiesController < ApplicationController
     end
     
   end
+
+
+  def updateTeacherGraph
+    d = getDataForTeacher(params[:id])
+
+    
+      
+    respond_to do |format|
+      format.json {render json: d.to_json}
+    end
+  end
+
+
+
+  private
+  def getDataForTeacher(activity)
+    activity = Activity.find(activity)
+    if activity
+      answers = activity.answers.includes(:user)
+      
+      names = {}
+      d = {}
+      answers.each do |a|
+        a.data_points.each do |i|
+          if d[a.user.id]
+            d[a.user.id] << [i.x,i.y]
+          else
+            names[a.user.id] = a.user.name
+            d[a.user.id] = [[i.x,i.y]]
+          end
+        end
+      end
+    end
+    d[:names] = names
+    
+    d
+  end
 end

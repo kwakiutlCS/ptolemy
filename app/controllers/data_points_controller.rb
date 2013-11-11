@@ -70,9 +70,7 @@ class DataPointsController < ApplicationController
   end
 
 
-
-
-
+  
   private
   def getData(series)
     if series
@@ -108,4 +106,7 @@ class DataPointsController < ApplicationController
       end
     end
   end
+
+
+
 end
