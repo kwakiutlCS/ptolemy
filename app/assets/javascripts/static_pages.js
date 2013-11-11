@@ -516,113 +516,131 @@ $(function() {
 
     // slider action
     $(".model_linear_m_slider").on("slide", function(evt, ui) {
-	
-	 $(".model_linear_m").html(ui.value);
-	 chart_vars.linear_m = ui.value;
-
-	 chart_vars.prediction = chart_vars.linear_b + chart_vars.measurable*chart_vars.linear_m;
-	 chart_vars.write_linear_formula();
-	chart_vars.loadsPlot(chart_vars.plot_linear);
+	if (!chart_vars.animation_phase) {
+	    $(".model_linear_m").html(ui.value);
+	    chart_vars.linear_m = ui.value;
+	    
+	    chart_vars.prediction = chart_vars.linear_b + chart_vars.measurable*chart_vars.linear_m;
+	    chart_vars.write_linear_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_linear);
+	}
     });
 
     $(".model_linear_b_slider").on("slide", function(evt, ui) {
-	 $(".model_linear_b").html(ui.value);
-	 chart_vars.linear_b = ui.value;
+	 if (!chart_vars.animation_phase) {
+	     $(".model_linear_b").html(ui.value);
+	     chart_vars.linear_b = ui.value;
 
-	 chart_vars.prediction = chart_vars.linear_b + chart_vars.measurable*chart_vars.linear_m;
-	 chart_vars.write_linear_formula();
-	chart_vars.loadsPlot(chart_vars.plot_linear);
+	     chart_vars.prediction = chart_vars.linear_b + chart_vars.measurable*chart_vars.linear_m;
+	     chart_vars.write_linear_formula();
+	     chart_vars.loadsPlot(chart_vars.plot_linear);
+	 }
     });
     
     $(".model_quadratic_k_slider").on("slide", function(evt, ui) {
-	 $(".model_quadratic_k").html(ui.value);
-	 chart_vars.quadratic_k = ui.value;
-
-	 chart_vars.prediction = chart_vars.quadratic_b + Math.pow(chart_vars.measurable-chart_vars.quadratic_h, 2)*chart_vars.quadratic_k;
-	 chart_vars.write_quadratic_formula();
-	chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getQuadraticData());
+	if (!chart_vars.animation_phase) {
+	    $(".model_quadratic_k").html(ui.value);
+	    chart_vars.quadratic_k = ui.value;
+	    
+	    chart_vars.prediction = chart_vars.quadratic_b + Math.pow(chart_vars.measurable-chart_vars.quadratic_h, 2)*chart_vars.quadratic_k;
+	    chart_vars.write_quadratic_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getQuadraticData());
+	}
     });
     $(".model_quadratic_h_slider").on("slide", function(evt, ui) {
-	 $(".model_quadratic_h").html(ui.value);
-	 chart_vars.quadratic_h = ui.value;
+	 if (!chart_vars.animation_phase) {
+	     $(".model_quadratic_h").html(ui.value);
+	     chart_vars.quadratic_h = ui.value;
 
-	 chart_vars.prediction = chart_vars.quadratic_b + Math.pow(chart_vars.measurable-chart_vars.quadratic_h, 2)*chart_vars.quadratic_k;
-	 chart_vars.write_quadratic_formula();
-	chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getQuadraticData());
+	     chart_vars.prediction = chart_vars.quadratic_b + Math.pow(chart_vars.measurable-chart_vars.quadratic_h, 2)*chart_vars.quadratic_k;
+	     chart_vars.write_quadratic_formula();
+	     chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getQuadraticData());
+	 }
     });
     $(".model_quadratic_b_slider").on("slide", function(evt, ui) {
-	 $(".model_quadratic_b").html(ui.value);
-	 chart_vars.quadratic_b = ui.value;
+	 if (!chart_vars.animation_phase) {
+	     $(".model_quadratic_b").html(ui.value);
+	     chart_vars.quadratic_b = ui.value;
 
-	 chart_vars.prediction = chart_vars.quadratic_b + Math.pow(chart_vars.measurable-chart_vars.quadratic_h, 2)*chart_vars.quadratic_k;
-	 chart_vars.write_quadratic_formula();
-	chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getQuadraticData());
+	     chart_vars.prediction = chart_vars.quadratic_b + Math.pow(chart_vars.measurable-chart_vars.quadratic_h, 2)*chart_vars.quadratic_k;
+	     chart_vars.write_quadratic_formula();
+	     chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getQuadraticData());
+	 }
     });
     $(".model_cubic_k_slider").on("slide", function(evt, ui) {
-	 $(".model_cubic_k").html(ui.value);
-	 chart_vars.cubic_k = ui.value;
+	if (!chart_vars.animation_phase) {
+	    $(".model_cubic_k").html(ui.value);
+	    chart_vars.cubic_k = ui.value;
 
-	 chart_vars.prediction = chart_vars.cubic_b + Math.pow(chart_vars.measurable-chart_vars.cubic_h, 3)*chart_vars.cubic_k;
-	 chart_vars.write_cubic_formula();
-	chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
+	    chart_vars.prediction = chart_vars.cubic_b + Math.pow(chart_vars.measurable-chart_vars.cubic_h, 3)*chart_vars.cubic_k;
+	    chart_vars.write_cubic_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
+	}
     });
     $(".model_cubic_h_slider").on("slide", function(evt, ui) {
-	 $(".model_cubic_h").html(ui.value);
-	 chart_vars.cubic_h = ui.value;
-
-	 chart_vars.prediction = chart_vars.cubic_b + Math.pow(chart_vars.measurable-chart_vars.cubic_h, 3)*chart_vars.cubic_k;
-	 chart_vars.write_cubic_formula();
-	chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
+	if (!chart_vars.animation_phase) {
+	    $(".model_cubic_h").html(ui.value);
+	    chart_vars.cubic_h = ui.value;
+	    
+	    chart_vars.prediction = chart_vars.cubic_b + Math.pow(chart_vars.measurable-chart_vars.cubic_h, 3)*chart_vars.cubic_k;
+	    chart_vars.write_cubic_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
+	}
     });
     $(".model_cubic_b_slider").on("slide", function(evt, ui) {
-	 $(".model_cubic_b").html(ui.value);
-	 chart_vars.cubic_b = ui.value;
+	if (!chart_vars.animation_phase) {
+	    $(".model_cubic_b").html(ui.value);
+	    chart_vars.cubic_b = ui.value;
 
-	 chart_vars.prediction = chart_vars.cubic_b + Math.pow(chart_vars.measurable-chart_vars.cubic_h, 3)*chart_vars.cubic_k;
-	 chart_vars.write_cubic_formula();
-	 chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
-	 
+	    chart_vars.prediction = chart_vars.cubic_b + Math.pow(chart_vars.measurable-chart_vars.cubic_h, 3)*chart_vars.cubic_k;
+	    chart_vars.write_cubic_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
+	}
     });
 
 
 
     // select model buttons
     $(".model_choice_buttons").on("click", ".linear_model_button", function() {
-	 $(".model-choice_buttons_explanation").hide();
-	 $(".model_function_controls").hide();
-	 $(".linear_function_controls").show();
-	 $(".model_choice_model_information_div").show();
+	if (!chart_vars.animation_phase) {
+	    $(".model-choice_buttons_explanation").hide();
+	    $(".model_function_controls").hide();
+	    $(".linear_function_controls").show();
+	    $(".model_choice_model_information_div").show();
 
-	 chart_vars.model = 1;
-	 chart_vars.prediction = chart_vars.linear_b + chart_vars.measurable*chart_vars.linear_m;
-	 chart_vars.write_linear_formula();
-	 chart_vars.loadsPlot(chart_vars.plot_linear);
-	 
+	    chart_vars.model = 1;
+	    chart_vars.prediction = chart_vars.linear_b + chart_vars.measurable*chart_vars.linear_m;
+	    chart_vars.write_linear_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_linear);
+	}
     });
 
     $(".model_choice_buttons").on("click", ".quadratic_model_button", function() {
-	 $(".model-choice_buttons_explanation").hide();
-	 $(".model_function_controls").hide();
-	 $(".quadratic_function_controls").show();
-	 $(".model_choice_model_information_div").show();
-	 chart_vars.model = 2;
+	if (!chart_vars.animation_phase) {
+	    $(".model-choice_buttons_explanation").hide();
+	    $(".model_function_controls").hide();
+	    $(".quadratic_function_controls").show();
+	    $(".model_choice_model_information_div").show();
+	    chart_vars.model = 2;
 	 
-	 chart_vars.write_quadratic_formula();
-	 chart_vars.prediction = chart_vars.quadratic_b + Math.pow(chart_vars.measurable-chart_vars.quadratic_h, 2)*chart_vars.quadratic_k;
-	 chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getQuadraticData());
-	 
+	    chart_vars.write_quadratic_formula();
+	    chart_vars.prediction = chart_vars.quadratic_b + Math.pow(chart_vars.measurable-chart_vars.quadratic_h, 2)*chart_vars.quadratic_k;
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getQuadraticData());
+	}
     });
 
     $(".model_choice_buttons").on("click", ".cubic_model_button", function() {
-	 $(".model-choice_buttons_explanation").hide();
-	 $(".model_function_controls").hide();
-	 $(".cubic_function_controls").show();
-	 $(".model_choice_model_information_div").show();
-	 chart_vars.model = 3;
-	 
-	 chart_vars.write_cubic_formula();
-	 chart_vars.prediction = chart_vars.cubic_b + Math.pow(chart_vars.measurable-chart_vars.cubic_h, 3)*chart_vars.cubic_k;
-	 chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
+	if (!chart_vars.animation_phase) {
+	    $(".model-choice_buttons_explanation").hide();
+	    $(".model_function_controls").hide();
+	    $(".cubic_function_controls").show();
+	    $(".model_choice_model_information_div").show();
+	    chart_vars.model = 3;
+	    
+	    chart_vars.write_cubic_formula();
+	    chart_vars.prediction = chart_vars.cubic_b + Math.pow(chart_vars.measurable-chart_vars.cubic_h, 3)*chart_vars.cubic_k;
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
+	}
     });
 
 

@@ -114,7 +114,9 @@ $(function() {
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();
 
-	
+	chart_vars.x_lower_bound = 5;
+	chart_vars.x_higher_bound = 80;
+	chart_vars.x_step = 5;
     
 
     

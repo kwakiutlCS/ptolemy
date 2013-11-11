@@ -105,7 +105,8 @@ $(function() {
 	    else if (chart_vars.animation_phase === 2 && chart_vars.y_maximum > chart_vars.prediction/9*10) {
 		clearInterval(chart_vars.intervalId);
 		chart_vars.intervalId = false;
-	     chart_vars.x_maximum = chart_vars.default_x;
+		chart_vars.animation_phase = false;
+	     	chart_vars.x_maximum = chart_vars.default_x;
 		chart_vars.y_maximum = chart_vars.setYMax();
 		
 		$(".model_choice_buttons").append("<div class='model_second_model_controls'><p><%= I18n.translate 'thermo3.prediction1' %>"+chart_vars.scientific(chart_vars.prediction,1)+"<%= I18n.translate 'thermo3.prediction2' %></p><p><a href='#' class='model_another_model_link'><%= I18n.translate 'modeling.another_model_link' %></a> ou <a href='#' class='model_keep_model_link'><%= I18n.translate 'modeling.accept_model_link' %></a></p></div>");

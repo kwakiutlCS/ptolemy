@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   
   validates :login, presence: true, uniqueness: {case_sensitive: false}
   validates :role, presence: true
-
+  validate :student_name
   
   has_many :activities
   has_many :data_points, through: :answers
@@ -30,13 +30,24 @@ class User < ActiveRecord::Base
   end
 
   def populate_fields
-    x = rand(23**7..23**8).to_s(32)
-    z = rand(41**7..41**8).to_s(36)
-    if self.role == "1" then self.role = "student" else self.role = "teacher" end
+    x = rand(36**7...36**8).to_s(36)
+    z = rand(36**7...36**8).to_s(36)
+    if self.role == "1" || self.role == "student" then self.role = "student" else self.role = "teacher" end
     
     self.email = "#{z}noEmail#{x}@example.com" if !self.email || self.email == ""
     self.login = "#{z}noLogin#{x}" if self.account_type == 2
    
+  end
+
+
+  def student_name
+    p "here"
+    if self.role == "student"
+      p "student"
+      if !self.name || self.name == ""
+        errors.add(:name, "no_name_error")
+      end
+    end
   end
 
 end

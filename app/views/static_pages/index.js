@@ -1,6 +1,0 @@
-$(".alert").html("");
-
-$('#template_index').html("<%= escape_javascript(render(:partial => 'templates')) %>");
-
-$(".template_selected").removeClass("template_selected");
-

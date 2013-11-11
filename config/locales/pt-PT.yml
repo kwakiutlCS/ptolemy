@@ -13,6 +13,8 @@ pt-PT:
   teacher: "professor"
   nameInstruction: "O nome será usado se submeter trabalhos ao seu professor. Será o campo usado pelo professor para o identificar."
 
+  no_name_error: "É necessário indicar o nome"
+  
   model: modelo
   linear: linear
   quadratic: quadrático

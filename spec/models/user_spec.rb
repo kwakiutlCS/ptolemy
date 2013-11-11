@@ -22,7 +22,24 @@ describe User do
   end
 
   
+  describe "name" do
+    it "is non-nil for student" do
+      student = FactoryGirl.build(:user, role: "student")
+      student.name = nil
+      student.should_not be_valid
+    end
 
+    it "is non-blank for student" do
+      student = FactoryGirl.build(:user, role: "student")
+      student.name = ""
+      student.should_not be_valid
+    end
+
+    it "can be nil for teachers" do
+      teacher.name = nil
+      teacher.should be_valid
+    end
+  end
 
   describe "role" do
     
