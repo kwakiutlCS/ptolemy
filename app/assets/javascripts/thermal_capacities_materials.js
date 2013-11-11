@@ -200,8 +200,8 @@ $(function() {
 
 	chart_vars.loadsPlot = function(f, arg, xmax, ymax) {
 	    
-	 
-	    if (!chart_vars.data_loaded || (new Date().getTime() - chart_vars.data_loaded) > chart_vars.refresh_data) {
+	    if (!chart_vars.data_loaded || (new Date().getTime() - chart_vars.data_loaded) > chart_vars.data_refresh) {
+		
 	     $.ajax("data_points/updateGraph", {
 		  method: "get",
 		  success: function(json) {      
