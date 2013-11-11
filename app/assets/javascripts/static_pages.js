@@ -648,7 +648,7 @@ $(function() {
 	if (!chart_vars.intervalId) {
 	    chart_vars.y_maximum = chart_vars.setYMax();
 	    chart_vars.x_maximum = chart_vars.default_x;
-	    
+	    $(".model_slider_controls").slider({disabled:true});
 	    chart_vars.animation_phase = 1;
 	    chart_vars.intervalId = window.setInterval(chart_vars.animatePlot,30);
 	}

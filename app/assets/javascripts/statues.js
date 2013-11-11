@@ -89,6 +89,7 @@ $(function() {
 		clearInterval(chart_vars.intervalId);
 		chart_vars.intervalId = false;
 		chart_vars.animation_phase = false;
+		$(".model_slider_controls").slider({disabled:false});
 		chart_vars.x_maximum = chart_vars.default_x;
 		chart_vars.y_maximum = chart_vars.setYMax();
 	     
