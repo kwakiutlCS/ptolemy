@@ -109,7 +109,7 @@ $(function() {
 
     // creates initial parameters
     $(".data-gathering").on("click", "#thermo2_data-gathering_next", function() {
-	
+	chart_vars.data_loaded = false;
 
 	 $(".data-gathering").slideUp();
 	 $(".model-choice").slideDown();

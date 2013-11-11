@@ -8,6 +8,7 @@ $(function() {
 
     // creates initial parameters
     $(".data-gathering").on("click", "#statue_data-gathering_next", function() {
+	chart_vars.data_loaded = false;
 	$(".data-gathering").slideUp();
 	$(".model-choice").slideDown();
 	
