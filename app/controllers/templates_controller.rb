@@ -1,6 +1,7 @@
 class TemplatesController < ApplicationController
   before_filter :authenticate_user!, except:[:show]
-  
+  before_filter :set_cache_buster, only: [:index]
+
   def index
     @templates = Template.all
 

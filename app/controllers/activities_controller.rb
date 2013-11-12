@@ -3,6 +3,7 @@ class ActivitiesController < ApplicationController
   include AnswerCompilation
 
   before_filter :authenticate_user!
+  before_filter :set_cache_buster, only: [:show]
 
   def create
     template = params[:activity].delete(:template_id)
@@ -32,9 +33,7 @@ class ActivitiesController < ApplicationController
 
   def updateTeacherGraph
     d = getDataForTeacher(params[:id])
-
-    
-      
+  
     respond_to do |format|
       format.json {render json: d.to_json}
     end
