@@ -341,7 +341,7 @@ $(function() {
 	if ((water_data != null && !water_model) || (aluminium_data != null  && !aluminium_model) || (copper_data != null  && !copper_model) || (iron_data != null && !iron_model) || (oil_data != null && !oil_model))
 	    return false;
 	else {
-	    $("#thermo2_model-choice_next").show();
+	    $("#thermo2_model-choice_next").css({"display": "inline-block"});
 	    $("#thermo2_model-choice_instructions").css({"visibility": "visible"});
 	}
     }
