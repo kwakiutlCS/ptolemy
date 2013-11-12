@@ -19,7 +19,12 @@ Plotomeu::Application.routes.draw do
     end
   end
 
-  resources :answers
+  resources :answers do
+    collection do
+      post "leave_page"
+    end
+  end
+
   resources :templates 
 
   resources :activities do

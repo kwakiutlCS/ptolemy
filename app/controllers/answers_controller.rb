@@ -52,4 +52,18 @@ class AnswersController < ApplicationController
     end
   end
 
+  
+  def leave_page
+    if (session[:answer])
+      a = Answer.find(session[:answer])
+      unless a.submited
+        a.destroy
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

@@ -64,6 +64,13 @@
 <script type="text/javascript">
 $(function() {
     
+    $(window).on("beforeunload", function() {
+	$.ajax("answers/leave_page", {
+            method: "post",
+            }
+        );
+    });
+
     var canvas = $("#myCanvas");
     var context = canvas.get(0).getContext("2d");
     var canvas_width = 400;
