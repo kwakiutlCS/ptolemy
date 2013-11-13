@@ -37,7 +37,7 @@ class AnswersController < ApplicationController
   def destroy
     a = Answer.find(params[:id])
     @activity = current_user.activities.where(id: params[:activity_id]).first
-
+    @answers = @activity.answers.includes(:data_points, :user).order("users.name")
     if @activity && a.activity_id == @activity.id
       a.destroy
     else

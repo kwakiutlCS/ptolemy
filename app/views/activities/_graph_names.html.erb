@@ -1,0 +1,9 @@
+<%= form_tag("#", id:"teacher_graph_form") do %>
+    <% @answers.each do |a| %>
+    <div class="userbox">
+      <%= check_box_tag(a.id, 1, checked:true) %>
+      <%= label_tag a.id, a.user.name, class:"checkbox inline" %>
+    </div>
+    <% end %>
+    
+    <% end %>
