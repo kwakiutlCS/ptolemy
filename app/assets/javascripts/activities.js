@@ -1,4 +1,5 @@
 $(function() {
+    
     var updateGraph = function(points, url) {
 	$.ajax(url,{
 	    method: "get",
@@ -7,12 +8,22 @@ $(function() {
 		var formatted_data = [];
 		
 		for (var k in json) {
-		    if (k != "names") {
-			formatted_data.push({data: json[k],
-					     points: {show:true},
-					     label: json["names"][k],
-					     color: $("label[for='"+k+"']").data("color"),
-					    });
+		    if (k != "names" && k != "process") {
+			if (json["process"] === 1) {
+			    formatted_data.push({data: json[k],
+						 points: {show:true},
+						 label: json["names"][k],
+						 color: $("label[for='"+k+"']").data("color"),
+						});
+			}
+			else if (json["process"] === 2) {
+			    
+			    formatted_data.push({data: json[k],
+						 points: {show:true},
+						 label: k,
+						 
+						});
+			}
 		    }		    
 		}
 		
@@ -44,7 +55,7 @@ $(function() {
 		var previousPoint = null;
 		$("#teacher_graph_div").bind("plothover", function (event, pos, item) {
 		    
-		    if (item) {
+		    if (item && json.process === 1) {
 			if (previousPoint != item.dataIndex) {
 			    previousPoint = item.dataIndex;
 			    
@@ -64,7 +75,7 @@ $(function() {
 		});
 		
 		$("#teacher_graph_div").on("plotclick", function (event, pos, item) {
-		    if (item) {
+		    if (item && json.process === 1) {
 			$("#activity_point_info").html("<p>"+item.series.label+"<p/><p>x: "+item.datapoint[0]+"</p><p>y: "+item.datapoint[1]+"</p>");
 			
 		    }

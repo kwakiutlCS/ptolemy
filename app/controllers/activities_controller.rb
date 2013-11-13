@@ -59,18 +59,39 @@ class ActivitiesController < ApplicationController
       
       names = {}
       d = {}
-      answers.each do |a|
-        a.data_points.each do |i|
-          if d[a.id]
-            d[a.id] << [i.x,i.y]
-          else
-            names[a.id] = a.user.name
-            d[a.id] = [[i.x,i.y]]
+        
+      if answers.any? && !answers.first.data_points.first.series 
+        d[:process] = 1
+        answers.each do |a|
+          a.data_points.each do |i|
+            if d[a.id]
+              d[a.id] << [i.x,i.y]
+            else
+              names[a.id] = a.user.name
+              d[a.id] = [[i.x,i.y]]
+            end
           end
         end
+        d[:names] = names
+
+      elsif answers.any?
+        answers_id = []
+        answers.each do |a|
+          answers_id << a.id
+        end
+        d[:process] = 2
+        series = activity.data_points.select(:series).group(:series)
+        series.each do |i|
+          points = activity.data_points.where("series = ?", i.series)
+          d[i.series] = []
+          points.each do |j|
+            d[i.series] << [j.x,j.y] if answers_id.include? j.answer_id 
+          end
+        end
+        
       end
     end
-    d[:names] = names
+    
     d
   end
 end

@@ -32,11 +32,20 @@ var updateGraph = function(points, url) {
 		var formatted_data = [];
 		
 		for (var k in json) {
-		    if (k != "names") {
-			formatted_data.push({data: json[k],
-					     points: {show:true},
-					     label: json["names"][k]
-					    });
+		    if (k != "names" && k != "process") {
+			if (json["process"] === 1) {
+			    formatted_data.push({data: json[k],
+						 points: {show:true},
+						 label: json["names"][k],
+						 color: $("label[for='"+k+"']").data("color"),
+						});
+			}
+			else if (json["process"] === 2) {
+			    formatted_data.push({data: json[k],
+						 points: {show:true},
+						 
+						});
+			}
 		    }		    
 		}
 
