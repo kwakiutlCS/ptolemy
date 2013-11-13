@@ -17,22 +17,35 @@ class ActivitiesController < ApplicationController
 
 
   def show
-    
     @activity = current_user.activities.includes(:template).where(id: params[:id]).first
     
+    user_ids = []
+    params.each do |i|
+      @user_ids << i[7,9] if i[0,7] == "userbox"
+    end
+
     if @activity
       compile_answers()
-      
+      answers = @activity.answers.includes(:user).order("users.name")
+      @users = []
+      answers.each do |i| 
+        @users << i.user unless @users.include? i.user
+      end
     else
       flash[:alert] = "Não pode aceder a essa atividade" 
       redirect_to root_path
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
     end
     
   end
 
 
   def updateTeacherGraph
-    d = getDataForTeacher(params[:id])
+    d = getDataForTeacher(params[:id], params[:points])
   
     respond_to do |format|
       format.json {render json: d.to_json}
@@ -42,10 +55,10 @@ class ActivitiesController < ApplicationController
 
 
   private
-  def getDataForTeacher(activity)
+  def getDataForTeacher(activity, points)
     activity = Activity.find(activity)
     if activity
-      answers = activity.answers.includes(:user)
+      answers = activity.answers.includes(:user).where("user_id in (?)", points)
       
       names = {}
       d = {}

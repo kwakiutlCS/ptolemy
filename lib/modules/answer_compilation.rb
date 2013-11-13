@@ -1,7 +1,7 @@
 module AnswerCompilation
 
   def compile_answers
-    answers = @activity.answers.submited.includes(:user).order("users.name")
+    answers = @activity.answers.submited.includes(:user, :data_points).order("users.name")
       
     @students = []
 
@@ -13,7 +13,7 @@ module AnswerCompilation
       tmp[:start] = a.created_at
       tmp[:end] = a.time_submission
       tmp[:id] = a.user.id
-      tmp[:points] = @activity.data_points.where("answer_id = ?", a.id)
+      tmp[:points] = a.data_points
       tmp[:count] = tmp[:points].count
     
       @students << tmp

@@ -1,15 +1,8 @@
 $(function() {
-    
-    var path = window.location.pathname;
-    path = path.split("/");
-    
-    if (path.length === 3 && path[1] === "activities") {
-	var activity = parseInt(path[2]);
-
-	var url = "/activities/"+activity+"/updateTeacherGraph";
-
+    var updateGraph = function(points, url) {
 	$.ajax(url,{
 	    method: "get",
+	    data: {points: points},
 	    success: function(json) {
 		var formatted_data = [];
 		
@@ -18,11 +11,11 @@ $(function() {
 			formatted_data.push({data: json[k],
 					     points: {show:true},
 					     label: json["names"][k]
-					      });
+					    });
 		    }		    
 		}
 
-		
+		$("#teacher_graph_div").html("");
 		var plot = $.plot($("#teacher_graph_div"),
 		      formatted_data, {
                
@@ -70,8 +63,8 @@ $(function() {
 
 		$("#teacher_graph_div").on("plotclick", function (event, pos, item) {
 		    if (item) {
-			$("#clickdata").text("You clicked point " + item.dataIndex + " in " + item.series.label + ".");
-			plot.highlight(item.series, item.datapoint);
+			$("#activity_point_info").html("<p>"+item.series.label+"<p/><p>x: "+item.datapoint[0]+"</p><p>y: "+item.datapoint[1]+"<p><a href='#'>remover</a></p>");
+			
 		    }
 		});
 
@@ -80,6 +73,50 @@ $(function() {
 	    
 	});
     }
+
     
+    var path = window.location.pathname;
+    path = path.split("/");
+    
+    if (path.length === 3 && path[1] === "activities") {
+	var activity = parseInt(path[2]);
+
+	var url = "/activities/"+activity+"/updateTeacherGraph";
+	var points = []
+	
+	$(".userbox>:checkbox").each(function() {
+	    var box = $(this);
+	    if (box.attr("checked")) {
+		points.push(parseInt(box.attr("name")));
+	    }
+	});
+	updateGraph(points, url);
+	
+    }
+    
+    
+    $("#teacher_graph_form").on("submit", function() {
+	 var points = [];
+	$(".userbox>:checked").each(function() {
+	    var box = $(this);
+	    points.push(parseInt(box.attr("name")));
+	    
+	});
+	updateGraph(points, url);
+	return false;
+    });
+
+
+    
+    $(".userbox>:checkbox").on("change", function() {
+	$("#teacher_graph_form").submit();
+    });
+
+
+
+
+
+
+
     
 });
