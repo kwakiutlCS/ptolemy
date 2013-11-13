@@ -26,11 +26,8 @@ class ActivitiesController < ApplicationController
 
     if @activity
       compile_answers()
-      answers = @activity.answers.includes(:user).order("users.name")
-      @users = []
-      answers.each do |i| 
-        @users << i.user unless @users.include? i.user
-      end
+      @answers = @activity.answers.includes(:user).order("users.name")
+      
     else
       flash[:alert] = "Não pode aceder a essa atividade" 
       redirect_to root_path
@@ -58,7 +55,7 @@ class ActivitiesController < ApplicationController
   def getDataForTeacher(activity, points)
     activity = Activity.find(activity)
     if activity
-      answers = activity.answers.includes(:user).where("user_id in (?)", points)
+      answers = activity.answers.includes(:user,:data_points).where("id in (?)", points)
       
       names = {}
       d = {}

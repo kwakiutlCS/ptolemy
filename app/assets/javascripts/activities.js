@@ -14,15 +14,16 @@ $(function() {
 					    });
 		    }		    
 		}
-
+		
 		$("#teacher_graph_div").html("");
 		var plot = $.plot($("#teacher_graph_div"),
-		      formatted_data, {
-               
-			  grid: { hoverable: true, clickable: true },
-			  xaxis: { min: 0,  },
-			  legend: {show: false},
-		      });
+				  formatted_data, {
+				      
+				      grid: { hoverable: true, clickable: true },
+				      xaxis: { min: 0,  },
+				      yaxis: { min: 0, },
+				      legend: {show: false},
+				  });
 		
 		$(".flot-x-axis").css({left: "10px"});
 		
@@ -38,17 +39,17 @@ $(function() {
 			opacity: 0.80
 		    }).appendTo("body").fadeIn(200);
 		}
-
+		
 		var previousPoint = null;
 		$("#teacher_graph_div").bind("plothover", function (event, pos, item) {
-        
+		    
 		    if (item) {
 			if (previousPoint != item.dataIndex) {
 			    previousPoint = item.dataIndex;
-                    
+			    
 			    $("#tooltip").remove();
 			    var x = item.datapoint[0].toFixed(2),
-                        y = item.datapoint[1].toFixed(2);
+                            y = item.datapoint[1].toFixed(2);
 			    
 			    showTooltip(item.pageX, item.pageY,
 					item.series.label);
@@ -58,31 +59,31 @@ $(function() {
 			$("#tooltip").remove();
 			previousPoint = null;            
 		    }
-        
+		    
 		});
-
+		
 		$("#teacher_graph_div").on("plotclick", function (event, pos, item) {
 		    if (item) {
-			$("#activity_point_info").html("<p>"+item.series.label+"<p/><p>x: "+item.datapoint[0]+"</p><p>y: "+item.datapoint[1]+"<p><a href='#'>remover</a></p>");
+			$("#activity_point_info").html("<p>"+item.series.label+"<p/><p>x: "+item.datapoint[0]+"</p><p>y: "+item.datapoint[1]+"</p>");
 			
 		    }
 		});
-
-
+		
+		
 	    },
 	    
 	});
     }
-
+    
     
     var path = window.location.pathname;
     path = path.split("/");
     
     if (path.length === 3 && path[1] === "activities") {
 	var activity = parseInt(path[2]);
-
+	
 	var url = "/activities/"+activity+"/updateTeacherGraph";
-	var points = []
+	var points = [];
 	
 	$(".userbox>:checkbox").each(function() {
 	    var box = $(this);
@@ -96,7 +97,7 @@ $(function() {
     
     
     $("#teacher_graph_form").on("submit", function() {
-	 var points = [];
+	var points = [];
 	$(".userbox>:checked").each(function() {
 	    var box = $(this);
 	    points.push(parseInt(box.attr("name")));
@@ -105,7 +106,7 @@ $(function() {
 	updateGraph(points, url);
 	return false;
     });
-
+    
 
     
     $(".userbox>:checkbox").on("change", function() {
