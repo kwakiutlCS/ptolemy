@@ -61,17 +61,16 @@ class ActivitiesController < ApplicationController
       d = {}
       answers.each do |a|
         a.data_points.each do |i|
-          if d[a.user.id]
-            d[a.user.id] << [i.x,i.y]
+          if d[a.id]
+            d[a.id] << [i.x,i.y]
           else
-            names[a.user.id] = a.user.name
-            d[a.user.id] = [[i.x,i.y]]
+            names[a.id] = a.user.name
+            d[a.id] = [[i.x,i.y]]
           end
         end
       end
     end
     d[:names] = names
-    
     d
   end
 end

@@ -10,7 +10,8 @@ $(function() {
 		    if (k != "names") {
 			formatted_data.push({data: json[k],
 					     points: {show:true},
-					     label: json["names"][k]
+					     label: json["names"][k],
+					     color: $("label[for='"+k+"']").data("color"),
 					    });
 		    }		    
 		}
