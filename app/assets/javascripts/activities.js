@@ -5,10 +5,13 @@ $(function() {
 	    method: "get",
 	    data: {points: points},
 	    success: function(json) {
+		$("#teacher_graph_div").unbind("plothover");
+		$("#teacher_graph_div").off("plotclick");
+		
 		var formatted_data = [];
 		
 		for (var k in json) {
-		    if (k != "names" && k != "process") {
+		    if (k != "names" && k != "process" && k != "meta") {
 			if (json["process"] === 1) {
 			    formatted_data.push({data: json[k],
 						 points: {show:true},
@@ -17,7 +20,6 @@ $(function() {
 						});
 			}
 			else if (json["process"] === 2) {
-			    
 			    formatted_data.push({data: json[k],
 						 points: {show:true},
 						 label: k,
@@ -48,13 +50,13 @@ $(function() {
 			border: '1px solid #fdd',
 			padding: '2px',
 			'background-color': '#fee',
-			opacity: 0.80
+			opacity: 0.80,
+			
 		    }).appendTo("body").fadeIn(200);
 		}
 		
 		var previousPoint = null;
 		$("#teacher_graph_div").bind("plothover", function (event, pos, item) {
-		    
 		    if (item && json.process === 1) {
 			if (previousPoint != item.dataIndex) {
 			    previousPoint = item.dataIndex;
@@ -65,6 +67,20 @@ $(function() {
 			    
 			    showTooltip(item.pageX, item.pageY,
 					item.series.label);
+			}
+		    }
+		    else if (item && json.process === 2) {
+			if (previousPoint != item.dataIndex) {
+			    previousPoint = item.dataIndex;
+			    
+			    $("#tooltip").remove();
+			    var x = item.datapoint[0].toFixed(2),
+                            y = item.datapoint[1].toFixed(2);
+			    var i = json.meta[item.seriesIndex][item.dataIndex];
+			    
+			    
+			    showTooltip(item.pageX, item.pageY,
+					$("label[for='"+i+"']").text());
 			}
 		    }
 		    else {
@@ -78,6 +94,11 @@ $(function() {
 		    if (item && json.process === 1) {
 			$("#activity_point_info").html("<p>"+item.series.label+"<p/><p>x: "+item.datapoint[0]+"</p><p>y: "+item.datapoint[1]+"</p>");
 			
+		    }
+		    else if (item && json.process === 2){
+			var i = json.meta[item.seriesIndex][item.dataIndex];
+			var t = $("label[for='"+i+"']").text();
+			$("#activity_point_info").html("<p>"+t+"</p><p>"+item.series.label+"<p/><p>x: "+item.datapoint[0]+"</p><p>y: "+item.datapoint[1]+"</p>");
 		    }
 		});
 		
@@ -115,6 +136,7 @@ $(function() {
 	    points.push(parseInt(box.attr("name")));
 	    
 	});
+
 	updateGraph(points, url);
 	return false;
     });

@@ -80,18 +80,23 @@ class ActivitiesController < ApplicationController
           answers_id << a.id
         end
         d[:process] = 2
+        meta = {}
         series = activity.data_points.select(:series).group(:series)
-        series.each do |i|
+        series.each_with_index do |i,index|
           points = activity.data_points.where("series = ?", i.series)
           d[i.series] = []
+          meta[index] = []
           points.each do |j|
-            d[i.series] << [j.x,j.y] if answers_id.include? j.answer_id 
+            if answers_id.include? j.answer_id 
+              d[i.series] << [j.x,j.y] 
+              meta[index] << j.answer_id
+            end
           end
         end
         
+        d[:meta] = meta
       end
     end
-    
     d
   end
 end

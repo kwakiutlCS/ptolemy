@@ -29,6 +29,9 @@ var updateGraph = function(points, url) {
 	    method: "get",
 	    data: {points: points},
 	    success: function(json) {
+		$("#teacher_graph_div").unbind("plothover");
+		$("#teacher_graph_div").off("plotclick");
+		
 		var formatted_data = [];
 		
 		for (var k in json) {
@@ -43,7 +46,7 @@ var updateGraph = function(points, url) {
 			else if (json["process"] === 2) {
 			    formatted_data.push({data: json[k],
 						 points: {show:true},
-						 
+						 label: k,
 						});
 			}
 		    }		    
@@ -77,7 +80,7 @@ var updateGraph = function(points, url) {
 		var previousPoint = null;
 		$("#teacher_graph_div").bind("plothover", function (event, pos, item) {
         
-		    if (item) {
+		    if (item && json.process === 1) {
 			if (previousPoint != item.dataIndex) {
 			    previousPoint = item.dataIndex;
                     
@@ -89,6 +92,19 @@ var updateGraph = function(points, url) {
 					item.series.label);
 			}
 		    }
+		    else if (item && json.process === 2) {
+			if (previousPoint != item.dataIndex) {
+			    previousPoint = item.dataIndex;
+			    
+			    $("#tooltip").remove();
+			    var x = item.datapoint[0].toFixed(2),
+                            y = item.datapoint[1].toFixed(2);
+			    var i = json.meta[item.seriesIndex][item.dataIndex];
+
+			    showTooltip(item.pageX, item.pageY,
+					$("label[for='"+i+"']").text());
+			}
+		    }
 		    else {
 			$("#tooltip").remove();
 			previousPoint = null;            
@@ -97,9 +113,14 @@ var updateGraph = function(points, url) {
 		});
 
 		$("#teacher_graph_div").on("plotclick", function (event, pos, item) {
-		    if (item) {
+		    if (item && json.process === 1) {
 			$("#activity_point_info").html("<p>"+item.series.label+"<p/><p>x: "+item.datapoint[0]+"</p><p>y: "+item.datapoint[1]+"</p>");
 			
+		    }
+		    else if (item && json.process === 2){
+			var i = json.meta[item.seriesIndex][item.dataIndex];
+			var t = $("label[for='"+i+"']").text();
+			$("#activity_point_info").html("<p>"+t+"</p><p>"+item.series.label+"<p/><p>x: "+item.datapoint[0]+"</p><p>y: "+item.datapoint[1]+"</p>");
 		    }
 		});
 
