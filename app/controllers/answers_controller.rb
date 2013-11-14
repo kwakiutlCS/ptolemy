@@ -26,6 +26,8 @@ class AnswersController < ApplicationController
     a.submited = true
     a.save
 
+    session[:activity] = nil
+
     respond_to do |format| 
       format.js {render "#{session[:url]}/create_answers" }
     end

@@ -10,9 +10,7 @@ $('#ptolemy_dashboard').html("<%= escape_javascript(render(:partial => 'activiti
 
 var updateGraph = function(points, url) {
 	$.ajax(url,{
-	    $("#teacher_graph_div").unbind("plothover");
-	    $("#teacher_graph_div").off("plotclick");
-		
+	    	
 	    method: "get",
 	    data: {points: points},
 	    success: function(json) {
@@ -104,7 +102,7 @@ var updateGraph = function(points, url) {
 			
 		    }
 		    else if (item && json.process === 2){
-			var i = json.meta[item.seriesIndex][item.dataIndex];
+		        var i = json.meta[item.seriesIndex][item.dataIndex];
 			var t = $("label[for='"+i+"']").text();
 			$("#activity_point_info").html("<p>"+t+"</p><p>"+item.series.label+"<p/><p>x: "+item.datapoint[0]+"</p><p>y: "+item.datapoint[1]+"</p>");
 		    }
