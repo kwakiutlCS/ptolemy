@@ -36,14 +36,12 @@ class User < ActiveRecord::Base
     
     self.email = "#{z}noEmail#{x}@example.com" if !self.email || self.email == ""
     self.login = "#{z}noLogin#{x}" if self.account_type == 2
-   
+    self.completed ||= []
   end
 
 
   def student_name
-    p "here"
     if self.role == "student"
-      p "student"
       if !self.name || self.name == ""
         errors.add(:name, "no_name_error")
       end

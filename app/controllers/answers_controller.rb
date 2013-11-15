@@ -26,6 +26,14 @@ class AnswersController < ApplicationController
     a.submited = true
     a.save
 
+    if signed_in?
+      act = Activity.find(session[:activity])
+      t = act.template_id
+      current_user.completed << t unless current_user.completed.include? t
+      current_user.save
+    end
+
+
     session[:activity] = nil
 
     respond_to do |format| 
@@ -41,6 +49,9 @@ class AnswersController < ApplicationController
     @activity = current_user.activities.where(id: params[:activity_id]).first
     @answers = @activity.answers.includes(:data_points, :user).order("users.name")
     if @activity && a.activity_id == @activity.id
+      u = User.find(a.user_id)
+      u.completed.delete(@activity.template_id)
+      u.save
       a.destroy
     else
       redirect_to root_path

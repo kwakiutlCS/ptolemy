@@ -69,8 +69,6 @@ class StaticPagesController < ApplicationController
 
     pass = rand(36**7...(36**8)).to_s(36)
     s = User.new(email: nil, password: pass, name: params[:name], role: "student", account_type: 2)
-    p s.name
-    p s.valid?
     if s.save
       session[:student] = s.id
       answer = Answer.new(answers: [""], questions: [""])
