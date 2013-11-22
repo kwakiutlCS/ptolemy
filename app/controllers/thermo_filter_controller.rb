@@ -1,7 +1,7 @@
 class ThermoFilterController < ApplicationController
 
   def index
-    t = Template.find(session[:template])
-    @filtered = t.filtered
+    a = Activity.find(session[:activity])
+    @filtered = a.filtered.includes(:template)
   end
 end

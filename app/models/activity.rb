@@ -9,5 +9,8 @@ class Activity < ActiveRecord::Base
   belongs_to :template
   has_many :data_points, dependent: :destroy
   has_many :answers, dependent: :destroy
+  
+  has_many :filtered, class_name: "Activity", foreign_key: "filter_id"
+  belongs_to :filter, class_name: "Activity"
 
 end

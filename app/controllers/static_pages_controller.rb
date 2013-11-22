@@ -105,7 +105,7 @@ class StaticPagesController < ApplicationController
     session[:activity] = params[:activity]
     session[:url] = params[:url]
     session[:template] = params[:template]
-    redirect_to session[:url]
+    redirect_to params[:url]
   end
 
 

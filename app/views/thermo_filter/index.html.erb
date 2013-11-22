@@ -57,9 +57,9 @@
 
 
 
-<section>
+<section class="filter_section">
   <% @filtered.each do |i| %>
-  <%= link_to i.title, filter_static_pages_path({url:i.url, template: i.id, }) %>
+  <%= link_to i.template.title, filter_static_pages_path({url:i.template.url, template: i.template.id, activity:i.id}) %>
   <br />
   <% end %>
 

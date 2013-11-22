@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131120190206) do
+ActiveRecord::Schema.define(:version => 20131122114752) do
 
   create_table "activities", :force => true do |t|
     t.string   "code"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(:version => 20131120190206) do
     t.datetime "updated_at",  :null => false
     t.integer  "user_id"
     t.string   "description"
+    t.integer  "filter_id"
   end
 
   create_table "answers", :force => true do |t|
