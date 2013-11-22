@@ -1,0 +1,68 @@
+<div style="margin-top: -60px" >
+
+<% if !@user %>
+<section class="name_getter" style="width:500px; margin: 200px auto ;">
+  
+  <p><%= t "getName" %></p>
+  <%= form_tag("/static_pages/set_name", remote:true, method: "get", class:"form-horizontal") do %>
+  <%= text_field_tag(:name, nil, id:"student_name_field") %>
+  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success") %>
+  <% end %>
+</section>
+<% end %>
+
+
+<section class="background <% if !@user %>hidden_section<% end %>">
+  <% if session[:deadline] %>
+  <div class="alert alert-info">
+  <%= t "deadline.intro" %><%= session[:deadline].strftime("%d/%m") %><%= t "deadline.end" %>
+  </div>
+  <% end %>
+
+<div id="statue_background_div">
+
+<h1>A massa da estátua</h1>
+<p>Nesta atividade estamos interessados em estimar a massa de uma estátua.</p> <br />
+<p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
+
+</div>
+<div class="btn-group statue_navigator">
+<a type="button" class="statue_button btn btn-primary background_next" id="statue_background_next"><%= t "next" %></a>
+</div>
+</section>
+
+
+
+<section class="strategy">
+
+<div id="statue_strategy_div">
+  <h2><%= t("strategy").capitalize %></h2>
+  <div>
+  <p>...
+  </p>
+  <br />
+  <p>
+  Vamos usar um processo em que testamos o problema em pequena escala. Se se construir versões mais pequenas da estátua poderemos verificar a sua massa. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso da estátua maior. Chama-se a isto construir um modelo.
+  </p>
+  </div>
+
+  </div>
+   
+  <div class="btn-group statue_navigator" style="margin-top: 10px">
+    <a type="button" class="statue_button btn btn-primary strategy_previous" id="statue_strategy_previous"><%= t("previous") %></a>
+    <a type="button" class="statue_button btn btn-primary strategy_next" id="statue_strategy_next"><%= t("next") %></a>
+  </div>
+</section>
+
+
+
+
+<section>
+  <% @filtered.each do |i| %>
+  <%= link_to i.title, "#" %>
+  <br />
+  <% end %>
+
+
+</section>
+

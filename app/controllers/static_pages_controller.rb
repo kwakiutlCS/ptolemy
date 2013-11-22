@@ -7,9 +7,9 @@ class StaticPagesController < ApplicationController
       
       if a
         session[:deadline] = a.deadline
-        
+        session[:template] = t.id
         session[:activity] = a.id
-        session[:url] = a.template.url
+        session[:url] = t.url
         
         if signed_in? && current_user.role == "student"
           remove_anonymous_data_points
@@ -24,7 +24,7 @@ class StaticPagesController < ApplicationController
           
         end
         
-        redirect_to a.template.url
+        redirect_to t.url
       else
         flash[:alert] = "Não existe nada com esse código"
         redirect_to root_path
@@ -96,6 +96,17 @@ class StaticPagesController < ApplicationController
         format.js
     end
   end 
+
+  
+  def filter
+    answer = Answer.find(session[:answer])
+    answer.activity_id = params[:activity]
+    answer.save
+    session[:activity] = params[:activity]
+    session[:url] = params[:url]
+    session[:template] = params[:template]
+    redirect_to session[:url]
+  end
 
 
   private

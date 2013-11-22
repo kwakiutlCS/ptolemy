@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131109193828) do
+ActiveRecord::Schema.define(:version => 20131120190206) do
 
   create_table "activities", :force => true do |t|
     t.string   "code"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20131109193828) do
     t.string   "description"
     t.integer  "sub_category_id"
     t.string   "img"
+    t.integer  "filter_id"
   end
 
   create_table "users", :force => true do |t|

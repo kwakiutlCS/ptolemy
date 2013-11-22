@@ -7,4 +7,7 @@ class Template < ActiveRecord::Base
 
 
   has_many :activities, dependent: :destroy
+
+  has_many :filtered, class_name: "Template", foreign_key: "filter_id"
+  belongs_to :filter, class_name: "Template"
 end

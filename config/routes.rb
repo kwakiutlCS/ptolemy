@@ -7,10 +7,12 @@ Plotomeu::Application.routes.draw do
   resources :thermal_capacities 
   resources :thermal_capacities_materials
   resources :thermal_capacities_temp
+  resources :thermo_filter
 
   resources :static_pages do
     collection do
       get "set_name"
+      get "filter"
     end
   end
   resources :data_points do
