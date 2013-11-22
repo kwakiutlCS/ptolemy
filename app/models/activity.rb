@@ -13,4 +13,8 @@ class Activity < ActiveRecord::Base
   has_many :filtered, class_name: "Activity", foreign_key: "filter_id"
   belongs_to :filter, class_name: "Activity"
 
+
+  def filter?
+    self.filtered.count > 0 ? true : false
+  end
 end

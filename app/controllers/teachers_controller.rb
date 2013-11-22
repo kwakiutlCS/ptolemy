@@ -4,7 +4,12 @@ class TeachersController < ApplicationController
 
   def show
     if current_user.id == params[:id].to_i
-      @activities = current_user.activities.includes(:answers)
+      act = current_user.activities.includes(:answers)
+      @activities = []
+
+      act.each do |i|
+        @activities << i unless i.filter?
+      end
     else
       redirect_to root_path
     end
