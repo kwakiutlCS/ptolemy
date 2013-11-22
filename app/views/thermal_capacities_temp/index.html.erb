@@ -1,39 +1,7 @@
 <div style="margin-top: -60px" >
 
-<% if !@user %>
-<section class="name_getter" style="width:500px; margin: 200px auto ;">
-  
-  <p>Comece por introduzir o seu nome</p>
-  <%= form_tag("/static_pages/set_name", remote:true, method: "get") do %>
-  <%= text_field_tag(:name, nil, id:"student_name_field") %>
-  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success", style:"margin-top: -14px;") %>
-  <% end %>
-</section>
-<% end %>
 
-
-<section class="background <% if !@user %>hidden_section<% end %>">
-  <% if session[:deadline] %>
-  <div class="alert alert-info">
-  Esta tarefa será discutida na aula de <%= session[:deadline].strftime("%d/%m") %>. Deverá ser concluída antes dessa data.
-  </div>
-  <% end %>
-
-<div id="thermo3_background_div">
-
-<h1>A ebulição da água</h1>
-<p>Nesta atividade estamos interessados em estimar a energia necessária para a água entrar em ebulição.</p> <br />
-<p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
-
-</div>
-<div class="btn-group thermo3_navigator">
-<a type="button" class="thermo3_button btn btn-primary background_next" id="thermo3_background_next">Seguinte</a>
-</div>
-</section>
-
-
-
-<section class="strategy">
+<section class="pos_filter">
 
 <div id="thermo3_strategy_div">
   <h2>Estratégia</h2>
@@ -49,7 +17,6 @@
   </div>
    
   <div class="btn-group thermo3_navigator" style="margin-top: 10px">
-    <a type="button" class="thermo3_button btn btn-primary strategy_previous" id="thermo3_strategy_previous">Anterior</a>
     <a type="button" class="thermo3_button btn btn-primary strategy_next" id="thermo3_strategy_next">Seguinte</a>
   </div>
 </section>
