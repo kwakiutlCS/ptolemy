@@ -3,7 +3,7 @@ class TemplatesController < ApplicationController
   before_filter :set_cache_buster, only: [:index]
 
   def index
-    @templates = Template.all
+    @templates = Template.where(filter_id: nil)
 
   end
 

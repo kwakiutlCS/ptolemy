@@ -32,7 +32,7 @@ class StaticPagesController < ApplicationController
     else
       cat = params[:category] || 1
       @subcategories = SubCategory.all
-      t = Template.where(sub_category_id: cat)
+      t = Template.where(sub_category_id: cat, filter_id: nil)
 
       @templates = []
       tmp = []
