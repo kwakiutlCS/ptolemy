@@ -11,6 +11,18 @@ class ActivitiesController < ApplicationController
     a.template_id = template
     a.save
 
+    t = Template.find(template)
+    
+    if t.filtered.count > 0 
+      t.filtered.each do |i|
+        p i
+        x = current_user.activities.build(params[:activity])
+        x.template_id = i.id
+        x.filter_id = a.id
+        x.save
+      end
+    end
+
     redirect_to templates_path
     
   end
