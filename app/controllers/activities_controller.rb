@@ -54,6 +54,8 @@ class ActivitiesController < ApplicationController
 
 
   def updateTeacherGraph
+    
+
     d = getDataForTeacher(params[:id], params[:points])
   
     respond_to do |format|

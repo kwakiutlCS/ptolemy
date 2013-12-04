@@ -97,7 +97,7 @@ $(function() {
 	
 	$(".question_question3_label").html("");
 	$(".question_question3_field").val(question3);
-	$(".question_answer3_field").val("Água: "+water_model+"\nAlumínio: "+aluminium_model+"<br/>   Cobre: "+copper_model+"\nFerro: "+iron_model+"\nÓleo vegetal: "+oil_model);
+	$(".question_answer3_field").val("Água: "+water_model+"\nAlumínio: "+aluminium_model+"\nCobre: "+copper_model+"\nFerro: "+iron_model+"\nÓleo vegetal: "+oil_model);
 
 	$(".question_question4_label").html(question4);
 	$(".question_question4_field").val(question4);
@@ -256,25 +256,29 @@ $(function() {
 		  {
 		      data: aluminium_data,
 		      points: { show: true },
-		      label: "Alumínio"
+		      label: "Alumínio",
+		      color:2,
      
 		  },
 	         {
 		      data: copper_data,
 		      points: { show: true },
-		      label: "Cobre"
+		     label: "Cobre",
+		     color: 3,
      
 		  },
 		  {
 		      data: iron_data,
 		      points: { show: true },
-		      label: "Ferro"
+		      label: "Ferro",
+		      color: 4,
      
 		  },		  
 		  {
 		      data: oil_data,
 		      points: { show: true },
-		      label: "Óleo vegetal"
+		      label: "Óleo vegetal",
+		      color: 5,
      
 		  },
 		  {
@@ -283,22 +287,22 @@ $(function() {
 		          
 		  },
 		  {
-		      color: 1,
+		      color: 2,
                       data: [[0,0],[200,aluminium_model*200]]
 		          
 		  },
 		{
-		      color: 2,
+		      color: 3,
                       data: [[0,0],[200,copper_model*200]]
 		          
 		  },
 		{
-		      color: 3,
+		      color: 4,
                       data: [[0,0],[200,iron_model*200]]
 		          
 		  },
 		{
-		      color: 4,
+		      color: 5,
                       data: [[0,0],[200,oil_model*200]]
 		          
 		  },

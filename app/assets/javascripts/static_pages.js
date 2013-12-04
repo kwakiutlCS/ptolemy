@@ -241,8 +241,9 @@ chart_vars = {
 		  },
 		  {
 		      data: chart_vars.user_data,
-		      points: { show: true },
-		      label: "os seus dados"
+		      points: { show: true},
+		      label: "os seus dados",
+		      color:2,
      
 		  },
 	         
@@ -276,8 +277,8 @@ chart_vars = {
 		  {
 		      data: chart_vars.user_data,
 		      points: { show: true },
-		      label: "os seus dados"
-     
+		      label: "os seus dados",
+		      color: 2,
 		  },
 	         {
                     data: [[-chart_vars.measurable,chart_vars.linear_b-(chart_vars.prediction-chart_vars.linear_b)],[chart_vars.measurable, chart_vars.prediction], [chart_vars.measurable*2,chart_vars.prediction+chart_vars.linear_m*chart_vars.measurable]],
@@ -319,8 +320,8 @@ chart_vars = {
 		  {
 		      data: chart_vars.user_data,
 		      points: { show: true },
-		      label: "os seus dados"
-     
+		      label: "os seus dados",
+		      color: 2,
 		  },
 	         {
                     data: data

@@ -35,6 +35,12 @@ pt-PT:
   stop: parar
   restart: reiniciar
 
+  water: água
+  aluminium: alumínio
+  copper: cobre
+  iron: ferro
+  oil: óleo
+
   collectData: Recolher Dados
   chooseModel: Escolher o Modelo
   getName: Comece por introduzir o seu nome
