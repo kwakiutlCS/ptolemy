@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131122114752) do
+ActiveRecord::Schema.define(:version => 20131122133416) do
 
   create_table "activities", :force => true do |t|
     t.string   "code"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20131122114752) do
     t.integer  "user_id"
     t.string   "description"
     t.integer  "filter_id"
+    t.boolean  "inactive"
   end
 
   create_table "answers", :force => true do |t|

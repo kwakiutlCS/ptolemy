@@ -27,6 +27,12 @@
     <%= f.label :deadline, "Limite", title:"Opcional - Data limite para realização da atividade" %>
     <%= f.text_field :deadline,  title:"Opcional - Data limite para realização da atividade", class:"datepicker" %>
 
+    <% if @template.filtered.count > 0 %>
+        <% @template.filtered.each do |i| %>
+	<%= label_tag "filter"+i.id.to_s, i.title %>
+	<%= check_box_tag("filter"+i.id.to_s, 1, checked: true) %>
+	<% end %>
+    <% end %>
     
     <%= f.submit "Criar", class:"btn btn-success", style:"float:right; margin-right: 18%" %>
 

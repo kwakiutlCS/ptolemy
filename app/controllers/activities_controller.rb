@@ -15,10 +15,10 @@ class ActivitiesController < ApplicationController
     
     if t.filtered.count > 0 
       t.filtered.each do |i|
-        p i
         x = current_user.activities.build(params[:activity])
         x.template_id = i.id
         x.filter_id = a.id
+        x.inactive = true unless params[("filter"+i.id.to_s).to_sym]
         x.save
       end
     end
@@ -62,6 +62,21 @@ class ActivitiesController < ApplicationController
   end
 
 
+  def switch
+    a = Activity.find(params[:id])
+    a.inactive = !a.inactive
+    a.save
+    act = current_user.activities.includes(:answers).order(:id)
+    @activities = []
+
+    act.each do |i|
+      @activities << i unless i.filter?
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+  end
 
   private
   def getDataForTeacher(activity, points)

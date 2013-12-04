@@ -4,7 +4,7 @@ class TeachersController < ApplicationController
 
   def show
     if current_user.id == params[:id].to_i
-      act = current_user.activities.includes(:answers)
+      act = current_user.activities.includes(:answers).order(:id)
       @activities = []
 
       act.each do |i|

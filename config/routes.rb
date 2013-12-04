@@ -32,6 +32,7 @@ Plotomeu::Application.routes.draw do
   resources :activities do
     member do
       get "updateTeacherGraph"
+      get "switch"
     end
   end
 
