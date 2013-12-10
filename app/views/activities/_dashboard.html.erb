@@ -18,7 +18,7 @@
 	  <table id="points_student_<%= s[:id] %>">
 	    <tr><th>x</th><th>y</th></tr>
 	    <% s[:points].all.each do |p| %>
-	    <tr id="point_<%= p.id %>"><td><%= p.x %></td><td><%= p.y %></td><td><%= t(p.series) %></td><td><%= link_to "remover", p, method: :delete, confirm: "Remover este ponto?", remote: true %></tr>
+	    <tr id="point_<%= p.id %>"><td><%= p.x %></td><td><%= p.y %></td><td><% if p.series %><%= t(p.series) %><% end %></td><td><%= link_to "remover", p, method: :delete, confirm: "Remover este ponto?", remote: true %></tr>
 	    <% end %>
 	  </table>
 	</div>

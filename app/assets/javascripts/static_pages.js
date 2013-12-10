@@ -395,10 +395,18 @@ chart_vars = {
 
 $(function() {
     
-    $("body").tooltip({ show: { delay: 0 } });
+    var closed = false;
 
-    $("#ptolemy_dashboard").on("click", ".ptolemy_dashboard_cell", function() {
-	 $(this).children(".ptolemy_student_dashboard_body").toggle();
+    $("body").tooltip({ show: { delay: 0 } });
+    
+    $("#ptolemy_dashboard").on("click", ".student_removal", function(evt) {
+	closed = true;
+    });
+    $("#ptolemy_dashboard").on("click", ".ptolemy_student_dashboard_header", function() {
+	if (!closed)
+	    $(this).parent().children(".ptolemy_student_dashboard_body").toggle();
+	else
+	    closed = false;
     });
 
     $(".fancybox").fancybox({

@@ -89,3 +89,7 @@ pt-PT:
     prediction1: O modelo escolhido prevê um gasto energético de 
     prediction2: J, para aquecer 1kg de água dos 15ºC até aos 100ºC.
     
+
+
+  thermo_filter:
+    title: "Aquecimento de um material"
