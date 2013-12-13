@@ -1,0 +1,23 @@
+<% @filtered.each do |i| %>
+<div class="filter_choice_pair template_pair_index">
+  <div class="filter_choice_item template_cell_index" data-url=<%= i[0].id %>>
+    <div class="template_title_index"> 
+      <%= t i[0].template.title %>
+    </div>
+    <div class="template_image_description_index"> 
+      <%= image_tag(i[0].template.img) %>
+    </div>
+  </div>
+  <% if i.count == 2 %>
+  <div class="filter_choice_item template_cell_index" data-url=<%= i[1].id %> >
+    <div class="template_title_index">
+      <%= t i[1].template.title %>
+    </div>
+    <div class="template_image_description_index"> 
+      <%= image_tag(i[1].template.img) %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<% end %>

@@ -1,3 +1,15 @@
 // Place all the styles related to the thermo_filter controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.filter_choice_item {
+    display: inline-block;
+     
+     margin: 50px 50px;
+}
+
+.highlighted {
+   border: 1px solid red;
+   box-shadow: 0 0 5px red;
+}

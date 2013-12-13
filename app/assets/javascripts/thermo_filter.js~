@@ -1,0 +1,5 @@
+$(function() {
+    $(".filter_section").on("mouseenter", ".filter_choice_item", function() {
+	$(this).css("border", "1px solid red");
+    });
+});
