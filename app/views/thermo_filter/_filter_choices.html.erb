@@ -1,6 +1,7 @@
 <% @filtered.each do |i| %>
+<%= link_to i[0].template.title, "thermo_filter/"+i[0].id.to_s+"/filter", id: "filter"+i[0].id.to_s, class: "filter_hidden_links" %>
 <div class="filter_choice_pair template_pair_index">
-  <div class="filter_choice_item template_cell_index" data-url=<%= i[0].id %>>
+  <div class="filter_choice_item template_cell_index" data-url=<%= "filter"+i[0].id.to_s %>>
     <div class="template_title_index"> 
       <%= t i[0].template.title %>
     </div>
@@ -9,7 +10,8 @@
     </div>
   </div>
   <% if i.count == 2 %>
-  <div class="filter_choice_item template_cell_index" data-url=<%= i[1].id %> >
+  <%= link_to i[1].template.title, "thermo_filter/"+i[1].id.to_s+"/filter", id: "filter"+i[1].id.to_s, class: "filter_hidden_links" %>
+  <div class="filter_choice_item template_cell_index" data-url=<%= "filter"+i[1].id.to_s %> >
     <div class="template_title_index">
       <%= t i[1].template.title %>
     </div>

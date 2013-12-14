@@ -395,6 +395,8 @@ chart_vars = {
 
 $(function() {
     
+    $('img').attr('draggable', false);
+
     var closed = false;
 
     $("body").tooltip({ show: { delay: 0 } });

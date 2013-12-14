@@ -9,6 +9,7 @@ $(function() {
 
     $(".filter_section").on("click", ".filter_choice_item", function() {
 	var id = $(this).data("url");
-	$.get("thermo_filter/"+id+"/filter");
+	$("#"+id)[0].click();
+	
     });
 });

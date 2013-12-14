@@ -7,5 +7,6 @@ class ThermalCapacitiesController < ApplicationController
 
     @user = user_signed_in?
     
+    
   end
 end

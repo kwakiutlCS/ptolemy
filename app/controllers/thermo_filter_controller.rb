@@ -17,8 +17,15 @@ class ThermoFilterController < ApplicationController
   end
 
   def filter
-    a = Activity.find(params[:id])
-
-    redirect_to a.template.url
+    act = Activity.find(params[:id])
+    t = Template.find(act.template_id)
+    a = Answer.find(session[:answer])
+    
+    session[:template] = t.id
+    session[:activity] = a.id
+    session[:url] = t.url
+    a.activity_id = act.id
+    a.save
+    redirect_to t.url
   end
 end
