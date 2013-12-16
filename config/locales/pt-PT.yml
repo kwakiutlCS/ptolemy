@@ -61,15 +61,9 @@ pt-PT:
 
   thermo:
 
-    backgroundTitle: Aquecimento de água
-    backgroundIntro: Nesta atividade procura-se investigar os custos quotidianos de uma habitação. Numa primeira fase, estamos interessados em saber, qual a energia necessária para aquecer a água para um banho de imersão (cerca de 18ºC neste momento) até 26ºC.
-    backgroundEnd: Esta questão será resolvida com a colaboração dos seus colegas.
-
-
-  
-    
-    strategyIntro: Para responder a esta questão poderíamos tentar encher uma banheira com água e aquecer a água até aos 26ºC, com algum tipo de resistência ou outro equipamento apropriado. Poderíamos então, verificar a energia gasta. Este método tornar-se-á rapidamente inviável se quisermos medir a energia necessária para aquecer grandes quantidades de água. 
-    strategyEnd: Vamos usar um processo em que testamos o problema em pequena escala. Aquecendo pequenas quantidades de água até aos 26ºC podemos verificar qual a quantidade de energia necessária para aquecer pequenas quantidades. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso do banho de imersão. Chama-se a isto construir um modelo.
+    strategyIntro: "Vamos então tentar descobrir quanta energia é necessária para aquecer diferentes quantidades de água."
+    strategyEnd: "É importante aquecer a água sempre até à mesma temperatura, caso contrário se aquecermos diferentes quantidades de água até diferentes temperaturas não saberíamos qual a razão para as possíveis variações na energia medida. Poderia ser devido a termos alterado a quantidade da água ou a termos alterado a temperatura a que aquecemos a água, ou mesmo devido aos dois factores. Não conseguiríamos tirar conclusões sobre o efeito de cada variável."
+    strategyPS: "Neste caso vamos aquecer a água até aos 25ºC. Poderíamos aquecer a água até outro valor, não importa qual, desde que seja sempre o mesmo."
 
 
   modeling:
@@ -93,3 +87,12 @@ pt-PT:
 
   thermo_filter:
     title: "Aquecimento de um material"
+    temperature_investigation: "Investigar a temperatura"
+    material_investigation: "Investigar o material"
+    mass_investigation: "Investigar a massa"
+    choose_factor: "Escolha a variável a estudar"
+    intro1: "Nesta atividade estamos interessados em estudar quanta energia se gasta para aquecer a água necessária para um banho."
+    intro2: "Vamos supor que usamos um chuveiro que gasta 50L de água nos 3 minutos que está ligado durante o banho e que gostamos de tomar banho com água a 26ºC. Pretende-se descobrir quanta energia é gasta."
+    strategy1: "A forma mais simples que poderíamos utilizar seria aquecer os 50L de água até aos 26ºC e verificar qual a energia gasta. Apesar de resultar, esse método tornar-se-ia impraticável se precisarmos de descobrir a energia necessária para aquecer grandes quantidades de água. E se depois quisermos também descobrir a energia necessária para aquecer 60L de água, ou aquecer água até aos 30ºC? Repeteriamos novamente a experiência?"
+    strategy2: "Em vez deste processo, vamos usar um método chamado modelação. Na modelação testamos o problema em pequena escala, por exemplo, aquecendo pequenas quantidades de água e tentamos descobrir padrões que nos permitam concluir sobre o caso maior. Para conseguir descobrir estes padrões é necessário descobrir o efeito de cada variável (quantidade de água, variação de temperatura desejada, etc.) no gasto de energia. 
+Começamos portanto por escolher a variável a estudar."

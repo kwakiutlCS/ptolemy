@@ -515,8 +515,9 @@ $(function() {
     });
 
     $(".data-gathering").on("click", ".data-gathering_previous", function() {
-	 $(".data-gathering").slideUp();
+	$(".data-gathering").slideUp();
 	 $(".strategy").slideDown();
+	$(".pos_filter").slideDown();
     });
 
     
@@ -529,6 +530,11 @@ $(function() {
     $(".questions").on("click", ".model_questions_previous", function() {
 	 $(".questions").slideUp();
 	 $(".model-choice").slideDown();
+    });
+    $(".filter_section").on("click", ".filter_previous", function() {
+	console.log("here");
+	 $(".filter_section").slideUp();
+	 $(".strategy").slideDown();
     });
 
 
