@@ -4,28 +4,52 @@
 <section class="pos_filter">
 
 <div id="thermo3_strategy_div">
-  <h2>Estratégia</h2>
+  <h2><%= t("initial_question").capitalize %></h2>
   <div>
-  <p><%= t "thermo2.strategyIntro" %>
+  <p><%= t "thermo3.strategyIntro" %>
   </p>
   <br />
   <p>
-  <%= t "thermo2.strategyEnd" %>
+  <%= t "thermo3.strategyEnd" %>
   </p>
   <br />
   <p>
-  <%= t "thermo2.strategyPS" %>
+  <%= t "thermo3.strategyPS" %>
   </p>
   </div>
 
   </div>
    
-  <div class="btn-group thermo3_navigator" style="margin-top: 10px">
-    <a type="button" class="thermo3_button btn btn-primary strategy_next" id="thermo3_strategy_next">Seguinte</a>
+  <div class="btn-group thermo_navigator" style="margin-top: 10px">
+    <a type="button" class="thermo3_button btn btn-primary strategy_next" id="thermo3_strategy_next"><%= t "next" %></a>
   </div>
 </section>
 
 
+
+<section class="modeling">
+
+<div id="thermo_modeling_div">
+  <h2><%= t("modeling_process").capitalize %></h2>
+  <div>
+  <p><%= t "thermo3.modeling1" %>
+  </p>
+  <br />
+  <p>
+  <%= t "thermo3.modeling2" %>
+  </p><br />
+  <p>
+  <%= t "thermo3.modeling3" %>
+  </p>
+  </div>
+
+  </div>
+   
+  <div class="btn-group thermo_navigator" style="margin-top: 10px">
+    <a type="button" class="thermo3_button btn btn-primary modeling_previous" id="thermo_modeling_previous"><%= t "previous" %></a>
+    <a type="button" class="thermo3_button btn btn-primary modeling_next" id="thermo_modeling_next"><%= t "next" %></a>
+  </div>
+</section>
 
 
 
@@ -54,7 +78,7 @@ $(function() {
 	draw_water();
     });
 
-    var water_mass = 0.4;
+    var water_mass = 0.5;
     var time = 0;
     var animation = false;
     
@@ -200,7 +224,7 @@ $(function() {
 </script>
 
 
-<h1>Recolher Dados</h1>
+<h1><%= t "collectData" %></h1>
         
     <div class="model_data_form thermo3_data_form span5">
       <%= form_tag(data_points_path, remote: true) do %>
@@ -208,7 +232,7 @@ $(function() {
 	 <%= hidden_field_tag(:y, nil, id:"thermo3_energy_field") %>
          <table class="table">
 	    <thead>
-	      <tr><th>Temperatura(ºC)</th><th>&#916;T(ºC)</th><th >Energia(kJ)</th><th></th></tr>
+	      <tr><th><%= t "temperature" %>(ºC)</th><th>&#916;T(ºC)</th><th ><%= t "energy" %>(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
 		   <%= number_field_tag(:temperature, nil,  class:"form_input thermo3_form_input", step:0.1, id:"thermo3_temperature_field", placeholder:"ºC", max:80, min:15) %>
@@ -238,8 +262,9 @@ $(function() {
     	  
       <% end %>
       <div id="thermo3_data_collection_explanation">
-      <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem uma balança onde pode medir a massa de diferentes modelos da estátua.  </p>
-      <p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>
+      <p><%= t "thermo3.data1" %> </p><p><%= t "thermo3.data2" %></p>
+      <p><%= t "thermo3.data3" %> </p>
+      <p><%= t "thermo3.data4" %> </p>
       </div>
     </div>
 
@@ -266,25 +291,12 @@ $(function() {
     
 
     <div class="btn-group thermo3_navigator">
-    <a type="button" class="thermo3_button btn btn-primary data-gathering_previous" id="thermo3_data-gathering_previous">Anterior</a>
-    <a type="button" class="thermo3_button btn btn-primary data-gathering_next" id="thermo3_data-gathering_next"  style="display:none">Seguinte</a>
+    <a type="button" class="thermo3_button btn btn-primary data-gathering_previous" id="thermo3_data-gathering_previous"><%= t "previous" %></a>
+    <a type="button" class="thermo3_button btn btn-primary data-gathering_next" id="thermo3_data-gathering_next"  style="display:none"><%= t "next" %></a>
     </div>
 
 
-    <a href="#fancydiv" class="fancybox" id="fancy_trigger" style="display:none">sdkfaj</a>
-
-    <div  style="display:none;">
-      <div id="fancydiv">
-      <p>Verificou que uma estátua de <span id="fancy_size">0.1</span>m tem uma massa de <span id="fancy_mass">0.095</span>kg.<br /> Antes de continuar com a atividade tente prever qual a massa da estátua de 2.5m.</p>
-      <%= form_tag("", remote:true) do %>
-      <div class="form-horizontal">
-      <%= number_field_tag(:mass,"", step:0.001, placeholder:"previsão (kg)") %>
-      <%= submit_tag(:submeter, class:"btn btn-success") %>
-      <%= link_to "Não fazer previsão", "#", id:"fancy_close", style:"margin-left:30px;" %>
-      </div>
-      <% end %>
-      </div>
-    </div>
+    
 </section>
 
 
@@ -296,17 +308,17 @@ $(function() {
   <div class="x_axis_unit axis_unit">&#916;T</div>
   <div class="y_axis_unit axis_unit">E</div>
       
-  <h1>Escolher o Modelo</h1>
+  <h1><%= t "chooseModel" %></h1>
   <div>
   <div class="model_choice_buttons thermo3_model_buttons">
     <div class="model_first_model_controls" id="thermo3_first_model_controls">
   <div class="btn-group">
-    <a type="button" class="thermo3_button btn linear_model_button" id="thermo3_linear_button">Linear<br/> y = k x + b</a>
-    <a type="button" class="thermo3_button btn quadratic_model_button" id="thermo3_quadratic_button">Quadrático<br /> y = k (x-h)<sup>2</sup> + b</a>
-    <a type="button" class="thermo3_button btn cubic_model_button" id="thermo3_cubic_button">Cúbico<br /> y = k (x-h)<sup>3</sup> + b</a>
+    <a type="button" class="thermo3_button btn linear_model_button" id="thermo3_linear_button"><%= t("linear").capitalize %><br/> y = k x + b</a>
+    <a type="button" class="thermo3_button btn quadratic_model_button" id="thermo3_quadratic_button"><%= t("quadratic").capitalize %><br /> y = k (x-h)<sup>2</sup> + b</a>
+    <a type="button" class="thermo3_button btn cubic_model_button" id="thermo3_cubic_button"><%= t("cubic").capitalize %><br /> y = k (x-h)<sup>3</sup> + b</a>
   </div>
     
-  <div class="model-choice_buttons_explanation" id="thermo3_buttons_explanation">Escolha um dos 3 modelos acima que descreva melhor aos dados recolhidos</div>
+  <div class="model-choice_buttons_explanation" id="thermo3_buttons_explanation"><%= t "chooseModelInstructions" %></div>
   <div class="linear_function_controls model_function_controls" id="thermo3_linear_controls">
     
     <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="thermo3_linear_m">120</span></div><div class="model_slider_controls model_linear_m_slider" id="thermo3_linear_m_slider"></div></div>
@@ -328,20 +340,20 @@ $(function() {
   <div class="model_choice_model_information_div">
     <div class="model_choice_model_formula_parent" id="thermo3_chosen_model_div">
       <span>
-	 Modelo
+	 <%= t("model").capitalize %>
       </span>
       <div class="model_choice_model_formula" id="thermo3_chosen_model">
 	 
       </div>
     </div>
     <div class="model_choice_model_confirm_button" id="thermo3_confirm_model_button_div">
-      <a type="button" class=" model_confirm_model_button thermo3_button btn btn-success" id="thermo3_confirm_model_button">Usar este modelo</a>
+      <a type="button" class=" model_confirm_model_button thermo3_button btn btn-success" id="thermo3_confirm_model_button"><%= t "useModel" %></a>
     </div>
     </div>
   </div>
   </div>
   <div id="thermo3_graph_super_div">
-  <div>Energia necessária para aquecer 0.4kg de água em função da variação de temperatura</div>
+  <div><%= t "thermo3.graph_title" %></div>
   <div id="thermo3_graph_div">
     <div class="y_label_div" id="thermo3_y_label">E (J)</div>
     
@@ -354,7 +366,7 @@ $(function() {
    </div>
   </div>
   <div class="btn-group thermo3_navigator">
-    <a type="button" class="thermo3_button btn btn-primary model-choice_previous" id="thermo3_model-choice_previous">Anterior</a>
+    <a type="button" class="thermo3_button btn btn-primary model-choice_previous" id="thermo3_model-choice_previous"><%= t "previous" %></a>
   </div>
 
   
@@ -367,7 +379,7 @@ $(function() {
 
 
 <section class="questions">
-  <h1>Questões Finais</h1>
+  <h1><%= t "finalQuestions" %></h1>
 
   <div class="row model_question_screen1" id="thermo3_question_screen1"><div class="span2"></div>
     <div class="span9" id="thermo3_questions_div">
@@ -392,7 +404,7 @@ $(function() {
 
   <div class="row model_question_screen2" id="thermo3_question_screen2"><div class="span2"></div>
     <div class="span9" id="thermo3_questions_after_div">
-      Atividade terminada
+      <%= t "endActivityMessage" %>
     </div>
     
   </div>
@@ -400,7 +412,7 @@ $(function() {
   
 
   <div class="btn-group thermo3_navigator">
-    <a type="button" class="thermo3_button btn btn-primary model_questions_previous" id="thermo3_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
+    <a type="button" class="thermo3_button btn btn-primary model_questions_previous" id="thermo3_questions_previous" style:"margin:20px 30px 0 0"><%= t "previous" %></a>
   </div>
 </section>
 
