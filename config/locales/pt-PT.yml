@@ -22,6 +22,7 @@ pt-PT:
   constant: constante
   strategy: estratégia
   modeling_process: modelação
+  initial_question: "questão inicial"
   
   mass: massa
   timeWord: tempo
@@ -62,15 +63,23 @@ pt-PT:
 
   thermo:
 
-    strategyIntro: "Vamos supor que usamos um chuveiro que gasta 50L de água nos 3 minutos que está ligado durante o banho e que gostamos de tomar banho com água a 26ºC. Pretende-se descobrir quanta energia é gasta.Vamos então tentar descobrir quanta energia é necessária para aquecer diferentes quantidades de água."
-    strategyEnd: "É importante aquecer a água sempre até à mesma temperatura, caso contrário se aquecermos diferentes quantidades de água até diferentes temperaturas não saberíamos qual a razão para as possíveis variações na energia medida. Poderia ser devido a termos alterado a quantidade da água ou a termos alterado a temperatura a que aquecemos a água, ou mesmo devido aos dois factores. Não conseguiríamos tirar conclusões sobre o efeito de cada variável."
-    strategyPS: "Neste caso vamos aquecer a água até aos 25ºC. Poderíamos aquecer a água até outro valor, não importa qual, desde que seja sempre o mesmo."
+    modeling1: "Para descobrir o efeito da massa na energia gasta, vamos aquecer diferentes quantidades de água e verificar quanta energia é gasta. Com essa informação tentaremos encontrar padrões."
+    modeling2: "É importante aquecer a água sempre até à mesma temperatura, caso contrário se aquecermos diferentes quantidades de água até diferentes temperaturas não saberíamos qual a razão para as possíveis variações na energia medida. Poderia ser devido a termos alterado a quantidade da água ou a termos alterado a temperatura a que aquecemos a água, ou mesmo devido aos dois factores. Não conseguiríamos tirar conclusões sobre o efeito de cada variável. Do mesmo modo, é necessário usar sempre o mesmo material."
+    modeling3: "Neste caso vamos aquecer a água até aos 26ºC. Poderíamos aquecer a água até outro valor, não importa qual, desde que seja sempre o mesmo. Escolhemos os 26ºC, porque nos dá jeito para resolver o problema da água do banho. Foi por esse motivo também que estamos a usar água, poderiamos usar outro material desde que seja sempre o mesmo."
+    strategyIntro: "A nossa tarefa principal é tentar descobrir qual o efeito da massa de um material na quantidade de energia necessária para o aquecer. É nesta tarefa que vamos usar o processo de modelação."
+    strategyEnd: "Posteriormente vamos também usar essa informação para resolver um caso concreto. Suponhamos que usamos um chuveiro que gasta 50L de água nos 3 minutos que está ligado durante o banho e que gostamos de tomar banho com água a 26ºC (a temperatura ambiente é neste momento 18ºC, portanto temos de aquecer a água). Pretende-se descobrir quanta energia é gasta."
+    strategyPS: ""
     data1: "Aqui pode recolher os dados necessários para a resolução da tarefa."
     data2: "À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam a massa de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água."
     data3: "O aquecimento da água faz-se com uma resistência de 500W, o que permite saber a energia transferida para a água, se registarmos o intervalo de tempo que a resistência esteve ligada."
     data4: "Em cima, tem um formulário onde pode introduzir os dados recolhidos."
     data5: "Recolha mais dados ou avance para a tarefa seguinte."
-
+    prediction1: "O modelo escolhido prevê um gasto de energia de "
+    prediction2: "J para aquecer "
+    prediction3: "kg de água, que é a resposta à questão da água do banho."
+    prediction4: "Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente."
+    prediction5: "Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "
+    graph_title: "Energia necessária para aquecer água dos 18ºC até aos 26ºC em função da massa"
 
   thermo2:
     strategyIntro: "Vamos agora tentar descobrir qual a energia necessária para provocar, numa certa quantidade de água, diferentes variações de temperatura."
@@ -99,9 +108,9 @@ pt-PT:
 
   thermo_filter:
     title: "Aquecimento de um material"
-    temperature_investigation: "Investigar a temperatura"
-    material_investigation: "Investigar o material"
-    mass_investigation: "Investigar a massa"
+    temperature_investigation: "Investigar o efeito da variação da temperatura"
+    material_investigation: "Investigar o efeito do material"
+    mass_investigation: "Investigar o efeito da massa do material"
     choose_factor: "Escolha a variável a estudar"
     intro1: "Estamos interessados em estudar quanta energia se gasta para aquecer um material."
     intro2: "A forma mais simples de proceder seria aquecer o material desejado e medir a energia gasta para o aquecer. Apesar deste método resultar, tornar-se-ia impraticável se quisermos saber a energia necessária para aquecer uma quantidade enorme de material. E o que aconteceria se depois quisermos saber a energia gasta para aquecer um material diferente? Seria necessária a mesma energia ou teriamos de repetir a experiência com outro material? E se fosse o mesmo material mas quisermos aquecer até uma temperatura diferente? Seria necessária mais uma experiência? Este método é inviável também, porque implica um número infindável de experiências. É necessário um processo melhor."

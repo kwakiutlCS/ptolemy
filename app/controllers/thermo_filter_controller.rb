@@ -1,6 +1,10 @@
 class ThermoFilterController < ApplicationController
 
   def index
+    if session[:url] != request.path || session[:activity] == nil
+      redirect_to root_path
+    end
+
     a = Activity.find(session[:activity])
     @filtered = []
      
@@ -22,7 +26,7 @@ class ThermoFilterController < ApplicationController
     a = Answer.find(session[:answer])
     
     session[:template] = t.id
-    session[:activity] = a.id
+    session[:activity] = act.id
     session[:url] = t.url
     a.activity_id = act.id
     a.save

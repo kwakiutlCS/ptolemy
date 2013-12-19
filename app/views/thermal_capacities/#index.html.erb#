@@ -1,55 +1,53 @@
 <div style="margin-top: -60px" >
 
-<% if !@user %>
-<section class="name_getter" style="width:500px; margin: 200px auto ;">
-  
-  <p><%= t "getName" %></p>
-  <%= form_tag("/static_pages/set_name", remote:true, method: "get", class:"form-horizontal") do %>
-  <%= text_field_tag(:name, nil, id:"student_name_field") %>
-  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success") %>
-  <% end %>
-</section>
-<% end %>
-
-<section class="background <% if !@user %>hidden_section<% end %>">
-  <% if session[:deadline] %>
-  <div class="alert alert-info">
-  <%= t "deadline.intro" %><%= session[:deadline].strftime("%d/%m") %><%= t "deadline.end" %>
-  </div>
-  <% end %>
-
-<div id="thermo_background_div">
-
-<h1><%= t "thermo.backgroundTitle" %></h1>
-<p> <%= t "thermo.backgroundIntro" %></p> <br />
-<p><%= t "thermo.backgroundEnd" %> </p>
-
-</div>
-<div class="btn-group thermo_navigator">
-<a type="button" class="thermo_button btn btn-primary background_next" id="thermo_background_next"><%= t "next" %></a>
-</div>
-</section>
 
 
 
-<section class="strategy">
+<section class="pos_filter">
 
 <div id="thermo_strategy_div">
-  <h2><%= t("strategy").capitalize %></h2>
+  <h2><%= t("initial_question").capitalize %></h2>
   <div>
   <p><%= t "thermo.strategyIntro" %>
   </p>
   <br />
   <p>
   <%= t "thermo.strategyEnd" %>
+  </p><br />
+  <p>
+  <%= t "thermo.strategyPS" %>
   </p>
   </div>
 
   </div>
    
   <div class="btn-group thermo_navigator" style="margin-top: 10px">
-    <a type="button" class="thermo_button btn btn-primary strategy_previous" id="thermo_strategy_previous"><%= t "previous" %></a>
     <a type="button" class="thermo_button btn btn-primary strategy_next" id="thermo_strategy_next"><%= t "next" %></a>
+  </div>
+</section>
+
+
+<section class="modeling">
+
+<div id="thermo_modeling_div">
+  <h2><%= t("modeling_process").capitalize %></h2>
+  <div>
+  <p><%= t "thermo.modeling1" %>
+  </p>
+  <br />
+  <p>
+  <%= t "thermo.modeling2" %>
+  </p><br />
+  <p>
+  <%= t "thermo.modeling3" %>
+  </p>
+  </div>
+
+  </div>
+   
+  <div class="btn-group thermo_navigator" style="margin-top: 10px">
+    <a type="button" class="thermo_button btn btn-primary modeling_previous" id="thermo_modeling_previous"><%= t "previous" %></a>
+    <a type="button" class="thermo_button btn btn-primary modeling_next" id="thermo_modeling_next"><%= t "next" %></a>
   </div>
 </section>
 
@@ -62,6 +60,13 @@
 
 $(function() {
     
+    $(window).on("beforeunload", function() {
+	$.ajax("answers/leave_page", {
+            method: "post",
+            }
+        );
+    });
+
     var canvas = $("#myCanvas");
     var context = canvas.get(0).getContext("2d");
 
@@ -233,7 +238,7 @@ $(function() {
          <%= hidden_field_tag(:y, nil,  id:"thermo_energy_field") %>
          <table class="table">
 	    <thead>
-	      <tr><th><%= t("mass")(kg)</th><th><%= t("timeWord") %>(s)</th><th title="E = P x &#916;t"><%= t("energy") %>(kJ)</th><th></th></tr>
+	      <tr><th><%= t("mass") %>(kg)</th><th><%= t("timeWord") %>(s)</th><th title="E = P x &#916;t"><%= t("energy") %>(kJ)</th><th></th></tr>
 	      <tr>
 		 <th>
 		   <%= number_field_tag(:x, nil,  class:"thermo_input", step:0.001, id:"thermo_volume_field", placeholder:"kg", max:1, min:0) %>
@@ -261,9 +266,9 @@ $(function() {
     	  
       <% end %>
       <div id="thermo_data_collection_explanation">
-      <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam a massa de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água. </p>
-      <p>O aquecimento da água faz-se com uma resistência de 500W, o que permite saber a energia transferida para a água, se registarmos o intervalo de tempo que a resistência esteve ligada.</p>
-      <p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>
+      <p><%= t "thermo.data1" %> </p><p><%= t "thermo.data2" %></p>
+      <p><%= t "thermo.data3" %> </p>
+      <p><%= t "thermo.data4" %> </p>
       </div>
     </div>
 
@@ -309,52 +314,52 @@ $(function() {
   <div class="model_choice_buttons thermo_model_buttons">
     <div class="model_first_model_controls" id="thermo_first_model_controls">
   <div class="btn-group">
-    <a type="button" class="thermo_button btn" id="thermo_linear_button"><%= t("linear").capitalize %><br/> y = k x + b</a>
-    <a type="button" class="thermo_button btn" id="thermo_quadratic_button"><%= t("quadratic").capitalize %><br /> y = k (x-h)<sup>2</sup> + b</a>
-    <a type="button" class="thermo_button btn" id="thermo_cubic_button"><%= t("cubic").capitalize %><br /> y = k (x-h)<sup>3</sup> + b</a>
+    <a type="button" class="thermo_button btn linear_model_button" id="thermo_linear_button"><%= t("linear").capitalize %><br/> y = k x + b</a>
+    <a type="button" class="thermo_button btn quadratic_model_button" id="thermo_quadratic_button"><%= t("quadratic").capitalize %><br /> y = k (x-h)<sup>2</sup> + b</a>
+    <a type="button" class="thermo_button btn cubic_model_button" id="thermo_cubic_button"><%= t("cubic").capitalize %><br /> y = k (x-h)<sup>3</sup> + b</a>
   </div>
     
-  <div id="thermo_buttons_explanation"><%= t "chooseModelInstructions" %></div>
-  <div class="thermo_function_controls" id="thermo_linear_controls">
+  <div class="model-choice_buttons_explanation"  id="thermo_buttons_explanation"><%= t "chooseModelInstructions" %></div>
+  <div class="linear_function_controls model_function_controls" id="thermo_linear_controls">
     
-    <div><div class="thermo_function_controls_label">k: <span id="thermo_linear_m">10000</span></div><div class="thermo_slider_controls" id="thermo_linear_m_slider"></div></div>
-    <div><div class="thermo_function_controls_label">b: <span id="thermo_linear_b">0</span></div><div class="thermo_slider_controls" id="thermo_linear_b_slider"></div></div>
+   <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="thermo_linear_m">10000</span></div><div class="model_slider_controls model_linear_m_slider" id="thermo_linear_m_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_linear_b" id="thermo_linear_b">0</span></div><div class="model_slider_controls model_linear_b_slider" id="thermo_linear_b_slider"></div></div>
 
   </div>
-  <div class="thermo_function_controls" id="thermo_quadratic_controls">
-    <div><div class="thermo_function_controls_label">k: <span id="thermo_quadratic_k">15000</span></div><div class="thermo_slider_controls" id="thermo_quadratic_k_slider"></div></div>
-    <div><div class="thermo_function_controls_label">h: <span id="thermo_quadratic_h">0</span></div><div class="thermo_slider_controls" id="thermo_quadratic_h_slider"></div></div>
-    <div><div class="thermo_function_controls_label">b: <span id="thermo_quadratic_b">0</span></div><div class="thermo_slider_controls" id="thermo_quadratic_b_slider"></div></div>
+  <div class="quadratic_function_controls model_function_controls" id="thermo_quadratic_controls">
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_quadratic_k" id="thermo_quadratic_k">15000</span></div><div class="model_slider_controls model_quadratic_k_slider" id="thermo_quadratic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_quadratic_h" id="thermo_quadratic_h">0</span></div><div class="model_slider_controls model_quadratic_h_slider" id="thermo_quadratic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_quadratic_b" id="thermo_quadratic_b">0</span></div><div class="model_slider_controls model_quadratic_b_slider" id="thermo_quadratic_b_slider"></div></div>
   </div>
 
-  <div class="thermo_function_controls" id="thermo_cubic_controls">
-    <div><div class="thermo_function_controls_label">k: <span id="thermo_cubic_k">20000</span></div><div class="thermo_slider_controls" id="thermo_cubic_k_slider"></div></div>
-    <div><div class="thermo_function_controls_label">h: <span id="thermo_cubic_h">0</span></div><div class="thermo_slider_controls" id="thermo_cubic_h_slider"></div></div>
-    <div><div class="thermo_function_controls_label">b: <span id="thermo_cubic_b">0</span></div><div class="thermo_slider_controls" id="thermo_cubic_b_slider"></div></div>
-  </div>
+  <div class="cubic_function_controls model_function_controls" id="thermo_cubic_controls">
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_cubic_k" id="thermo_cubic_k">20000</span></div><div class="model_slider_controls  model_cubic_k_slider" id="thermo_cubic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_cubic_h" id="thermo_cubic_h">0</span></div><div class="model_slider_controls model_cubic_h_slider" id="thermo_cubic_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_cubic_b" id="thermo_cubic_b">0</span></div><div class="model_slider_controls model_cubic_b_slider" id="thermo_cubic_b_slider"></div></div>
+  </div> 
   
-  <div>
-    <div id="thermo_chosen_model_div">
+  <div class="model_choice_model_information_div">
+    <div class="model_choice_model_formula_parent" id="thermo_chosen_model_div">
       <span>
 	 <%= t("model").capitalize %>
       </span>
-      <div id="thermo_chosen_model">
+      <div class="model_choice_model_formula" id="thermo_chosen_model">
 	 
       </div>
     </div>
-    <div id="thermo_confirm_model_button_div">
-      <a type="button" class="thermo_button btn btn-success" id="thermo_confirm_model_button"><%= t "useModel" %></a>
+    <div  class="model_choice_model_confirm_button" id="thermo_confirm_model_button_div">
+      <a type="button" class="model_confirm_model_button thermo_button btn btn-success" id="thermo_confirm_model_button"><%= t "useModel" %></a>
     </div>
     </div>
   </div>
   </div>
   <div id="thermo_graph_super_div">
-    <div>Energia necessária para aquecer água dos 18ºC até aos 26ºC em função da massa</div>
+    <div><%= t "thermo.graph_title" %></div>
     <div id="thermo_graph_div">
-      <div id="thermo_y_label">E (J)</div>
+      <div class="y_label_div" id="thermo_y_label">E (J)</div>
     
-      <div id="thermo_graph"></div>
-      <div id="thermo_x_label">m (kg)</div>
+      <div class="graph_div" id="thermo_graph"></div>
+      <div class="x_label_div"  id="thermo_x_label">m (kg)</div>
     </div>
     <div class="graph_legend_container"></div>
   </div>
@@ -373,19 +378,19 @@ $(function() {
   <div class="row" id="thermo_question_screen1"><div class="span2"></div>
     <div class="span9" id="thermo_questions_div">
       <%= form_tag(answers_path, remote: true) do %>
-      <%= hidden_field_tag(:model, nil, id:"thermo_model_field") %>
-      <%= hidden_field_tag(:question1, nil, id:"thermo_question1_field") %>
-      <%= label_tag(:answer1, nil, id:"thermo_question1_label") %>
-      <%= text_area_tag(:answer1, nil, id:"thermo_answer1_field") %>
-      <%= hidden_field_tag(:question2, nil, id:"thermo_question2_field") %>
-      <%= label_tag(:answer2, nil, id:"thermo_question2_label") %>
-      <%= text_area_tag(:answer2, nil, id:"thermo_answer2_field") %>
-      <%= hidden_field_tag(:question3, nil, id:"thermo_question3_field") %>
-      <%= label_tag(:answer3, nil, id:"thermo_question3_label") %>
-      <%= text_area_tag(:answer3, nil, id:"thermo_answer3_field") %>
-      <%= hidden_field_tag(:question4, nil, id:"thermo_question4_field") %>
-      <%= label_tag(:answer4, nil, id:"thermo_question4_label") %>
-      <%= text_area_tag(:answer4, nil, id:"thermo_answer4_field") %>
+      <%= hidden_field_tag(:model, nil, id:"thermo_model_field", class:"question_model_field") %>
+      <%= hidden_field_tag(:question1, nil, id:"thermo_question1_field", class:"question_question1_field") %>
+      <%= label_tag(:answer1, nil, id:"thermo_question1_label", class:"question_question1_label") %>
+      <%= text_area_tag(:answer1, nil, id:"thermo_answer1_field", class:"question_answer1_field") %>
+      <%= hidden_field_tag(:question2, nil, id:"thermo_question2_field", class:"question_question2_field") %>
+      <%= label_tag(:answer2, nil, id:"thermo_question2_label", class:"question_question2_label") %>
+      <%= text_area_tag(:answer2, nil, id:"thermo_answer2_field", class:"question_answer2_field") %>
+      <%= hidden_field_tag(:question3, nil, id:"thermo_question3_field", class:"question_question3_field") %>
+      <%= label_tag(:answer3, nil, id:"thermo_question3_label", class:"question_question3_label") %>
+      <%= text_area_tag(:answer3, nil, id:"thermo_answer3_field", class:"question_answer3_field") %>
+      <%= hidden_field_tag(:question4, nil, id:"thermo_question4_field", class:"question_question4_field") %>
+      <%= label_tag(:answer4, nil, id:"thermo_question4_label", class:"question_question4_label") %>
+      <%= text_area_tag(:answer4, nil, id:"thermo_answer4_field", class:"question_answer4_field") %>
       
       <br />
       <%= submit_tag(:save, value:t("submit"), confirm:"Deseja introduzir estas respostas?", class:"btn btn-success", style:"float: left") %>
