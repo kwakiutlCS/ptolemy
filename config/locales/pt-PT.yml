@@ -21,6 +21,7 @@ pt-PT:
   cubic: cúbico
   constant: constante
   strategy: estratégia
+  modeling_process: modelação
   
   mass: massa
   timeWord: tempo
@@ -61,13 +62,19 @@ pt-PT:
 
   thermo:
 
-    strategyIntro: "Vamos então tentar descobrir quanta energia é necessária para aquecer diferentes quantidades de água."
+    strategyIntro: "Vamos supor que usamos um chuveiro que gasta 50L de água nos 3 minutos que está ligado durante o banho e que gostamos de tomar banho com água a 26ºC. Pretende-se descobrir quanta energia é gasta.Vamos então tentar descobrir quanta energia é necessária para aquecer diferentes quantidades de água."
     strategyEnd: "É importante aquecer a água sempre até à mesma temperatura, caso contrário se aquecermos diferentes quantidades de água até diferentes temperaturas não saberíamos qual a razão para as possíveis variações na energia medida. Poderia ser devido a termos alterado a quantidade da água ou a termos alterado a temperatura a que aquecemos a água, ou mesmo devido aos dois factores. Não conseguiríamos tirar conclusões sobre o efeito de cada variável."
     strategyPS: "Neste caso vamos aquecer a água até aos 25ºC. Poderíamos aquecer a água até outro valor, não importa qual, desde que seja sempre o mesmo."
+    data1: "Aqui pode recolher os dados necessários para a resolução da tarefa."
+    data2: "À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam a massa de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água."
+    data3: "O aquecimento da água faz-se com uma resistência de 500W, o que permite saber a energia transferida para a água, se registarmos o intervalo de tempo que a resistência esteve ligada."
+    data4: "Em cima, tem um formulário onde pode introduzir os dados recolhidos."
+    data5: "Recolha mais dados ou avance para a tarefa seguinte."
+
 
   thermo2:
     strategyIntro: "Vamos agora tentar descobrir qual a energia necessária para provocar, numa certa quantidade de água, diferentes variações de temperatura."
-    strategyEnd: "Assim como no estudo da massa, é importante manter fixos todos os factores que possam afectar a quantidade de energia necessária e alterar apenas o factor que queremos estudar. Neste caso então vamos manter a quantidade de água fixa e aquecer essa quantidade de água até diferentes valores de temperatura e tentar encotrar padrões na energia necessária."
+    strategyEnd: "Assim como no estudo da massa, é importante manter fixos todos os factores que possam afectar a quantidade de energia necessária e alterar apenas o factor que queremos estudar. Neste caso então vamos manter a quantidade de água fixa e aquecer essa quantidade de água até diferentes valores de temperatura e tentar encontrar padrões na energia necessária."
     strategyPS: "Neste caso, vamos aquecer sempre 0.5kg de água. Mais uma vez poderíamos usar outro valor qualquer, desde que seja sempre o mesmo."
     
 
@@ -96,8 +103,9 @@ pt-PT:
     material_investigation: "Investigar o material"
     mass_investigation: "Investigar a massa"
     choose_factor: "Escolha a variável a estudar"
-    intro1: "Nesta atividade estamos interessados em estudar quanta energia se gasta para aquecer a água necessária para um banho."
-    intro2: "Vamos supor que usamos um chuveiro que gasta 50L de água nos 3 minutos que está ligado durante o banho e que gostamos de tomar banho com água a 26ºC. Pretende-se descobrir quanta energia é gasta."
-    strategy1: "A forma mais simples que poderíamos utilizar seria aquecer os 50L de água até aos 26ºC e verificar qual a energia gasta. Apesar de resultar, esse método tornar-se-ia impraticável se precisarmos de descobrir a energia necessária para aquecer grandes quantidades de água. E se depois quisermos também descobrir a energia necessária para aquecer 60L de água, ou aquecer água até aos 30ºC? Repeteriamos novamente a experiência?"
-    strategy2: "Em vez deste processo, vamos usar um método chamado modelação. Na modelação testamos o problema em pequena escala, por exemplo, aquecendo pequenas quantidades de água e tentamos descobrir padrões que nos permitam concluir sobre o caso maior. Para conseguir descobrir estes padrões é necessário descobrir o efeito de cada variável (quantidade de água, variação de temperatura desejada, etc.) no gasto de energia. 
+    intro1: "Estamos interessados em estudar quanta energia se gasta para aquecer um material."
+    intro2: "A forma mais simples de proceder seria aquecer o material desejado e medir a energia gasta para o aquecer. Apesar deste método resultar, tornar-se-ia impraticável se quisermos saber a energia necessária para aquecer uma quantidade enorme de material. E o que aconteceria se depois quisermos saber a energia gasta para aquecer um material diferente? Seria necessária a mesma energia ou teriamos de repetir a experiência com outro material? E se fosse o mesmo material mas quisermos aquecer até uma temperatura diferente? Seria necessária mais uma experiência? Este método é inviável também, porque implica um número infindável de experiências. É necessário um processo melhor."
+    intro3: "Vamos usar um método chamado modelação. Na modelação testamos o problema em pequena escala, por exemplo, provocando pequenas variações de temperatura a pequenas quantidades de material e tentamos descobrir padrões nos gastos de energia que nos permitam concluir sobre o caso maior. Para conseguir descobrir estes padrões é necessário descobrir o efeito de cada variável (quantidade de material, variação de temperatura desejada, etc.) no gasto de energia. 
 Começamos portanto por escolher a variável a estudar."
+    
+    

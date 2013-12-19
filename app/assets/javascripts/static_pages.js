@@ -495,6 +495,7 @@ $(function() {
     $(".background").on("click", ".background_next", function() {
 	 $(".background").slideUp();
 	 $(".strategy").slideDown();
+	$(".filter_section").slideDown();
     });
 
     $(".strategy").on("click", ".strategy_previous", function() {
@@ -505,19 +506,29 @@ $(function() {
     $(".strategy").on("click", ".strategy_next", function() {
 	 $(".strategy").slideUp();
 	 $(".data-gathering").slideDown();
-	$(".filter_section").slideDown();
+	
     });
 
     $(".pos_filter").on("click", ".strategy_next", function() {
 	 $(".pos_filter").slideUp();
+	 $(".modeling").slideDown();
+	
+    });
+    $(".modeling").on("click", ".modeling_next", function() {
+	 $(".modeling").slideUp();
 	 $(".data-gathering").slideDown();
+	
+    });
+    $(".modeling").on("click", ".modeling_previous", function() {
+	 $(".modeling").slideUp();
+	 $(".pos_filter").slideDown();
 	
     });
 
     $(".data-gathering").on("click", ".data-gathering_previous", function() {
 	$(".data-gathering").slideUp();
 	 $(".strategy").slideDown();
-	$(".pos_filter").slideDown();
+	$(".modeling").slideDown();
     });
 
     
@@ -532,9 +543,8 @@ $(function() {
 	 $(".model-choice").slideDown();
     });
     $(".filter_section").on("click", ".filter_previous", function() {
-	console.log("here");
 	 $(".filter_section").slideUp();
-	 $(".strategy").slideDown();
+	 $(".background").slideDown();
     });
 
 

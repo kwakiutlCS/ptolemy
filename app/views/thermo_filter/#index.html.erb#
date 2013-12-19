@@ -19,7 +19,7 @@
   </div>
   <% end %>
 
-<div id="statue_background_div">
+<div id="thermo_filter_background_div">
 
 <h1><%= t "thermo_filter.title" %></h1>
 <p><%= t "thermo_filter.intro1" %></p> <br />
