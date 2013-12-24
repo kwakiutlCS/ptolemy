@@ -83,11 +83,11 @@ pt-PT:
 
 
   thermo2:
-    modeling1: "Para descobrir a energia necessária para aquecer cada material vamos aquecer 1kg de vários materiais e traçar o gráfico de energia fornecida em função da variação de temperatura."
-    modeling2: "Comparando os gráficos dos diversos materiais podemos concluir se a energia necessária é igual ou diferente. Se a energia for diferente podemos tentar encontrar um modelo que nos indique a energia necessária para o aquecimento de cada material."
-    modeling3: ""
+    modeling1: "Para descobrir o efeito da massa na energia gasta, vamos aquecer diferentes quantidades de água e verificar quanta energia é gasta. Com essa informação tentaremos encontrar padrões que nos permitam concluir sobre outros casos."
+    modeling2: "É importante aquecer a água sempre até à mesma temperatura, caso contrário se aquecermos diferentes quantidades de água até diferentes temperaturas não saberíamos qual a razão para as possíveis variações na energia medida. Poderia ser devido a termos alterado a quantidade da água ou a termos alterado a temperatura a que aquecemos a água, ou mesmo devido aos dois factores. Não conseguiríamos tirar conclusões sobre o efeito de cada variável. Do mesmo modo, é necessário usar sempre o mesmo material."
+    modeling3: "Neste caso vamos aquecer a água até aos 26ºC. Poderíamos aquecer a água até outro valor, não importa qual, desde que seja sempre o mesmo. Escolhemos os 26ºC, porque nos dá jeito para resolver o problema da água do banho. Foi por esse motivo também que estamos a usar água, poderiamos usar outro material desde que seja sempre o mesmo."
     strategyIntro: "A nossa tarefa é tentar descobrir se é necessário diferentes quantidades de energia para aquecer diferentes materiais. É nesta tarefa que vamos usar o processo de modelação."
-    strategyEnd: "Se tiver realizado o estudo da variação da energia em função da massa e o estudo da variação da energia em função da variação de temperatura, descobriu que a energia varia linearmente com estes dois factores. Vamos usar essa informação nesta tarefa."
+    strategyEnd: "Posteriormente vamos também usar essa informação para resolver um caso concreto. Suponhamos que usamos um chuveiro que gasta 50L de água nos 3 minutos que está ligado durante o banho e que gostamos de tomar banho com água a 26ºC (a temperatura ambiente é neste momento 18ºC, portanto temos de aquecer a água). Pretende-se descobrir quanta energia é gasta."
     strategyPS: ""
 
   thermo3:
@@ -95,7 +95,7 @@ pt-PT:
     strategyEnd: "Posteriormente vamos também usar essa informação para resolver um caso concreto. Queremos de descobrir qual a energia necessária para aquecer 0.5kg de água desde a temperatura ambiente até entrar em ebulição (100ºC)."
     strategyPS: ""
     modeling1: "Para descobrir o efeito da variação da temperatura na energia gasta, vamos provocar diferentes variações de temperatura em água e verificar quanta energia é gasta. Com essa informação tentaremos encontrar padrões, que nos permitam concluir sobre outros casos."
-    modeling2: "É importante aquecer sempre a mesma quantidade de água, caso contrário se aquecermos diferentes quantidades de água até diferentes temperaturas não saberíamos qual a razão para as possíveis variações na energia medida. Poderia ser devido a termos alterado a quantidade da água ou a termos alterado a temperatura a que aquecemos a água, ou mesmo devido aos dois factores. Não conseguiríamos tirar conclusões sobre o efeito de cada variável. Do mesmo modo, é necessário usar sempre o mesmo material."
+    modeling2: "É importante aquecer a água sempre a mesma quantidade de água, caso contrário se aquecermos diferentes quantidades de água até diferentes temperaturas não saberíamos qual a razão para as possíveis variações na energia medida. Poderia ser devido a termos alterado a quantidade da água ou a termos alterado a temperatura a que aquecemos a água, ou mesmo devido aos dois factores. Não conseguiríamos tirar conclusões sobre o efeito de cada variável. Do mesmo modo, é necessário usar sempre o mesmo material."
     modeling3: "Neste caso vamos aquecer 0.5kg de água. Poderíamos aquecer outra quantidade de água, não importa qual, desde que seja sempre o mesmo. Escolhemos os 0.5kg, porque nos dá jeito para resolver o problema da ebulição da água. Foi por esse motivo também que estamos a usar água, poderiamos usar outro material desde que seja sempre o mesmo."
     data1: "Aqui pode recolher os dados necessários para a resolução da tarefa."
     data2: "À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam a massa de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água."

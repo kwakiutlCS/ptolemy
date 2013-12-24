@@ -4,24 +4,51 @@
 <section class="pos_filter">
 
 <div id="thermo2_strategy_div">
-  <h2>Estratégia</h2>
+  <h2><%= t("initial_question").capitalize %></h2>
   <div>
-  <p>...
+  <p><%= t "thermo2.strategyIntro" %>
   </p>
   <br />
   <p>
-  Vamos usar um processo em que testamos o problema em pequena escala.  ... . Chama-se a isto construir um modelo.
+  <%= t "thermo2.strategyEnd" %>
+  </p><br />
+  <p>
+  <%= t "thermo2.strategyPS" %>
   </p>
   </div>
 
   </div>
    
   <div class="btn-group model_navigator" style="margin-top: 10px">
-    <a type="button" class="thermo2_button btn btn-primary strategy_next" id="thermo2_strategy_next">Seguinte</a>
+    <a type="button" class="thermo2_button btn btn-primary strategy_next" id="thermo2_strategy_next"><%= t "next" %></a>
   </div>
 </section>
 
 
+
+<section class="modeling">
+
+<div id="thermo2_modeling_div">
+  <h2><%= t("modeling_process").capitalize %></h2>
+  <div>
+  <p><%= t "thermo2.modeling1" %>
+  </p>
+  <br />
+  <p>
+  <%= t "thermo2.modeling2" %>
+  </p><br />
+  <p>
+  <%= t "thermo2.modeling3" %>
+  </p>
+  </div>
+
+  </div>
+   
+  <div class="btn-group thermo_navigator" style="margin-top: 10px">
+    <a type="button" class="thermo_button btn btn-primary modeling_previous" id="thermo_modeling_previous"><%= t "previous" %></a>
+    <a type="button" class="thermo_button btn btn-primary modeling_next" id="thermo_modeling_next"><%= t "next" %></a>
+  </div>
+</section>
 
 
 
@@ -288,8 +315,8 @@ $(function() {
     
 
     <div class="btn-group model_navigator">
-    <a type="button" class="thermo2_button btn btn-primary data-gathering_previous" id="thermo2_data-gathering_previous">Anterior</a>
-    <a type="button" class="thermo2_button btn btn-primary data-gathering_next" id="thermo2_data-gathering_next"  style="display:none">Seguinte</a>
+    <a type="button" class="thermo2_button btn btn-primary data-gathering_previous" id="thermo2_data-gathering_previous"><%= t "previous" %></a>
+    <a type="button" class="thermo2_button btn btn-primary data-gathering_next" id="thermo2_data-gathering_next"  style="display:none"><%= t "next" %></a>
     </div>
 
 

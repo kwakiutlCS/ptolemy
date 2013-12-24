@@ -78,7 +78,7 @@ $(function() {
 	draw_water();
     });
 
-    var water_mass = 0.5;
+    var water_mass = 0.150;
     var time = 0;
     var animation = false;
     
@@ -130,7 +130,7 @@ $(function() {
 	 if ($(this).text() == "Ligar") {
             $(this).text("Parar");
 	     animation = true;
-            
+            $("#volume_slider").slider("disable");
 	 }
 	 else {
 	     $(this).text("Ligar");
@@ -144,7 +144,11 @@ $(function() {
 	 
     });
 
-    
+    $("#volume_slider").on("slide", function(evt, ui) {
+       water_mass = ui.value/1000.;
+       $("#thermo3_mass").html(water_mass.toFixed(3)+" kg");
+       draw_water();
+    });
 
     function render() {
 	animation_parameters.last = animation_parameters.current;
@@ -171,13 +175,16 @@ $(function() {
      
     function reset() {
          temperature = 15.0;
-	 
+	 water_mass = 0.150;
 	 time = 0;
 	 animation = false;
 	 $("#thermo3_onoff").text("Ligar");
 	 $("#thermo3_time").text("0.0 s");
+         $("#thermo3_mass").html("0.150 kg");
+         $("#volume_slider").slider("value", 150);
+         draw_water();
 	 $("#thermo3_temp").text("15.0 ºC");
-	 
+	 $("#volume_slider").slider("enable");
         
 	 
      } 
@@ -275,7 +282,8 @@ $(function() {
    
     
       <div id="thermo3_size_controls">
-	 <div id="thermo3_mass" class="monitor">0.4 kg</div>
+	 <div id="thermo3_mass" class="monitor">0.150 kg</div>
+	 <div id="volume_slider"></div>
 	 <div id="thermo3_temp" class="monitor"> 15.0 ºC </div>
 	 <div id="thermo3_time" class="monitor"> 0.0 s </div>
 	 <div class="btn-group">
