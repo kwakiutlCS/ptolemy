@@ -284,8 +284,10 @@ $(function() {
     	  
       <% end %>
       <div id="thermo2_data_collection_explanation">
-      <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem uma balança onde pode medir a massa de diferentes modelos da estátua.  </p>
-      <p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>
+	<p><%= t "thermo2.data1" %> </p><p><%= t "thermo2.data2" %></p>
+	<p><%= t "thermo2.data3" %> </p>
+	
+	
       </div>
     </div>
 
@@ -336,12 +338,12 @@ $(function() {
     <div class="y_axis_unit axis_unit">E</div>
     
     <div class="row">
-      <h3>Escolher a equação que melhor descreve cada conjunto de dados</h3>
+      <h3><%= t "thermo2.chooseEquation" %></h3>
     </div>
 
     <div class="row">
       <div class="span6" id="thermo2_graph_super_div">
-	<div>Energia necessária para variar a temperatura de 1kg de material em  &#916;T</div>
+	<div><%= t "thermo2.graphTitle" %></div>
 	<div id="thermo2_graph_div">
 	  <div class="y_label_div" id="thermo2_y_label">E (J)</div>
     
@@ -353,41 +355,41 @@ $(function() {
       <div class="span1"><div id="thermo2_container_subtitles"></div></div>
       <div class="span5 ">
 	<div class="thermo2_model_cell">
-	  <div class="thermo2_model_name">Água</div>
+	  <div class="thermo2_model_name"><%= t "water" %></div>
 	  <div>
 	    <div ><span class="thermo2_model_formula" id="thermo2_water_model">E = 0</span><div id="thermo2_water_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
 	  </div>
 	</div>
 
 	<div class="thermo2_model_cell">
-	  <div class="thermo2_model_name">Alumínio</div>
+	  <div class="thermo2_model_name"><%= t "aluminium" %></div>
 	  <div>
 	    <div ><span class="thermo2_model_formula" id="thermo2_aluminium_model">E = 0</span><div id="thermo2_aluminium_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
 	  </div>
 	</div>
 
 	<div class="thermo2_model_cell">
-	  <div class="thermo2_model_name">Cobre</div>
+	  <div class="thermo2_model_name"><%= t "copper" %></div>
 	  <div>
 	    <div ><span class="thermo2_model_formula" id="thermo2_copper_model">E = 0</span><div id="thermo2_copper_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
 	  </div>
 	</div>
 
 	<div class="thermo2_model_cell">
-	  <div class="thermo2_model_name">Ferro</div>
+	  <div class="thermo2_model_name"><%= t "iron" %></div>
 	  <div>
 	    <div ><span class="thermo2_model_formula" id="thermo2_iron_model">E = 0</span><div id="thermo2_iron_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
 	  </div>
 	</div>
 
 	<div class="thermo2_model_cell">
-	  <div class="thermo2_model_name">Óleo vegetal</div>
+	  <div class="thermo2_model_name"><%= t "oil" %></div>
 	  <div>
 	    <div ><span class="thermo2_model_formula" id="thermo2_oil_model">E = 0</span><div id="thermo2_oil_k" class="thermo2_slider_controls" style="width:200px;display:inline-block;float:right;"></div></div>  
 	  </div>
 	</div>
 
-	<div id="thermo2_model-choice_instructions">Quando tiver as equações desejadas avance para a tarefa seguinte<br /><br /></div>
+	<div id="thermo2_model-choice_instructions"><%= t "thermo2.equationReady" %><br /><br /></div>
 	
       </div>
       
@@ -398,8 +400,8 @@ $(function() {
   
   <div class="row">
     <div class="btn-group model_navigator">
-      <a type="button" class="thermo2_button btn btn-primary model-choice_previous" id="thermo2_model-choice_previous">Anterior</a>
-      <a type="button" class="thermo2_button btn btn-primary model-choice_next" id="thermo2_model-choice_next">Seguinte</a>
+      <a type="button" class="thermo2_button btn btn-primary model-choice_previous" id="thermo2_model-choice_previous"><%= t "previous" %></a>
+      <a type="button" class="thermo2_button btn btn-primary model-choice_next" id="thermo2_model-choice_next"><%= t "next" %></a>
     </div>
   </div>
 
@@ -411,7 +413,7 @@ $(function() {
 
 
 <section class="questions">
-  <h1>Questões Finais</h1>
+  <h1><%= t "finalQuestions" %></h1>
 
   <div class="row model_question_screen1" id="thermo2_question_screen1"><div class="span2"></div>
     <div class="span9" id="thermo2_questions_div">
@@ -438,7 +440,7 @@ $(function() {
 
   <div class="row model_question_screen2" id="thermo2_question_screen2"><div class="span2"></div>
     <div class="span9" id="thermo2_questions_after_div">
-      Atividade terminada
+      <%= t "endActivityMessage" %>
     </div>
     
   </div>
@@ -446,7 +448,7 @@ $(function() {
   
 
   <div class="btn-group thermo2_navigator model_navigator">
-    <a type="button" class="thermo2_button btn btn-primary model_questions_previous" id="thermo2_questions_previous" style:"margin:20px 30px 0 0">Anterior</a>
+    <a type="button" class="thermo2_button btn btn-primary model_questions_previous" id="thermo2_questions_previous" style:"margin:20px 30px 0 0"><%= t "previous" %></a>
   </div>
 </section>
 

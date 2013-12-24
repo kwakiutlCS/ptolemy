@@ -89,6 +89,13 @@ pt-PT:
     strategyIntro: "A nossa tarefa é tentar descobrir se é necessário diferentes quantidades de energia para aquecer diferentes materiais. É nesta tarefa que vamos usar o processo de modelação."
     strategyEnd: "Se tiver realizado o estudo da variação da energia em função da massa e o estudo da variação da energia em função da variação de temperatura, descobriu que a energia varia linearmente com estes dois factores. Vamos usar essa informação nesta tarefa."
     strategyPS: ""
+    data1: "Aqui pode recolher os dados necessários para a resolução da tarefa."
+    data2: "Em cima à direita pode escolher 1kg dos materiais a estudar. Depois de selecionado o material, pode começar o aquecimento. O aquecimento faz-se com uma resistência de 200W."
+    data3: "Em cima à esquerda, tem um formulário onde pode introduzir os dados recolhidos."
+    data5: "Recolha mais dados ou avance para a tarefa seguinte."
+    chooseEquation: "Escolher a equação que melhor descreve cada conjunto de dados"
+    graphTitle: "Energia necessária para variar a temperatura de 1kg de material em função de &#916;T"
+    equationReady: "Quando tiver as equações desejadas avance para a tarefa seguinte"
 
   thermo3:
     strategyIntro: "A nossa tarefa principal é tentar descobrir qual o efeito da variação de temperatura de um material na quantidade de energia necessária para o aquecer. É nesta tarefa que vamos usar o processo de modelação."
