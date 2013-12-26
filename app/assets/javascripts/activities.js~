@@ -1,3 +1,0 @@
-$(function() {
-    chart_vars.loadsPlot(chart_vars.plot_normal);
-});
