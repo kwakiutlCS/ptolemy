@@ -22,8 +22,8 @@
 <div id="statue_background_div">
 
 <h1><%= t "statue.title" %></h1>
-<p>Nesta atividade estamos interessados em estimar a massa de uma estátua.</p> <br />
-<p>Esta questão será resolvida com a colaboração dos seus colegas. </p>
+<p><%= t "statue.intro1" %></p> <br />
+<p><%= t "statue.intro2" %> </p>
 
 </div>
 <div class="btn-group statue_navigator">
@@ -38,11 +38,11 @@
 <div id="statue_strategy_div">
   <h2><%= t("strategy").capitalize %></h2>
   <div>
-  <p>...
+  <p><%= t "statue.strategy1" %>
   </p>
   <br />
   <p>
-  Vamos usar um processo em que testamos o problema em pequena escala. Se se construir versões mais pequenas da estátua poderemos verificar a sua massa. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso da estátua maior. Chama-se a isto construir um modelo.
+  <%= t "statue.strategy2" %>
   </p>
   </div>
 
@@ -173,8 +173,10 @@ $(function() {
     	  
       <% end %>
       <div id="statue_data_collection_explanation">
-      <p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem uma balança onde pode medir a massa de diferentes modelos da estátua.  </p>
-      <p>Em cima, tem um formulário onde pode introduzir os dados recolhidos.</p>
+      <p><%= t "statue.data1" %></p>
+      <p><%= t "statue.data2" %></p>
+      <p><%= t "statue.data3" %></p>
+      
       </div>
     </div>
 
@@ -205,12 +207,12 @@ $(function() {
 
     <div  style="display:none;">
       <div id="fancydiv">
-      <p>Verificou que uma estátua de <span id="fancy_size">0.1</span>m tem uma massa de <span id="fancy_mass">0.095</span>kg.<br /> Antes de continuar com a atividade tente prever qual a massa da estátua de 2.5m.</p>
+      <p><%= t "statue.prediction1" %><span id="fancy_size">0.1</span><%= t "statue.prediction2" %><span id="fancy_mass">0.095</span><%= t "statue.prediction3" %><br /><%= t "statue.prediction6" %></p>
       <%= form_tag(add_prediction_statues_path, remote:true) do %>
       <div class="form-horizontal">
-      <%= number_field_tag(:mass,"", step:0.001, placeholder:"previsão (kg)") %>
+      <%= number_field_tag(:mass,"", step:0.001, placeholder: t("statue.prediction4")) %>
       <%= submit_tag(:submeter, value:t("submit"),  class:"btn btn-success") %>
-      <%= link_to "Não fazer previsão", "#", id:"fancy_close", style:"margin-left:30px;" %>
+      <%= link_to t("statue.prediction5"), "#", id:"fancy_close", style:"margin-left:30px;" %>
       </div>
       <% end %>
       </div>
@@ -271,7 +273,7 @@ $(function() {
   </div>
   </div>
   <div id="statue_graph_super_div">
-  <div>Massa da estátua em função da altura</div>
+  <div><%= t "statue.graphTitle" %></div>
   <div id="statue_graph_div">
     <div class="y_label_div" id="statue_y_label">m (kg)</div>
     

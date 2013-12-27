@@ -99,19 +99,19 @@ pt-PT:
 
   thermo3:
     strategyIntro: "A nossa tarefa principal é tentar descobrir qual o efeito da variação de temperatura de um material na quantidade de energia necessária para o aquecer. É nesta tarefa que vamos usar o processo de modelação."
-    strategyEnd: "Posteriormente vamos também usar essa informação para resolver um caso concreto. Queremos de descobrir qual a energia necessária para aquecer 0.5kg de água desde a temperatura ambiente até entrar em ebulição (100ºC)."
+    strategyEnd: "Posteriormente vamos também usar essa informação para resolver um caso concreto. Queremos de descobrir qual a energia necessária para aquecer 0.50kg de água desde a temperatura ambiente até entrar em ebulição (100ºC)."
     strategyPS: ""
     modeling1: "Para descobrir o efeito da variação da temperatura na energia gasta, vamos provocar diferentes variações de temperatura em água e verificar quanta energia é gasta. Com essa informação tentaremos encontrar padrões, que nos permitam concluir sobre outros casos."
     modeling2: "É importante aquecer sempre a mesma quantidade de água, caso contrário se aquecermos diferentes quantidades de água até diferentes temperaturas não saberíamos qual a razão para as possíveis variações na energia medida. Poderia ser devido a termos alterado a quantidade da água ou a termos alterado a temperatura a que aquecemos a água, ou mesmo devido aos dois factores. Não conseguiríamos tirar conclusões sobre o efeito de cada variável. Do mesmo modo, é necessário usar sempre o mesmo material."
-    modeling3: "Neste caso vamos aquecer 0.5kg de água. Poderíamos aquecer outra quantidade de água, não importa qual, desde que seja sempre o mesmo. Escolhemos os 0.5kg, porque nos dá jeito para resolver o problema da ebulição da água. É por esse motivo também que estamos a usar água, poderiamos usar outro material desde que seja sempre o mesmo."
+    modeling3: "Neste caso vamos aquecer 0.50kg de água. Poderíamos aquecer outra quantidade de água, não importa qual, desde que seja sempre o mesmo. Escolhemos os 0.50kg, porque nos dá jeito para resolver o problema da ebulição da água. É por esse motivo também que estamos a usar água, poderiamos usar outro material desde que seja sempre o mesmo."
     data1: "Aqui pode recolher os dados necessários para a resolução da tarefa."
     data2: "À direita, tem um calorímetro que pode encher com diferentes quantidades de água e aquecer. Os valores indicam a massa de água no calorímetro, o intervalo de tempo que durou o aquecimento e a temperatura da água."
     data3: "O aquecimento da água faz-se com uma resistência de 500W, o que permite saber a energia transferida para a água, se registarmos o intervalo de tempo que a resistência esteve ligada."
     data4: "Em cima, tem um formulário onde pode introduzir os dados recolhidos."
     data5: "Recolha mais dados ou avance para a tarefa seguinte."
-    graph_title: "Energia necessária para aquecer 0.5kg de água em função da variação de temperatura"
+    graph_title: "Energia necessária para aquecer 0.50kg de água em função da variação de temperatura"
     prediction1: "A partir do modelo escolhido prevê-se um gasto energético de "
-    prediction2: "J, para aquecer 0.5kg de água dos 15ºC até aos 100ºC. Essa é a resposta à questão colocada."
+    prediction2: "J, para aquecer 0.50kg de água dos 15ºC até aos 100ºC. Essa é a resposta à questão colocada."
 
   modeling:
     
@@ -131,6 +131,7 @@ pt-PT:
 
   thermo_filter:
     title: "Aquecimento de um material"
+    description: ""
     temperature_investigation: "Investigar o efeito da variação da temperatura"
     material_investigation: "Investigar o efeito do material"
     mass_investigation: "Investigar o efeito da massa do material"
@@ -142,4 +143,21 @@ Começamos portanto por escolher a variável a estudar."
     
   statue:
     title: "A massa da estátua"
-      
+    description: ""
+    intro1: "Imagine que uma estátua com 2.5m de altura será construída. Nesta tarefa pretende-se descobrir a massa que a estátua terá."
+    intro2: ""
+    strategy1: "Não é possível medir a massa da estátua diretamente, porque ainda não existe."
+    strategy2: "Vamos usar um processo em que testamos o problema em pequena escala. Se se construir versões mais pequenas da estátua, à escala, poderemos verificar a sua massa. Assim tentamos descobrir um padrão que nos permita tirar conclusões sobre o caso da estátua maior. Chama-se a isto construir um modelo."
+    graphTitle: "Massa da estátua em função da altura"
+    prediction1: "Verificou que uma estátua de "
+    prediction2: "m tem uma massa de "
+    prediction3: "kg."
+    prediction6: "Antes de continuar com a atividade tente prever qual a massa da estátua de 2.5m."
+    prediction4: "previsão (kg)"
+    prediction5: "Não fazer previsão"
+    prediction7: "O modelo escolhido prevê uma massa de "
+    prediction8: "kg para a estátua de "
+    data1: "Aqui pode recolher os dados necessários para a resolução da tarefa."
+    data2: "À direita, tem uma balança onde pode medir a massa de diferentes modelos da estátua."
+    data3: "Em cima, tem um formulário onde pode introduzir os dados recolhidos."
+    data4: "Recolha mais dados ou avance para a tarefa seguinte"

@@ -17,12 +17,14 @@ if (<%= @data.count != 0 %>) {
    <% end %>
      
 
-$("#statue_data_collection_explanation").html("<p>Recolha mais dados ou avance para a tarefa seguinte</p>");
+$("#statue_data_collection_explanation").html("<p><%= t 'statue.data4' %></p>");
 
 $("#statue_data-gathering_next").show();
 }
 else {
-     $("#statue_data_collection_explanation").html("<p>Aqui pode recolher os dados necessários para a resolução da tarefa. </p><p>À direita, tem uma balança onde pode medir a massa de diferentes modelos da estátua.  </p>");
+     $("#statue_data_collection_explanation").html("<p><%= t 'statue.data1' %></p>");
+     $("#statue_data_collection_explanation").append("<p><%= t 'statue.data2' %></p>");
+     $("#statue_data_collection_explanation").append("<p><%= t 'statue.data3' %></p>");
 
 $("#statue_data-gathering_next").hide();
 }
