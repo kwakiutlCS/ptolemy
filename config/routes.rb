@@ -13,6 +13,12 @@ Plotomeu::Application.routes.draw do
     end
   end
 
+  resources :pendulum_filter do
+    member do 
+      get "filter"
+    end
+  end
+
   resources :static_pages do
     collection do
       get "set_name"

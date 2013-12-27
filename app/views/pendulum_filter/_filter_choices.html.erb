@@ -1,0 +1,25 @@
+<% @filtered.each do |i| %>
+<%= link_to i[0].template.title, "thermo_filter/"+i[0].id.to_s+"/filter", id: "filter"+i[0].id.to_s, class: "filter_hidden_links" %>
+<div class="filter_choice_pair template_pair_index">
+  <div class="filter_choice_item template_cell_index <% if i[0].inactive? %>filter_inactive<% end %>" data-url=<%= "filter"+i[0].id.to_s %>>
+    <div class="template_title_index"> 
+      <%= t ("thermo_filter."+i[0].template.title) %>
+    </div>
+    <div class="template_image_description_index"> 
+      <%= image_tag(i[0].template.img) %>
+    </div>
+  </div>
+  <% if i.count == 2 %>
+  <%= link_to i[1].template.title, "thermo_filter/"+i[1].id.to_s+"/filter", id: "filter"+i[1].id.to_s, class: "filter_hidden_links" %>
+  <div class="filter_choice_item template_cell_index <% if i[0].inactive? %>filter_inactive<% end %>" data-url=<%= "filter"+i[1].id.to_s %> >
+    <div class="template_title_index">
+      <%= t ("thermo_filter."+i[1].template.title) %>
+    </div>
+    <div class="template_image_description_index"> 
+      <%= image_tag(i[1].template.img) %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<% end %>

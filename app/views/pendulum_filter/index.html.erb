@@ -1,0 +1,49 @@
+<div style="margin-top: -60px" >
+
+<% if !@user %>
+<section class="name_getter" style="width:500px; margin: 200px auto ;">
+  
+  <p><%= t "getName" %></p>
+  <%= form_tag("/static_pages/set_name", remote:true, method: "get", class:"form-horizontal") do %>
+  <%= text_field_tag(:name, nil, id:"student_name_field") %>
+  <%= submit_tag(:ok, id:"student_name_submit", class:"btn btn-success") %>
+  <% end %>
+</section>
+<% end %>
+
+
+<section class="background <% if !@user %>hidden_section<% end %>">
+  <% if session[:deadline] %>
+  <div class="alert alert-info">
+  <%= t "deadline.intro" %><%= session[:deadline].strftime("%d/%m") %><%= t "deadline.end" %>
+  </div>
+  <% end %>
+
+<div id="pendulum_background_div">
+
+<h1><%= t "pendulum.title" %></h1>
+<p><%= t "pendulum.intro1" %></p> <br />
+<p><%= t "pendulum.intro2" %></p><br />
+<p><%= t "pendulum.intro3" %></p>
+
+</div>
+<div class="btn-group statue_navigator">
+<a type="button" class="statue_button btn btn-primary background_next" id="statue_background_next"><%= t "next" %></a>
+</div>
+</section>
+
+
+
+
+
+
+
+<section class="filter_section">
+  <h2><%= t "pendulum.choose_factor" %></h2>
+  <%= render "filter_choices" %>
+
+  <div class="btn-group model_navigator">
+<a type="button" class="pendulum_button btn btn-primary filter_previous" id="pendulum_filter_previous"><%= t "previous" %></a>
+</div>
+</section>
+
