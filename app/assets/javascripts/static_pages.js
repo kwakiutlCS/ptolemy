@@ -243,7 +243,7 @@ chart_vars = {
 		      data: chart_vars.user_data,
 		      points: { show: true},
 		      label: "os seus dados",
-		      color:2,
+		      color:3,
      
 		  },
 	         
@@ -268,26 +268,28 @@ chart_vars = {
 	 var ymax = (typeof ymax) == "undefined" ? this.setYMax() : ymax;
 	 
 	
-	 $.plot($(".graph_div"), [{
+	 $.plot($(".graph_div"), [
+	         {
+                    data: [[-chart_vars.measurable,chart_vars.linear_b-(chart_vars.prediction-chart_vars.linear_b)],[chart_vars.measurable, chart_vars.prediction], [chart_vars.measurable*2,chart_vars.prediction+chart_vars.linear_m*chart_vars.measurable]],
+		     color: 1,
+		  },
+                  {
 		      data: chart_vars.plot_data,
 		      points: { show: true },
-		      label: "dados dos seus colegas"
-     
+		      label: "dados dos seus colegas",
+                      color: 0,
 		  },
 		  {
 		      data: chart_vars.user_data,
 		      points: { show: true },
 		      label: "os seus dados",
-		      color: 2,
+		      color: 3,
 		  },
-	         {
-                    data: [[-chart_vars.measurable,chart_vars.linear_b-(chart_vars.prediction-chart_vars.linear_b)],[chart_vars.measurable, chart_vars.prediction], [chart_vars.measurable*2,chart_vars.prediction+chart_vars.linear_m*chart_vars.measurable]],
-		          
-		  },
+	         
 		  {
 		      data: [[chart_vars.measurable,chart_vars.prediction]],
 		      points: { show: true },
-		      
+		      color: 2,
      
 		  },
 					], 
@@ -312,24 +314,26 @@ chart_vars = {
 	 var ymax = (typeof ymax) == "undefined" ? this.setYMax() : ymax;
 	 
 	 $.plot($(".graph_div"), [{
+                     data: data,
+	             color:1
+		  },{
 		      data: chart_vars.plot_data,
 		      points: { show: true },
-		      label: "dados dos seus colegas"
-     
+		      label: "dados dos seus colegas",
+                      color:0
 		  },
 		  {
 		      data: chart_vars.user_data,
 		      points: { show: true },
 		      label: "os seus dados",
-		      color: 2,
+		      color: 3,
 		  },
-	         {
-                    data: data
-		  },
+	         
 		  
 		  {
 		      data: [[chart_vars.measurable,chart_vars.prediction]],
 		      points: { show: true },
+                      color: 2,
 		  }
 					], 
 		 {
