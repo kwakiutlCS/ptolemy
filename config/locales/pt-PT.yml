@@ -131,7 +131,7 @@ pt-PT:
 
   thermo_filter:
     title: "Aquecimento de um material"
-    description: ""
+    description: "Descubra a energia necessária para aquecer um material"
     temperature_investigation: "Investigar o efeito da variação da temperatura"
     material_investigation: "Investigar o efeito do material"
     mass_investigation: "Investigar o efeito da massa do material"
@@ -143,7 +143,7 @@ Começamos portanto por escolher a variável a estudar."
     
   statue:
     title: "A massa da estátua"
-    description: ""
+    description: "Consegue calcular a massa de uma estátua?"
     intro1: "Imagine que uma estátua com 2.5m de altura será construída. Nesta tarefa pretende-se descobrir a massa que a estátua terá."
     intro2: ""
     strategy1: "Não é possível medir a massa da estátua diretamente, porque ainda não existe."

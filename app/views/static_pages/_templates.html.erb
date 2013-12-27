@@ -5,7 +5,7 @@
     <div class="template_title_index"><%= s[0].title %></div>
     <div class="template_image_description_index" data-number=<%= i*2+1 %>>
       <div class="template_image_index"><%= image_tag(s[0].img, size:"280x154", ) %> </div>
-      <div class="template_description_index"><%= s[0].description %></div>
+      <div class="template_description_index"><%= t s[0].description %></div>
     </div>
   </div>
   
@@ -14,7 +14,7 @@
     <div class="template_title_index"><%= s[1].title %></div>
     <div class="template_image_description_index"  data-number=<%= i*2+2 %>>
       <div class="template_image_index"><%= image_tag(s[1].img, size:"280x154") %> </div>
-      <div class="template_description_index"><%= s[1].description %></div>
+      <div class="template_description_index"><%= t s[1].description %></div>
     </div>
   </div>
 
@@ -26,7 +26,7 @@
     <div class="template_title_index"><%= s[0].title %></div>
     <div class="template_image_description_index"  data-number=<%= i*2+1 %>>
       <div class="template_image_index"><%= image_tag(s[0].img, size:"280x154") %> </div>
-      <div class="template_description_index"><%= s[0].description %></div>
+      <div class="template_description_index"><%= t s[0].description %></div>
     </div>
   </div>
 </div>
