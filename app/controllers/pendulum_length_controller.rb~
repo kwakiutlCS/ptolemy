@@ -1,0 +1,2 @@
+class PendulumLengthController < ApplicationController
+end
