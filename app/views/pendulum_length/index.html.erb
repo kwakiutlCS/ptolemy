@@ -122,6 +122,8 @@
 		    skip_frame = true;
 		}
 		else {
+		    time += animation_parameters.dt;
+                    $("#chrono").html(time.toFixed(1)+" s");
 		    omega += g*Math.sin(-theta)*animation_parameters.dt/size;
 		    theta += omega * animation_parameters.dt;
 		    drawPendulum();
@@ -208,6 +210,8 @@
        $("#onoff").html("<%= t 'start' %>");
        theta = initialTheta;
        omega = 0;
+       time = 0;
+       $("#chrono").html("0.0 s");
        drawPendulum();
        animation = false;
     });
