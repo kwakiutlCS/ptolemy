@@ -68,6 +68,7 @@
 
     var size = 1;
     var theta = 3.14/18;
+    var initialTheta = theta;
     var omega = 0;
     var mass = 0.2;
     var g = 9.8;
@@ -166,23 +167,49 @@
 	render();
     }
 
-    $(".controls").on("slide","#pendulum_length_slider", function(evt, ui) {
-	console.log(mass);
-	size = ui.value;
-	$("#pendulum_length").html(size.toFixed(3)+" m");
-	console.log(mass);
+    $("#pendulum_mass_slider").on("slide", function(evt, ui) {
+	mass = ui.value;
+	$("#pendulum_mass").html(mass.toFixed(3)+" kg");
 	drawPendulum();
-	console.log(mass);
+	
     });
-    $(".controls").on("slide","#pendulum_angle_slider", function(evt, ui) {
+
+    $("#pendulum_length_slider").on("slide", function(evt, ui) {
+        size = ui.value;
+	$("#pendulum_length").html(size.toFixed(3)+" m");
+	drawPendulum();
+	
+    });
+    $("#pendulum_angle_slider").on("slide", function(evt, ui) {
 	theta = ui.value/180*3.1415;
-	$("#pendulum_angle").html(ui.value.toFixed(0)+"º");
+	initialTheta = theta;
+	$("#pendulum_angle").html(ui.value.toFixed(1)+"º");
 	drawPendulum();
     });
     
     
     $("#onoff").on("click", function() {
+       if (!animation) {
+          $("#pendulum_length_slider").slider("disable");
+	  $("#pendulum_mass_slider").slider("disable");
+          $("#pendulum_angle_slider").slider("disable");
+	  $(this).html("<%= t 'stop' %>");
+       }
+       else {
+          $(this).html("<%= t 'start' %>");
+       }
        animation = !animation;
+    });
+
+    $("#restart").on("click", function() {
+       $("#pendulum_length_slider").slider("enable");
+       $("#pendulum_mass_slider").slider("enable");
+       $("#pendulum_angle_slider").slider("enable");
+       $("#onoff").html("<%= t 'start' %>");
+       theta = initialTheta;
+       omega = 0;
+       drawPendulum();
+       animation = false;
     });
 });
 
@@ -241,10 +268,10 @@
     <div id="pendulum1_controls" class="controls">
       <div >
 	<div id="pendulum_mass" class="monitor">0.050 kg</div>
-	<div id="pendulum_mass_slider" class="control_slider"</div>
+	<div id="pendulum_mass_slider" class="control_slider"></div>
 	<div id="pendulum_length" class="monitor">1.00 m</div>
 	<div id="pendulum_length_slider" class="control_slider"></div>
-	<div id="pendulum_angle" class="monitor"> 5º</div>
+	<div id="pendulum_angle" class="monitor"> 5.0º</div>
 	<div id="pendulum_angle_slider" class="control_slider"></div>
 	
 
