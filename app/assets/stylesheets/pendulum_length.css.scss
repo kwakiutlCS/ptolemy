@@ -1,3 +1,36 @@
 // Place all the styles related to the pendulum_length controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.controls {
+    float: right;
+    display: inline-block;
+    position: relative;
+    top: -300px;
+    right: -20px;
+
+    .btn {
+       width: 75px;
+    }
+}
+
+.control_slider {
+    width: 150px;
+}
+
+.canvas_animation {
+   height: 500px;
+}
+
+.btn-group {
+    float: right;
+}
+
+.data_form_input {
+   width: 100px;
+}
+
+.data_form_submit {
+   width: 75px;
+}

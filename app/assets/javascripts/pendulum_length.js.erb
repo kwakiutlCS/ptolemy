@@ -2,19 +2,7 @@ $(function() {
 
     //SPECIFIC CODE
     
-    $("#thermo_time_field").on("keyup", function() {
-	 if ($(this).val() == "") {
-	     $("#thermo_energy_calculator").text("0.0");
-	     $("#thermo_energy_field").val("");
-	 }
-	 else {
-	     var t = parseFloat($(this).val());
-	     if (t != NaN) {
-		  $("#thermo_energy_calculator").text((Math.round(t*0.5*10)/10).toFixed(1));
-		  $("#thermo_energy_field").val(t*500);
-	     }
-	 }
-    });
+    
     
 
     $("#pendulum_mass_slider").slider({ min: 0.050, max: 0.300, step: 0.001, value: 0.2 });

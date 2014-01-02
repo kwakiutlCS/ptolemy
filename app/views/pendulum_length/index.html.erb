@@ -225,24 +225,22 @@
 
    <h1><%= t "collectData" %></h1>
         
-    <div class="model_data_form pendulum1_data_form span5">
+    <div class="model_data_form pendulum1_data_form span5 form-inline">
       <%= form_tag(data_points_path, remote: true) do %>
          <%= hidden_field_tag(:y, nil,  id:"pendulum1_energy_field") %>
          <table class="table">
 	    <thead>
-	      <tr><th><%= t("mass") %>(kg)</th><th><%= t("timeWord") %>(s)</th><th title="E = P x &#916;t"><%= t("energy") %>(kJ)</th><th></th></tr>
+	      <tr><th><%= t("length") %>(m)</th><th><%= t("period") %>(s)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"pendulum1_input", step:0.001, id:"pendulum1_volume_field", placeholder:"kg", max:1, min:0) %>
+		   <%= number_field_tag(:x, nil,  class:"pendulum1_input data_form_input", step:0.01, id:"pendulum1_length_field", placeholder:"m", max:1.8, min:0.1) %>
 		 </th>
 		 <th>
-		   <%= number_field_tag(:time, nil, class:"pendulum1_input", step:0.1, id:"pendulum1_time_field", placeholder:"s", max:75, min: 0) %>
+		   <%= number_field_tag(:time, nil, class:"pendulum1_input data_form_input", step:0.01, id:"pendulum1_time_field", placeholder:"s", max:5, min: 0) %>
 		 </th>
-		 <th id="pendulum1_energy_calculator" title="E = P x &#916;t">
-		   0.0
-		 </th>
+		 
 		 <th>
-		   <%= submit_tag(:submeter, value: t('submit'), class:"btn btn-success", id:"pendulum1_add_data_point_button") %>
+		   <%= submit_tag(:submeter, value: t('submit'), class:"btn btn-success data_form_submit", id:"pendulum1_add_data_point_button") %>
 		 </th>
 	      </tr>
 	    </thead>
@@ -266,12 +264,12 @@
 
     
     
-    <div class="pendulum1_animation span7">
+    <div class="pendulum1_animation span7 canvas_animation">
     <canvas id="myCanvas" width=400 height=500></canvas>
    
     <div id="pendulum1_controls" class="controls">
       <div >
-	<div id="pendulum_mass" class="monitor">0.050 kg</div>
+	<div id="pendulum_mass" class="monitor">0.200 kg</div>
 	<div id="pendulum_mass_slider" class="control_slider"></div>
 	<div id="pendulum_length" class="monitor">1.00 m</div>
 	<div id="pendulum_length_slider" class="control_slider"></div>
