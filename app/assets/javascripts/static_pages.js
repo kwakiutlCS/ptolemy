@@ -118,19 +118,25 @@ chart_vars = {
     },
 
     getRootData: function() {
-	
+	var zero = Math.pow(-this.root_b/this.root_k,2)+this.root_h;
 	if (this.y_maximum && this.root_k * Math.pow((this.x_maximum-this.root_h),0.5)  + this.root_b > this.y_maximum) {
 	    var step = (Math.pow(((this.y_maximum*1.1 - this.root_b)/this.root_k),2)+this.root_h)/40;
 	}
 	else {
-	    var step = this.x_maximum/40;
+	    var step = (this.x_maximum-zero)/40;
 	}
 
 	 var x = 0;
 	 var root_data = [];
 
 	 for (var i = 0; i < 40; i++) {
-	     var y = this.root_k *Math.pow((x-this.root_h),0.5) + this.root_b;
+	     if (i === 0) {
+		 var y = 0;
+	     }
+	     else {
+		 var y = this.root_k *Math.pow((x-this.root_h),0.5) + this.root_b;
+	     }
+	     
 	     root_data.push([x, y]);
 	     x += step;
 	     
