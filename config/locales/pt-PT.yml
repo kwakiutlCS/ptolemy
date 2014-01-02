@@ -19,6 +19,7 @@ pt-PT:
   linear: linear
   quadratic: quadrático
   cubic: cúbico
+  root: "raiz quadrada"
   constant: constante
   strategy: estratégia
   modeling_process: modelação

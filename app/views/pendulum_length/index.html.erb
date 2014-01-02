@@ -311,26 +311,26 @@
   <div class="btn-group">
     <a type="button" class="pendulum1_button btn linear_model_button" id="pendulum1_linear_button"><%= t("linear").capitalize %><br/> y = k x + b</a>
     <a type="button" class="pendulum1_button btn quadratic_model_button" id="pendulum1_quadratic_button"><%= t("quadratic").capitalize %><br /> y = k (x-h)<sup>2</sup> + b</a>
-    <a type="button" class="pendulum1_button btn cubic_model_button" id="pendulum1_cubic_button"><%= t("cubic").capitalize %><br /> y = k (x-h)<sup>3</sup> + b</a>
+    <a type="button" class="pendulum1_button btn root_model_button" id="pendulum1_root_button"><%= t("root").capitalize %><br /> y = k (x-h)<sup>1/2</sup> + b</a>
   </div>
     
   <div class="model-choice_buttons_explanation"  id="pendulum1_buttons_explanation"><%= t "chooseModelInstructions" %></div>
   <div class="linear_function_controls model_function_controls" id="pendulum1_linear_controls">
     
-   <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="pendulum1_linear_m">10000</span></div><div class="model_slider_controls model_linear_m_slider" id="pendulum1_linear_m_slider"></div></div>
+   <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_linear_m" id="pendulum1_linear_m">1</span></div><div class="model_slider_controls model_linear_m_slider" id="pendulum1_linear_m_slider"></div></div>
     <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_linear_b" id="pendulum1_linear_b">0</span></div><div class="model_slider_controls model_linear_b_slider" id="pendulum1_linear_b_slider"></div></div>
 
   </div>
   <div class="quadratic_function_controls model_function_controls" id="pendulum1_quadratic_controls">
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_quadratic_k" id="pendulum1_quadratic_k">15000</span></div><div class="model_slider_controls model_quadratic_k_slider" id="pendulum1_quadratic_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_quadratic_k" id="pendulum1_quadratic_k">1</span></div><div class="model_slider_controls model_quadratic_k_slider" id="pendulum1_quadratic_k_slider"></div></div>
     <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_quadratic_h" id="pendulum1_quadratic_h">0</span></div><div class="model_slider_controls model_quadratic_h_slider" id="pendulum1_quadratic_h_slider"></div></div>
     <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_quadratic_b" id="pendulum1_quadratic_b">0</span></div><div class="model_slider_controls model_quadratic_b_slider" id="pendulum1_quadratic_b_slider"></div></div>
   </div>
 
-  <div class="cubic_function_controls model_function_controls" id="pendulum1_cubic_controls">
-    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_cubic_k" id="pendulum1_cubic_k">20000</span></div><div class="model_slider_controls  model_cubic_k_slider" id="pendulum1_cubic_k_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_cubic_h" id="pendulum1_cubic_h">0</span></div><div class="model_slider_controls model_cubic_h_slider" id="pendulum1_cubic_h_slider"></div></div>
-    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_cubic_b" id="pendulum1_cubic_b">0</span></div><div class="model_slider_controls model_cubic_b_slider" id="pendulum1_cubic_b_slider"></div></div>
+  <div class="root_function_controls model_function_controls" id="pendulum1_root_controls">
+    <div class="model_choice_slider_parent"><div class="function_controls_label">k: <span class="model_root_k" id="pendulum1_root_k">1</span></div><div class="model_slider_controls  model_root_k_slider" id="pendulum1_root_k_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">h: <span class="model_root_h" id="pendulum1_root_h">0</span></div><div class="model_slider_controls model_root_h_slider" id="pendulum1_root_h_slider"></div></div>
+    <div class="model_choice_slider_parent"><div class="function_controls_label">b: <span class="model_root_b" id="pendulum1_root_b">0</span></div><div class="model_slider_controls model_root_b_slider" id="pendulum1_root_b_slider"></div></div>
   </div> 
   
   <div class="model_choice_model_information_div">
