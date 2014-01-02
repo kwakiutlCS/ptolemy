@@ -1,0 +1,20 @@
+
+$('#pendulum1_data_collection').html("<%= escape_javascript(render(:partial => 'thermal_capacities_temp/tbody')) %>");
+
+
+if (<%= @data.count > 0 %>) {
+$("#pendulum1_data_collection_explanation").html("<p><%= I18n.translate("pendulum1.data5") %></p>");
+
+$("#pendulum1_data-gathering_next").show();
+}
+else {
+     $("#pendulum1_data_collection_explanation").html("<p><%= t("pendulum1.data1") %> </p>");
+     $("#pendulum1_data_collection_explanation").append("<p><%= t("pendulum1.data2") %> </p>");
+     $("#pendulum1_data_collection_explanation").append("<p><%= t("pendulum1.data3") %> </p>");
+     $("#pendulum1_data_collection_explanation").append("<p><%= t("pendulum1.data4") %> </p>");
+
+     $("#pendulum1_data-gathering_next").hide();
+}
+$(".form_input").val("");
+
+
