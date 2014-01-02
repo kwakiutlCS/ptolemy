@@ -21,6 +21,9 @@ chart_vars = {
     cubic_k: false, 
     cubic_h: false, 
     cubic_b: false, 
+    root_k: false, 
+    root_h: false, 
+    root_b: false, 
 
     x_unit: false,
     y_unit: false,
@@ -114,7 +117,26 @@ chart_vars = {
 	 return cubic_data;
     },
 
+    getRootData: function() {
+	
+	if (this.y_maximum && this.root_k * Math.pow((this.x_maximum-this.root_h),0.5)  + this.root_b > this.y_maximum) {
+	    var step = (Math.pow(((this.y_maximum*1.1 - this.root_b)/this.root_k),2)+this.root_h)/40;
+	}
+	else {
+	    var step = this.x_maximum/40;
+	}
 
+	 var x = 0;
+	 var root_data = [];
+
+	 for (var i = 0; i < 40; i++) {
+	     var y = this.root_k *Math.pow((x-this.root_h),0.5) + this.root_b;
+	     root_data.push([x, y]);
+	     x += step;
+	     
+	 }
+	 return root_data;
+    },
 
     write_linear_formula: function() {
 	 if (this.linear_m) {
@@ -226,7 +248,55 @@ chart_vars = {
 	 }
     },
 
+    write_root_formula: function() {
+	 if (this.root_k) {
+	     if (this.root_h > 0) {
+		  if (this.root_b > 0) {
+		      $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_k+" ("+this.x_unit+"-"+this.root_h+")<sup>1/2</sup> + "+this.root_b);
+		  }
+		  else if (this.root_b < 0) {
+		      $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_k+" ("+this.x_unit+"-"+this.root_h+")<sup>1/2</sup> - "+this.root_b*(-1));
+		  }
+		  else {
+		      $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_k+" ("+this.x_unit+"-"+this.root_h+")<sup>1/2</sup>");
+		  }
+	     }
+	     else if (this.root_h < 0) {
+		  if (this.root_b > 0) {
+		      $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_k+" ("+this.x_unit+"+"+this.root_h*(-1)+")<sup>1/2</sup> + "+this.root_b);
+		  }
+		  else if (this.root_b < 0) {
+		      $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_k+" ("+this.x_unit+"+"+this.root_h*(-1)+")<sup>1/2</sup> - "+this.root_b*(-1));
+		  }
+		  else {
+		      $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_k+" ("+this.x_unit+"+"+this.root_h*(-1)+")<sup>1/2</sup>");
+		  }
+	     }
+	     else {
+		  if (this.root_b > 0) {
+		      $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_k+" "+this.x_unit+"<sup>1/2</sup> + "+this.root_b);
+		  }
+		  else if (this.root_b < 0) {
+		      $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_k+" "+this.x_unit+"<sup>1/2</sup> - "+(-1)*this.root_b);
+		  }
+		  else {
+		      $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_k+" "+this.x_unit+"<sup>1/2</sup>");
+		  }
+	     }
 
+	 }
+	 else  {
+	     if (this.root_b) {
+		  $(".model_choice_model_formula").html(this.y_unit+" = "+this.root_b);
+	     }
+	     else {
+		  $(".model_choice_model_formula").html(this.y_unit+" = 0");
+	     }
+	 }
+    },
+
+
+    
     plot_normal: function(xmax, ymax) {
 	
 	 var xmax = (typeof xmax) == "undefined" ? this.default_x : xmax;
@@ -635,7 +705,36 @@ $(function() {
 	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
 	}
     });
+    $(".model_root_k_slider").on("slide", function(evt, ui) {
+	if (!chart_vars.animation_phase) {
+	    $(".model_root_k").html(ui.value);
+	    chart_vars.root_k = ui.value;
 
+	    chart_vars.prediction = chart_vars.root_b + Math.pow(chart_vars.measurable-chart_vars.root_h, 0.5)*chart_vars.root_k;
+	    chart_vars.write_root_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getRootData());
+	}
+    });
+    $(".model_root_h_slider").on("slide", function(evt, ui) {
+	if (!chart_vars.animation_phase) {
+	    $(".model_root_h").html(ui.value);
+	    chart_vars.root_h = ui.value;
+	    
+	    chart_vars.prediction = chart_vars.root_b + Math.pow(chart_vars.measurable-chart_vars.root_h, 0.5)*chart_vars.root_k;
+	    chart_vars.write_root_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getRootData());
+	}
+    });
+    $(".model_root_b_slider").on("slide", function(evt, ui) {
+	if (!chart_vars.animation_phase) {
+	    $(".model_root_b").html(ui.value);
+	    chart_vars.root_b = ui.value;
+
+	    chart_vars.prediction = chart_vars.root_b + Math.pow(chart_vars.measurable-chart_vars.root_h, 0.5)*chart_vars.root_k;
+	    chart_vars.write_root_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getRootData());
+	}
+    });
 
 
     // select model buttons
@@ -680,6 +779,20 @@ $(function() {
 	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getCubicData());
 	}
     });
+    
+    $(".model_choice_buttons").on("click", ".root_model_button", function() {
+	if (!chart_vars.animation_phase) {
+	    $(".model-choice_buttons_explanation").hide();
+	    $(".model_function_controls").hide();
+	    $(".root_function_controls").show();
+	    $(".model_choice_model_information_div").show();
+	    chart_vars.model = 4;
+	    
+	    chart_vars.write_root_formula();
+	    chart_vars.prediction = chart_vars.root_b + Math.pow(chart_vars.measurable-chart_vars.root_h, 0.5)*chart_vars.root_k;
+	    chart_vars.loadsPlot(chart_vars.plot_polynomial, chart_vars.getRootData());
+	}
+    });
 
 
     $(".model_confirm_model_button").on("click", function() {
@@ -706,6 +819,8 @@ $(function() {
 		chart_vars.plot_polynomial(chart_vars.getQuadraticData());
 	    else if (chart_vars.model === 3)
 		chart_vars.plot_polynomial(chart_vars.getCubicData());
+	    else if (chart_vars.model === 4)
+		chart_vars.plot_polynomial(chart_vars.getRootData());
 	    else
 		chart_vars.plot_normal();
 	}
@@ -722,6 +837,8 @@ $(function() {
 		chart_vars.plot_polynomial(chart_vars.getQuadraticData());
 	    else if (chart_vars.model === 3)
 		chart_vars.plot_polynomial(chart_vars.getCubicData());
+	    else if (chart_vars.model === 4)
+		chart_vars.plot_polynomial(chart_vars.getRootData());
 	    else
 		chart_vars.plot_normal();
 	}
