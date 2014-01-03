@@ -18,7 +18,6 @@ class DataPointsController < ApplicationController
 
     getData(params[:series])
     
-    
     respond_to do |format|
       format.html {
         redirect_to session[:url]

@@ -354,8 +354,6 @@ chart_vars = {
 
 
     plot_linear: function(xmax, ymax) {
-	console.log(xmax);
-	console.log(this.default_x);
 	 var xmax = (typeof xmax) == "undefined" ? this.default_x : xmax;
 	 var ymax = (typeof ymax) == "undefined" ? this.setYMax() : ymax;
 	 
@@ -401,8 +399,6 @@ chart_vars = {
     },
 
     plot_constant: function(xmax, ymax) {
-	console.log(xmax);
-	console.log(this.default_x);
 	 var xmax = (typeof xmax) === "undefined" ? this.default_x : xmax;
 	 var ymax = (typeof ymax) === "undefined" ? this.setYMax() : ymax;
 	

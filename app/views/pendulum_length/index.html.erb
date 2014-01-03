@@ -227,7 +227,6 @@
         
     <div class="model_data_form pendulum1_data_form span5 form-inline">
       <%= form_tag(data_points_path, remote: true) do %>
-         <%= hidden_field_tag(:y, nil,  id:"pendulum1_energy_field") %>
          <table class="table">
 	    <thead>
 	      <tr><th><%= t("length") %>(m)</th><th><%= t("period") %>(s)</th><th></th></tr>

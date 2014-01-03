@@ -1,0 +1,19 @@
+$('#pendulum3_data_collection').html("<%= escape_javascript(render(:partial => 'pendulum_angle/tbody')) %>");
+
+
+if (<%= @data.count > 0 %>) {
+   $("#pendulum3_data_collection_explanation").html("<p><%= I18n.translate("nextJob") %></p>");
+
+   $("#pendulum3_data-gathering_next").show();
+
+}
+else {
+     $("#pendulum3_data_collection_explanation").html("<p><%= I18n.translate("pendulum3.data1") %> </p>");
+     $("#pendulum3_data_collection_explanation").append("<p><%= I18n.translate("pendulum3.data2") %> </p>");
+     $("#pendulum3_data_collection_explanation").append("<p><%= I18n.translate("pendulum3.data3") %> </p>");
+     $("#pendulum3_data_collection_explanation").append("<p><%= I18n.translate("pendulum3.data4") %> </p>");
+
+     $("#pendulum3_data-gathering_next").hide();
+}
+$(".data_form_input").val("");
+

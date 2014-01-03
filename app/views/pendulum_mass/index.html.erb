@@ -227,13 +227,12 @@
         
     <div class="model_data_form pendulum2_data_form span5 form-inline">
       <%= form_tag(data_points_path, remote: true) do %>
-         <%= hidden_field_tag(:y, nil,  id:"pendulum2_energy_field") %>
          <table class="table">
 	    <thead>
 	      <tr><th><%= t("mass") %>(kg)</th><th><%= t("period") %>(s)</th><th></th></tr>
 	      <tr>
 		 <th>
-		   <%= number_field_tag(:x, nil,  class:"pendulum2_input data_form_input", step:0.001, id:"pendulum2_mass_field", placeholder:"m", max:0.3, min:0.050) %>
+		   <%= number_field_tag(:x, nil,  class:"pendulum2_input data_form_input", step:0.001, id:"pendulum2_mass_field", placeholder:"kg", max:0.3, min:0.050) %>
 		 </th>
 		 <th>
 		   <%= number_field_tag(:y, nil, class:"pendulum2_input data_form_input", step:0.01, id:"pendulum2_time_field", placeholder:"s", max:5, min: 0) %>
