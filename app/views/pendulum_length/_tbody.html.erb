@@ -2,9 +2,11 @@
 	      <% if @data %>
 	      <% @data.each do |d| %>
 	      <tr>
-		 <td style="text-align:center;"><%= d.x.round(2) %></td>
+		<td style="text-align:center;"><%= d.x.round(2) %></td>
 		 <td style="text-align:center;"><%= (d.y).round(2) %></td>
-		 <td><%= link_to "remover", d, remote: true, method: :delete, confirm: "Pretende remover este ponto?", class: "pendulum1_remove_data_point_button" %></td>
+		<td><%= link_to "remover", d, remote: true, method: :delete, confirm: "Pretende remover este ponto?", class: "pendulum1_remove_data_point_button" %></td>
+
+
 	      </tr>
 	      <% end %>
 	      <% end %>

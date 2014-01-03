@@ -1,12 +1,11 @@
-
 $('#pendulum1_data_collection').html("<%= escape_javascript(render(:partial => 'pendulum_length/tbody')) %>");
 
 
-
 if (<%= @data.count > 0 %>) {
-$("#pendulum1_data_collection_explanation").html("<p><%= I18n.translate("pendulum1.data5") %></p>");
+   $("#pendulum1_data_collection_explanation").html("<p><%= I18n.translate("pendulum1.data5") %></p>");
 
-$("#pendulum1_data-gathering_next").show();
+   $("#pendulum1_data-gathering_next").show();
+
 }
 else {
      $("#pendulum1_data_collection_explanation").html("<p><%= I18n.translate("pendulum1.data1") %> </p>");
@@ -17,3 +16,7 @@ else {
      $("#pendulum1_data-gathering_next").hide();
 }
 $(".form_input").val("");
+
+$(".form_input").val("");
+
+
