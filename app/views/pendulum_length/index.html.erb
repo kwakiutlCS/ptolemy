@@ -301,8 +301,8 @@
 
 
 <section class="model-choice">
-  <div class="x_axis_unit axis_unit">m</div>
-  <div class="y_axis_unit axis_unit">E</div>
+  <div class="x_axis_unit axis_unit">L</div>
+  <div class="y_axis_unit axis_unit">T</div>
 
   <h1><%= t("chooseModel") %></h1>
   <div>
@@ -351,10 +351,10 @@
   <div id="pendulum1_graph_super_div">
     <div><%= t "pendulum1.graph_title" %></div>
     <div id="pendulum1_graph_div">
-      <div class="y_label_div" id="pendulum1_y_label">E (J)</div>
+      <div class="y_label_div" id="pendulum1_y_label">T (s)</div>
     
       <div class="graph_div" id="pendulum1_graph"></div>
-      <div class="x_label_div"  id="pendulum1_x_label">m (kg)</div>
+      <div class="x_label_div"  id="pendulum1_x_label">L (m)</div>
     </div>
     <div class="graph_legend_container"></div>
   </div>
@@ -370,7 +370,7 @@
 <section class="questions">
   <h1><%= t "finalQuestions" %></h1>
 
-  <div class="row" id="pendulum1_question_screen1"><div class="span2"></div>
+  <div class="row model_question_screen1" id="pendulum1_question_screen1"><div class="span2"></div>
     <div class="span9" id="pendulum1_questions_div">
       <%= form_tag(answers_path, remote: true) do %>
       <%= hidden_field_tag(:model, nil, id:"pendulum1_model_field", class:"question_model_field") %>
@@ -380,9 +380,6 @@
       <%= hidden_field_tag(:question2, nil, id:"pendulum1_question2_field", class:"question_question2_field") %>
       <%= label_tag(:answer2, nil, id:"pendulum1_question2_label", class:"question_question2_label") %>
       <%= text_area_tag(:answer2, nil, id:"pendulum1_answer2_field", class:"question_answer2_field") %>
-      <%= hidden_field_tag(:question3, nil, id:"pendulum1_question3_field", class:"question_question3_field") %>
-      <%= label_tag(:answer3, nil, id:"pendulum1_question3_label", class:"question_question3_label") %>
-      <%= text_area_tag(:answer3, nil, id:"pendulum1_answer3_field", class:"question_answer3_field") %>
       <%= hidden_field_tag(:question4, nil, id:"pendulum1_question4_field", class:"question_question4_field") %>
       <%= label_tag(:answer4, nil, id:"pendulum1_question4_label", class:"question_question4_label") %>
       <%= text_area_tag(:answer4, nil, id:"pendulum1_answer4_field", class:"question_answer4_field") %>
@@ -394,7 +391,7 @@
     <div class="span3"></div>
   </div>
 
-  <div class="row" id="pendulum1_question_screen2"><div class="span2"></div>
+  <div class="row model_question_screen2" id="pendulum1_question_screen2"><div class="span2"></div>
     <div class="span9" id="pendulum1_questions_after_div">
       <%= t "endActivityMessage" %>
     </div>
