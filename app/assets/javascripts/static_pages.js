@@ -24,6 +24,7 @@ chart_vars = {
     root_k: false, 
     root_h: false, 
     root_b: false, 
+    constant_b: false, 
 
     x_unit: false,
     y_unit: false,
@@ -163,6 +164,11 @@ chart_vars = {
 	 }
 	 else 
 	     $(".model_choice_model_formula").html(this.y_unit+" = "+this.linear_b);
+
+    },
+
+    write_constant_formula: function() {
+	 $(".model_choice_model_formula").html(this.y_unit+" = "+this.constant_b);
 
     },
 
@@ -348,6 +354,8 @@ chart_vars = {
 
 
     plot_linear: function(xmax, ymax) {
+	console.log(xmax);
+	console.log(this.default_x);
 	 var xmax = (typeof xmax) == "undefined" ? this.default_x : xmax;
 	 var ymax = (typeof ymax) == "undefined" ? this.setYMax() : ymax;
 	 
@@ -355,6 +363,52 @@ chart_vars = {
 	 $.plot($(".graph_div"), [
 	         {
                     data: [[-chart_vars.measurable,chart_vars.linear_b-(chart_vars.prediction-chart_vars.linear_b)],[chart_vars.measurable, chart_vars.prediction], [chart_vars.measurable*2,chart_vars.prediction+chart_vars.linear_m*chart_vars.measurable]],
+		     color: 1,
+		  },
+                  {
+		      data: chart_vars.plot_data,
+		      points: { show: true },
+		      label: "dados dos seus colegas",
+                      color: 0,
+		  },
+		  {
+		      data: chart_vars.user_data,
+		      points: { show: true },
+		      label: "os seus dados",
+		      color: 3,
+		  },
+	         
+		  {
+		      data: [[chart_vars.measurable,chart_vars.prediction]],
+		      points: { show: true },
+		      color: 2,
+     
+		  },
+					], 
+		 {
+		     xaxis: { min:0, max: xmax,
+			     tickFormatter: function (v) {
+				  return chart_vars.scientific(v,1);
+			     }},
+		     yaxis: { min:0, max: ymax, 
+			     tickFormatter: function (v) {
+				  return chart_vars.scientific(v,1);
+			     }},
+		     legend: { position: "se", backgroundOpacity: 0, container:".graph_legend_container"},
+		     
+		 });
+	 $(".flot-x-axis").css({left: "10px"});
+    },
+
+    plot_constant: function(xmax, ymax) {
+	console.log(xmax);
+	console.log(this.default_x);
+	 var xmax = (typeof xmax) === "undefined" ? this.default_x : xmax;
+	 var ymax = (typeof ymax) === "undefined" ? this.setYMax() : ymax;
+	
+	 $.plot($(".graph_div"), [
+	         {
+                    data: [[-chart_vars.measurable,chart_vars.constant_b],[chart_vars.measurable*2, chart_vars.prediction]],
 		     color: 1,
 		  },
                   {
@@ -461,7 +515,7 @@ chart_vars = {
 	     var xmax = (typeof xmax) === "undefined" ? this.default_x : xmax;
 	     var ymax = (typeof ymax) === "undefined" ? this.setYMax() : ymax;
 	     
-	     if (this.model === 1 || !this.model || f === this.plot_normal)
+	     if (this.model === 1 || this.model === 5 || !this.model || f === this.plot_normal)
 		  f(xmax, ymax);
 	     else 
 		  f(arg,xmax, ymax);
@@ -750,6 +804,17 @@ $(function() {
 	}
     });
 
+    $(".model_constant_b_slider").on("slide", function(evt, ui) {
+	if (!chart_vars.animation_phase) {
+	    $(".model_constant_b").html(ui.value);
+	    chart_vars.constant_b = ui.value;
+
+	    chart_vars.prediction = chart_vars.constant_b;
+	    chart_vars.write_constant_formula();
+	    chart_vars.loadsPlot(chart_vars.plot_constant);
+	}
+    });
+
 
     // select model buttons
     $(".model_choice_buttons").on("click", ".linear_model_button", function() {
@@ -808,6 +873,20 @@ $(function() {
 	}
     });
 
+    $(".model_choice_buttons").on("click", ".constant_model_button", function() {
+	if (!chart_vars.animation_phase) {
+	    $(".model-choice_buttons_explanation").hide();
+	    $(".model_function_controls").hide();
+	    $(".constant_function_controls").show();
+	    $(".model_choice_model_information_div").show();
+	    chart_vars.model = 5;
+	    
+	    chart_vars.write_constant_formula();
+	    chart_vars.prediction = chart_vars.constant_b;
+	    chart_vars.loadsPlot(chart_vars.plot_constant);
+	}
+    });
+
 
     $(".model_confirm_model_button").on("click", function() {
 	if (!chart_vars.intervalId) {
@@ -835,6 +914,8 @@ $(function() {
 		chart_vars.plot_polynomial(chart_vars.getCubicData());
 	    else if (chart_vars.model === 4)
 		chart_vars.plot_polynomial(chart_vars.getRootData());
+	    else if (chart_vars.model === 5)
+		chart_vars.plot_constant();
 	    else
 		chart_vars.plot_normal();
 	}
@@ -853,6 +934,8 @@ $(function() {
 		chart_vars.plot_polynomial(chart_vars.getCubicData());
 	    else if (chart_vars.model === 4)
 		chart_vars.plot_polynomial(chart_vars.getRootData());
+	    else if (chart_vars.model === 5)
+		chart_vars.plot_constant();
 	    else
 		chart_vars.plot_normal();
 	}

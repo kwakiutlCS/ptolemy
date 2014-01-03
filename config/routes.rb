@@ -14,6 +14,8 @@ Plotomeu::Application.routes.draw do
   end
 
   resources :pendulum_length
+  resources :pendulum_mass
+  resources :pendulum_angle
   resources :pendulum_filter do
     member do 
       get "filter"

@@ -1,0 +1,127 @@
+$(function() {
+
+    //SPECIFIC CODE
+    
+    
+    
+
+    $("#pendulum_mass_slider").slider({ min: 0.050, max: 0.300, step: 0.001, value: 0.2 });
+    $("#pendulum_length_slider").slider({ min: 0.10, max: 1.8, step: 0.02, value: 1 });
+    $("#pendulum_angle_slider").slider({ min: 1, max: 30, value: 5, step: 0.1 });
+    
+
+    // creates initial parameters
+    $(".data-gathering").on("click", "#pendulum2_data-gathering_next", function() {
+	chart_vars.data_loaded = false;
+	$(".data-gathering").slideUp();
+	$(".model-choice").slideDown();
+	
+	chart_vars.linear_m = !chart_vars.linear_m  ? 1 : chart_vars.linear_m;
+	chart_vars.linear_b = !chart_vars.linear_b  ? 0 : chart_vars.linear_b;
+	chart_vars.constant_b = !chart_vars.constant_b ? 0 : chart_vars.constant_b;
+	chart_vars.root_k = !chart_vars.root_k ? 1 : chart_vars.root_k;
+	chart_vars.root_h = !chart_vars.root_h ? 0 : chart_vars.root_h;
+	chart_vars.root_b = !chart_vars.root_b ? 0 : chart_vars.root_b; 
+	chart_vars.measurable = 2.5; 
+	chart_vars.default_x = 0.3;
+	
+	chart_vars.x_maximum=chart_vars.default_x;
+	$(".model_second_model_controls").remove();
+	$(".model_first_model_controls").show();
+	$(".model_function_controls").hide();
+	$(".model-choice_buttons_explanation").show();
+	$(".model_choice_model_information_div").hide();
+	chart_vars.loadsPlot(chart_vars.plot_normal);
+    
+
+	$(".model_linear_m").html(chart_vars.linear_m);
+	$(".model_linear_b").html(chart_vars.linear_b);
+	$(".model_constant_b").html(chart_vars.constant_b);
+	$(".model_root_k").html(chart_vars.root_k);
+	$(".model_root_h").html(chart_vars.root_h);
+	$(".model_root_b").html(chart_vars.root_b);
+	
+
+    
+	// slider limits
+	
+	$("#pendulum2_linear_m_slider").slider({value: 1, min: 0, max: 10, step: 0.05});
+	$("#pendulum2_linear_b_slider").slider({ min: -2.5, max: 2.5, step: 0.01});
+	$("#pendulum2_constant_b_slider").slider({value: 0, min: 0, max: 3, step: 0.01});
+	$("#pendulum2_root_k_slider").slider({value: 1, min: 0, max: 10, step: 0.05});
+	$("#pendulum2_root_h_slider").slider({value: 0, min: -2.5, max: chart_vars.default_x, step: 0.1});
+	$("#pendulum2_root_b_slider").slider({value: 0, min: -2.5, max: 2.5, step: 0.1});
+	
+
+
+
+
+	chart_vars.animatePlot = function() {
+	    clearInterval(chart_vars.intervalId);
+	    chart_vars.intervalId = false;
+	    chart_vars.animation_phase = false;
+	    $(".model_slider_controls").slider({disabled:false});
+
+	    $(".model-choice").slideUp();
+	    $(".questions").slideDown();
+		    
+		    
+	    var m;
+	    if (chart_vars.model === 1) {
+	       if (chart_vars.linear_m)
+	     	  m = "<%= I18n.translate 'linear' %>";
+               else 
+	      	   m = "<%= I18n.translate 'constant' %>";
+	    }
+	    else if (chart_vars.model === 2) {
+	       if (chart_vars.quadratic_k)
+	 	    m = "<%= I18n.translate 'quadratic' %>";
+		else
+		    m = "<%= I18n.translate 'constant' %>";
+	    }
+	    else if (chart_vars.model === 4) {
+		if (chart_vars.root_k)
+		 m = "<%= I18n.translate 'root' %>";
+		else
+		    m = "<%= I18n.translate 'constant' %>";
+	    }
+		    
+		    var question1, question2,question3,question4;
+		    question1 = "<%= I18n.translate('pendulum.question1') %>";
+
+		  
+		    question2 = "<%= I18n.translate('pendulum.question2') %>";
+		  
+
+		    
+		    question4 = "<%= I18n.translate("modeling.opinion") %>";
+
+		    
+		  $(".question_model_field").val(m);
+		  $(".question_question1_label").html(question1);
+		  $(".question_question1_field").val(question1);
+
+		  
+		  $(".question_question2_label").html(question2);
+		  $(".question_question2_field").val(question2);
+
+		  $(".question_question4_label").html(question4);
+		  $(".question_question4_field").val(question4);
+
+		 
+	     
+	     
+	 
+	}
+
+
+
+
+
+    });
+
+
+
+    
+    
+});

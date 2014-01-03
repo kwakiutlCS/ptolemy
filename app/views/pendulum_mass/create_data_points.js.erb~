@@ -1,0 +1,22 @@
+$('#pendulum2_data_collection').html("<%= escape_javascript(render(:partial => 'pendulum_mass/tbody')) %>");
+
+
+if (<%= @data.count > 0 %>) {
+   $("#pendulum2_data_collection_explanation").html("<p><%= I18n.translate("nextJob") %></p>");
+
+   $("#pendulum2_data-gathering_next").show();
+
+}
+else {
+     $("#pendulum2_data_collection_explanation").html("<p><%= I18n.translate("pendulum2.data1") %> </p>");
+     $("#pendulum2_data_collection_explanation").append("<p><%= I18n.translate("pendulum2.data2") %> </p>");
+     $("#pendulum2_data_collection_explanation").append("<p><%= I18n.translate("pendulum2.data3") %> </p>");
+     $("#pendulum2_data_collection_explanation").append("<p><%= I18n.translate("pendulum2.data4") %> </p>");
+
+     $("#pendulum2_data-gathering_next").hide();
+}
+$(".form_input").val("");
+
+$(".form_input").val("");
+
+
