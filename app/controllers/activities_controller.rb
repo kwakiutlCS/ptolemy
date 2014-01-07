@@ -92,10 +92,16 @@ class ActivitiesController < ApplicationController
       max_x = 0
 
       if answers.any? && !answers.first.data_points.first.series 
-        d[:process] = 1
         answers.each do |a|
           a.data_points.each do |i|
             max_x = i.x if i.x > max_x
+          end
+        end
+        max_x*=1.1
+
+        d[:process] = 1
+        answers.each do |a|
+          a.data_points.each do |i|
             if d[a.id]
               d[a.id] << [i.x,i.y]
             else

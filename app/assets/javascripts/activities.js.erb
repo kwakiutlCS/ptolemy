@@ -15,14 +15,24 @@ $(function() {
 		var formatted_data = [];
 		
 		for (var k in json) {
-		    console.log(json[k]);
 		    if (k != "names" && k != "process" && k != "meta") {
-			if (json["process"] === 1) {
+			if (json["process"] === 1 && k != "params") {
 			    formatted_data.push({data: json[k],
 						 points: {show:true},
 						 label: json["names"][k],
 						 color: $("label[for='"+k+"']").data("color"),
 						});
+			}
+			else if (json["process"] === 1 && k === "params") {
+			    for (var j in json[k]) {
+			        formatted_data.push({data: json[k][j],
+						 points: {show:false},
+						 lines: {show: true},
+						 label: json["names"][j],
+						 color: $("label[for='"+j+"']").data("color"),
+						});
+			    }			    	
+			    
 			}
 			else if (json["process"] === 2) {
 			    formatted_data.push({data: json[k],
