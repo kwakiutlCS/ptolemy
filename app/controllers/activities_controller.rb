@@ -88,11 +88,14 @@ class ActivitiesController < ApplicationController
       
       names = {}
       d = {}
-        
+      params = {}
+      max_x = 0
+
       if answers.any? && !answers.first.data_points.first.series 
         d[:process] = 1
         answers.each do |a|
           a.data_points.each do |i|
+            max_x = i.x if i.x > max_x
             if d[a.id]
               d[a.id] << [i.x,i.y]
             else
@@ -100,8 +103,11 @@ class ActivitiesController < ApplicationController
               d[a.id] = [[i.x,i.y]]
             end
           end
+          
+          params[a.id] = getModelPoints(a.answers[0], a.parameters, max_x)
         end
         d[:names] = names
+        d[:params] = params
 
       elsif answers.any?
         answers_id = []
@@ -126,6 +132,40 @@ class ActivitiesController < ApplicationController
         d[:meta] = meta
       end
     end
+    
     d
   end
+
+
+
+  def getModelPoints(model, params, max) 
+    points = []
+    step = max/40
+    counter = 0
+    model = model.to_i
+
+    tmp = []
+    params.each do |p|
+      tmp << p.to_f
+    end
+    
+    40.times do |i|
+      if model == 1
+        points << [counter, tmp[0]*counter+tmp[2]]
+      elsif model == 2
+        points << [counter, tmp[0]*(counter-tmp[1])**2+tmp[2]]
+      elsif model == 3
+        points << [counter, tmp[0]*(counter-tmp[1])**3+tmp[2]]
+      elsif model == 4
+        points << [counter, tmp[0]*(counter-tmp[1])**(0.5)+tmp[2]]
+      elsif model == 5
+        points << [counter, tmp[2]]
+      end
+      counter += step
+    end
+      
+    return points
+  end
+
+    
 end

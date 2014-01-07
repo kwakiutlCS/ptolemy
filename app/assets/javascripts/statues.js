@@ -110,23 +110,34 @@ $(function() {
 		    $(".questions").slideDown();
 
 		    var m;
+		    var param_k, param_h, param_b;
+		    
 		    if (chart_vars.model === 1) {
 			if (chart_vars.linear_m)
 			    m = "linear";
 			else 
 			 m = "constante";
+			param_k = chart_vars.linear_m;
+			param_b = chart_vars.linear_b;
+			param_h = 0;
 		    }
 		    else if (chart_vars.model === 2) {
 			if (chart_vars.quadratic_k)
 			    m = "quadrático";
 			else
 			    m = "constante";
+			param_k = chart_vars.quadratic_k;
+			param_b = chart_vars.quadratic_b;
+			param_h = chart_vars.quadratic_h;
 		    }
 		    else if (chart_vars.model === 3) {
 			if (chart_vars.cubic_k)
 			 m = "cúbico";
 			else
 			    m = "constante";
+			param_k = chart_vars.cubic_k;
+			param_b = chart_vars.cubic_b;
+			param_h = chart_vars.cubic_h;
 		    }
 		    
 		    var question1, question2,question3,question4;
@@ -142,7 +153,7 @@ $(function() {
 		  
 		  question4 = "O que achou confuso ou difícil nesta atividade?";
 
-		  $(".question_model_field").val(m);
+		  $(".question_model_field").val(chart_vars.model);
 		  $(".question_question1_label").html(question1);
 		  $(".question_question1_field").val(question1);
 
@@ -161,7 +172,11 @@ $(function() {
 		  $(".question_question4_label").html(question4);
 		  $(".question_question4_field").val(question4);
 
-		 
+		    $(".question_param_k").val(param_k);
+		    $(".question_param_h").val(param_h);
+		    $(".question_param_b").val(param_b);
+		    
+		    
 	     });
 	     
 	 }

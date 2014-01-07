@@ -570,18 +570,20 @@ $(function() {
 
     var mouse_over_template_img = false;
     $("#template_index").on("mouseenter",".template_image_description_index", function() {
+	
 	var desc = $(this);
-	var number = desc.data("number");
+	$(this).children(".template_description_index").slideDown();
+	/*var number = desc.data("number");
 	mouse_over_template_img = number;
 	var img1 = desc.children(".template_image_index"); 
 	img1.hide( "slide", { direction: "up" }, 800, function() {
 	    if (mouse_over_template_img != number) {
 		img1.mouseleave();
 	    }
-	});
+	});*/
     });
     $("#template_index").on("mouseleave",".template_image_description_index", function() {
-	var number = $(this).data("number");
+	/*var number = $(this).data("number");
 	if (mouse_over_template_img === number)
 	    mouse_over_template_img = false;
 	var img2 = $(this).children(".template_image_index"); 
@@ -589,7 +591,8 @@ $(function() {
 	    if (mouse_over_template_img == number) {
 		img2.mouseenter();
 	    }
-	});
+	});*/
+	$(this).children(".template_description_index").slideUp();
     });
 
     $("#template_index").on("mouseenter", ".template_cell_index", function() {

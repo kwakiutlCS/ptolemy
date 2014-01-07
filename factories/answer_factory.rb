@@ -5,5 +5,6 @@ FactoryGirl.define do
     activity_id 1
     user_id 1
     submited false
+    parameters [0,0,0]
   end
 end

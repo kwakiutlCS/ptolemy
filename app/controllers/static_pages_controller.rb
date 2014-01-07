@@ -71,7 +71,7 @@ class StaticPagesController < ApplicationController
     s = User.new(email: nil, password: pass, name: params[:name], role: "student", account_type: 2)
     if s.save
       session[:student] = s.id
-      answer = Answer.new(answers: [""], questions: [""])
+      answer = Answer.new(answers: [""], questions: [""], parameters:[""])
       answer.activity_id = session[:activity]
       answer.user_id = s.id
       answer.submited = false

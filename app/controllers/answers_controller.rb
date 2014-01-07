@@ -7,6 +7,7 @@ class AnswersController < ApplicationController
     a = Answer.find(session[:answer])
     a.questions = []
     a.answers = []
+    a.parameters = []
 
     a.questions << "modelo"
     a.answers << params[:model]
@@ -20,6 +21,10 @@ class AnswersController < ApplicationController
     a.answers << params[:answer2]
     a.answers << params[:answer3]
     a.answers << params[:answer4]
+
+    a.parameters << params[:param_k]
+    a.parameters << params[:param_h]
+    a.parameters << params[:param_b]
     
     a.time_submission = Time.now
     

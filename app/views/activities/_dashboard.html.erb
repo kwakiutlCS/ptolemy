@@ -2,11 +2,10 @@
     
    
     <% @students.each do |s| %>
-    
     <div class="ptolemy_dashboard_cell">
       <div class="ptolemy_student_dashboard_header">
 	 <span class="ptolemy_student_name"><%= s[:name] %></span>
-	 <span class="ptolemy_student_model">modelo: <%= s[:answers][0][1] %></span>   
+	 <span class="ptolemy_student_model"><%= t "model" %>: <%= t(s[:answers][0][1]) %></span>   
 	 <span class="ptolemy_student_measurements">medições: <%= s[:count] %></span>
 	 <span class="ptolemy_student_time">  <%= pluralize(((s[:end]-s[:start])/60).round, "minuto") %></span>
 	 <span><%= link_to "remover", answer_path(s[:answer], activity_id:@activity.id), method: :delete, confirm: "Esta ação vai remover todo o trabalho do(a) estudante #{s[:name]}. Continuar?", remote:true, class:"student_removal" %></span>

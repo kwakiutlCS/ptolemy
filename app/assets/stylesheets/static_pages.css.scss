@@ -158,6 +158,11 @@ border-top-right-radius: 5px;
 
 .template_description_index {
    position:absolute;
+   display:none;
+   z-index: 10;
+   background: rgba(240,240,240,0.7);
+   
+   padding: 5px;
 }
 .template_image_description_index {
    height:154px;
