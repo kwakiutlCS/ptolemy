@@ -15,6 +15,7 @@ $(function() {
 		var formatted_data = [];
 		
 		for (var k in json) {
+		    console.log(json[k]);
 		    if (k != "names" && k != "process" && k != "meta") {
 			if (json["process"] === 1) {
 			    formatted_data.push({data: json[k],

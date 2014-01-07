@@ -1,7 +1,7 @@
 module AnswerCompilation
 
   def compile_answers
-    model = {"1"=> "linear", "2"=> "quadratic", "3"=> "cubic", "4"=> "root", "5"=> "constant"}
+    model = {"N/A"=> "N/A", "1"=> "linear", "2"=> "quadratic", "3"=> "cubic", "4"=> "root", "5"=> "constant"}
     answers = @activity.answers.submited.includes(:data_points, :user).order("users.name")
       
     @students = []
