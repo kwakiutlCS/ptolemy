@@ -72,23 +72,34 @@ $(function() {
 		    
 		    
 	    var m;
+	    var param_k, param_h, param_b;
+		    
 	    if (chart_vars.model === 1) {
 	       if (chart_vars.linear_m)
 	     	  m = "<%= I18n.translate 'linear' %>";
                else 
 	      	   m = "<%= I18n.translate 'constant' %>";
+	       param_k = chart_vars.linear_m;
+	       param_b = chart_vars.linear_b;
+		param_h = 0;	
 	    }
 	    else if (chart_vars.model === 2) {
 	       if (chart_vars.quadratic_k)
 	 	    m = "<%= I18n.translate 'quadratic' %>";
 		else
 		    m = "<%= I18n.translate 'constant' %>";
+                param_k = chart_vars.quadratic_k;
+	       param_b = chart_vars.quadratic_b;
+		param_h = chart_vars.quadratic_h;
 	    }
 	    else if (chart_vars.model === 4) {
 		if (chart_vars.root_k)
 		 m = "<%= I18n.translate 'root' %>";
 		else
 		    m = "<%= I18n.translate 'constant' %>";
+                 param_k = chart_vars.root_k;
+	       param_b = chart_vars.root_b;
+		param_h = chart_vars.root_h;
 	    }
 		    
 		    var question1, question2,question3,question4;
@@ -114,7 +125,9 @@ $(function() {
 		  $(".question_question4_field").val(question4);
 
 		 
-	     
+	     $(".question_param_k").val(param_k);
+	     $(".question_param_h").val(param_h);
+	     $(".question_param_b").val(param_b);
 	     
 	 
 	}

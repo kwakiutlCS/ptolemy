@@ -392,6 +392,9 @@ $(function() {
       <%= label_tag(:answer4, nil, id:"thermo_question4_label", class:"question_question4_label") %>
       <%= text_area_tag(:answer4, nil, id:"thermo_answer4_field", class:"question_answer4_field") %>
       
+      <%= hidden_field_tag(:param_k, nil, id:"thermo_param_k", class: "question_param_k" ) %>
+      <%= hidden_field_tag(:param_h, nil, id:"thermo_param_h", class: "question_param_h" ) %>
+      <%= hidden_field_tag(:param_b, nil, id:"thermo_param_b", class: "question_param_b" ) %>
       <br />
       <%= submit_tag(:save, value:t("submit"), confirm:"Deseja introduzir estas respostas?", class:"btn btn-success", style:"float: left") %>
       <% end %>
