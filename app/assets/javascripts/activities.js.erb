@@ -14,16 +14,20 @@ $(function() {
 		
 		var formatted_data = [];
 		
+		var show_points = $("#points_box")[0].checked;
+		var show_models = $("#models_box")[0].checked;
+
 		for (var k in json) {
-		    if (k != "names" && k != "process" && k != "meta") {
-			if (json["process"] === 1 && k != "params") {
+		    if (k != "names" && k != "process" && k != "meta" ) {
+		        if (json["process"] === 1 && k != "params"&& show_points) {
 			    formatted_data.push({data: json[k],
 						 points: {show:true},
 						 label: json["names"][k],
 						 color: $("label[for='"+k+"']").data("color"),
 						});
 			}
-			else if (json["process"] === 1 && k === "params") {
+			else if (json["process"] === 1 && k === "params" && show_models) {
+			
 			    for (var j in json[k]) {
 			        formatted_data.push({data: json[k][j],
 						 points: {show:false},
@@ -155,11 +159,20 @@ $(function() {
 	updateGraph(points, url);
 	return false;
     });
+
+    $("#teacher_graph_data_form").on("submit", function() {
+	$("#teacher_graph_form").submit();
+	return false;
+    });
     
 
     
     $(".userbox>:checkbox").on("change", function() {
 	$("#teacher_graph_form").submit();
+    });
+
+     $(".data_type>:checkbox").on("change", function() {
+	$("#teacher_graph_data_form").submit();
     });
 
 

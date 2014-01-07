@@ -80,6 +80,7 @@ class ActivitiesController < ApplicationController
     end
   end
 
+
   private
   def getDataForTeacher(activity, points)
     activity = Activity.find(activity)

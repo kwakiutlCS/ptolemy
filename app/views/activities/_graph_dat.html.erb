@@ -1,0 +1,11 @@
+<%= form_tag("#", id:"teacher_graph_data_form") do %>
+    <div class="data_type">
+      <%= check_box_tag("points", 1, checked:true) %>
+      <%= label_tag "points", t("points"), class:"checkbox inline", } %>
+    </div>
+    <div class="data_type">
+      <%= check_box_tag("model", 1, checked:true) %>
+      <%= label_tag "model", t("model"), class:"checkbox inline", } %>
+    </div>
+    
+    <% end %>
