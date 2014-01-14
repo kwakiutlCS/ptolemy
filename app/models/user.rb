@@ -48,4 +48,9 @@ class User < ActiveRecord::Base
     end
   end
 
+
+  def get_activity_with_template(id)
+    self.activities.includes(:template).where(id: id).first
+  end
+
 end

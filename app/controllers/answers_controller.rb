@@ -31,14 +31,8 @@ class AnswersController < ApplicationController
     a.submited = true
     a.save
 
-    if signed_in?
-      act = Activity.find(session[:activity])
-      t = act.template_id
-      current_user.completed << t unless current_user.completed.include? t
-      current_user.save
-    end
-
-
+    markAnswerCompleted(session[:activity]) if signed_in?
+    
     session[:activity] = nil
 
     respond_to do |format| 
@@ -84,4 +78,12 @@ class AnswersController < ApplicationController
     end
   end
 
+
+  private
+  def markAnswerCompleted(a)
+    act = Activity.find(a)
+    t = act.template_id
+    current_user.completed << t unless current_user.completed.include? t
+    current_user.save
+  end
 end

@@ -13,28 +13,18 @@ class ActivitiesController < ApplicationController
 
     t = Template.find(template)
     
-    if t.filtered.count > 0 
-      t.filtered.each do |i|
-        x = current_user.activities.build(params[:activity])
-        x.template_id = i.id
-        x.filter_id = a.id
-        x.inactive = true unless params[("filter"+i.id.to_s).to_sym]
-        x.save
-      end
-    end
-
+    createFilteredActivities(t, params, a)
+    
     redirect_to templates_path
     
   end
 
 
   def show
-    @activity = current_user.activities.includes(:template).where(id: params[:id]).first
+    @activity = current_user.get_activity_with_template(params[:id])
     
-    user_ids = []
-    params.each do |i|
-      @user_ids << i[7,9] if i[0,7] == "userbox"
-    end
+    @user_ids = get_users_selected_in_checkboxes(params)
+    
 
     if @activity
       compile_answers()
@@ -53,9 +43,9 @@ class ActivitiesController < ApplicationController
   end
 
 
-  def updateTeacherGraph
-    
 
+
+  def updateTeacherGraph
     d = getDataForTeacher(params[:id], params[:points])
   
     respond_to do |format|
@@ -64,21 +54,23 @@ class ActivitiesController < ApplicationController
   end
 
 
+
+
   def switch
     a = Activity.find(params[:id])
     a.inactive = !a.inactive
     a.save
-    act = current_user.activities.includes(:answers).order(:id)
-    @activities = []
-
-    act.each do |i|
-      @activities << i unless i.filter?
-    end
+    
+    @activities = getNonFilteringActivities
+    
     
     respond_to do |format|
       format.js
     end
   end
+
+
+
 
 
   private
@@ -174,5 +166,39 @@ class ActivitiesController < ApplicationController
     return points
   end
 
+
+
+
     
+  def get_users_selected_in_checkboxes(params)
+    user_ids = []
+    params.each do |i|
+      user_ids << i[7,9] if i[0,7] == "userbox"
+    end
+    user_ids
+  end
+
+  def getNonFilteringActivities
+    act = current_user.activities.includes(:answers).order(:id)
+    @activities = []
+
+    act.each do |i|
+      @activities << i unless i.filter?
+    end
+  end
+
+  
+  def createFilteredActivities(t, params, a)
+    if t.filtered.count > 0 
+      t.filtered.each do |i|
+        x = current_user.activities.build(params[:activity])
+        x.template_id = i.id
+        x.filter_id = a.id
+        x.inactive = true unless params[("filter"+i.id.to_s).to_sym]
+        x.save
+      end
+    end
+  end
+
+
 end
