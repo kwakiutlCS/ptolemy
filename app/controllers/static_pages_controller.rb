@@ -57,6 +57,7 @@ class StaticPagesController < ApplicationController
   end
 
 
+
   def set_name
     
     unless session[:activity]
@@ -67,6 +68,45 @@ class StaticPagesController < ApplicationController
       
     end
 
+    create_user(params)
+    
+    respond_to do |format|
+        format.html
+        format.js
+    end
+  end 
+
+  
+
+
+  def filter
+    answer = Answer.find(session[:answer])
+    answer.activity_id = params[:activity]
+    answer.save
+    session[:activity] = params[:activity]
+    session[:url] = params[:url]
+    session[:template] = params[:template]
+    redirect_to params[:url]
+  end
+
+
+
+
+
+
+  private
+  def remove_anonymous_data_points
+    activity = Activity.find(session[:activity])
+    answers = activity.answers.old
+    
+    answers.each do |i|
+      i.destroy
+    end
+    
+  end
+
+
+  def create_user(params)
     pass = rand(36**7...(36**8)).to_s(36)
     s = User.new(email: nil, password: pass, name: params[:name], role: "student", account_type: 2)
     if s.save
@@ -77,7 +117,6 @@ class StaticPagesController < ApplicationController
       answer.submited = false
       answer.save
       session[:answer] = answer.id
-      
       
       cap = []
       s.name.split.each do |n|
@@ -90,34 +129,5 @@ class StaticPagesController < ApplicationController
       flash[:alert] = "Por favor introduza o nome"
       
     end
-    
-    respond_to do |format|
-        format.html
-        format.js
-    end
   end 
-
-  
-  def filter
-    answer = Answer.find(session[:answer])
-    answer.activity_id = params[:activity]
-    answer.save
-    session[:activity] = params[:activity]
-    session[:url] = params[:url]
-    session[:template] = params[:template]
-    redirect_to params[:url]
-  end
-
-
-  private
-  def remove_anonymous_data_points
-    activity = Activity.find(session[:activity])
-    answers = activity.answers.old
-    
-    answers.each do |i|
-      i.destroy
-    end
-    
-    
-  end
 end

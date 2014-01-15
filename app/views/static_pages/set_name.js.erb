@@ -1,5 +1,3 @@
-alert("here");
-
 <% if flash[:alert] %>
    $("#alert").val("<%= flash[:alert] %>");
    window.location.replace("<%= session[:url] %>")
