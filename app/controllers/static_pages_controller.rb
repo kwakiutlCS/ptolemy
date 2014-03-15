@@ -30,28 +30,8 @@ class StaticPagesController < ApplicationController
         redirect_to root_path
       end
     else
-      cat = params[:category] || 1
-      @subcategories = SubCategory.all
-      t = Template.where(sub_category_id: cat, filter_id: nil)
-
-      @templates = []
-      tmp = []
-
-      t.each do |e|
-        
-        tmp << e
-        if tmp.count == 2
-          @templates << tmp
-          tmp = []
-        end
-      end
-      @templates << tmp if tmp.count == 1
-          
-
-      respond_to do |format|
-        format.html
-        format.js {render :index, :locals => {:cat => cat}}
-      end
+      show_home_page(params)
+      
     end
     
   end
@@ -130,4 +110,30 @@ class StaticPagesController < ApplicationController
       
     end
   end 
+
+
+  def show_home_page(params)
+    cat = params[:category] || 1
+    @subcategories = SubCategory.all
+    t = Template.where(sub_category_id: cat, filter_id: nil)
+
+    @templates = []
+    tmp = []
+    
+    t.each do |e|
+      
+      tmp << e
+      if tmp.count == 2
+        @templates << tmp
+        tmp = []
+      end
+    end
+    @templates << tmp if tmp.count == 1
+          
+
+    respond_to do |format|
+      format.html
+      format.js {render :index, :locals => {:cat => cat}}
+    end
+  end
 end
