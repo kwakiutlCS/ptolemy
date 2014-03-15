@@ -16,8 +16,8 @@ class ApplicationController < ActionController::Base
   
   private
   def set_user_language
-    I18n.locale = http_accept_language.compatible_language_from(I18n.available_locales)
-    #I18n.locale = "pt-PT"
+    #I18n.locale = http_accept_language.compatible_language_from(I18n.available_locales)
+    I18n.locale = "pt-PT"
   end
 
   
