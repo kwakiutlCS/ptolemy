@@ -64,7 +64,8 @@ module Plotomeu
     config.i18n.fallbacks = true
 
     config.i18n.default_locale = "pt-PT"
-
+    
+    config.i18n.fallbacks =[:pt, "pt-PT", "pt-BR"]
 
     config.autoload_paths += Dir["#{Rails.root}/lib/modules"]
 
