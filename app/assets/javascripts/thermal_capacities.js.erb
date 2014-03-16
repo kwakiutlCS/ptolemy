@@ -109,7 +109,7 @@ $(function() {
 		chart_vars.x_maximum = chart_vars.default_x;
 		chart_vars.y_maximum = chart_vars.setYMax();
 	     
-		$(".model_choice_buttons").append("<div class='model_second_model_controls'><p><%= I18n.translate("thermo.prediction1") %>"+chart_vars.scientific(chart_vars.prediction,1)+"<%= I18n.translate("thermo.prediction2") %>"+chart_vars.scientific(chart_vars.measurable,1)+"<%= I18n.translate("thermo.prediction3") %></p><p> <%= I18n.translate("thermo.prediction4") %> </p><p><%= I18n.translate("thermo.prediction5") %>"+(chart_vars.prediction/3600000*0.1).toFixed(2)+"€.</p><p><a href='#' class='model_another_model_link'>Experimentar outro modelo</a> ou <a href='#' class='model_keep_model_link'>Continuar com este modelo</a></p></div>");
+		$(".model_choice_buttons").append("<div class='model_second_model_controls'><p>O modelo escolhido prevê um gasto de energia de "+chart_vars.scientific(chart_vars.prediction,1)+"J para aquecer "+chart_vars.scientific(chart_vars.measurable,1)+"kg de água, que é a resposta à questão da água do banho.</p><p> Provavelmente não tem noção se este é um valor exagerado ou realista, dado que o joule não é uma unidade que se usa frequentemente. </p><p>Se pensarmos que o custo de 3.6x10<sup>6</sup>J na fatura de eletricidade é cerca de 0.1€, o modelo escolhido prevê um custo monetário de "+(chart_vars.prediction/3600000*0.1).toFixed(2)+"€.</p><p><a href='#' class='model_another_model_link'>Experimentar outro modelo</a> ou <a href='#' class='model_keep_model_link'>Continuar com este modelo</a></p></div>");
 		$(".model_first_model_controls").hide();
 		
 		$(".model_another_model_link").on("click", function() {
@@ -157,7 +157,7 @@ $(function() {
 		    }
 		    
 		    var question1, question2,question3,question4;
-		    question1 = "<%= I18n.translate("modeling.choice1") %><b>"+m+"</b><%= I18n.translate("modeling.choice2") %>";
+		    question1 = "Escolheu o modelo <b>"+m+"</b>. Por que razão essa é uma boa escolha?";
 
 		  
 		    question2 = "A previsão de "+chart_vars.scientific(chart_vars.prediction)+"J, que corresponde a um custo de "+(chart_vars.prediction/3600000*0.1).toFixed(2)+"€, parece-lhe razoável?";
@@ -165,7 +165,7 @@ $(function() {
 
 		    question3 = "Há algum factor que não foi considerado que afete esta previsão? Qual? Esse fator implicará um acréscimo ou decréscimo de energia gasta para aquecer a água?";
 		  
-		    question4 = "<%= I18n.translate("modeling.opinion") %>";
+		    question4 = "Há algum factor que não tenha sido considerado que possa afectar a previsão feita? Qual?";
 
 		    
 		  $(".question_model_field").val(chart_vars.model);

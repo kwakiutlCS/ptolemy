@@ -93,7 +93,7 @@ $(function() {
 		chart_vars.x_maximum = chart_vars.default_x;
 		chart_vars.y_maximum = chart_vars.setYMax();
 	     
-		$(".model_choice_buttons").append("<div class='model_second_model_controls'><p><%= I18n.translate('statue.prediction7') %>"+chart_vars.scientific(chart_vars.prediction,1)+"<%= I18n.translate('statue.prediction8') %>"+chart_vars.measurable+"m.</p><p><a href='#' class='model_another_model_link'><%= I18n.translate('modeling.another_model_link') %></a> ou <a href='#' class='model_keep_model_link'><%= I18n.translate('modeling.accept_model_link') %></a></p></div>");
+		$(".model_choice_buttons").append("<div class='model_second_model_controls'><p>O modelo escolhido prevê uma massa de "+chart_vars.scientific(chart_vars.prediction,1)+"kg para a estátua de "+chart_vars.measurable+"m.</p><p><a href='#' class='model_another_model_link'>Escolher outro modelo</a> ou <a href='#' class='model_keep_model_link'>Continuar com este modelo</a></p></div>");
 		$(".model_first_model_controls").hide();
 		
 		$(".model_another_model_link").on("click", function() {
